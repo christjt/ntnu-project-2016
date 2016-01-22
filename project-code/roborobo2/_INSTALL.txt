@@ -1,0 +1,99 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-= ROBOROBO.2 =-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=- 2008-2014 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+-=-=-=-= nicolas.bredeche(at)upmc.fr -=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+=-=-=-=
+=-=-=-= QUICK START
+=-=-=-=
+
+1. Install dependencies:
+- SDL 1.2
+- SDL_IMAGE 1.2
+- BOOST
+
+2. Build and run:
+- Linux:
+	- open a terminal, and enter the following commands:
+	- "./makefile-manager -l"
+	- "make" (or, if you have multiple processors: "make -jXX", with XX=nb_of_processors)
+	- "./roborobo -l config/default-wander_bigrobots.properties"
+- MacOSX: use XCode project
+	- create symbolic links to config/, data/ and /logs directories into the build directory where roborobo binary is created.
+		- in order to know where the build directory is:
+			- build and run roborobo. 
+			- roborobo will exit immediately, but not before the location it is launched from is displayed on screen.
+			- go to this location ("cd <whereever-is-roborobo-binary>")
+			- create symbolic links ("ln -s <whereever-are-roborobo-source>/config config", "(...)/data data", "(...)/logs logs")
+	- run again.
+
+3. Use:
+	- in the roborobo window, type "h". Help tips will be display in the terminal.
+
+
+=-=-=-=
+=-=-=-= QUICK START : longer version.
+=-=-=-=
+
+**MacOS X**
+- install SDL and extensions (example of location: http://www.libsdl.org/ and http://www.libsdl.org/projects/)
+	- SDL main library (e.g.: SDL-1.2.13.dmg for MacosX)
+	- SDL Image (e.g.: SDL_image-1.2.7.dmg for MacosX)
+- use the Xcode project
+- create symbolic links for config/, data/ and logs/ in the directory where the binary is created.
+	- launch roborobo. It will exit immediately, but not before the location it is launched from is displayed on screen.
+	- cd <whereever-is-roborobo-binary>
+	- ln -s <whereever-are-roborobo-source>/config config
+	- ln -s <whereever-are-roborobo-source>/data data
+	- ln -s <whereever-are-roborobo-source>/logs logs
+- compile and go.
+
+**Linux: Ubuntu, Debian**
+- install SDL and extensions (using apt-get, synaptic, or any package installation manager), example with apt-get:
+	sudo apt-get install libsdl1.2	(or libsdl1.2debian-all)
+	sudo apt-get install libsdl-image1.2
+- use "./makefile-manager" to generate a makefile (see below for further explanation of using makefile-manager)
+- compile and link: "make" (a new binary is created at the roborobo root called "roborobo")
+- launch: "./roborobo"
+
+**Windows**
+- IMPORTANT NOTICE: roborobo was not used under Windows since 2008, the following information may be deprecated.
+- install SDL and extensions (DLL may also be put directly in the same directory that of the binary file)
+- use MinGW or Cygwin to compile using linux GNU compiler/linker.
+	- not tested, but probably work: type "make".
+- launch: double-click in explorer, or launch with command line.
+
+
+=-=-=-=
+=-=-=-= makefile-manager (Linux only!)
+=-=-=-=
+
+makefile-manager is a script that generates a makefile with only the project(s) you want to compile.
+"./makefile-manager" creates a default makefile.  
+"./makefile-manager -h" displays usage help.
+
+Quick start: in the console, enter the following commands (set-up makefile, compile, and execute)
+    $ ./makefile-manager 
+    $ make  
+    $ ./roborobo
+
+Two default projects are activated (BasicProject and DemoMedea) for you to test roborobo. 
+
+=-=-=-=
+=-=-=-= THE NEXT STEP
+=-=-=-=
+
+Where to go from here? 
+
+Check _README.TXT for further informations.
+
+Check _FAQ.TXT for trouble shooting.
+
+Check prj/clone_project.py to clone an existing project and to start playing around.
+
+[n].

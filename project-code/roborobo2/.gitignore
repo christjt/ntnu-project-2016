@@ -1,0 +1,8 @@
+*.idea/
+
+*.o
+*.DS_Store
+aide.txt
+logs/
+roborobo.xcodeproj
+roborobo

@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.3)
+project(roborobo2)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+include_directories(include/core)
+include_directories(include/contrib)
+include_directories(include/ext)
+include_directories(prj/)
+set(SOURCE_FILES main.cpp prj/Aggregate/include/AggregateSharedData.h prj/Aggregate/include/EA/RouletteWheel.h prj/Aggregate/src/EA/RouletteWheel.cpp prj/Aggregate/include/EA/EvolutionaryAlgorithm.h prj/Aggregate/src/EA/EvolutionaryAlgorithm.cpp prj/Aggregate/include/EA/SigmaScalingSelectionMechanism.h prj/Aggregate/src/EA/SigmaScalingSelectionMechanism.cpp)
+add_executable(roborobo2 ${SOURCE_FILES})
