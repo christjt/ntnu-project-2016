@@ -1,0 +1,96 @@
+\documentclass[12pt]{report}
+
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{pgfplots}
+\floatstyle{plaintop}
+\restylefloat{table}
+\title{Self-assembly mechanisms for evolutionary robotics}
+\author{Eirik Jakobsen\\ Christopher Tannum}
+\date{December 2015}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+    
+    	\vspace{1cm}
+		
+		\large
+		\textbf{TDT4501 Computer Science, Research Project\\}    
+		
+		\vspace{0.5cm}		
+		
+		\small    	
+    	\textbf{Autumn 2015}
+    	
+        \vspace{5.2cm}
+        
+        \Huge
+        \textbf{Self-assembly mechanisms for evolutionary robotics}
+        
+        \vspace{0.3 cm}
+        
+        \large
+        Norwegian University of Science and Technology
+        
+        \vspace{4.5cm}
+        
+        
+        \Large
+        \textbf{Erik Jakobsen\\ Christopher Tannum}
+        
+        \vspace{1cm}
+        
+        \small
+        \textbf{Advisors:\\}
+    	\textit{Jean-Marc Montanier \\ Kazi Shah Nawaz Ripon \\ Pauline Haddow}
+    \end{center}
+\end{titlepage}
+
+
+\chapter*{
+    \begin{center}
+        Abstract
+    \end{center}
+}
+
+\tableofcontents
+
+\newpage
+
+\chapter{Introduction}
+\input{chapters/introduction}
+\clearpage
+
+\chapter{Background}
+\label{ch:background}
+\input{chapters/background}
+\clearpage
+
+\chapter{Methodology}
+\label{ch:methodology}
+\input{chapters/methodology}
+\clearpage
+
+\chapter{Results and Discussion}
+\label{ch:results_and_discussion}
+\input{chapters/results-and-discussion}
+\clearpage
+
+\chapter{Conclusion}
+\label{ch:conclusion}
+\input{chapters/conclusion}
+\clearpage
+
+\nocite{*}
+
+\bibliographystyle{abbrv}
+
+\bibliography{references} 
+
+\end{document}
