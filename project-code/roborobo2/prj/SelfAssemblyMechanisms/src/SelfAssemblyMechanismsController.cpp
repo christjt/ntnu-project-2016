@@ -2,9 +2,9 @@
  * @author Nicolas Bredeche <nicolas.bredeche@upmc.fr>
  */
 
-
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsController.h"
 #include <Agents/Agent.h>
+#include "WorldModels/GroupRobotWorldModel.h"
 
 SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) : Controller ( __wm )
 {
@@ -23,14 +23,22 @@ void SelfAssemblyMechanismsController::reset()
 
 void SelfAssemblyMechanismsController::step()
 {
-	// a basic obstacle avoidance behavior
 
-	_wm->_desiredTranslationalValue = 0.1;
-	for(int i = 0; i < _wm->_cameraSensorsNb; i++){
+
+	_wm->_desiredTranslationalValue = 0.5;
+	for(int i = 0; i < _wm->_cameraSensorsNb; i++)
+	{
 		auto distance =  _wm->getDistanceValueFromCameraSensor(i);
 		auto isOtherRobot =  Agent::isInstanceOf(_wm->getObjectIdFromCameraSensor(i));
 		if(isOtherRobot){
-			std::cout << "Distance from other robot: <<" << distance << std::endl;
+			//std::cout << "other id" << _wm->getObjectIdFromCameraSensor(i) - gRobotIndexStartOffset << std::endl;
+			//std::cout << "Distance from other robot: <<" << distance << std::endl;
+			if(distance < 5)
+			{
+				((GroupRobotWorldModel*)_wm)->connectTo((int)_wm->getObjectIdFromCameraSensor(i) - gRobotIndexStartOffset);
+				//std::cout << "will attempt connection" << std::endl;
+
+			}
 		}
 	}
 

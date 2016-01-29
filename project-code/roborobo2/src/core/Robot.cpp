@@ -9,7 +9,7 @@
 #include "Config/GlobalConfigurationLoader.h"
 
 #include "Agents/Robot.h"
-
+#include "WorldModels/GroupRobotWorldModel.h"
 #include <iomanip>
 
 Robot::Robot( World *__world )
@@ -531,6 +531,7 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
 
 	if ( isCollision() )
 	{
+
 		_wm->_desiredTranslationalValue = 0; // cancel any translation order as agent translation speed is set to zero after collision. (note that rotation is still ok)
 		
 		if (_wm->_agentAbsoluteLinearSpeed >= 1.0 )
@@ -955,9 +956,19 @@ void Robot::initRobotPhysics ()
 void Robot::applyRobotPhysics( )
 {
 	// * update internal data
-    
-	_wm->_agentAbsoluteLinearSpeed = _wm->_actualTranslationalValue;
-	_wm->_agentAbsoluteOrientation += _wm->_actualRotationalVelocity;
+    double speedSum = _wm->_actualTranslationalValue;
+	double orientationSum = _wm->_agentAbsoluteOrientation +  _wm->_actualRotationalVelocity;
+	auto groupWM = (GroupRobotWorldModel*)_wm;
+	for(int i = 0; i <groupWM->getConnections().size(); i++){
+		auto other = groupWM->getConnections()[i];
+		speedSum += other->_actualRotationalVelocity;
+		orientationSum += other->_agentAbsoluteOrientation + other->_actualRotationalVelocity;
+	}
+	speedSum /= (groupWM->getConnections().size() +1);
+	orientationSum /= (groupWM->getConnections().size() +1);
+
+	_wm->_agentAbsoluteLinearSpeed = speedSum;
+	_wm->_agentAbsoluteOrientation = orientationSum;
 	
 	// * recalibrate orientation within ]-180°,+180°]
     

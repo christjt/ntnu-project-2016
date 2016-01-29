@@ -198,42 +198,13 @@ void World::updateWorld(Uint8 *__keyboardStates)
     }
 
 	// update agent level observers
-	for ( int i = 0 ; i != gNumberOfRobots ; i++ )
-		robots[i]->callObserver();
-
+	updateAgentObservers();
 
 	// * update world and agents
-
 	// controller step
-	for ( int i = 0 ; i < gNumberOfRobots ; i++ )
-	{
-		if ( __keyboardStates == NULL )
-			robots[shuffledIndex[i]]->stepBehavior();
-		else
-		{
-			if ( shuffledIndex[i] == gRobotIndexFocus )
-				robots[shuffledIndex[i]]->stepBehavior(__keyboardStates);
-			else
-				robots[shuffledIndex[i]]->stepBehavior();
-		}
-	}
-
+	updateAgentControllers(shuffledIndex, __keyboardStates);
 	// * move the agent -- apply (limited) physics
-	for ( int i = 0 ; i < gNumberOfRobots ; i++ )
-	{
-		// unregister itself (otw: own sensor may see oneself)
-		if ( robotRegistry[shuffledIndex[i]] )
-		{
-			robots[shuffledIndex[i]]->unregisterRobot();
-		}
-
-		// move agent
-		robots[shuffledIndex[i]]->move();
-			
-        // register robot (remark: always register is fine with small robots and/or high density)
-        robots[shuffledIndex[i]]->registerRobot();
-        robotRegistry[shuffledIndex[i]]=true;
-    }
+	moveAgents(shuffledIndex);
     
     gLogManager->flush();
     
@@ -245,6 +216,55 @@ void World::updateWorld(Uint8 *__keyboardStates)
     }
 }
 
+void World::updateAgentObservers()
+{
+	for ( int i = 0 ; i != gNumberOfRobots ; i++ )
+		robots[i]->callObserver();
+
+}
+void World::updateAgentControllers(int* shuffledIndex, Uint8 *__keyboardStates)
+{
+	for ( int i = 0 ; i < gNumberOfRobots ; i++ )
+	{
+		updateAgentController(shuffledIndex[i], __keyboardStates);
+	}
+}
+
+void World::updateAgentController(int agent, Uint8 *__keyboardStates)
+{
+	if ( __keyboardStates == NULL )
+		robots[agent]->stepBehavior();
+	else
+	{
+		if ( agent  == gRobotIndexFocus )
+			robots[agent]->stepBehavior(__keyboardStates);
+		else
+			robots[agent]->stepBehavior();
+	}
+}
+void World::moveAgents(int* shuffledIndex)
+{
+	for ( int i = 0 ; i < gNumberOfRobots ; i++ )
+	{
+		moveAgent(shuffledIndex[i]);
+	}
+}
+
+void World::moveAgent(int agent)
+{
+	// unregister itself (otw: own sensor may see oneself)
+	if ( robotRegistry[agent] )
+	{
+		robots[agent]->unregisterRobot();
+	}
+
+	// move agent
+	robots[agent]->move();
+
+	// register robot (remark: always register is fine with small robots and/or high density)
+	robots[agent]->registerRobot();
+	robotRegistry[agent]=true;
+}
 
 bool World::loadFiles()
 {

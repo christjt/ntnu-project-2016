@@ -33,13 +33,15 @@ void SelfAssemblyMechanismsAgentObserver::step()
     for( int i = 0 ; i < _wm->_cameraSensorsNb; i++)
     {
         int targetIndex = _wm->getObjectIdFromCameraSensor(i);
-        
+      //  std::cout << "target Index" << std::endl;
         if ( targetIndex >= gPhysicalObjectIndexStartOffset && targetIndex < gRobotIndexStartOffset )   // sensor ray bumped into a physical object
         {
             targetIndex = targetIndex - gPhysicalObjectIndexStartOffset;
             //std::cout << "[DEBUG] Robot #" << _wm->getId() << " touched " << targetIndex << "\n";
             gPhysicalObjects[targetIndex]->isTouched(_wm->getId());
+
         }
+
     }
     
     // through floor sensor

@@ -6,6 +6,7 @@
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsWorldObserver.h"
 
 #include "World/World.h"
+#include "WorldModels/GroupRobotWorldModel.h"
 
 
 SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World *__world ) : WorldObserver( __world )
@@ -25,5 +26,16 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 
 void SelfAssemblyMechanismsWorldObserver::step()
 {
-	// nothing to do.
+	for(int i = 0; i < gNumberOfRobots; i++){
+		Robot* robot = _world->getRobot(i);
+		auto groupWM = ((GroupRobotWorldModel*)robot->getWorldModel());
+		if(groupWM->getDesiredConnections().size() > 0)
+		{
+			auto other = (GroupRobotWorldModel*)_world->getRobot(groupWM->getDesiredConnections()[0])->getWorldModel();
+			groupWM->addRobotToGroup(other);
+			other->addRobotToGroup(groupWM);
+		}
+		groupWM->completeConnections();
+
+	}
 }

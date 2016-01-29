@@ -6,7 +6,7 @@
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsAgentObserver.h"
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsController.h"
 
-#include "WorldModels/RobotWorldModel.h"
+#include "WorldModels/GroupRobotWorldModel.h"
 
 
 SelfAssemblyMechanismsConfigurationLoader::SelfAssemblyMechanismsConfigurationLoader()
@@ -26,7 +26,8 @@ WorldObserver* SelfAssemblyMechanismsConfigurationLoader::make_WorldObserver(Wor
 
 RobotWorldModel* SelfAssemblyMechanismsConfigurationLoader::make_RobotWorldModel()
 {
-	return new RobotWorldModel();
+	std::cout << "hello from factory" << std::endl;
+	return new GroupRobotWorldModel();
 }
 
 AgentObserver* SelfAssemblyMechanismsConfigurationLoader::make_AgentObserver(RobotWorldModel* wm)

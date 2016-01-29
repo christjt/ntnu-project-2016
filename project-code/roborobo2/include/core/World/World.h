@@ -34,7 +34,11 @@ class World
 		bool _agentsVariation;
 		
 		WorldObserver *_worldObserver;
-
+		void updateAgentObservers();
+		void updateAgentControllers(int* shuffledIndex, Uint8 *__keyboardStates);
+		void updateAgentController(int agent, Uint8 *__keyboardStates);
+		void moveAgents(int* shuffledIndex);
+		void moveAgent(int agent);
     public:
 
 		World();
@@ -46,6 +50,7 @@ class World
 		void initWorld();
 		void resetWorld();
 		void updateWorld(Uint8 *__keyboardStates = NULL);
+
 		
 		Robot* getRobot( int index );
 		bool isRobotRegistered( int index );
