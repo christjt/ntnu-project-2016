@@ -969,7 +969,7 @@ void Robot::applyRobotPhysics( )
 	}
 
 	_wm->_agentAbsoluteLinearSpeed = sqrt(xVec*xVec + yVec*yVec)/(groupWM->getConnections().size() +1);
-	_wm->_agentAbsoluteOrientation = 180/M_PI*(atan2(yVec, xVec));
+	_wm->_agentAbsoluteOrientation = _wm->_agentAbsoluteOrientation + _wm->_actualRotationalVelocity;
 	// * recalibrate orientation within ]-180°,+180°]
     
     while ( _wm->_agentAbsoluteOrientation <= -180.0 || _wm->_agentAbsoluteOrientation > 180.0 ) // assume that it is highly unlikely that this while should loop. (depends from maximal angular velocity)
