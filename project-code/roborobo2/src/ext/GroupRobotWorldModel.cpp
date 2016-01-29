@@ -3,7 +3,6 @@
 
 GroupRobotWorldModel::GroupRobotWorldModel()
 {
-    std::cout<< "hello from parent!" << std::endl;
 }
 void GroupRobotWorldModel::connectTo(int robotId)
 {

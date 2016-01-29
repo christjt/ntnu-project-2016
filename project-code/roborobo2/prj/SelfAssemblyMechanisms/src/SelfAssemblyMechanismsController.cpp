@@ -31,13 +31,9 @@ void SelfAssemblyMechanismsController::step()
 		auto distance =  _wm->getDistanceValueFromCameraSensor(i);
 		auto isOtherRobot =  Agent::isInstanceOf(_wm->getObjectIdFromCameraSensor(i));
 		if(isOtherRobot){
-			//std::cout << "other id" << _wm->getObjectIdFromCameraSensor(i) - gRobotIndexStartOffset << std::endl;
-			//std::cout << "Distance from other robot: <<" << distance << std::endl;
 			if(distance < 5)
 			{
 				((GroupRobotWorldModel*)_wm)->connectTo((int)_wm->getObjectIdFromCameraSensor(i) - gRobotIndexStartOffset);
-				//std::cout << "will attempt connection" << std::endl;
-
 			}
 		}
 	}

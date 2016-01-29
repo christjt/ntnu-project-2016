@@ -964,7 +964,6 @@ void Robot::applyRobotPhysics( )
 		speedSum += other->_actualRotationalVelocity;
 		orientationSum += other->_agentAbsoluteOrientation + other->_actualRotationalVelocity;
 	}
-	speedSum /= (groupWM->getConnections().size() +1);
 	orientationSum /= (groupWM->getConnections().size() +1);
 
 	_wm->_agentAbsoluteLinearSpeed = speedSum;

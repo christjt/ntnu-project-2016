@@ -29,7 +29,6 @@ RobotWorldModel::RobotWorldModel() : _cameraSensors ( boost::extents[12][7] )
     
     _desiredTranslationalValue = 0;
     _desiredRotationalVelocity = 0;
-    std::cout << "hellod" << std::endl;
 }
 
 RobotWorldModel::~RobotWorldModel()

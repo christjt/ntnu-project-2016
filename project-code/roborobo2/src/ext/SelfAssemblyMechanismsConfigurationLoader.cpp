@@ -26,7 +26,6 @@ WorldObserver* SelfAssemblyMechanismsConfigurationLoader::make_WorldObserver(Wor
 
 RobotWorldModel* SelfAssemblyMechanismsConfigurationLoader::make_RobotWorldModel()
 {
-	std::cout << "hello from factory" << std::endl;
 	return new GroupRobotWorldModel();
 }
 
