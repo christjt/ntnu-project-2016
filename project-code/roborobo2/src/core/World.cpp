@@ -246,8 +246,14 @@ void World::moveAgents(int* shuffledIndex)
 {
 	for ( int i = 0 ; i < gNumberOfRobots ; i++ )
 	{
+		robots[shuffledIndex[i]]->applyDynamics();
+	}
+
+	for ( int i = 0 ; i < gNumberOfRobots ; i++ )
+	{
 		moveAgent(shuffledIndex[i]);
 	}
+
 }
 
 void World::moveAgent(int agent)

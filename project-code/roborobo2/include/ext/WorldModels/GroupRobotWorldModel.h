@@ -11,6 +11,8 @@ class GroupRobotWorldModel: public RobotWorldModel
     private:
         std::vector<int> desiredConnections;
         std::vector<GroupRobotWorldModel*> connections;
+        double translationX;
+        double translationY;
     public:
         GroupRobotWorldModel();
         void connectTo(int robotId);
@@ -18,6 +20,10 @@ class GroupRobotWorldModel: public RobotWorldModel
         void completeConnections();
         std::vector<GroupRobotWorldModel*> getConnections();
         std::vector<int> getDesiredConnections();
+        void updateTranslationVector();
+        double getTranslationX();
+        double getTranslationY();
+
 
 
 };

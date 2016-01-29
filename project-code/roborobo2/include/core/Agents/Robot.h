@@ -60,6 +60,7 @@ class Robot : public Agent
         int castSensorRay(SDL_Surface * image, double x1, double y1, double * x2pt, double * y2pt , int __maxValue = -1);
     
         void initRobotPhysics( );
+
         void applyRobotPhysics( );
 
 	public:
@@ -71,10 +72,10 @@ class Robot : public Agent
 
 		virtual void stepBehavior();
 		virtual void stepBehavior(Uint8* __keyboardStates);
-
+		void applyDynamics();
 		void callObserver(); // call the embedded genetic engine -- always called before stepBehavior.
 
-		void applyDynamics(); // use transl/rot delta to compute x/y delta.
+		 // use transl/rot delta to compute x/y delta.
 
 		//Moves the agent
 		void move( int __recursiveIt = 0 );

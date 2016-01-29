@@ -488,11 +488,13 @@ void Robot::applyDynamics()
 
 	// update both actual trans/rot values and internal data (see method definition for detailed comments)
 	// after this call, wm->_agentAbsoluteLinearSpeed AND _wm->_agentAbsoluteOrientation are updated (internal data)
-	applyRobotPhysics(); //applyInternalDynamics is a static function
+	 //applyInternalDynamics is a static function
 
 	// note: the next locomotion-related method called will be the "move" method. It handles collision.
 	// In case of collision, actual translation/rotation variables will be updated accordingly
 	// Keep in mind that roborobo philosophy assumes pixel-based level of details for collision.
+	auto groupWM = (GroupRobotWorldModel*)_wm;
+	groupWM->updateTranslationVector();
 }
 
 
@@ -508,8 +510,8 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
 	// apply world dynamics onto this agent
 
 	// * compute real valued delta (convert to x/y delta coordinates)
-    
-	applyDynamics();
+
+	applyRobotPhysics();
 
 	// * save position
     
@@ -956,13 +958,14 @@ void Robot::initRobotPhysics ()
 void Robot::applyRobotPhysics( )
 {
 	// * update internal data
-    double xVec = _wm->_actualTranslationalValue * cos((_wm->_agentAbsoluteOrientation +_wm->_actualRotationalVelocity)  * M_PI / 180);
-	double yVec = _wm->_actualTranslationalValue * sin((_wm->_agentAbsoluteOrientation +_wm->_actualRotationalVelocity)  * M_PI / 180);
 	auto groupWM = (GroupRobotWorldModel*)_wm;
+    double xVec = groupWM->getTranslationX();
+	double yVec = groupWM->getTranslationY();
+
 	for(int i = 0; i <groupWM->getConnections().size(); i++){
 		auto other = groupWM->getConnections()[i];
-		xVec += other->_actualTranslationalValue * cos((other->_agentAbsoluteOrientation + other->_actualRotationalVelocity)  * M_PI / 180);
-		yVec += other->_actualTranslationalValue * sin((other->_agentAbsoluteOrientation + other->_actualRotationalVelocity)  * M_PI / 180);
+		xVec += other->getTranslationX();
+		yVec += other->getTranslationY();
 	}
 
 	_wm->_agentAbsoluteLinearSpeed = sqrt(xVec*xVec + yVec*yVec)/(groupWM->getConnections().size() +1);
