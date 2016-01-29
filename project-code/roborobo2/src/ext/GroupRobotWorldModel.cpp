@@ -35,16 +35,11 @@ std::vector<int> GroupRobotWorldModel::getDesiredConnections()
 
 void GroupRobotWorldModel::updateTranslationVector()
 {
-    translationX = _actualTranslationalValue * cos((_agentAbsoluteOrientation +_actualRotationalVelocity)  * M_PI / 180);
-    translationY = _actualTranslationalValue * sin((_agentAbsoluteOrientation +_actualRotationalVelocity)  * M_PI / 180);
+    translation.x = _actualTranslationalValue * cos((_agentAbsoluteOrientation +_actualRotationalVelocity)  * M_PI / 180);
+    translation.y = _actualTranslationalValue * sin((_agentAbsoluteOrientation +_actualRotationalVelocity)  * M_PI / 180);
 }
 
-double GroupRobotWorldModel::getTranslationX()
+Vector2<double>GroupRobotWorldModel::getTranslation()
 {
-    return translationX;
-}
-
-double GroupRobotWorldModel::getTranslationY()
-{
-    return translationY;
+    return translation;
 }

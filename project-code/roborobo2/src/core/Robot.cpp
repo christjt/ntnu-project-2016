@@ -11,6 +11,7 @@
 #include "Agents/Robot.h"
 #include "WorldModels/GroupRobotWorldModel.h"
 #include <iomanip>
+#include "Utilities/Vector2.h"
 
 Robot::Robot( World *__world )
 {
@@ -959,16 +960,13 @@ void Robot::applyRobotPhysics( )
 {
 	// * update internal data
 	auto groupWM = (GroupRobotWorldModel*)_wm;
-    double xVec = groupWM->getTranslationX();
-	double yVec = groupWM->getTranslationY();
-
+	Vector2<double> translation = groupWM->getTranslation();
 	for(int i = 0; i <groupWM->getConnections().size(); i++){
 		auto other = groupWM->getConnections()[i];
-		xVec += other->getTranslationX();
-		yVec += other->getTranslationY();
+		translation += other->getTranslation();
 	}
 
-	_wm->_agentAbsoluteLinearSpeed = sqrt(xVec*xVec + yVec*yVec)/(groupWM->getConnections().size() +1);
+	_wm->_agentAbsoluteLinearSpeed = translation.length()/(groupWM->getConnections().size() +1);
 	_wm->_agentAbsoluteOrientation = _wm->_agentAbsoluteOrientation + _wm->_actualRotationalVelocity;
 	// * recalibrate orientation within ]-180°,+180°]
     

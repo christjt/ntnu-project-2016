@@ -4,15 +4,18 @@
 
 #include "WorldModels/RobotWorldModel.h"
 #include <vector>
+#include <unordered_map>
 #include "Agents/Robot.h"
+#include "Utilities/Vector2.h"
+
 class GroupRobotWorldModel: public RobotWorldModel
 {
 
     private:
         std::vector<int> desiredConnections;
         std::vector<GroupRobotWorldModel*> connections;
-        double translationX;
-        double translationY;
+        Vector2<double> translation;
+        //RobotGroup* group;
     public:
         GroupRobotWorldModel();
         void connectTo(int robotId);
@@ -21,10 +24,20 @@ class GroupRobotWorldModel: public RobotWorldModel
         std::vector<GroupRobotWorldModel*> getConnections();
         std::vector<int> getDesiredConnections();
         void updateTranslationVector();
-        double getTranslationX();
-        double getTranslationY();
-
-
-
+        Vector2<double> getTranslation();
 };
+
+/*class RobotGroup
+{
+private:
+    std::unordered_map<int, GroupRobotWorldModel*> members;
+
+public:
+    int size();
+    void addMember(GroupRobotWorldModel*);
+    void mergeWith(RobotGroup);
+
+
+
+};*/
 #endif //ROBOROBO2_GROUPROBOTWORLDMODEL_H
