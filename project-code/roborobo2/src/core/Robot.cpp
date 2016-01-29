@@ -956,19 +956,17 @@ void Robot::initRobotPhysics ()
 void Robot::applyRobotPhysics( )
 {
 	// * update internal data
-    double speedSum = _wm->_actualTranslationalValue;
-	double orientationSum = _wm->_agentAbsoluteOrientation +  _wm->_actualRotationalVelocity;
+    double xVec = _wm->_actualTranslationalValue * cos((_wm->_agentAbsoluteOrientation +_wm->_actualRotationalVelocity)  * M_PI / 180);
+	double yVec = _wm->_actualTranslationalValue * sin((_wm->_agentAbsoluteOrientation +_wm->_actualRotationalVelocity)  * M_PI / 180);
 	auto groupWM = (GroupRobotWorldModel*)_wm;
 	for(int i = 0; i <groupWM->getConnections().size(); i++){
 		auto other = groupWM->getConnections()[i];
-		speedSum += other->_actualRotationalVelocity;
-		orientationSum += other->_agentAbsoluteOrientation + other->_actualRotationalVelocity;
+		xVec += other->_actualTranslationalValue * cos((other->_agentAbsoluteOrientation + other->_actualRotationalVelocity)  * M_PI / 180);
+		yVec += other->_actualTranslationalValue * sin((other->_agentAbsoluteOrientation + other->_actualRotationalVelocity)  * M_PI / 180);
 	}
-	orientationSum /= (groupWM->getConnections().size() +1);
 
-	_wm->_agentAbsoluteLinearSpeed = speedSum;
-	_wm->_agentAbsoluteOrientation = orientationSum;
-	
+	_wm->_agentAbsoluteLinearSpeed = sqrt(xVec*xVec + yVec*yVec)/(groupWM->getConnections().size() +1);
+	_wm->_agentAbsoluteOrientation = 180/M_PI*(atan2(yVec, xVec));
 	// * recalibrate orientation within ]-180°,+180°]
     
     while ( _wm->_agentAbsoluteOrientation <= -180.0 || _wm->_agentAbsoluteOrientation > 180.0 ) // assume that it is highly unlikely that this while should loop. (depends from maximal angular velocity)
