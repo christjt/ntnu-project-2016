@@ -1,4 +1,4 @@
-#include "WorldModels/GroupRobotWorldModel.h"
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
 
 GroupRobotWorldModel::GroupRobotWorldModel()

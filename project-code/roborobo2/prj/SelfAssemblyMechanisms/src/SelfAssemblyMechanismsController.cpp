@@ -4,7 +4,7 @@
 
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsController.h"
 #include <Agents/Agent.h>
-#include "WorldModels/GroupRobotWorldModel.h"
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
 SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) : Controller ( __wm )
 {

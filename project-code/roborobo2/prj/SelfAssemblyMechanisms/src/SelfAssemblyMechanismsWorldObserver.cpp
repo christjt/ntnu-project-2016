@@ -6,7 +6,7 @@
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsWorldObserver.h"
 
 #include "World/World.h"
-#include "WorldModels/GroupRobotWorldModel.h"
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
 
 SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World *__world ) : WorldObserver( __world )

@@ -9,7 +9,7 @@
 #include "Config/GlobalConfigurationLoader.h"
 
 #include "Agents/Robot.h"
-#include "WorldModels/GroupRobotWorldModel.h"
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 #include <iomanip>
 #include "Utilities/Vector2.h"
 

@@ -6,7 +6,7 @@
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsAgentObserver.h"
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsController.h"
 
-#include "WorldModels/GroupRobotWorldModel.h"
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
 
 SelfAssemblyMechanismsConfigurationLoader::SelfAssemblyMechanismsConfigurationLoader()
