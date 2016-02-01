@@ -7,7 +7,6 @@ GroupRobotWorldModel::GroupRobotWorldModel()
 }
 void GroupRobotWorldModel::connectTo(int robotId)
 {
-
     desiredConnections.push_back(robotId);
 }
 
@@ -24,14 +23,6 @@ void GroupRobotWorldModel::addRobotToGroup(GroupRobotWorldModel* otherWM)
     else{
         std::cout << "Connection is not allowed" << "\n";
     }
-
-
-    /*for(int i = 0; i < connections.size(); i++)
-    {
-        if(connections[i]->getId() == otherWM->getId())
-            return;
-    }
-    connections.push_back(otherWM);*/
 }
 void GroupRobotWorldModel::completeConnections()
 {
@@ -62,4 +53,9 @@ void GroupRobotWorldModel::setGroup(std::shared_ptr<RobotGroup> group)
 std::shared_ptr<RobotGroup> GroupRobotWorldModel::getGroup()
 {
 
+}
+
+ConnectionMechanisms GroupRobotWorldModel::getConnectionMechanism()
+{
+    return thisConnectionMechanism;
 }

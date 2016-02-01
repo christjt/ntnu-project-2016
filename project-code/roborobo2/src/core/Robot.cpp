@@ -961,12 +961,12 @@ void Robot::applyRobotPhysics( )
 	// * update internal data
 	auto groupWM = (GroupRobotWorldModel*)_wm;
 	Vector2<double> translation = groupWM->getTranslation();
-	for(int i = 0; i < groupWM->getConnections().size(); i++){
-		auto other = groupWM->getConnections()[i];
+	for(unsigned int i = 0; i < groupWM->getConnectionMechanism().getConnections().size(); i++){
+		auto other = groupWM->getConnectionMechanism().getConnections()[i];
 		translation += other->getTranslation();
 	}
 
-	_wm->_agentAbsoluteLinearSpeed = translation.length()/(groupWM->getConnections().size() +1);
+	_wm->_agentAbsoluteLinearSpeed = translation.length()/(groupWM->getConnectionMechanism().getConnections().size() +1);
 	_wm->_agentAbsoluteOrientation = (180/M_PI)*atan2(translation.y, translation.x);//_wm->_agentAbsoluteOrientation + _wm->_actualRotationalVelocity;
 	// * recalibrate orientation within ]-180°,+180°]
     

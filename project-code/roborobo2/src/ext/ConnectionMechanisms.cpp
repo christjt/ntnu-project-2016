@@ -1,4 +1,5 @@
 #include "SelfAssembly/ConnectionMechanisms.h"
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
 ConnectionMechanisms::ConnectionMechanisms()
 {
