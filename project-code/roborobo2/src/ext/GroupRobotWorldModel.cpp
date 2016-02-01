@@ -43,3 +43,12 @@ Vector2<double>GroupRobotWorldModel::getTranslation()
 {
     return translation;
 }
+
+void GroupRobotWorldModel::setGroup(std::shared_ptr<RobotGroup> group)
+{
+
+}
+std::shared_ptr<RobotGroup> GroupRobotWorldModel::getGroup()
+{
+
+}

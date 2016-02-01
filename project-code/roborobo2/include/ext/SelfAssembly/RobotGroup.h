@@ -10,7 +10,7 @@ private:
 
 public:
     int size();
-    void addMember(GroupRobotWorldModel*);
+    void addMember(GroupRobotWorldModel* robot);
     void mergeWith(RobotGroup);
 
 

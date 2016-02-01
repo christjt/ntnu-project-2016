@@ -3,9 +3,11 @@
 int RobotGroup::size(){
 
 }
-void addMember(GroupRobotWorldModel*){
-
+void RobotGroup::addMember(GroupRobotWorldModel* robot){
+    if(!members[robot->getId()]){
+        members[robot->getId()] = robot;
+    }
 }
-void mergeWith(RobotGroup){
+void RobotGroup::mergeWith(RobotGroup){
 
 }
