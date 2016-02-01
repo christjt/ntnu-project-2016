@@ -961,7 +961,7 @@ void Robot::applyRobotPhysics( )
 	// * update internal data
 	auto groupWM = (GroupRobotWorldModel*)_wm;
 	Vector2<double> translation = groupWM->getTranslation();
-	for(int i = 0; i <groupWM->getConnections().size(); i++){
+	for(int i = 0; i < groupWM->getConnections().size(); i++){
 		auto other = groupWM->getConnections()[i];
 		translation += other->getTranslation();
 	}
