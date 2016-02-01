@@ -1,12 +1,20 @@
 #ifndef ROBOROBO2_CONNECTIONMECHANISMS_H
 #define ROBOROBO2_CONNECTIONMECHANISMS_H
 
+#include <vector>
+
+class GroupRobotWorldModel;
 
 class ConnectionMechanisms
 {
     public:
-        virtual bool canConnect() = 0;
-        virtual bool connect() = 0;
+        ConnectionMechanisms();
+        virtual bool canConnect(GroupRobotWorldModel* otherWM);
+        virtual bool connect(GroupRobotWorldModel* otherWM);
+        std::vector<GroupRobotWorldModel*> getConnections();
+
+    private:
+        std::vector<GroupRobotWorldModel*> connections;
 
 };
 

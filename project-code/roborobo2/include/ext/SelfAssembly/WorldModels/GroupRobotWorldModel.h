@@ -7,6 +7,7 @@
 #include "Agents/Robot.h"
 #include "Utilities/Vector2.h"
 #include <memory>
+#include "SelfAssembly/ConnectionMechanisms.h"
 class RobotGroup;
 class GroupRobotWorldModel: public RobotWorldModel
 {
@@ -16,6 +17,7 @@ class GroupRobotWorldModel: public RobotWorldModel
         std::vector<GroupRobotWorldModel*> connections;
         Vector2<double> translation;
         std::shared_ptr<RobotGroup> group;
+        ConnectionMechanisms thisConnectionMechanism;
     public:
         GroupRobotWorldModel();
         void connectTo(int robotId);
