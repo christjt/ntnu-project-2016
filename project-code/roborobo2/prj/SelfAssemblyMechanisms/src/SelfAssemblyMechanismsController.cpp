@@ -24,16 +24,16 @@ void SelfAssemblyMechanismsController::reset()
 void SelfAssemblyMechanismsController::step()
 {
 
-
 	_wm->_desiredTranslationalValue = 0.5;
 	for(int i = 0; i < _wm->_cameraSensorsNb; i++)
 	{
 		auto distance =  _wm->getDistanceValueFromCameraSensor(i);
 		auto isOtherRobot =  Agent::isInstanceOf(_wm->getObjectIdFromCameraSensor(i));
 		if(isOtherRobot){
-			if(distance < 5)
+			if(distance < 10)
 			{
 				((GroupRobotWorldModel*)_wm)->connectTo((int)_wm->getObjectIdFromCameraSensor(i) - gRobotIndexStartOffset);
+
 			}
 		}
 	}

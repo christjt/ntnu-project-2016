@@ -7,7 +7,7 @@
 #include "Agents/Robot.h"
 #include "Utilities/Vector2.h"
 #include <memory>
-class RobotGroup;
+#include "SelfAssembly/RobotGroup.h"
 class GroupRobotWorldModel: public RobotWorldModel
 {
 

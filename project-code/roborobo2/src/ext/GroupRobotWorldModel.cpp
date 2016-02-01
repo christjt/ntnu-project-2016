@@ -3,6 +3,8 @@
 
 GroupRobotWorldModel::GroupRobotWorldModel()
 {
+    this->group = std::make_shared<RobotGroup>();
+    this->group->addMember(this, getId());
 }
 void GroupRobotWorldModel::connectTo(int robotId)
 {
@@ -18,6 +20,8 @@ void GroupRobotWorldModel::addRobotToGroup(GroupRobotWorldModel* otherWM)
             return;
     }
     connections.push_back(otherWM);
+    group->addMembers(otherWM->group);
+    otherWM->setGroup(group);
 }
 void GroupRobotWorldModel::completeConnections()
 {
@@ -46,9 +50,16 @@ Vector2<double>GroupRobotWorldModel::getTranslation()
 
 void GroupRobotWorldModel::setGroup(std::shared_ptr<RobotGroup> group)
 {
+    if(this->group == group) return;
+    this->group = group;
+    for(auto it = this->group->begin(); it != this->group->end(); it++){
+        GroupRobotWorldModel* member = (*it).second;
+        if(member != this);
+            member->setGroup(group);
+    }
 
 }
 std::shared_ptr<RobotGroup> GroupRobotWorldModel::getGroup()
 {
-
+    return group;
 }
