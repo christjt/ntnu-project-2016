@@ -16,7 +16,6 @@ class GroupRobotWorldModel: public RobotWorldModel
         std::vector<GroupRobotWorldModel*> connections;
         Vector2<double> translation;
         std::shared_ptr<RobotGroup> group;
-        //RobotGroup* group;
     public:
         GroupRobotWorldModel();
         void connectTo(int robotId);
