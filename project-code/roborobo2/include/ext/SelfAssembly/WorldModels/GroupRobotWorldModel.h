@@ -27,6 +27,7 @@ class GroupRobotWorldModel: public RobotWorldModel
         Vector2<double> getTranslation();
         void setGroup(std::shared_ptr<RobotGroup> group);
         std::shared_ptr<RobotGroup> getGroup();
+        void setId(int id);
 };
 
 /*;*/

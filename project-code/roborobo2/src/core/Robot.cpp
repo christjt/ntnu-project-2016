@@ -18,10 +18,9 @@ Robot::Robot( World *__world )
 	_wm = gConfigurationLoader->make_RobotWorldModel(); // TODO: externalize object referenced to create the new instance
 
 	_wm->_world = __world;
-
-	_wm->_id = gNumberOfRobots;
+	_wm->setId(gNumberOfRobots);
 	gNumberOfRobots++;
-	
+
 	//Process agent specification (ie. IR/US/laser sensors)
 	
 	// create dynamic array

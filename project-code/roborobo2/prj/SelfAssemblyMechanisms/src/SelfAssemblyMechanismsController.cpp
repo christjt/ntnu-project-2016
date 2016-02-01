@@ -35,6 +35,7 @@ void SelfAssemblyMechanismsController::step()
 				((GroupRobotWorldModel*)_wm)->connectTo((int)_wm->getObjectIdFromCameraSensor(i) - gRobotIndexStartOffset);
 
 			}
+
 		}
 	}
 
