@@ -1,5 +1,5 @@
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
-    
+
 void GroupRobotWorldModel::setId(int id){
     RobotWorldModel::setId(id);
     if(!this->group){
@@ -7,6 +7,7 @@ void GroupRobotWorldModel::setId(int id){
         this->group->addMember(this);
     }
 }
+
 void GroupRobotWorldModel::connectTo(int robotId)
 {
     desiredConnections.push_back(robotId);
@@ -50,6 +51,7 @@ void GroupRobotWorldModel::setGroup(std::shared_ptr<RobotGroup> group)
 {
     this->group = group;
 }
+
 std::shared_ptr<RobotGroup> GroupRobotWorldModel::getGroup()
 {
     return group;
