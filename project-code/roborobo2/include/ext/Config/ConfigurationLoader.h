@@ -14,6 +14,7 @@
 #include "RoboroboMain/common.h"
 #include "Utilities/ExtendedProperties.h"
 #include <string.h>
+#include "Agents/Robot.h"
 
 
 class ConfigurationLoader
@@ -30,6 +31,7 @@ class ConfigurationLoader
 		virtual RobotWorldModel* make_RobotWorldModel() = 0 ;
 		virtual AgentObserver* make_AgentObserver(RobotWorldModel* wm) = 0 ;
 		virtual Controller* make_Controller(RobotWorldModel* wm) = 0;
+		virtual Robot* make_Robot(World * wm);
 };
 
 

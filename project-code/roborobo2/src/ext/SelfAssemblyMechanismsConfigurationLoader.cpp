@@ -39,5 +39,8 @@ Controller* SelfAssemblyMechanismsConfigurationLoader::make_Controller(RobotWorl
 	return new SelfAssemblyMechanismsController(wm);
 }
 
+Robot* SelfAssemblyMechanismsConfigurationLoader::make_Robot(World* wm){
+	return new Robot(wm);
+}
 
 #endif

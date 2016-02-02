@@ -80,7 +80,7 @@ class Robot : public Agent
 		//Moves the agent
 		void move( int __recursiveIt = 0 );
 		
-		void show();
+		virtual void show();
 
 		bool isCollision();
 

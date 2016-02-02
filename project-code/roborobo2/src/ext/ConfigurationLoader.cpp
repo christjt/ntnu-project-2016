@@ -60,5 +60,8 @@ ConfigurationLoader* ConfigurationLoader::make_ConfigurationLoader (std::string 
 	{
 		return NULL;
 	}
+}
 
+Robot * ConfigurationLoader::make_Robot(World* wm) {
+	return new Robot(wm);
 }

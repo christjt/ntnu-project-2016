@@ -17,6 +17,7 @@ class SelfAssemblyMechanismsConfigurationLoader : public ConfigurationLoader
 		RobotWorldModel *make_RobotWorldModel();
 		AgentObserver *make_AgentObserver(RobotWorldModel* wm) ;
 		Controller *make_Controller(RobotWorldModel* wm) ;
+		Robot *make_Robot(World* wm);
 };
 
 #endif

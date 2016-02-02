@@ -25,6 +25,7 @@ void GroupRobotWorldModel::addRobotToGroup(GroupRobotWorldModel* otherWM)
     group->addMember(otherWM);
 
 }
+
 void GroupRobotWorldModel::completeConnections()
 {
     desiredConnections.clear();
