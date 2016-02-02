@@ -180,7 +180,7 @@ public:
     }
     
     int getId() { return _id; }
-    
+    virtual void setId(int id){ _id = id;}
     void updateLandmarkSensor(); // update with closest landmark
     
     double getLandmarkDirectionAngleValue() { return _landmarkDirectionAngleValue; }

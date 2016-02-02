@@ -18,10 +18,9 @@ Robot::Robot( World *__world )
 	_wm = gConfigurationLoader->make_RobotWorldModel(); // TODO: externalize object referenced to create the new instance
 
 	_wm->_world = __world;
-
-	_wm->_id = gNumberOfRobots;
+	_wm->setId(gNumberOfRobots);
 	gNumberOfRobots++;
-	
+
 	//Process agent specification (ie. IR/US/laser sensors)
 	
 	// create dynamic array
@@ -960,13 +959,13 @@ void Robot::applyRobotPhysics( )
 {
 	// * update internal data
 	auto groupWM = (GroupRobotWorldModel*)_wm;
-	Vector2<double> translation = groupWM->getTranslation();
-	for(unsigned int i = 0; i < groupWM->getConnectionMechanism().getConnections().size(); i++){
-		auto other = groupWM->getConnectionMechanism().getConnections()[i];
-		translation += other->getTranslation();
-	}
+	Vector2<double> translation = {.x = 0, .y = 0};
 
-	_wm->_agentAbsoluteLinearSpeed = translation.length()/(groupWM->getConnectionMechanism().getConnections().size() +1);
+	for(auto it = groupWM->getGroup()->begin(); it!= groupWM->getGroup()->end(); it++){
+		auto robotWM = (*it).second;
+		translation += robotWM->getTranslation();
+	}
+	_wm->_agentAbsoluteLinearSpeed = translation.length()/(groupWM->getGroup()->size());
 	_wm->_agentAbsoluteOrientation = (180/M_PI)*atan2(translation.y, translation.x);//_wm->_agentAbsoluteOrientation + _wm->_actualRotationalVelocity;
 	// * recalibrate orientation within ]-180°,+180°]
     

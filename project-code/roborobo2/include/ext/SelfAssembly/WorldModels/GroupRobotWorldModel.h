@@ -7,8 +7,10 @@
 #include "Agents/Robot.h"
 #include "Utilities/Vector2.h"
 #include <memory>
+
 #include "SelfAssembly/ConnectionMechanisms.h"
-class RobotGroup;
+#include "SelfAssembly/RobotGroup.h"
+
 class GroupRobotWorldModel: public RobotWorldModel
 {
 
@@ -36,6 +38,9 @@ class GroupRobotWorldModel: public RobotWorldModel
         std::shared_ptr<RobotGroup> getGroup();
 
         ConnectionMechanisms getConnectionMechanism();
+
+        void setId(int id);
+
 };
 
 /*;*/

@@ -5,6 +5,13 @@ GroupRobotWorldModel::GroupRobotWorldModel()
 {
     thisConnectionMechanism = ConnectionMechanisms();
 }
+void GroupRobotWorldModel::setId(int id){
+    RobotWorldModel::setId(id);
+    if(!this->group){
+        this->group = std::make_shared<RobotGroup>();
+        this->group->addMember(this);
+    }
+}
 void GroupRobotWorldModel::connectTo(int robotId)
 {
     desiredConnections.push_back(robotId);
@@ -23,6 +30,10 @@ void GroupRobotWorldModel::addRobotToGroup(GroupRobotWorldModel* otherWM)
     else{
         std::cout << "Connection is not allowed" << "\n";
     }
+
+    thisConnectionMechanism.connect(otherWM);
+    group->addMember(otherWM);
+
 }
 void GroupRobotWorldModel::completeConnections()
 {
@@ -48,11 +59,11 @@ Vector2<double>GroupRobotWorldModel::getTranslation()
 
 void GroupRobotWorldModel::setGroup(std::shared_ptr<RobotGroup> group)
 {
-
+    this->group = group;
 }
 std::shared_ptr<RobotGroup> GroupRobotWorldModel::getGroup()
 {
-
+    return group;
 }
 
 ConnectionMechanisms GroupRobotWorldModel::getConnectionMechanism()
