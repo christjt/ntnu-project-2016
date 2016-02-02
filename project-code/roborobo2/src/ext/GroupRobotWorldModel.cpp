@@ -1,5 +1,5 @@
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
-
+    
 void GroupRobotWorldModel::setId(int id){
     RobotWorldModel::setId(id);
     if(!this->group){

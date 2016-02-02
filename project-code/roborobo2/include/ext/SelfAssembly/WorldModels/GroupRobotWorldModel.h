@@ -17,14 +17,10 @@ class GroupRobotWorldModel: public RobotWorldModel
     private:
         std::vector<int> desiredConnections;
         std::shared_ptr<RobotGroup> group;
-
         Vector2<double> translation;
-
         ConnectionMechanisms thisConnectionMechanism;
 
     public:
-        GroupRobotWorldModel();
-
         void connectTo(int robotId);
         void addRobotToGroup(GroupRobotWorldModel* robot);
         void completeConnections();
