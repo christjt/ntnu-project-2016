@@ -26,3 +26,8 @@ std::vector<GroupRobotWorldModel*> ConnectionMechanisms::getConnections()
 {
     return connections;
 }
+
+void ConnectionMechanisms::dissolveConnections()
+{
+    connections.clear();
+}

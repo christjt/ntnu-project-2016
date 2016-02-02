@@ -11,6 +11,7 @@ class ConnectionMechanisms
         ConnectionMechanisms();
         virtual bool canConnect(GroupRobotWorldModel* otherWM);
         virtual bool connect(GroupRobotWorldModel* otherWM);
+        virtual void dissolveConnections();
         std::vector<GroupRobotWorldModel*> getConnections();
 
     private:
