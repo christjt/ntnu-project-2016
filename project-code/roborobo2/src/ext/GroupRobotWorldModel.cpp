@@ -19,19 +19,13 @@ void GroupRobotWorldModel::connectTo(int robotId)
 
 void GroupRobotWorldModel::addRobotToGroup(GroupRobotWorldModel* otherWM)
 {
-    if(thisConnectionMechanism.canConnect(otherWM)){
-        if (!thisConnectionMechanism.connect(otherWM)){
-            std::cout << "Connection to" << otherWM << "is unsuccsessful" << "\n";
-        }
-        else{
-            return;
-        }
+    if(!thisConnectionMechanism.canConnect(otherWM)){
+        return;
     }
-    else{
-        std::cout << "Connection is not allowed" << "\n";
+    if(!thisConnectionMechanism.connect(otherWM)){
+        return;
     }
 
-    thisConnectionMechanism.connect(otherWM);
     group->addMember(otherWM);
 
 }
