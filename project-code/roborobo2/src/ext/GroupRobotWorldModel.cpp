@@ -1,10 +1,5 @@
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
-
-GroupRobotWorldModel::GroupRobotWorldModel()
-{
-    thisConnectionMechanism = ConnectionMechanisms();
-}
 void GroupRobotWorldModel::setId(int id){
     RobotWorldModel::setId(id);
     if(!this->group){
