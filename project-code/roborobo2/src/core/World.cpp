@@ -137,7 +137,7 @@ void World::initWorld()
 		Robot *robot = gConfigurationLoader->make_Robot(this);
         this->addRobot(robot);
 	}
-		
+
 	_worldObserver->reset();
 
     for ( int i = 0 ; i != gNumberOfRobots ; i++ )
