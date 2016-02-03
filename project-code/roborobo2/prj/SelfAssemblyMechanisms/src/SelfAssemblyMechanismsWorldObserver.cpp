@@ -8,10 +8,15 @@
 #include "World/World.h"
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
+#include "Config/GlobalConfigurationLoader.h"
+
+#include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsPredatorController.h"
+
 
 SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World *__world ) : WorldObserver( __world )
 {
 	_world = __world;
+
 }
 
 SelfAssemblyMechanismsWorldObserver::~SelfAssemblyMechanismsWorldObserver()
@@ -26,6 +31,7 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 
 void SelfAssemblyMechanismsWorldObserver::step()
 {
+
 	for(int i = 0; i < gNumberOfRobots; i++){
 		Robot* robot = _world->getRobot(i);
 		auto groupWM = ((GroupRobotWorldModel*)robot->getWorldModel());

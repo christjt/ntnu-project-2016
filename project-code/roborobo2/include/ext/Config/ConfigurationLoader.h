@@ -31,6 +31,7 @@ class ConfigurationLoader
 		virtual RobotWorldModel* make_RobotWorldModel() = 0 ;
 		virtual AgentObserver* make_AgentObserver(RobotWorldModel* wm) = 0 ;
 		virtual Controller* make_Controller(RobotWorldModel* wm) = 0;
+		virtual Controller* make_PredatorController(RobotWorldModel* wm) = 0;
 		virtual Robot* make_Robot(World * wm);
 };
 

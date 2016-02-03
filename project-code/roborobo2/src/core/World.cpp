@@ -135,6 +135,9 @@ void World::initWorld()
 	for ( int i = 0 ; i != gInitialNumberOfRobots ; i++ )
 	{
 		Robot *robot = gConfigurationLoader->make_Robot(this);
+		if(i < gNumberOfPredators){
+			robot->setController(gConfigurationLoader->make_PredatorController(robot->getWorldModel()));
+		}
         this->addRobot(robot);
 	}
 		

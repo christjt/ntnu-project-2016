@@ -91,6 +91,7 @@ class World;
 extern World *gWorld;				// pointer to the World
 
 extern int	gInitialNumberOfRobots;			// number of robots that should be created at start-up
+extern int  gNumberOfPredators;     // number of predators that should be created at start-up
 extern int	gNumberOfRobots;	    // actual number of robots existing in the simulation right now
 extern int	gRobotIndexFocus;		// focused robot id.
 

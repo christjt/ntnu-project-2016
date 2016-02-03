@@ -65,3 +65,7 @@ ConfigurationLoader* ConfigurationLoader::make_ConfigurationLoader (std::string 
 Robot * ConfigurationLoader::make_Robot(World* wm) {
 	return new Robot(wm);
 }
+
+Controller* ConfigurationLoader::make_PredatorController(RobotWorldModel* wm) {
+	return NULL;
+}

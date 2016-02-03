@@ -211,6 +211,8 @@ int gInspectorAgentYStart = 1;
 
 int	gInitialNumberOfRobots = 2;
 
+int gNumberOfPredators = 0;
+
 float gMaxTranslationalSpeed = 2; // pixels/sec.
 float gMaxTranslationalDeltaValue = gMaxTranslationalSpeed; // maximum delta update value btw current and desired speed.
 float gMaxRotationalSpeed = 30; // degrees/sec.
@@ -1277,6 +1279,13 @@ bool loadProperties( std::string __propertiesFilename )
 		std::cerr << "[MISSING] gInitialNumberOfRobots value is missing.\n";
 		returnValue = false;
 	}
+
+	if ( gProperties.hasProperty("gNumberOfPredators") )
+	{
+		convertFromString<int>(gNumberOfPredators, gProperties.getProperty("gNumberOfPredators"), std::dec);
+	}
+	else
+		std::cerr << "[MISSING] gNumberOfPredators value is missing. Assume default value (" << gNumberOfPredators << ").\n";
 	
 	if ( gProperties.hasProperty("gLocationFinderMaxNbOfTrials") )
 		convertFromString<int>(gLocationFinderMaxNbOfTrials, gProperties.getProperty("gLocationFinderMaxNbOfTrials"), std::dec);
