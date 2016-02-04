@@ -92,6 +92,9 @@ class Robot : public Agent
 		void behaviorUpdate_remoteController(Uint8* __keyStates);
 
         Controller* getController() { return _controller; }
+
+		void setController(Controller* controller){ _controller = controller; }
+
         AgentObserver* getObserver() { return _agentObserver; }
 		WorldObserver* getWorldObserver();
         RobotWorldModel* getWorldModel() { return _wm; }
