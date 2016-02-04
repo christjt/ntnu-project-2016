@@ -21,33 +21,30 @@ void GroupRobotWorldModel::setId(int id){
     }
 }
 
-void GroupRobotWorldModel::connectTo(int robotId)
+void GroupRobotWorldModel::connectTo(GroupRobotWorldModel* other)
 {
-    desiredConnections.push_back(robotId);
+    if(!connectionMechanism.canConnect(other)){
+        return;
+    }
+    if(!connectionMechanism.connect(other)){
+        return;
+    }
+    group->addMember(other);
+
+}
+
+void GroupRobotWorldModel::disconnectFrom(GroupRobotWorldModel* other)
+{
+    //Traverse the robot connections to form two new groups
+    auto otherConnections = other->getConnectionMechanism().getConnections();
+    other->group = std::make_shared<RobotGroup>();
 }
 
 void GroupRobotWorldModel::addRobotToGroup(GroupRobotWorldModel* otherWM)
 {
-    if(!connectionMechanism.canConnect(otherWM)){
-        return;
-    }
-    if(!connectionMechanism.connect(otherWM)){
-        return;
-    }
 
-    group->addMember(otherWM);
+
 }
-
-void GroupRobotWorldModel::completeConnections()
-{
-    desiredConnections.clear();
-}
-
-std::vector<int> GroupRobotWorldModel::getDesiredConnections()
-{
-    return desiredConnections;
-}
-
 
 void GroupRobotWorldModel::updateTranslationVector()
 {

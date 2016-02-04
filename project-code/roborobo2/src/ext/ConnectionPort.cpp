@@ -37,7 +37,7 @@ bool ConnectionPort::portsCompatible(PortType other)
     switch (this->portType){
         case PortType::Female: return other == PortType::Male;
         case PortType::Male: return other == PortType::Female;
-        default: throw "Unknown port type";
+        default: throw std::runtime_error("Unknown port type");
 
     }
 

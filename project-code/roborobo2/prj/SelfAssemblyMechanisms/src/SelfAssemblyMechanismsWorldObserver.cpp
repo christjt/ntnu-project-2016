@@ -31,17 +31,4 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 
 void SelfAssemblyMechanismsWorldObserver::step()
 {
-
-	for(int i = 0; i < gNumberOfRobots; i++){
-		Robot* robot = _world->getRobot(i);
-		auto groupWM = ((GroupRobotWorldModel*)robot->getWorldModel());
-		if(groupWM->getDesiredConnections().size() > 0)
-		{
-			auto other = (GroupRobotWorldModel*)_world->getRobot(groupWM->getDesiredConnections()[0])->getWorldModel();
-			groupWM->addRobotToGroup(other);
-			other->addRobotToGroup(groupWM);
-		}
-		groupWM->completeConnections();
-
-	}
 }
