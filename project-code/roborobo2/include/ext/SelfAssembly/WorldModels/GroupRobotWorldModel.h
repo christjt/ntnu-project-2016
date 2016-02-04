@@ -18,7 +18,7 @@ class GroupRobotWorldModel: public RobotWorldModel
         std::vector<int> desiredConnections;
         std::shared_ptr<RobotGroup> group;
         Vector2<double> translation;
-        ConnectionMechanisms thisConnectionMechanism;
+        ConnectionMechanisms connectionMechanism;
         CommunicationModule communicationModule;
     public:
         GroupRobotWorldModel();
@@ -33,7 +33,7 @@ class GroupRobotWorldModel: public RobotWorldModel
         std::vector<int> getDesiredConnections();
         std::shared_ptr<RobotGroup> getGroup();
 
-        ConnectionMechanisms getConnectionMechanism();
+        ConnectionMechanisms& getConnectionMechanism();
         CommunicationModule& getCommunicationModule();
         void setId(int id);
 

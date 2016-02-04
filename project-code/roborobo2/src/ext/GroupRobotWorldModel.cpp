@@ -1,9 +1,17 @@
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
-
-GroupRobotWorldModel::GroupRobotWorldModel():communicationModule(this){
-
+std::vector<std::shared_ptr<ConnectionPort>> make_ports(){
+    std::vector<std::shared_ptr<ConnectionPort>> ports;
+    auto port = std::shared_ptr<ConnectionPort>(new ConnectionPort(PortType::Unisex));
+    auto port2 = std::shared_ptr<ConnectionPort>(new ConnectionPort(PortType::Unisex));
+    ports.push_back(port);
+    ports.push_back(port2);
+    return ports;
 
 }
+GroupRobotWorldModel::GroupRobotWorldModel():connectionMechanism(this, make_ports()), communicationModule(this) {
+
+}
+
 
 void GroupRobotWorldModel::setId(int id){
     RobotWorldModel::setId(id);
@@ -20,15 +28,14 @@ void GroupRobotWorldModel::connectTo(int robotId)
 
 void GroupRobotWorldModel::addRobotToGroup(GroupRobotWorldModel* otherWM)
 {
-    if(!thisConnectionMechanism.canConnect(otherWM)){
+    if(!connectionMechanism.canConnect(otherWM)){
         return;
     }
-    if(!thisConnectionMechanism.connect(otherWM)){
+    if(!connectionMechanism.connect(otherWM)){
         return;
     }
 
     group->addMember(otherWM);
-
 }
 
 void GroupRobotWorldModel::completeConnections()
@@ -63,9 +70,9 @@ std::shared_ptr<RobotGroup> GroupRobotWorldModel::getGroup()
     return group;
 }
 
-ConnectionMechanisms GroupRobotWorldModel::getConnectionMechanism()
+ConnectionMechanisms& GroupRobotWorldModel::getConnectionMechanism()
 {
-    return thisConnectionMechanism;
+    return connectionMechanism;
 }
 
 CommunicationModule& GroupRobotWorldModel::getCommunicationModule(){
