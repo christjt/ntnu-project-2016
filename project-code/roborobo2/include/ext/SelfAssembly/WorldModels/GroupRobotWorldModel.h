@@ -10,7 +10,7 @@
 
 #include "SelfAssembly/ConnectionMechanisms.h"
 #include "SelfAssembly/RobotGroup.h"
-
+#include "SelfAssembly/Communication/CommunicationModule.h"
 class GroupRobotWorldModel: public RobotWorldModel
 {
 
@@ -19,8 +19,9 @@ class GroupRobotWorldModel: public RobotWorldModel
         std::shared_ptr<RobotGroup> group;
         Vector2<double> translation;
         ConnectionMechanisms thisConnectionMechanism;
-
+        CommunicationModule communicationModule;
     public:
+        GroupRobotWorldModel();
         void connectTo(int robotId);
         void addRobotToGroup(GroupRobotWorldModel* robot);
         void completeConnections();
@@ -33,7 +34,7 @@ class GroupRobotWorldModel: public RobotWorldModel
         std::shared_ptr<RobotGroup> getGroup();
 
         ConnectionMechanisms getConnectionMechanism();
-
+        CommunicationModule& getCommunicationModule();
         void setId(int id);
 
 };

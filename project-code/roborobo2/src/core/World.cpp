@@ -140,7 +140,7 @@ void World::initWorld()
 		}
         this->addRobot(robot);
 	}
-		
+
 	_worldObserver->reset();
 
     for ( int i = 0 ; i != gNumberOfRobots ; i++ )

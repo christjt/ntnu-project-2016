@@ -1,5 +1,10 @@
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
+GroupRobotWorldModel::GroupRobotWorldModel():communicationModule(this){
+
+
+}
+
 void GroupRobotWorldModel::setId(int id){
     RobotWorldModel::setId(id);
     if(!this->group){
@@ -62,3 +67,8 @@ ConnectionMechanisms GroupRobotWorldModel::getConnectionMechanism()
 {
     return thisConnectionMechanism;
 }
+
+CommunicationModule& GroupRobotWorldModel::getCommunicationModule(){
+    return communicationModule;
+};
+
