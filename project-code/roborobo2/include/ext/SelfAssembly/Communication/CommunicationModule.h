@@ -23,7 +23,7 @@ struct RobotMessage{
             throw "Incompatible message format";
 
         RobotMessage combined = RobotMessage();
-        for(int i = 0; i < message.size(); i++){
+        for(unsigned int i = 0; i < message.size(); i++){
             combined.message.push_back(message[i] + other.message[i]);
         }
         return combined;

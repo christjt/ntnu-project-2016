@@ -6,7 +6,6 @@
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsAgentObserver.h"
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsController.h"
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsPredatorController.h"
-
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
 

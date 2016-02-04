@@ -24,7 +24,6 @@ void SelfAssemblyMechanismsController::reset()
 
 void SelfAssemblyMechanismsController::step()
 {
-
 	_wm->_desiredTranslationalValue = 0.5;
 	std::vector<float> message = std::vector<float>(gInitialNumberOfRobots);
 	message[_wm->getId()] = 1.0;
@@ -32,11 +31,6 @@ void SelfAssemblyMechanismsController::step()
 	((GroupRobotWorldModel*)_wm)->getCommunicationModule().broadcast(RobotMessage(message));
 	auto received = ((GroupRobotWorldModel*)_wm)->getCommunicationModule().read(gInitialNumberOfRobots);
 
-	std::cout << "Received: ";
-	for(float component: received.get()){
-		std::cout << component << ",";
-	}
-	std::cout << std::endl;
 
 	for(int i = 0; i < _wm->_cameraSensorsNb; i++)
 	{
@@ -51,6 +45,5 @@ void SelfAssemblyMechanismsController::step()
 
 		}
 	}
-
 }
 
