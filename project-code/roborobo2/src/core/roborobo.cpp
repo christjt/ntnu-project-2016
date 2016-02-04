@@ -188,6 +188,8 @@ int gEnergyItemDefaultMode = 0;
 int gNumberOfRobots = 0;
 int gRobotIndexFocus = 0;
 
+int gNumberOfConnectionPoints = 0;
+
 int gNumberOfRobotGroups = 1;
 
 int gPhysicalObjectIndexStartOffset = 0x01;
@@ -1286,7 +1288,16 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	else
 		std::cerr << "[MISSING] gNumberOfPredators value is missing. Assume default value (" << gNumberOfPredators << ").\n";
-	
+
+	if ( gProperties.hasProperty("gNumberOfConnectionPoints") )
+	{
+		convertFromString<int>(gNumberOfConnectionPoints, gProperties.getProperty("gNumberOfConnectionPoints"), std::dec);
+	}
+	else
+		std::cerr << "[MISSING] gNumberOfConnectionPoints value is missing. Assume default value (" << gNumberOfConnectionPoints << ").\n";
+
+
+
 	if ( gProperties.hasProperty("gLocationFinderMaxNbOfTrials") )
 		convertFromString<int>(gLocationFinderMaxNbOfTrials, gProperties.getProperty("gLocationFinderMaxNbOfTrials"), std::dec);
 	else
