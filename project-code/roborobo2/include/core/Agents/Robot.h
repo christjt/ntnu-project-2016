@@ -57,6 +57,7 @@ class Robot : public Agent
 		int _iterations;
     
         void traceRayRGBA(SDL_Surface * dst, int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a); // for screen rendering only
+		void drawConnectionPoint(int offsetOrientation);
         int castSensorRay(SDL_Surface * image, double x1, double y1, double * x2pt, double * y2pt , int __maxValue = -1);
     
         void initRobotPhysics( );
