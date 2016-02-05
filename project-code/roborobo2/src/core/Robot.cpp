@@ -664,11 +664,23 @@ bool Robot::isCollision()
 	* (render mode only) 
     */
 void Robot::show() // display on screen
-{    
+{
     //Show the dot
     
 	if ( gNiceRendering )
 		apply_surface( _x - gCamera.x, _y - gCamera.y, gRobotDisplayImage, gScreen ); // OPTIONAL (agent is already visible/registered through the environment image -- but: may be useful for image capture
+
+
+	if(gNumberOfConnectionPoints > 0){
+		int radCounter = 360/gNumberOfConnectionPoints;
+		for (int i = 0; i < gNumberOfConnectionPoints; i++){
+			drawConnectionPoint(90 + radCounter*i);
+		}
+	}
+
+
+
+
 
 	if ( gRobotLEDdisplay == true )
 	{
@@ -859,10 +871,28 @@ void Robot::traceRayRGBA(SDL_Surface * image, int x1, int y1, int x2, int y2, Ui
     
 }
 
+void Robot::drawConnectionPoint(int offsetOrientation){
+
+	double x1 = (_wm->_xReal + cos((_wm->_agentAbsoluteOrientation + offsetOrientation) * M_PI / 180)*10);
+	double y1 = (_wm->_yReal + sin((_wm->_agentAbsoluteOrientation + offsetOrientation) * M_PI / 180)*10);
+	double x2 = (_wm->_xReal + cos((_wm->_agentAbsoluteOrientation + offsetOrientation) * M_PI / 180)*35);
+	double y2 = (_wm->_yReal + sin((_wm->_agentAbsoluteOrientation + offsetOrientation) * M_PI / 180)*35);
+
+	traceRayRGBA(gScreen, x1, y1, x2, y2, 255 , 0 , 0 , 255);
+	traceRayRGBA(gScreen, x1 + 1, y1 + 1, x2 + 1, y2 + 1, 255 , 0 , 0 , 255);
+	traceRayRGBA(gScreen, x1 - 1, y1 - 1, x2 - 1, y2 - 1, 255 , 0 , 0 , 255);
+
+}
+
 /**
  cast (sensor) ray from (x1,y1) to (x2,y2). Stops whenever ray encounters something. (x2,y2) are update with point of contact
  __maxValue is the maximum distance possible -- ie. if no collision during ray casting (makes it possible to return an exact value without the cost of distance (with sqrt) computation)
  */
+
+/*void drawConnectionPoint(SDL_Surface * dst, int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a){
+	Uint32 color =SDL_MapRGBA( image->format, r, g, b, 0 );
+}*/
+
 int Robot::castSensorRay(SDL_Surface * image, double x1, double y1, double *x2pt, double *y2pt, int __maxValue )
 {
 	double x2 = *x2pt;
