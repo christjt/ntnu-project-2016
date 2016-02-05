@@ -104,7 +104,7 @@ public:
     
     // * other methods
     
-    World* getWorld(); // return pointer to the current World
+    World* getWorld(){ return _world;} // return pointer to the current World
 	
     // * sensor methods
     

@@ -17,6 +17,11 @@ void RobotGroup::addMember(GroupRobotWorldModel* robot){
 
 }
 
+void RobotGroup::removeMember(GroupRobotWorldModel* robot){
+    if(members.find(robot->getId()) == members.end()) return;
+    members.erase(robot->getId());
+    robot->setGroup(std::make_shared<RobotGroup>());
+}
 void RobotGroup::mergeWith(std::shared_ptr<RobotGroup> other){
     auto owner = (*members.begin()).second;
     for(auto it = other->begin(); it != other->end(); it++){

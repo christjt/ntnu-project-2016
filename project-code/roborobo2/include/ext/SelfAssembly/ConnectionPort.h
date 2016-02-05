@@ -14,6 +14,7 @@ class ConnectionPort{
         bool connect(ConnectionPort* other);
         bool canConnectTo(ConnectionPort* other);
         bool isEngaged();
+        void disconnect();
         bool canDisconnect();
         PortType getPortType();
 

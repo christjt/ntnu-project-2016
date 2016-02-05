@@ -5,8 +5,9 @@
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsController.h"
 #include <Agents/Agent.h>
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
+#include "WorldModels/RobotWorldModel.h"
 #include "SelfAssembly/Communication/CommunicationModule.h"
-
+#include "World/World.h"
 SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) : Controller ( __wm )
 {
 	// nothing to do
@@ -39,7 +40,9 @@ void SelfAssemblyMechanismsController::step()
 		if(isOtherRobot){
 			if(distance < 10)
 			{
-				((GroupRobotWorldModel*)_wm)->connectTo((int)_wm->getObjectIdFromCameraSensor(i) - gRobotIndexStartOffset);
+				auto world = _wm->_world;
+				auto other = world->getRobot((int)_wm->getObjectIdFromCameraSensor(i) - gRobotIndexStartOffset);
+				((GroupRobotWorldModel*)_wm)->connectTo((GroupRobotWorldModel*)other->getWorldModel());
 
 			}
 
