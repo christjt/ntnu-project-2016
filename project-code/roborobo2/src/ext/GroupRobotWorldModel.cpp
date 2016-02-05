@@ -43,8 +43,7 @@ void GroupRobotWorldModel::disconnectFrom(GroupRobotWorldModel* other)
         //There is a cycle. No need to form a new group
         return;
     }
-    //The robots can ble split into separate groups
-    getConnectionMechanism().disconnect(other);
+    //The robots should ble split into separate groups
     //Find the robots that should be removed from the group and create a new one.
     auto robots = other->getConnectionMechanism().findConnectedRobots();
     for(auto robot: robots){
