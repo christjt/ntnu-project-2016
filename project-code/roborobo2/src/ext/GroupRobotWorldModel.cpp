@@ -38,9 +38,9 @@ void GroupRobotWorldModel::connectTo(GroupRobotWorldModel* other)
 void GroupRobotWorldModel::disconnectFrom(GroupRobotWorldModel* other)
 {
     //First traverse all neighbors except the connection to be removed to figure out if there is a cycle
+    getConnectionMechanism().disconnect(other);
     if(other->getConnectionMechanism().isWorldModelInConnections(this)){
         //There is a cycle. No need to form a new group
-        getConnectionMechanism().disconnect(other);
         return;
     }
     //The robots can ble split into separate groups
