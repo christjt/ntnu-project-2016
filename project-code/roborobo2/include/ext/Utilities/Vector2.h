@@ -8,6 +8,17 @@ struct Vector2
         T x;
         T y;
 
+    Vector2<T>(T _x, T _y)
+    {
+        x = _x;
+        y = _y;
+    }
+
+    Vector2<T>()
+    {
+        //Do nothing
+    }
+
     Vector2<T> operator+(const Vector2<T>& other)
     {
         return Vector2<T>{x=this->x + other.x, y=this->y + other.y};

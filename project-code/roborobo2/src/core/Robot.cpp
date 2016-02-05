@@ -873,10 +873,10 @@ void Robot::traceRayRGBA(SDL_Surface * image, int x1, int y1, int x2, int y2, Ui
 
 void Robot::drawConnectionPoint(int offsetOrientation){
 
-	double x1 = (_wm->_xReal + cos((_wm->_agentAbsoluteOrientation + offsetOrientation) * M_PI / 180)*15);
-	double y1 = (_wm->_yReal + sin((_wm->_agentAbsoluteOrientation + offsetOrientation) * M_PI / 180)*15);
-	double x2 = (_wm->_xReal + cos((_wm->_agentAbsoluteOrientation + offsetOrientation) * M_PI / 180)*35);
-	double y2 = (_wm->_yReal + sin((_wm->_agentAbsoluteOrientation + offsetOrientation) * M_PI / 180)*35);
+	double x1 = (_wm->_xReal + cos((offsetOrientation) * M_PI / 180)*15);
+	double y1 = (_wm->_yReal + sin((offsetOrientation) * M_PI / 180)*15);
+	double x2 = (_wm->_xReal + cos((offsetOrientation) * M_PI / 180)*25);
+	double y2 = (_wm->_yReal + sin((offsetOrientation) * M_PI / 180)*25);
 
 	traceRayRGBA(gScreen, x1, y1, x2, y2, 255 , 0 , 0 , 255);
 	traceRayRGBA(gScreen, x1 + 1, y1 + 1, x2 + 1, y2 + 1, 255 , 0 , 0 , 255);
