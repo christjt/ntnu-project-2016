@@ -15,22 +15,20 @@ class GroupRobotWorldModel: public RobotWorldModel
 {
 
     private:
-        std::vector<int> desiredConnections;
         std::shared_ptr<RobotGroup> group;
         Vector2<double> translation;
         ConnectionMechanisms connectionMechanism;
         CommunicationModule communicationModule;
     public:
         GroupRobotWorldModel();
-        void connectTo(int robotId);
+        void connectTo(GroupRobotWorldModel* other);
+        void disconnectFrom(GroupRobotWorldModel* other);
         void addRobotToGroup(GroupRobotWorldModel* robot);
-        void completeConnections();
         void updateTranslationVector();
         void setGroup(std::shared_ptr<RobotGroup> group);
 
         Vector2<double> getTranslation();
 
-        std::vector<int> getDesiredConnections();
         std::shared_ptr<RobotGroup> getGroup();
 
         ConnectionMechanisms& getConnectionMechanism();

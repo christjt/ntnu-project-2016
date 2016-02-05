@@ -10,7 +10,7 @@ RobotMessage CommunicationModule::read(int messageSize){
     auto neighbors = owner->getConnectionMechanism().getConnections();
     RobotMessage initial = RobotMessage(std::vector<float>(messageSize));
     for(auto neighbor: neighbors){
-        initial = initial + neighbor->getCommunicationModule().outgoingMessage;
+        initial = initial + neighbor.first->getCommunicationModule().outgoingMessage;
     }
     return initial;
 }

@@ -12,23 +12,21 @@ bool ConnectionMechanisms::canConnect(GroupRobotWorldModel* otherWM)
     return true;
 }
 
-bool ConnectionMechanisms::disconnect(int id)
+void ConnectionMechanisms::disconnect(GroupRobotWorldModel* neighbor)
 {
-    auto it = std::find_if(connections.begin(), connections.end(), [&id](GroupRobotWorldModel*wm){ return wm->getId() == id;});
-    if(it != connections.end()){
-
-    }
-    return false;
+    auto found = portMap.find(neighbor);
+    if(found == portMap.end())
+        return;
+    auto port = found->second;
+    port->disconnect();
+    portMap.erase(neighbor);
+    neighbor->getConnectionMechanism().portMap.erase(this->owner);
 }
+
 bool ConnectionMechanisms::connect(GroupRobotWorldModel* otherWM)
 {
-
-
-    for(unsigned int i = 0; i < connections.size(); i++)
-    {
-        if(connections[i]->getId() == otherWM->getId())
-            return true;
-    }
+    if(portMap.find(otherWM) != portMap.end())
+        return true;
 
     auto otherPorts = otherWM->getConnectionMechanism().getPorts();
     for(auto port: ports){
@@ -38,23 +36,41 @@ bool ConnectionMechanisms::connect(GroupRobotWorldModel* otherWM)
 
         if(eligiblePort != otherPorts.end()){
             port->connect(eligiblePort->get());
-            connections.push_back(otherWM);
-            otherWM->getConnectionMechanism().connections.push_back(owner);
+            portMap[otherWM] = port;
+            otherWM->getConnectionMechanism().portMap[owner] = *eligiblePort;
             return true;
         }
     }
     return false;
 }
 
-std::vector<GroupRobotWorldModel*> ConnectionMechanisms::getConnections()
+bool ConnectionMechanisms::isWorldModelInConnections(GroupRobotWorldModel* target)
 {
-    return connections;
+    std::unordered_set<GroupRobotWorldModel*> robots = findConnectedRobots();
+    return robots.find(target) != robots.end();
+}
+
+std::unordered_set<GroupRobotWorldModel*> ConnectionMechanisms::findConnectedRobots()
+{
+    std::unordered_set<GroupRobotWorldModel*> robots;
+    visitNeighbors(robots);
+    return robots;
+}
+void ConnectionMechanisms::visitNeighbors(std::unordered_set<GroupRobotWorldModel*>& visited){
+    if(visited.find(this->owner) != visited.end())
+        return;
+    visited.insert(this->owner);
+    for(auto connection: portMap){
+        connection.first->getConnectionMechanism().visitNeighbors(visited);
+    }
+}
+
+
+std::unordered_map<GroupRobotWorldModel*, std::shared_ptr<ConnectionPort>> ConnectionMechanisms::getConnections()
+{
+    return portMap;
 }
 std::vector<std::shared_ptr<ConnectionPort>> ConnectionMechanisms::getPorts()
 {
     return ports;
-}
-void ConnectionMechanisms::dissolveConnections()
-{
-    connections.clear();
 }

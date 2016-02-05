@@ -4,6 +4,8 @@
 #include <vector>
 #include "SelfAssembly/ConnectionPort.h"
 #include <memory>
+#include <unordered_set>
+#include <unordered_map>
 class GroupRobotWorldModel;
 
 class ConnectionMechanisms
@@ -12,14 +14,17 @@ class ConnectionMechanisms
         ConnectionMechanisms(GroupRobotWorldModel* owner, std::vector<std::shared_ptr<ConnectionPort>> ports);
         virtual bool canConnect(GroupRobotWorldModel* otherWM);
         virtual bool connect(GroupRobotWorldModel* otherWM);
-        virtual bool disconnect(int id);
-        virtual void dissolveConnections();
-        std::vector<GroupRobotWorldModel*> getConnections();
+        virtual void disconnect(GroupRobotWorldModel* neighbor);
+        bool isWorldModelInConnections(GroupRobotWorldModel* target);
+        std::unordered_set<GroupRobotWorldModel*> findConnectedRobots();
         std::vector<std::shared_ptr<ConnectionPort>> getPorts();
-    private:
-        std::vector<GroupRobotWorldModel*> connections;
+        std::unordered_map<GroupRobotWorldModel*, std::shared_ptr<ConnectionPort>> getConnections();
+
+private:
+        std::unordered_map<GroupRobotWorldModel*, std::shared_ptr<ConnectionPort>> portMap;
         std::vector<std::shared_ptr<ConnectionPort>> ports;
         GroupRobotWorldModel* owner;
+        void visitNeighbors(std::unordered_set<GroupRobotWorldModel*>& visited);
 
 };
 

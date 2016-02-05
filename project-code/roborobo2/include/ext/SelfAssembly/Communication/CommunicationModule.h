@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <initializer_list>
+#include <iostream>
 struct RobotMessage{
     private:
         std::vector<float> message;
@@ -19,8 +20,9 @@ struct RobotMessage{
         }
 
     RobotMessage operator+(const RobotMessage& other){
-        if(other.message.size() != message.size())
-            throw "Incompatible message format";
+        if(other.message.size() != message.size()){
+            throw std::runtime_error("Incompatible message format");
+        }
 
         RobotMessage combined = RobotMessage();
         for(unsigned int i = 0; i < message.size(); i++){
