@@ -1,4 +1,5 @@
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
+#include <unordered_set>
 std::vector<std::shared_ptr<ConnectionPort>> make_ports(){
     std::vector<std::shared_ptr<ConnectionPort>> ports;
     auto port = std::shared_ptr<ConnectionPort>(new ConnectionPort(PortType::Unisex));
@@ -33,11 +34,25 @@ void GroupRobotWorldModel::connectTo(GroupRobotWorldModel* other)
 
 }
 
+
 void GroupRobotWorldModel::disconnectFrom(GroupRobotWorldModel* other)
 {
-    //Traverse the robot connections to form two new groups
-    auto otherConnections = other->getConnectionMechanism().getConnections();
-    other->group = std::make_shared<RobotGroup>();
+    //First traverse all neighbors except the connection to be removed to figure out if there is a cycle
+    if(other->getConnectionMechanism().isWorldModelInConnections(this)){
+        //There is a cycle. No need to form a new group
+        getConnectionMechanism().disconnect(other);
+        return;
+    }
+    //The robots can ble split into separate groups
+    getConnectionMechanism().disconnect(other);
+    //Find the robots that should be removed from the group and create a new one.
+    auto robots = other->getConnectionMechanism().findConnectedRobots();
+    for(auto robot: robots){
+        group->removeMember(robot);
+        //Make the other robot the owner of the new group
+        other->group->addMember(robot);
+    }
+
 }
 
 void GroupRobotWorldModel::addRobotToGroup(GroupRobotWorldModel* otherWM)

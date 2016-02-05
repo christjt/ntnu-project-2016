@@ -11,6 +11,7 @@ private:
 public:
     int size();
     void addMember(GroupRobotWorldModel* robot);
+    void removeMember(GroupRobotWorldModel* robot);
     void mergeWith(std::shared_ptr<RobotGroup> other);
     std::unordered_map<int, GroupRobotWorldModel*>::iterator begin();
     std::unordered_map<int, GroupRobotWorldModel*>::iterator end();

@@ -42,7 +42,12 @@ bool ConnectionPort::portsCompatible(PortType other)
     }
 
 }
-
+void ConnectionPort::disconnect(){
+    if(connectedTo == nullptr)
+        return;
+    connectedTo->disconnect();
+    connectedTo = nullptr;
+}
 bool ConnectionPort::canDisconnect()
 {
     return true;

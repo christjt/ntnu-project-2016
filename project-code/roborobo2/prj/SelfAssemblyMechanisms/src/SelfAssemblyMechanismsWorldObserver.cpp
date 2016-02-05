@@ -12,7 +12,6 @@
 
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsPredatorController.h"
 
-
 SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World *__world ) : WorldObserver( __world )
 {
 	_world = __world;
