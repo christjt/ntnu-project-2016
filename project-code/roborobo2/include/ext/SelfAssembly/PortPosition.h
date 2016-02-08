@@ -11,13 +11,11 @@ class PortPosition {
     private:
         int _posX;
         int _posY;
-        int _collisionPositionOffset;
-        int _collisionOrientationOffset;
 
         GroupRobotWorldModel* _wm;
 
         bool isOrientationalSound(int sourceOrientation, int targetOrientation);
-        bool isSpatiallySound(PortPosition* target);
+        bool isSpatiallySound(PortPosition* target, int targetOrientation);
 
     public:
         PortPosition(GroupRobotWorldModel* sourceRobotModel);
@@ -28,8 +26,8 @@ class PortPosition {
 
         void updatePosition(int orientation);
 
-        int getPosX() { return _posX; };
-        int getPosY() { return _posY; };
+        int getPosX(int orientation) { updatePosition(orientation); return _posX; };
+        int getPosY(int orientation) { updatePosition(orientation); return _posY; };
 
 
 };

@@ -674,7 +674,7 @@ void Robot::show() // display on screen
 	if(gNumberOfConnectionPoints > 0){
 		int radCounter = 360/gNumberOfConnectionPoints;
 		for (int i = 0; i < gNumberOfConnectionPoints; i++){
-			drawConnectionPoint(90 + radCounter*i);
+			drawConnectionPoint(radCounter*i);
 		}
 	}
 
@@ -873,10 +873,10 @@ void Robot::traceRayRGBA(SDL_Surface * image, int x1, int y1, int x2, int y2, Ui
 
 void Robot::drawConnectionPoint(int offsetOrientation){
 
-	double x1 = (_wm->_xReal + cos((offsetOrientation + 90) * M_PI / 180)*15);
-	double y1 = (_wm->_yReal + sin((offsetOrientation + 90) * M_PI / 180)*15);
-	double x2 = (_wm->_xReal + cos((offsetOrientation + 90) * M_PI / 180)*25);
-	double y2 = (_wm->_yReal + sin((offsetOrientation + 90) * M_PI / 180)*25);
+	double x1 = (_wm->_xReal + cos((offsetOrientation) * M_PI / 180)*15);
+	double y1 = (_wm->_yReal + sin((offsetOrientation) * M_PI / 180)*15);
+	double x2 = (_wm->_xReal + cos((offsetOrientation) * M_PI / 180)*25);
+	double y2 = (_wm->_yReal + sin((offsetOrientation) * M_PI / 180)*25);
 
 	traceRayRGBA(gScreen, x1, y1, x2, y2, 255 , 0 , 0 , 255);
 	traceRayRGBA(gScreen, x1 + 1, y1 + 1, x2 + 1, y2 + 1, 255 , 0 , 0 , 255);
