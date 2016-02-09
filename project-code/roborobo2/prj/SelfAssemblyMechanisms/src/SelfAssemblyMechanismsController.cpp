@@ -43,7 +43,7 @@ void SelfAssemblyMechanismsController::step()
 				auto world = _wm->_world;
 				auto other = world->getRobot((int)_wm->getObjectIdFromCameraSensor(i) - gRobotIndexStartOffset);
 				((GroupRobotWorldModel*)_wm)->connectTo((GroupRobotWorldModel*)other->getWorldModel());
-
+				_wm->_desiredRotationalVelocity = 0.5;
 			}
 
 		}
