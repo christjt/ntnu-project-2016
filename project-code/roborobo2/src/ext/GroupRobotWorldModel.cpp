@@ -6,7 +6,7 @@ std::vector<std::shared_ptr<ConnectionPort>> GroupRobotWorldModel::makePorts()
 {
     std::vector<std::shared_ptr<ConnectionPort>> ports;
     auto port = std::shared_ptr<ConnectionPort>(new ConnectionPort(PortType::Unisex, PortPosition(this, 0)));
-    auto port2 = std::shared_ptr<ConnectionPort>(new ConnectionPort(PortType::Unisex, PortPosition(this, 0)));
+    auto port2 = std::shared_ptr<ConnectionPort>(new ConnectionPort(PortType::Unisex, PortPosition(this, 180)));
     ports.push_back(port);
     ports.push_back(port2);
     return ports;
