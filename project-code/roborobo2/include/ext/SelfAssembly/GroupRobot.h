@@ -14,7 +14,7 @@ class GroupRobot: public Robot
     protected:
         void applyRobotPhysics();
     private:
-        void drawConnectionPoint(int offsetOrientation);
+        void drawConnectionPoint(const ConnectionPort& port);
         GroupRobotWorldModel* wm;
 };
 #endif //ROBOROBO2_GROUPROBOT_H

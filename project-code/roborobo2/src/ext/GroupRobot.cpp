@@ -49,24 +49,30 @@ void GroupRobot::applyRobotPhysics()
 void GroupRobot::show(){
 
     std::vector<std::shared_ptr<ConnectionPort>> ports = wm->getConnectionMechanism().getPorts();
-    if(gNumberOfConnectionPoints > 0){
-        for (int i = 0; i < gNumberOfConnectionPoints; i++){
-            drawConnectionPoint(ports[i]->getPosition().getOrientation());
-        }
+    for(auto& port: ports){
+        drawConnectionPoint(*(port.get()));
     }
 
     Robot::show();
 }
 
-void GroupRobot::drawConnectionPoint(int offsetOrientation){
+void GroupRobot::drawConnectionPoint(const ConnectionPort& port){
 
+    double offsetOrientation = port.getPosition().getOrientation();
     double x1 = (_wm->_xReal + cos((offsetOrientation) * M_PI / 180)*15);
     double y1 = (_wm->_yReal + sin((offsetOrientation) * M_PI / 180)*15);
     double x2 = (_wm->_xReal + cos((offsetOrientation) * M_PI / 180)*25);
     double y2 = (_wm->_yReal + sin((offsetOrientation) * M_PI / 180)*25);
 
-    traceRayRGBA(gScreen, x1, y1, x2, y2, 255 , 0 , 0 , 255);
-    traceRayRGBA(gScreen, x1 + 1, y1 + 1, x2 + 1, y2 + 1, 255 , 0 , 0 , 255);
-    traceRayRGBA(gScreen, x1 - 1, y1 - 1, x2 - 1, y2 - 1, 255 , 0 , 0 , 255);
+    if(port.isEngaged()){
+        traceRayRGBA(gScreen, x1, y1, x2, y2, 0 , 255 , 0 , 255);
+        traceRayRGBA(gScreen, x1 + 1, y1 + 1, x2 + 1, y2 + 1, 0 , 255 , 0 , 255);
+        traceRayRGBA(gScreen, x1 - 1, y1 - 1, x2 - 1, y2 - 1, 0 , 255 , 0 , 255);
+    }else{
+        traceRayRGBA(gScreen, x1, y1, x2, y2, 255 , 0 , 0 , 255);
+        traceRayRGBA(gScreen, x1 + 1, y1 + 1, x2 + 1, y2 + 1, 255 , 0 , 0 , 255);
+        traceRayRGBA(gScreen, x1 - 1, y1 - 1, x2 - 1, y2 - 1, 255 , 0 , 0 , 255);
+    }
+
 
 }
