@@ -27,11 +27,8 @@ class GroupRobotWorldModel: public RobotWorldModel
         void addRobotToGroup(GroupRobotWorldModel* robot);
         void updateTranslationVector();
         void setGroup(std::shared_ptr<RobotGroup> group);
-
         Vector2<double> getTranslation();
-
         std::shared_ptr<RobotGroup> getGroup();
-
         ConnectionMechanisms& getConnectionMechanism();
         CommunicationModule& getCommunicationModule();
         void setId(int id);

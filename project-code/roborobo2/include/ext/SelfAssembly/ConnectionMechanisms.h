@@ -10,6 +10,15 @@ class GroupRobotWorldModel;
 
 class ConnectionMechanisms
 {
+    private:
+        std::unordered_map<GroupRobotWorldModel*, std::shared_ptr<ConnectionPort>> portMap;
+        std::vector<std::shared_ptr<ConnectionPort>> ports;
+        GroupRobotWorldModel* owner;
+        void visitNeighbors(std::unordered_set<GroupRobotWorldModel*>& visited);
+        double desiredRotationalVelocity;
+        double rotationalVelocity;
+        double orientation;
+
     public:
         ConnectionMechanisms(GroupRobotWorldModel* owner, std::vector<std::shared_ptr<ConnectionPort>> ports);
         virtual bool canConnect(GroupRobotWorldModel* otherWM);
@@ -19,12 +28,14 @@ class ConnectionMechanisms
         std::unordered_set<GroupRobotWorldModel*> findConnectedRobots();
         std::vector<std::shared_ptr<ConnectionPort>> getPorts();
         std::unordered_map<GroupRobotWorldModel*, std::shared_ptr<ConnectionPort>> getConnections();
+        double getOrientation();
+        void setOrientation(double orientation);
+        double getDesiredRotationalVelocity();
+        void setDesiredRotationalVelocity(double velocity);
+        double  getRotationalVelocity();
+        void setRotationalVelocity(double velocity);
 
-private:
-        std::unordered_map<GroupRobotWorldModel*, std::shared_ptr<ConnectionPort>> portMap;
-        std::vector<std::shared_ptr<ConnectionPort>> ports;
-        GroupRobotWorldModel* owner;
-        void visitNeighbors(std::unordered_set<GroupRobotWorldModel*>& visited);
+
 
 };
 

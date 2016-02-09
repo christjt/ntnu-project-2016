@@ -65,6 +65,34 @@ void ConnectionMechanisms::visitNeighbors(std::unordered_set<GroupRobotWorldMode
     }
 }
 
+double ConnectionMechanisms::getOrientation()
+{
+    return orientation;
+}
+
+void ConnectionMechanisms::setOrientation(double orientation)
+{
+    this->orientation = orientation;
+}
+double ConnectionMechanisms::getDesiredRotationalVelocity()
+{
+    return desiredRotationalVelocity;
+}
+
+void ConnectionMechanisms::setDesiredRotationalVelocity(double velocity)
+{
+    this->desiredRotationalVelocity = velocity;
+}
+
+double ConnectionMechanisms::getRotationalVelocity()
+{
+    return rotationalVelocity;
+}
+
+void ConnectionMechanisms::setRotationalVelocity(double velocity)
+{
+    this->rotationalVelocity = velocity;
+}
 
 std::unordered_map<GroupRobotWorldModel*, std::shared_ptr<ConnectionPort>> ConnectionMechanisms::getConnections()
 {
