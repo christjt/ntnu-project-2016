@@ -48,8 +48,7 @@ void GroupRobot::applyRobotPhysics()
 
 void GroupRobot::show(){
 
-    std::vector<std::shared_ptr<ConnectionPort>> ports = wm->getConnectionMechanism().getPorts();
-    for(auto& port: ports){
+    for(auto& port: wm->getConnectionMechanism().getPorts()){
         drawConnectionPoint(*(port.get()));
     }
 

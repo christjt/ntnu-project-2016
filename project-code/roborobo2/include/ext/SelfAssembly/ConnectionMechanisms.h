@@ -27,7 +27,7 @@ class ConnectionMechanisms
         virtual void disconnect(GroupRobotWorldModel* neighbor);
         bool isWorldModelInConnections(GroupRobotWorldModel* target);
         std::unordered_set<GroupRobotWorldModel*> findConnectedRobots();
-        std::vector<std::shared_ptr<ConnectionPort>> getPorts();
+        const std::vector<std::shared_ptr<ConnectionPort>> &getPorts();
         std::unordered_map<GroupRobotWorldModel*, std::shared_ptr<ConnectionPort>> getConnections();
         double getOrientation();
         void setOrientation(double orientation);
