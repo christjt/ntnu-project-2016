@@ -23,7 +23,7 @@ Vector2<double> PortPosition::getPosition() const
 }
 double PortPosition::getOrientation() const
 {
-    return orientation + _wm->_agentAbsoluteOrientation;
+    return orientation + _wm->getConnectionMechanism().getOrientation();
 }
 
 
