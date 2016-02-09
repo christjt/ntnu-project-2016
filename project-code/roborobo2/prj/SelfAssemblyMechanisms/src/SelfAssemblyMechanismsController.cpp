@@ -32,7 +32,7 @@ void SelfAssemblyMechanismsController::step()
 	((GroupRobotWorldModel*)_wm)->getCommunicationModule().broadcast(RobotMessage(message));
 	auto received = ((GroupRobotWorldModel*)_wm)->getCommunicationModule().read(gInitialNumberOfRobots);
 
-
+	((GroupRobotWorldModel*)_wm)->getConnectionMechanism().setDesiredRotationalVelocity(1.0);
 	for(int i = 0; i < _wm->_cameraSensorsNb; i++)
 	{
 		auto distance =  _wm->getDistanceValueFromCameraSensor(i);
