@@ -42,6 +42,7 @@ void GroupRobot::applyRobotPhysics()
 }
 
 void GroupRobot::show(){
+    wm->getConnectionMechanism().getPorts();
     if(gNumberOfConnectionPoints > 0){
         int radCounter = 360/gNumberOfConnectionPoints;
         for (int i = 0; i < gNumberOfConnectionPoints; i++){

@@ -22,6 +22,7 @@ class ConnectionPort{
         void disconnect();
         bool canDisconnect();
         PortType getPortType() const;
+        PortPosition getPosition() const;
 
 
 };

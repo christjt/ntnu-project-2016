@@ -82,5 +82,8 @@ PortType ConnectionPort::getPortType() const
 {
     return portType;
 }
-
+PortPosition ConnectionPort::getPosition() const
+{
+    return position;
+}
 
