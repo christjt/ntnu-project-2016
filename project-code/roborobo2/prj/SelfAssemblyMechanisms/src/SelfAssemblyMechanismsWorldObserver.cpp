@@ -21,7 +21,6 @@ PortPosition* second;
 SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World *__world ) : WorldObserver( __world )
 {
 	_world = __world;
-
 }
 
 SelfAssemblyMechanismsWorldObserver::~SelfAssemblyMechanismsWorldObserver()
@@ -31,17 +30,17 @@ SelfAssemblyMechanismsWorldObserver::~SelfAssemblyMechanismsWorldObserver()
 
 void SelfAssemblyMechanismsWorldObserver::reset()
 {
-	first = new PortPosition((GroupRobotWorldModel*) _world->getRobot(0)->getWorldModel());
-	second = new PortPosition((GroupRobotWorldModel*) _world->getRobot(1)->getWorldModel());
+	first = new PortPosition((GroupRobotWorldModel*) _world->getRobot(0)->getWorldModel(), 0);
+	second = new PortPosition((GroupRobotWorldModel*) _world->getRobot(1)->getWorldModel(), 0);
 }
 
 void SelfAssemblyMechanismsWorldObserver::step()
 {
 	//BEGIN::ConnectionPortTesting
 
-	std::cout << first->getPosX(0) << " " << first->getPosY(0) << "\n";
-	std::cout << second->getPosX(180) << " " << second->getPosY(180) << "\n";
-	std::cout << first->isGeometricValidConnection(0, second, 180) << "\n\n";
+	std::cout << first->getPosition() << std::endl;
+	std::cout << second->getPosition() << std::endl;
+
 
 	//END::ConnectionPortTesting
 

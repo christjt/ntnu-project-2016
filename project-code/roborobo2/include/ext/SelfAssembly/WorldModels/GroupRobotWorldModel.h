@@ -19,6 +19,7 @@ class GroupRobotWorldModel: public RobotWorldModel
         Vector2<double> translation;
         ConnectionMechanisms connectionMechanism;
         CommunicationModule communicationModule;
+        std::vector<std::shared_ptr<ConnectionPort>> makePorts();
     public:
         GroupRobotWorldModel();
         void connectTo(GroupRobotWorldModel* other);

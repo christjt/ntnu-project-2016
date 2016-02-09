@@ -1,6 +1,8 @@
 #ifndef ROBOROBO2_VECTOR2_H
 #define ROBOROBO2_VECTOR2_H
 
+#include <math.h>
+#include <ostream>
 template <class T>
 struct Vector2
 {
@@ -45,6 +47,9 @@ struct Vector2
     {
         return sqrt(x*x + y*y);
     }
+
+    friend std::ostream& operator<<(std::ostream &strm, const Vector2<double> vec);
+
 
 };
 

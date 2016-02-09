@@ -31,7 +31,7 @@ bool ConnectionMechanisms::connect(GroupRobotWorldModel* otherWM)
     auto otherPorts = otherWM->getConnectionMechanism().getPorts();
     for(auto port: ports){
         auto eligiblePort = std::find_if(otherPorts.begin(), otherPorts.end(), [&port](std::shared_ptr<ConnectionPort> &otherPort){
-            return otherPort->canConnectTo(port.get());
+            return otherPort->canConnectTo(*(port.get()));
         });
 
         if(eligiblePort != otherPorts.end()){

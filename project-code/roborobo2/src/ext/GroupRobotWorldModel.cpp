@@ -1,15 +1,19 @@
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
+#include "SelfAssembly/PortPosition.h"
 #include <unordered_set>
-std::vector<std::shared_ptr<ConnectionPort>> make_ports(){
+
+std::vector<std::shared_ptr<ConnectionPort>> GroupRobotWorldModel::makePorts()
+{
     std::vector<std::shared_ptr<ConnectionPort>> ports;
-    auto port = std::shared_ptr<ConnectionPort>(new ConnectionPort(PortType::Unisex));
-    auto port2 = std::shared_ptr<ConnectionPort>(new ConnectionPort(PortType::Unisex));
+    auto port = std::shared_ptr<ConnectionPort>(new ConnectionPort(PortType::Unisex, PortPosition(this, 0)));
+    auto port2 = std::shared_ptr<ConnectionPort>(new ConnectionPort(PortType::Unisex, PortPosition(this, 0)));
     ports.push_back(port);
     ports.push_back(port2);
     return ports;
-
 }
-GroupRobotWorldModel::GroupRobotWorldModel():connectionMechanism(this, make_ports()), communicationModule(this) {
+
+GroupRobotWorldModel::GroupRobotWorldModel():connectionMechanism(this, makePorts()), communicationModule(this)
+{
 
 }
 

@@ -5,29 +5,17 @@
 #ifndef ROBOROBO2_PORTPOSITION_H
 #define ROBOROBO2_PORTPOSITION_H
 
-#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
-
+#include "Utilities/Vector2.h"
+class GroupRobotWorldModel;
 class PortPosition {
     private:
-        int _posX;
-        int _posY;
-
+        double orientation;
         GroupRobotWorldModel* _wm;
 
-        bool isOrientationalSound(int sourceOrientation, int targetOrientation);
-        bool isSpatiallySound(PortPosition* target, int targetOrientation);
-
     public:
-        PortPosition(GroupRobotWorldModel* sourceRobotModel);
-
-        PortPosition* getPortPosition(int orientation);
-
-        bool isGeometricValidConnection(int sourceOrientation, PortPosition* target, int targetOrientation);
-
-        void updatePosition(int orientation);
-
-        int getPosX(int orientation) { updatePosition(orientation); return _posX; };
-        int getPosY(int orientation) { updatePosition(orientation); return _posY; };
+        PortPosition(GroupRobotWorldModel* sourceRobotModel, double orientation);
+        Vector2<double> getPosition() const;
+        double getOrientation() const;
 
 
 };

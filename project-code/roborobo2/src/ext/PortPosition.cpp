@@ -4,39 +4,26 @@
 
 #include "SelfAssembly/PortPosition.h"
 #include "Utilities/Vector2.h"
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 #include <stdlib.h>
 
-const int _collisionPositionOffset = 5;
-const int _collisionOrientationOffset = 1;
-const int PERFECT_ORIENTATIONAL_FIT = 180;
 
-PortPosition::PortPosition(GroupRobotWorldModel *sourceRobotModel) {
+
+PortPosition::PortPosition(GroupRobotWorldModel *sourceRobotModel, double orientation) {
     _wm = sourceRobotModel;
+    this->orientation = orientation;
 }
 
-PortPosition* PortPosition::getPortPosition(int orientation){
-    updatePosition(orientation);
-    return this;
+Vector2<double> PortPosition::getPosition() const
+{
+    Vector2<double> pos;
+    pos.x = _wm->_xReal + cos((_wm->_agentAbsoluteOrientation + orientation) * M_PI / 180)*20;
+    pos.y = _wm->_yReal + sin((_wm->_agentAbsoluteOrientation + orientation) * M_PI / 180)*20;
+    return pos;
 }
-
-void PortPosition::updatePosition(int orientation){
-    _posX = (_wm->_xReal + cos((orientation) * M_PI / 180)*20);
-    _posY = (_wm->_yReal + sin((orientation) * M_PI / 180)*20);
-}
-
-bool PortPosition::isGeometricValidConnection(int sourceOrientation, PortPosition* target, int targetOrientation){
-    updatePosition(sourceOrientation);
-    target->updatePosition(targetOrientation);
-
-    return isOrientationalSound(sourceOrientation, targetOrientation) && isSpatiallySound(target, targetOrientation);
-}
-
-bool PortPosition::isOrientationalSound(int sourceOrientation, int targetOrientation){
-    return (abs(sourceOrientation - targetOrientation) < PERFECT_ORIENTATIONAL_FIT + _collisionOrientationOffset) && (abs(sourceOrientation - targetOrientation) > PERFECT_ORIENTATIONAL_FIT - _collisionOrientationOffset);
-}
-
-bool PortPosition::isSpatiallySound(PortPosition* target, int targetOrientation){
-    return sqrt((_posX - target->getPosX(targetOrientation)) * (_posX - target->getPosX(targetOrientation)) + (_posY - target->getPosY(targetOrientation)) * (_posY - target->getPosY(targetOrientation))) < _collisionPositionOffset;
+double PortPosition::getOrientation() const
+{
+    return orientation + _wm->_agentAbsoluteOrientation;
 }
 
 

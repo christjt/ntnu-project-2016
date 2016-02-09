@@ -2,21 +2,26 @@
 #define ROBOROBO2_CONNECTIONPORT_H
 
 #include <vector>
+#include "SelfAssembly/PortPosition.h"
 enum class PortType{Male, Female, Unisex};
 class ConnectionPort{
 
     private:
+        PortPosition position;
         ConnectionPort* connectedTo = nullptr;
         PortType portType;
-        bool portsCompatible(PortType other);
+        bool portsCompatible(const PortType& other) const;
+        bool isOrientationalSound(const PortPosition& other) const;
+        bool isSpatiallySound(const PortPosition& other) const;
+        bool isGeometricValidConnection(const PortPosition& other) const;
     public:
-        ConnectionPort(PortType portType);
+        ConnectionPort(const PortType &portType, const PortPosition& position);
         bool connect(ConnectionPort* other);
-        bool canConnectTo(ConnectionPort* other);
-        bool isEngaged();
+        bool canConnectTo(const ConnectionPort& other) const;
+        bool isEngaged() const;
         void disconnect();
         bool canDisconnect();
-        PortType getPortType();
+        PortType getPortType() const;
 
 
 };
