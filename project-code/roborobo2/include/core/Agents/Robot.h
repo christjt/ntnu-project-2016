@@ -58,11 +58,11 @@ class Robot : public Agent
     
         void initRobotPhysics( );
 
-        void applyRobotPhysics( );
 
 	protected:
 		RobotWorldModel *_wm;
 		void traceRayRGBA(SDL_Surface * dst, int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a); // for screen rendering only
+		virtual void applyRobotPhysics( );
 
 
 	public:
@@ -74,7 +74,7 @@ class Robot : public Agent
 
 		virtual void stepBehavior();
 		virtual void stepBehavior(Uint8* __keyboardStates);
-		void applyDynamics();
+		virtual void applyDynamics();
 		void callObserver(); // call the embedded genetic engine -- always called before stepBehavior.
 
 		 // use transl/rot delta to compute x/y delta.

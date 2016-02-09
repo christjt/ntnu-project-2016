@@ -1,8 +1,44 @@
 #include "SelfAssembly/GroupRobot.h"
 
+double sign(double num);
+
 GroupRobot::GroupRobot( World*__world ):Robot(__world)
 {
+    wm = (GroupRobotWorldModel*)_wm;
+}
 
+void GroupRobot::applyDynamics(){
+    Robot::applyDynamics();
+    ConnectionMechanisms& connectionMechanism = wm->getConnectionMechanism();
+    double desired = fabs(connectionMechanism.getDesiredRotationalVelocity());
+    if(desired > 0){
+        if(desired < connectionMechanism.getMaxRotationalVelocity()){
+            connectionMechanism.setRotationalVelocity(connectionMechanism.getDesiredRotationalVelocity());
+        }else{
+            connectionMechanism.setRotationalVelocity(sign(connectionMechanism.getDesiredRotationalVelocity())*connectionMechanism.getMaxRotationalVelocity());
+        }
+    }
+
+    wm->updateTranslationVector();
+}
+
+double sign(double num){
+    return num > 0 ? 1.0 : -1.0;
+}
+
+void GroupRobot::applyRobotPhysics()
+{
+    Robot::applyRobotPhysics();
+    ConnectionMechanisms& connectionMechanism = wm->getConnectionMechanism();
+    double orientation = connectionMechanism.getOrientation() + connectionMechanism.getRotationalVelocity();
+    if(orientation > 360.0){
+        orientation -= 360.0;
+    }else{
+        if(orientation < -360){
+            orientation += 360;
+        }
+    }
+    connectionMechanism.setOrientation(orientation);
 }
 
 void GroupRobot::show(){

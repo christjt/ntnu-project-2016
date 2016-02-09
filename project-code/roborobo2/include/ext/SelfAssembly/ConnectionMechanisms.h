@@ -18,6 +18,7 @@ class ConnectionMechanisms
         double desiredRotationalVelocity;
         double rotationalVelocity;
         double orientation;
+        double maxRotationalVelocity = 45.0;
 
     public:
         ConnectionMechanisms(GroupRobotWorldModel* owner, std::vector<std::shared_ptr<ConnectionPort>> ports);
@@ -34,6 +35,7 @@ class ConnectionMechanisms
         void setDesiredRotationalVelocity(double velocity);
         double  getRotationalVelocity();
         void setRotationalVelocity(double velocity);
+        double getMaxRotationalVelocity();
 
 
 

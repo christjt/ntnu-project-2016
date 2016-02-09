@@ -494,8 +494,7 @@ void Robot::applyDynamics()
 	// note: the next locomotion-related method called will be the "move" method. It handles collision.
 	// In case of collision, actual translation/rotation variables will be updated accordingly
 	// Keep in mind that roborobo philosophy assumes pixel-based level of details for collision.
-	auto groupWM = (GroupRobotWorldModel*)_wm;
-	groupWM->updateTranslationVector();
+
 }
 
 
