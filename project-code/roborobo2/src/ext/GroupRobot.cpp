@@ -9,7 +9,12 @@ GroupRobot::GroupRobot( World*__world ):Robot(__world)
 
 void GroupRobot::applyDynamics(){
     Robot::applyDynamics();
+    wm->updateTranslationVector();
     ConnectionMechanisms& connectionMechanism = wm->getConnectionMechanism();
+    if(connectionMechanism.numConnections() > 0){
+        connectionMechanism.setRotationalVelocity(0);
+        return;
+    }
     double desired = fabs(connectionMechanism.getDesiredRotationalVelocity());
     if(desired > 0){
         if(desired < connectionMechanism.getMaxRotationalVelocity()){
@@ -19,7 +24,7 @@ void GroupRobot::applyDynamics(){
         }
     }
 
-    wm->updateTranslationVector();
+
 }
 
 double sign(double num){

@@ -98,6 +98,9 @@ double ConnectionMechanisms::getMaxRotationalVelocity(){
     return maxRotationalVelocity;
 }
 
+int ConnectionMechanisms::numConnections(){
+    return portMap.size();
+}
 std::unordered_map<GroupRobotWorldModel*, std::shared_ptr<ConnectionPort>> ConnectionMechanisms::getConnections()
 {
     return portMap;

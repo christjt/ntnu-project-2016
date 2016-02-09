@@ -36,6 +36,7 @@ class ConnectionMechanisms
         double  getRotationalVelocity();
         void setRotationalVelocity(double velocity);
         double getMaxRotationalVelocity();
+        int numConnections();
 
 
 
