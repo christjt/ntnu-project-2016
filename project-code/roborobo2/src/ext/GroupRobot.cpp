@@ -42,11 +42,11 @@ void GroupRobot::applyRobotPhysics()
 }
 
 void GroupRobot::show(){
-    wm->getConnectionMechanism().getPorts();
+
+    std::vector<std::shared_ptr<ConnectionPort>> ports = wm->getConnectionMechanism().getPorts();
     if(gNumberOfConnectionPoints > 0){
-        int radCounter = 360/gNumberOfConnectionPoints;
         for (int i = 0; i < gNumberOfConnectionPoints; i++){
-            drawConnectionPoint(radCounter*i);
+            drawConnectionPoint(ports[i]->getPosition().getOrientation());
         }
     }
 
