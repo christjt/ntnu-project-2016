@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-const int _collisionPositionOffset = 5;
-const int _collisionOrientationOffset = 1;
-const int PERFECT_ORIENTATIONAL_FIT = 180;
+const double _collisionPositionOffset = 10.0;
+const double _collisionOrientationOffset = 1.0;
+const double PERFECT_ORIENTATIONAL_FIT = 180.0;
 
 ConnectionPort::ConnectionPort(const PortType& _portType, const PortPosition& _position):position(_position), portType(_portType)
 {
@@ -57,7 +57,7 @@ bool ConnectionPort::isOrientationalSound(const PortPosition& other) const
 {
     double otherOrientation = other.getOrientation();
     double thisOrientation = position.getOrientation();
-    return (abs(thisOrientation- otherOrientation) < PERFECT_ORIENTATIONAL_FIT + _collisionOrientationOffset) && (abs(thisOrientation - otherOrientation) > PERFECT_ORIENTATIONAL_FIT - _collisionOrientationOffset);
+    return (fabs(thisOrientation- otherOrientation) < (PERFECT_ORIENTATIONAL_FIT + _collisionOrientationOffset)) && (fabs(thisOrientation - otherOrientation) > (PERFECT_ORIENTATIONAL_FIT - _collisionOrientationOffset));
 }
 
 bool ConnectionPort::isSpatiallySound(const PortPosition& other) const

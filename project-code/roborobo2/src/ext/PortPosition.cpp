@@ -17,8 +17,8 @@ PortPosition::PortPosition(GroupRobotWorldModel *sourceRobotModel, double orient
 Vector2<double> PortPosition::getPosition() const
 {
     Vector2<double> pos;
-    pos.x = _wm->_xReal + cos((_wm->getConnectionMechanism().getOrientation() + orientation) * M_PI / 180)*20;
-    pos.y = _wm->_yReal + sin((_wm->getConnectionMechanism().getOrientation() + orientation) * M_PI / 180)*20;
+    pos.x = _wm->_xReal + cos((_wm->getConnectionMechanism().getOrientation() + orientation) * M_PI / 180)*(gRobotWidth*0.5);
+    pos.y = _wm->_yReal + sin((_wm->getConnectionMechanism().getOrientation() + orientation) * M_PI / 180)*(gRobotWidth*0.5);
     return pos;
 }
 double PortPosition::getOrientation() const

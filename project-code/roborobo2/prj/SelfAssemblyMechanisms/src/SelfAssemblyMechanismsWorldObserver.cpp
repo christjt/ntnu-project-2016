@@ -30,16 +30,12 @@ SelfAssemblyMechanismsWorldObserver::~SelfAssemblyMechanismsWorldObserver()
 
 void SelfAssemblyMechanismsWorldObserver::reset()
 {
-	first = new PortPosition((GroupRobotWorldModel*) _world->getRobot(0)->getWorldModel(), 0);
-	second = new PortPosition((GroupRobotWorldModel*) _world->getRobot(1)->getWorldModel(), 0);
 }
 
 void SelfAssemblyMechanismsWorldObserver::step()
 {
 	//BEGIN::ConnectionPortTesting
 
-	std::cout << first->getPosition() << std::endl;
-	std::cout << second->getPosition() << std::endl;
 
 
 	//END::ConnectionPortTesting

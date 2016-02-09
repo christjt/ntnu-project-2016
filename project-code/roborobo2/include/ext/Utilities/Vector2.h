@@ -40,7 +40,7 @@ struct Vector2
 
     Vector2<T> operator-(const Vector2<T>& other)
     {
-        return Vector2<T>{x=this->x - other.x, y=this->y - other.y};
+        return Vector2<T>(this->x - other.x, this->y - other.y);
     }
 
     T length()
