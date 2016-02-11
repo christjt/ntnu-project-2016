@@ -978,32 +978,28 @@ void Robot::initRobotPhysics ()
  e.g.: slippery terrain, proprioceptive sensor defect, etc.
  interpretation: all the world dynamics that cannot be grasped through proprioceptive sensors
  */
+
 void Robot::applyRobotPhysics( )
 {
 	// * update internal data
-	auto groupWM = (GroupRobotWorldModel*)_wm;
-	Vector2<double> translation = {.x = 0, .y = 0};
 
-	for(auto it = groupWM->getGroup()->begin(); it!= groupWM->getGroup()->end(); it++){
-		auto robotWM = (*it).second;
-		translation += robotWM->getTranslation();
-	}
-	_wm->_agentAbsoluteLinearSpeed = translation.length()/(groupWM->getGroup()->size());
-	_wm->_agentAbsoluteOrientation = (180/M_PI)*atan2(translation.y, translation.x);//_wm->_agentAbsoluteOrientation + _wm->_actualRotationalVelocity;
+	_wm->_agentAbsoluteLinearSpeed = _wm->_actualTranslationalValue;
+	_wm->_agentAbsoluteOrientation += _wm->_actualRotationalVelocity;
+
 	// * recalibrate orientation within ]-180°,+180°]
-    
-    while ( _wm->_agentAbsoluteOrientation <= -180.0 || _wm->_agentAbsoluteOrientation > 180.0 ) // assume that it is highly unlikely that this while should loop. (depends from maximal angular velocity)
-    {
-        if ( _wm->_agentAbsoluteOrientation <= -180.0 )
-        {
-            _wm->_agentAbsoluteOrientation = _wm->_agentAbsoluteOrientation + 360.0;
-        }
-        else
-        {
-            if ( _wm->_agentAbsoluteOrientation > 180.0 )
-            {
-                _wm->_agentAbsoluteOrientation = _wm->_agentAbsoluteOrientation - 360.0;
-            }
-        }
-    }
+
+	while ( _wm->_agentAbsoluteOrientation <= -180.0 || _wm->_agentAbsoluteOrientation > 180.0 ) // assume that it is highly unlikely that this while should loop. (depends from maximal angular velocity)
+	{
+		if ( _wm->_agentAbsoluteOrientation <= -180.0 )
+		{
+			_wm->_agentAbsoluteOrientation = _wm->_agentAbsoluteOrientation + 360.0;
+		}
+		else
+		{
+			if ( _wm->_agentAbsoluteOrientation > 180.0 )
+			{
+				_wm->_agentAbsoluteOrientation = _wm->_agentAbsoluteOrientation - 360.0;
+			}
+		}
+	}
 }

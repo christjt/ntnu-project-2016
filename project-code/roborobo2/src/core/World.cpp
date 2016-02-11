@@ -214,7 +214,7 @@ void World::updateWorld(Uint8 *__keyboardStates)
 	updateAgentControllers(shuffledIndex, __keyboardStates);
 	// * move the agent -- apply (limited) physics
 	moveAgents(shuffledIndex);
-    
+
     gLogManager->flush();
     
 	_iterations++;
@@ -261,6 +261,7 @@ void World::moveAgents(int* shuffledIndex)
 	for ( int i = 0 ; i < gNumberOfRobots ; i++ )
 	{
 		moveAgent(shuffledIndex[i]);
+
 	}
 
 }
