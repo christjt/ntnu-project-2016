@@ -105,7 +105,7 @@ std::unordered_map<GroupRobotWorldModel*, std::shared_ptr<ConnectionPort>> Conne
 {
     return portMap;
 }
-std::vector<std::shared_ptr<ConnectionPort>> ConnectionMechanisms::getPorts()
+const std::vector<std::shared_ptr<ConnectionPort>> &ConnectionMechanisms::getPorts()
 {
     return ports;
 }
