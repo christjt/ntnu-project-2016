@@ -11,6 +11,7 @@
 SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) : Controller ( __wm )
 {
 	// nothing to do
+	groupWM = (GroupRobotWorldModel*)_wm;
 }
 
 SelfAssemblyMechanismsController::~SelfAssemblyMechanismsController()
@@ -25,6 +26,15 @@ void SelfAssemblyMechanismsController::reset()
 
 void SelfAssemblyMechanismsController::step()
 {
+	if(!_wm->isAlive()){
+		_wm->_desiredTranslationalValue = 0.0;
+		_wm->_desiredRotationalVelocity = 0.0;
+		groupWM->getConnectionMechanism().setDesiredRotationalVelocity(0.0);
+		return;
+	}
+
+
+
 	_wm->_desiredTranslationalValue = 0.5;
 	std::vector<float> message = std::vector<float>(gInitialNumberOfRobots);
 	message[_wm->getId()] = 1.0;

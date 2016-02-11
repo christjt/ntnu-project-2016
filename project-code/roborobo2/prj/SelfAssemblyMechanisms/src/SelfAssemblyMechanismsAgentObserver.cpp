@@ -13,6 +13,8 @@ SelfAssemblyMechanismsAgentObserver::SelfAssemblyMechanismsAgentObserver( )
 SelfAssemblyMechanismsAgentObserver::SelfAssemblyMechanismsAgentObserver( RobotWorldModel *__wm )
 {
 	_wm = __wm;
+    _wm->setEnergyLevel(gEnergyInit);
+
 }
 
 SelfAssemblyMechanismsAgentObserver::~SelfAssemblyMechanismsAgentObserver()
@@ -23,12 +25,21 @@ SelfAssemblyMechanismsAgentObserver::~SelfAssemblyMechanismsAgentObserver()
 void SelfAssemblyMechanismsAgentObserver::reset()
 {
 	// nothing to do.
+
 }
 
 void SelfAssemblyMechanismsAgentObserver::step()
 {
     // * send callback messages to objects touched or walked upon.
-    
+
+    if(_wm->getEnergyLevel() > 0)
+    {
+        _wm->substractEnergy(1);
+        std::cout << _wm->getEnergyLevel() << std::endl;
+
+        if(_wm->getEnergyLevel() <= 0)
+            _wm->setAlive(false);
+    }
     // through distance sensors
     for( int i = 0 ; i < _wm->_cameraSensorsNb; i++)
     {
