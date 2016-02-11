@@ -13,9 +13,12 @@
 #include "Controllers/Controller.h"
 
 #include "WorldModels/RobotWorldModel.h"
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
 class SelfAssemblyMechanismsController : public Controller
 {
+	protected:
+		GroupRobotWorldModel* groupWM;
 	public:
 		//Initializes the variables
 		SelfAssemblyMechanismsController( RobotWorldModel *__wm );

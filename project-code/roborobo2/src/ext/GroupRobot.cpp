@@ -22,6 +22,8 @@ void GroupRobot::applyDynamics(){
         }else{
             connectionMechanism.setRotationalVelocity(sign(connectionMechanism.getDesiredRotationalVelocity())*connectionMechanism.getMaxRotationalVelocity());
         }
+    }else{
+        connectionMechanism.setRotationalVelocity(0);
     }
 
 

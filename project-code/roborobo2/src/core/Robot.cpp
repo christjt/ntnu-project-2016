@@ -551,7 +551,6 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
 
 	if ( isCollision() )
 	{
-
 		_wm->_desiredTranslationalValue = 0; // cancel any translation order as agent translation speed is set to zero after collision. (note that rotation is still ok)
 		
 		if (_wm->_agentAbsoluteLinearSpeed >= 1.0 )
