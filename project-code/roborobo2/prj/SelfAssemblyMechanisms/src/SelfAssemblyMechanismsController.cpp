@@ -8,6 +8,7 @@
 #include "WorldModels/RobotWorldModel.h"
 #include "SelfAssembly/Communication/CommunicationModule.h"
 #include "World/World.h"
+#include "Agents/Robot.h"
 SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) : Controller ( __wm )
 {
 	// nothing to do
@@ -42,8 +43,10 @@ void SelfAssemblyMechanismsController::step()
 			{
 				auto world = _wm->_world;
 				auto other = world->getRobot((int)_wm->getObjectIdFromCameraSensor(i) - gRobotIndexStartOffset);
-				((GroupRobotWorldModel*)_wm)->connectTo((GroupRobotWorldModel*)other->getWorldModel());
-
+				if(!other->getIsPredator())
+				{
+					((GroupRobotWorldModel*)_wm)->connectTo((GroupRobotWorldModel*)other->getWorldModel());
+				}
 			}
 
 		}
