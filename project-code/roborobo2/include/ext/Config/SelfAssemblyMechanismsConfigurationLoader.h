@@ -9,6 +9,8 @@
 
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsPredatorController.h"
 
+#include "Agents/Predator.h"
+
 class SelfAssemblyMechanismsConfigurationLoader : public ConfigurationLoader
 {
 	public:
@@ -20,6 +22,7 @@ class SelfAssemblyMechanismsConfigurationLoader : public ConfigurationLoader
 		AgentObserver *make_AgentObserver(RobotWorldModel* wm) ;
 		Controller *make_Controller(RobotWorldModel* wm) ;
 		SelfAssemblyMechanismsPredatorController *make_PredatorController(RobotWorldModel* vm);
+		Predator *make_Predator(World* wm);
 		Robot *make_Robot(World* wm);
 };
 

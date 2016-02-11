@@ -62,8 +62,12 @@ ConfigurationLoader* ConfigurationLoader::make_ConfigurationLoader (std::string 
 	}
 }
 
-Robot * ConfigurationLoader::make_Robot(World* wm) {
+Robot* ConfigurationLoader::make_Robot(World* wm) {
 	return new Robot(wm);
+}
+
+Predator* ConfigurationLoader::make_Predator(World* wm) {
+	return NULL;
 }
 
 Controller* ConfigurationLoader::make_PredatorController(RobotWorldModel* wm) {

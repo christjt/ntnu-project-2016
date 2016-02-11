@@ -8,6 +8,7 @@
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsPredatorController.h"
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 #include "SelfAssembly/GroupRobot.h"
+#include "Agents/Predator.h"
 
 SelfAssemblyMechanismsConfigurationLoader::SelfAssemblyMechanismsConfigurationLoader()
 {
@@ -41,6 +42,10 @@ Controller* SelfAssemblyMechanismsConfigurationLoader::make_Controller(RobotWorl
 
 Robot* SelfAssemblyMechanismsConfigurationLoader::make_Robot(World* wm){
 	return new GroupRobot(wm);
+}
+
+Predator* SelfAssemblyMechanismsConfigurationLoader::make_Predator(World* wm) {
+	return new Predator(wm);
 }
 
 SelfAssemblyMechanismsPredatorController* SelfAssemblyMechanismsConfigurationLoader::make_PredatorController(RobotWorldModel* wm) {

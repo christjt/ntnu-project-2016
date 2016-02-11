@@ -40,9 +40,6 @@ class Robot : public Agent
 {
 	
 	private:
-	
-		Controller *_controller;
-		AgentObserver *_agentObserver;
 
         int _groupId; // used for seperating populations
     
@@ -61,12 +58,23 @@ class Robot : public Agent
 
 	protected:
 		RobotWorldModel *_wm;
+
+		Controller *_controller;
+		AgentObserver *_agentObserver;
+
+		bool _isPredator;
+
 		void traceRayRGBA(SDL_Surface * dst, int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a); // for screen rendering only
 		virtual void applyRobotPhysics( );
+
+		void initWorldModel(RobotWorldModel *_wm, World *__world);
+		void initSensors(RobotWorldModel *_wm);
+		void initRegisterSensors(RobotWorldModel *_wm);
 
 
 	public:
 		//Initializes the variables
+		Robot();
 		Robot( World *__world );
 		virtual ~Robot();
 
@@ -85,6 +93,10 @@ class Robot : public Agent
 		virtual void show();
 
 		bool isCollision();
+
+		void setIsPredator(bool isPredator){ _isPredator = isPredator; };
+
+		bool getIsPredator(){ return _isPredator; };
 
 		void setCoordReal (int __x, int __y); // agent is centered on point
 		

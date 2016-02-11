@@ -13,19 +13,40 @@
 #include <iomanip>
 #include "Utilities/Vector2.h"
 
+Robot::Robot()
+{
+	//Do nothing
+}
+
 Robot::Robot( World *__world )
 {
 	_wm = gConfigurationLoader->make_RobotWorldModel(); // TODO: externalize object referenced to create the new instance
 
+	//init world model
+	initWorldModel(_wm, __world);
+
+	//init sensors
+	initSensors(_wm);
+
+	
+	//register sensors
+	initRegisterSensors(_wm);
+
+	_agentObserver = gConfigurationLoader->make_AgentObserver(_wm);		// TODO: externalize
+	_controller = gConfigurationLoader->make_Controller(_wm);		// TODO: externalize
+
+	reset();
+}
+
+void Robot::initWorldModel(RobotWorldModel *_wm, World *__world)
+{
 	_wm->_world = __world;
 	_wm->setId(gNumberOfRobots);
 	gNumberOfRobots++;
+}
 
-	//Process agent specification (ie. IR/US/laser sensors)
-	
-	// create dynamic array
-	// parse image and add (sensor.x/y, orientation) or (sensorStart.x/y, sensorEnd.x/y)	
-	
+void Robot::initSensors(RobotWorldModel *_wm)
+{
 	_wm->_cameraSensorsNb = 0;
 
 	std::cout << gRobotHeight << "\n";
@@ -39,13 +60,15 @@ Robot::Robot( World *__world )
 				_wm->_cameraSensorsNb++;
 		}
 
-    _wm->initCameraSensors(_wm->_cameraSensorsNb );
-	
-    for ( int i = 0 ; i != _wm->_cameraSensorsNb ; i++ )
+	_wm->initCameraSensors(_wm->_cameraSensorsNb );
+
+	for ( int i = 0 ; i != _wm->_cameraSensorsNb ; i++ )
 		_wm->setCameraSensorValue(i,0,-1);
 	//int sensorIt = 0;
-	
-	//register sensors
+}
+
+void Robot::initRegisterSensors(RobotWorldModel *_wm)
+{
 	for ( int x = 0 ; x != gRobotWidth ; x++ )
 		for ( int y = 0 ; y != gRobotHeight ; y++ )
 		{
@@ -53,9 +76,9 @@ Robot::Robot( World *__world )
 			if ( pixel != SDL_MapRGBA( gRobotSpecsImage->format, 0xFF, 0xFF, 0xFF, 0 ) )
 			{
 				// sensor found, register sensor.
-				
+
 				Uint8 r, g, b;
-				SDL_GetRGB(pixel,gRobotSpecsImage->format,&r,&g,&b); 
+				SDL_GetRGB(pixel,gRobotSpecsImage->format,&r,&g,&b);
 
 				if ( _wm->getCameraSensorValue(r,0) != -1 )
 				{
@@ -69,9 +92,9 @@ Robot::Robot( World *__world )
 					exit(-1);
 				}
 
-				
+
 				_wm->setCameraSensorValue(r,0,r); // no. sensor
-				
+
 				// sensor origin point location wrt. agent center
 				_wm->setCameraSensorValue(r,1, sqrt ( (x-gRobotWidth/2) * (x-gRobotWidth/2) + (y-gRobotHeight/2) * (y-gRobotHeight/2) ) ); // length
 				double angleCosinus = ( (x-(gRobotWidth/2)) / _wm->getCameraSensorValue(r,1) );
@@ -82,7 +105,7 @@ Robot::Robot( World *__world )
 					_wm->setCameraSensorValue(r,2, -acos ( angleCosinus ) + M_PI/2 + M_PI*2 ); // angle (in radian)
 
 				// sensor target point location wrt. agent center -- sensor target angle is (green+blue) component values
-				double angle = g+b-90;   // note: '-90deg' is due to image definition convention (in image, 0° means front of agent, which is upward -- while 0° in simulation means facing right) 				
+				double angle = g+b-90;   // note: '-90deg' is due to image definition convention (in image, 0° means front of agent, which is upward -- while 0° in simulation means facing right)
 				double xTarget = ( x - gRobotWidth/2 ) + cos ( angle * M_PI / 180) * gSensorRange;
 				double yTarget = ( y - gRobotHeight/2 ) + sin ( angle * M_PI / 180) * gSensorRange;
 				_wm->setCameraSensorValue(r,3 ,sqrt ( xTarget*xTarget + yTarget*yTarget) ); // length (**from agent center**)
@@ -95,11 +118,6 @@ Robot::Robot( World *__world )
 				r++;
 			}
 		}
-	
-	_agentObserver = gConfigurationLoader->make_AgentObserver(_wm);		// TODO: externalize
-	_controller = gConfigurationLoader->make_Controller(_wm);		// TODO: externalize
-
-	reset();
 }
 
 

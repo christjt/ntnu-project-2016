@@ -30,14 +30,11 @@ SelfAssemblyMechanismsWorldObserver::~SelfAssemblyMechanismsWorldObserver()
 
 void SelfAssemblyMechanismsWorldObserver::reset()
 {
+
 }
 
 void SelfAssemblyMechanismsWorldObserver::step()
 {
-	//BEGIN::ConnectionPortTesting
 
-
-
-	//END::ConnectionPortTesting
 
 }

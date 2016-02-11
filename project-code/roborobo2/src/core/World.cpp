@@ -13,6 +13,8 @@
 
 #include "Config/GlobalConfigurationLoader.h"
 
+#include "Agents/Predator.h"
+
 
 /********/
 
@@ -131,14 +133,18 @@ void World::initWorld()
             }
 
 	// * initialize agents
-    
 	for ( int i = 0 ; i != gInitialNumberOfRobots ; i++ )
 	{
-		Robot *robot = gConfigurationLoader->make_Robot(this);
-		if(i < gNumberOfPredators){
-			robot->setController(gConfigurationLoader->make_PredatorController(robot->getWorldModel()));
+		if(i >= gInitialNumberOfRobots - gNumberOfPredators){
+			Predator* predator = gConfigurationLoader->make_Predator(this);
+			predator->setIsPredator(true);
+			this->addRobot(predator);
 		}
-        this->addRobot(robot);
+		else{
+			Robot *robot = gConfigurationLoader->make_Robot(this);
+			robot->setIsPredator(false);
+			this->addRobot(robot);
+		}
 	}
 
 	_worldObserver->reset();

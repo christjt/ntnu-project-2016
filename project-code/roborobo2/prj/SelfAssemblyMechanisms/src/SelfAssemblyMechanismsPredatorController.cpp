@@ -21,7 +21,6 @@ void SelfAssemblyMechanismsPredatorController::reset()
 
 void SelfAssemblyMechanismsPredatorController::step()
 {
-
     _wm->_desiredTranslationalValue =  + 1 - ( (double)gSensorRange - ((_wm->getCameraSensorValue(2,5)+_wm->getCameraSensorValue(3,5))/2) )  / (double)gSensorRange;
     if ( _wm->getCameraSensorValue(0,5) + _wm->getCameraSensorValue(1,5) + _wm->getCameraSensorValue(2,5) < _wm->getCameraSensorValue(3,5) + _wm->getCameraSensorValue(4,5) + _wm->getCameraSensorValue(5,5) )
         _wm->_desiredRotationalVelocity = +5;

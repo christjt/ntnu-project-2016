@@ -15,6 +15,7 @@
 #include "Utilities/ExtendedProperties.h"
 #include <string.h>
 #include "Agents/Robot.h"
+#include "Agents/Predator.h"
 
 
 class ConfigurationLoader
@@ -32,6 +33,7 @@ class ConfigurationLoader
 		virtual AgentObserver* make_AgentObserver(RobotWorldModel* wm) = 0 ;
 		virtual Controller* make_Controller(RobotWorldModel* wm) = 0;
 		virtual Controller* make_PredatorController(RobotWorldModel* wm) = 0;
+		virtual Predator *make_Predator(World* wm) = 0;
 		virtual Robot* make_Robot(World * wm);
 };
 
