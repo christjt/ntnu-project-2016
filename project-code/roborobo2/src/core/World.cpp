@@ -192,7 +192,9 @@ void World::updateWorld(Uint8 *__keyboardStates)
 	//    This is very important to avoid possible nasty effect from ordering such as "agents with low indexes moves first"
 	//    outcome: among many iterations, the effect of ordering is reduced.
 	//    This means that roborobo is turn-based, with stochastic update ordering within one turn
-	
+
+
+
     int shuffledIndex[gNumberOfRobots];
     
     for ( int i = 0 ; i < gNumberOfRobots ; i++ )
@@ -209,12 +211,14 @@ void World::updateWorld(Uint8 *__keyboardStates)
 	// update agent level observers
 	updateAgentObservers();
 
+
 	// * update world and agents
 	// controller step
 	updateAgentControllers(shuffledIndex, __keyboardStates);
 	// * move the agent -- apply (limited) physics
+
 	moveAgents(shuffledIndex);
-    
+
     gLogManager->flush();
     
 	_iterations++;
@@ -223,6 +227,7 @@ void World::updateWorld(Uint8 *__keyboardStates)
     {
         gRefreshUserDisplay = false;
     }
+
 }
 
 void World::updateAgentObservers()
