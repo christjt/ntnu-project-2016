@@ -101,7 +101,6 @@ CircleObject::CircleObject( int __id ) : PhysicalObject( __id ) // a unique and 
 void CircleObject::display() // display on screen (called in the step() method if gDisplayMode=0 and _visible=true)
 {
     //  draw footprint
-    
     Uint8 r = 0xF0;
     Uint8 g = 0xF0;
     Uint8 b = 0xF0;
@@ -134,12 +133,12 @@ void CircleObject::display() // display on screen (called in the step() method i
 			}
 		}
 	}
+
 }
 
 void CircleObject::hide()
 {
     //  hide footprint (draw white)
-    
     Uint8 r = 0xFF;
     Uint8 g = 0xFF;
     Uint8 b = 0xFF;
@@ -209,7 +208,6 @@ bool CircleObject::canRegister()
 void CircleObject::registerObject()
 {
     int id_converted = _id + gPhysicalObjectIndexStartOffset;
-    
     //  draw footprint
     
     Uint32 color = SDL_MapRGBA( gGroundSensorImage->format, (Uint8)((id_converted & 0xFF0000)>>16), (Uint8)((id_converted & 0xFF00)>>8), (Uint8)(id_converted & 0xFF), 0x00 );
@@ -226,7 +224,9 @@ void CircleObject::registerObject()
     }
     
     // draw object
-    
+    if(canBeWalked)
+        return;
+
     color = SDL_MapRGBA( gEnvironmentImage->format, (Uint8)((id_converted & 0xFF0000)>>16), (Uint8)((id_converted & 0xFF00)>>8), (Uint8)(id_converted & 0xFF), 0x00 );
     
     for (Sint16 xColor = _xCenterPixel - Sint16(_radius) ; xColor < _xCenterPixel + Sint16(_radius) ; xColor++)

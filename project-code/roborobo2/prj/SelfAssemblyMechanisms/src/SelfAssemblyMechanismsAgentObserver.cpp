@@ -35,8 +35,6 @@ void SelfAssemblyMechanismsAgentObserver::step()
     if(_wm->getEnergyLevel() > 0)
     {
         _wm->substractEnergy(1);
-        std::cout << _wm->getEnergyLevel() << std::endl;
-
         if(_wm->getEnergyLevel() <= 0)
             _wm->setAlive(false);
     }
