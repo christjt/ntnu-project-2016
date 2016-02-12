@@ -9,7 +9,7 @@
 EnergyItem::EnergyItem( int __id ) : CircleObject( __id ) // should only be called by PhysicalObjectFactory
 {
     setType(1);
-
+    canBeWalked = true;
     std::string s = "";
 	std::stringstream out;
 	out << getId();
@@ -56,7 +56,6 @@ void EnergyItem::isWalked( int __idAgent )
 //    if ( gVerbose && gDisplayMode <= 1)
 //        std::cout << "[DEBUG] Physical object #" << this->getId() << " (energy item) walked upon by robot #" << __idAgent << std::endl;
 
-    std::cout << "derp" << std::endl;
     double energyRequestedValueByRobot;
     double energyProvided;
     switch ( energyMode )
