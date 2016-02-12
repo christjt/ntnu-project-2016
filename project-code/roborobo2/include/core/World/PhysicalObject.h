@@ -33,7 +33,7 @@ protected :
     bool regrow;  // is currently regrowing? (ie. hidden)
     bool relocate; // relocate object when re-appear
     bool overwrite; // write object even if another object/robot will be overwritten.
-    bool canBeWalked;
+    bool isWalkable;
     bool _visible; // display option (default: true)
     
     void init();  // called by constructor only

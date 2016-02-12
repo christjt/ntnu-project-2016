@@ -6,10 +6,9 @@
 
 #include <iomanip>
 
-EnergyItem::EnergyItem( int __id ) : CircleObject( __id ) // should only be called by PhysicalObjectFactory
+EnergyItem::EnergyItem( int __id ) :CircleObject( __id ) // should only be called by PhysicalObjectFactory
 {
     setType(1);
-    canBeWalked = true;
     std::string s = "";
 	std::stringstream out;
 	out << getId();
