@@ -15,6 +15,13 @@ class SelfAssemblyMechanismsPredatorController : public Controller {
         void reset();
         void step();
 
+    private:
+        const double _orientationChange = 0.01;
+        int _orientationDirection;
+        const double _orientationThreshold = 0.01;
+        const double _boundaryPoint = 0.5;
+
+
 };
 
 
