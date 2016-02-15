@@ -100,8 +100,8 @@ class Robot : public Agent
 
 		void setCoordReal (int __x, int __y); // agent is centered on point
 		
-		void registerRobot();
-		void unregisterRobot();
+		virtual void registerRobot();
+		virtual void unregisterRobot();
 		
 		void behaviorUpdate_remoteController(Uint8* __keyStates);
 

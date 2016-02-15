@@ -6,7 +6,7 @@
 #define ROBOROBO2_SELFASSEMBLYMECHANISMSPREDATORCONTROLLER_H
 
 #include "Controllers/Controller.h"
-
+class Robot;
 class SelfAssemblyMechanismsPredatorController : public Controller {
 
     public:
@@ -14,6 +14,8 @@ class SelfAssemblyMechanismsPredatorController : public Controller {
 
         void reset();
         void step();
+        std::vector<std::pair<Robot*, double >> findPrey();
+        void eat(Robot* prey);
 
 };
 

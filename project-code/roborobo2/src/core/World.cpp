@@ -435,6 +435,11 @@ bool World::isRobotRegistered( int index )
 	return  robotRegistry[index];
 }
 
+void World::unregisterRobot(int index)
+{
+	robotRegistry[index] = false;
+}
+
 // Cf. World.h for explanation about why this function should NEVER be called -- function is implemented as is only to avoid any further temptation.
 void World::deleteRobot (int index )
 {

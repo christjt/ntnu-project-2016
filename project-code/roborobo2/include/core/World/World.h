@@ -54,6 +54,7 @@ class World
 		
 		Robot* getRobot( int index );
 		bool isRobotRegistered( int index );
+		void unregisterRobot(int index);
 
 		//delete an agent from the simulator. No other functions to call
         // THIS FUNCTION SHOULD NOT BE IMPLEMENTED AND SHOULD NEVER BE CALLED

@@ -75,6 +75,9 @@ void GroupRobot::applyRobotPhysics()
 
 void GroupRobot::show(){
 
+    if(!wm->isAlive())
+        return;
+
     for(auto& port: wm->getConnectionMechanism().getPorts()){
         drawConnectionPoint(*(port.get()));
     }
@@ -82,6 +85,13 @@ void GroupRobot::show(){
     Robot::show();
 }
 
+void GroupRobot::registerRobot()
+{
+    if(!wm->isAlive())
+        return;
+
+    Robot::registerRobot();
+}
 void GroupRobot::drawConnectionPoint(const ConnectionPort& port){
 
     double offsetOrientation = port.getPosition().getOrientation();

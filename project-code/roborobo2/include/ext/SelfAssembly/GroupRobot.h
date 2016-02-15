@@ -10,6 +10,7 @@ class GroupRobot: public Robot
         GroupRobot( World*__world );
         void show();
         void applyDynamics();
+        void registerRobot();
 
     protected:
         void applyRobotPhysics();

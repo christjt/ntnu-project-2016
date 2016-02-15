@@ -38,7 +38,7 @@ void DemoMedeaAgentObserver::step()
             _wm->substractEnergy(1);
             assert( _wm->getEnergyLevel() >= 0 );
             if ( _wm->getEnergyLevel() == 0 )
-                _wm->setAlive(false);
+               ;// _wm->setAlive(false);
         }
 
     // * send callback messages to objects touched or walked upon.

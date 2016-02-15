@@ -27,12 +27,12 @@ void SelfAssemblyMechanismsController::reset()
 
 void SelfAssemblyMechanismsController::step()
 {
-	/*if(!_wm->isAlive()){
+	if(!_wm->isAlive()){
 		_wm->_desiredTranslationalValue = 0.0;
 		_wm->_desiredRotationalVelocity = 0.0;
 		groupWM->getConnectionMechanism().setDesiredRotationalVelocity(0.0);
 		return;
-	}*/
+	}
 
 
 
