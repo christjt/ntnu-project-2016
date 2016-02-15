@@ -21,6 +21,7 @@ void RobotGroup::removeMember(GroupRobotWorldModel* robot){
     if(members.find(robot->getId()) == members.end()) return;
     members.erase(robot->getId());
     robot->setGroup(std::make_shared<RobotGroup>());
+    robot->getGroup()->addMember(robot);
 }
 void RobotGroup::mergeWith(std::shared_ptr<RobotGroup> other){
     auto owner = (*members.begin()).second;

@@ -9,6 +9,7 @@ GroupRobot::GroupRobot( World*__world ):Robot(__world)
 
 void GroupRobot::applyDynamics(){
     Robot::applyDynamics();
+
     wm->updateTranslationVector();
     ConnectionMechanisms& connectionMechanism = wm->getConnectionMechanism();
     if(connectionMechanism.numConnections() > 0){
@@ -26,7 +27,6 @@ void GroupRobot::applyDynamics(){
         connectionMechanism.setRotationalVelocity(0);
     }
 
-
 }
 
 double sign(double num){
@@ -37,7 +37,6 @@ void GroupRobot::applyRobotPhysics()
 {
     auto groupWM = (GroupRobotWorldModel*)_wm;
     Vector2<double> translation = {.x = 0, .y = 0};
-
     for(auto it = groupWM->getGroup()->begin(); it!= groupWM->getGroup()->end(); it++){
         auto robotWM = (*it).second;
         translation += robotWM->getTranslation();
@@ -45,7 +44,6 @@ void GroupRobot::applyRobotPhysics()
     _wm->_agentAbsoluteLinearSpeed = translation.length()/(groupWM->getGroup()->size());
     _wm->_agentAbsoluteOrientation = (180/M_PI)*atan2(translation.y, translation.x);//_wm->_agentAbsoluteOrientation + _wm->_actualRotationalVelocity;
     // * recalibrate orientation within ]-180°,+180°]
-
     while ( _wm->_agentAbsoluteOrientation <= -180.0 || _wm->_agentAbsoluteOrientation > 180.0 ) // assume that it is highly unlikely that this while should loop. (depends from maximal angular velocity)
     {
         if ( _wm->_agentAbsoluteOrientation <= -180.0 )
@@ -81,7 +79,6 @@ void GroupRobot::show(){
     for(auto& port: wm->getConnectionMechanism().getPorts()){
         drawConnectionPoint(*(port.get()));
     }
-
     Robot::show();
 }
 

@@ -36,7 +36,7 @@ void SelfAssemblyMechanismsAgentObserver::step()
     {
         _wm->substractEnergy(1);
         if(_wm->getEnergyLevel() <= 0)
-            _wm->setAlive(false);
+          ;//  _wm->setAlive(false);
     }
     // through distance sensors
     for( int i = 0 ; i < _wm->_cameraSensorsNb; i++)

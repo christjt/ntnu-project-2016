@@ -535,8 +535,7 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
     
     double xReal_old = _wm->_xReal; // backup old position in case of collision
 	double yReal_old = _wm->_yReal;
-	
-	
+
 	// * update x/y position
 		
 	_xDeltaReal = _wm->_agentAbsoluteLinearSpeed * cos(_wm->_agentAbsoluteOrientation * M_PI / 180);
@@ -546,11 +545,12 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
 	_wm->_yReal += _yDeltaReal;	// TODO: round is for positive values... (ok in this case however as 0,0 is up-left)
 
 	setCoord((int)_wm->_xReal+0.5,(int)_wm->_yReal+0.5);
-	
+
 	// * collision with (image) border of the environment - position at border, then bounce
 
 	if ( isCollision() )
 	{
+
 		_wm->_desiredTranslationalValue = 0; // cancel any translation order as agent translation speed is set to zero after collision. (note that rotation is still ok)
 		
 		if (_wm->_agentAbsoluteLinearSpeed >= 1.0 )
@@ -602,11 +602,12 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
 	}
 	else
 	{
+
 		// actual rotational and translational values matches desired values
 		_wm->_actualRotationalVelocity = _wm->_desiredRotationalVelocity;
 		_wm->_actualTranslationalValue = _wm->_agentAbsoluteLinearSpeed; // (!) _wm->_desiredTranslationalValue is different as the "desired" translation speed may not be reached due to physical actuator limitations
 	}
-	
+
 	// * update sensors
     
 	for ( int i = 0 ; i != _wm->_cameraSensorsNb ; i++ )
@@ -636,12 +637,14 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
 	_wm->_groundSensorValue[0] = r;
 	_wm->_groundSensorValue[1] = g;
 	_wm->_groundSensorValue[2] = b;
+
 }
 
 /* Check collision between the robot and the environment (gEnvironmentImage - contains robots, physical objects, walls)
 */
 bool Robot::isCollision()
 {
+
 	// check collision with borders and environment objects.
     if ( 
 		( _x < 0 ) || ( _x + gRobotWidth >= gAreaWidth ) ||
@@ -653,6 +656,7 @@ bool Robot::isCollision()
 	}
 	else
 	{
+
 		// * environment objects 
 		for ( int i = 0 ; i != gRobotWidth ; i++ )
 			for ( int j = 0 ; j != gRobotHeight ; j++ )
@@ -668,8 +672,8 @@ bool Robot::isCollision()
 					}
 				}
 			}
-	}	
-	
+	}
+
 	return false;
 }
 
