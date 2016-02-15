@@ -15,8 +15,9 @@ bool ConnectionMechanisms::canConnect(GroupRobotWorldModel* otherWM)
 void ConnectionMechanisms::disconnect(GroupRobotWorldModel* neighbor)
 {
 
-    auto found = portMap.find(neighbor);
     std::cout << "Here" << std::endl;
+
+    auto found = portMap.find(neighbor);
 
     if(found == portMap.end())
         return;
