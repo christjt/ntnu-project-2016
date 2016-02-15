@@ -19,6 +19,9 @@ void GroupRobotWorldModel::setId(int id){
 
 void GroupRobotWorldModel::connectTo(GroupRobotWorldModel* other)
 {
+    if(!other->isAlive())
+        return;
+    
     if(!connectionMechanism.canConnect(other)){
         return;
     }
@@ -32,6 +35,7 @@ void GroupRobotWorldModel::connectTo(GroupRobotWorldModel* other)
 
 void GroupRobotWorldModel::disconnectFrom(GroupRobotWorldModel* other)
 {
+
     //First traverse all neighbors except the connection to be removed to figure out if there is a cycle
     getConnectionMechanism().disconnect(other);
 
@@ -50,6 +54,8 @@ void GroupRobotWorldModel::disconnectFrom(GroupRobotWorldModel* other)
         //Make the other robot the owner of the new group
         other->group->addMember(robot);
     }
+
+    std::cout << "Other " << other->group->size() << std::endl;
 
 }
 
