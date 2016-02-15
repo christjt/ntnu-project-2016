@@ -16,6 +16,8 @@ void ConnectionMechanisms::disconnect(GroupRobotWorldModel* neighbor)
 {
 
     auto found = portMap.find(neighbor);
+    std::cout << "Here" << std::endl;
+
     if(found == portMap.end())
         return;
     auto port = found->second;
