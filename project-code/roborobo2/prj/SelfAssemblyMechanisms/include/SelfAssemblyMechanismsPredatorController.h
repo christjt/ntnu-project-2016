@@ -14,11 +14,13 @@ class SelfAssemblyMechanismsPredatorController : public Controller {
 
         void reset();
         void step();
-        std::vector<std::pair<Robot*, double >> findPrey();
-        void eat(Robot* prey);
+
 
     private:
         void exploreMovement();
+
+        std::vector<std::pair<Robot*, double >> findPrey();
+        void eat(Robot* prey);
 
         const double _orientationChange = 0.01;
         int _orientationDirection;

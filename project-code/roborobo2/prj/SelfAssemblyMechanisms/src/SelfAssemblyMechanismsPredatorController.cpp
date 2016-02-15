@@ -44,20 +44,16 @@ void SelfAssemblyMechanismsPredatorController::step()
             continue;
         }
 
-        if(i < 2){
-            _wm->_desiredRotationalVelocity = -3;
-        }
-        else if(i >= 2 && i <= 3){
-            _wm->_desiredRotationalVelocity = 0;
-        }
-        else if(i > 3){
-            _wm->_desiredRotationalVelocity = 3;
-        }
+        int id = objectId - gRobotIndexStartOffset;
+        auto robot = _wm->getWorld()->getRobot(id);
+        if(robot->getIsPredator())
+            continue;
+
+        _wm->_desiredRotationalVelocity = i/2 * 3 - 3;
 
         return;
     }
-
-
+    
     exploreMovement();
 
 
@@ -65,7 +61,7 @@ void SelfAssemblyMechanismsPredatorController::step()
 
 void SelfAssemblyMechanismsPredatorController::eat(Robot* prey)
 {
-    //prey->getWorldModel()->setAlive(false);
+    prey->getWorldModel()->setAlive(false);
     prey->unregisterRobot();
     _wm->_world->unregisterRobot(prey->getWorldModel()->getId());
 }
@@ -77,16 +73,22 @@ std::vector<std::pair<Robot*, double>> SelfAssemblyMechanismsPredatorController:
     {
 
         if(_wm->getDistanceValueFromCameraSensor(i) >= gSensorRange)
+        {
+            std::cout << _wm->getObjectIdFromCameraSensor(i) << "\n";
             continue;
+        }
+
         int objectId = _wm->getObjectIdFromCameraSensor(i);
         bool isOtherRobot =  Agent::isInstanceOf(objectId);
-        if(!isOtherRobot)
+        if(!isOtherRobot){
             continue;
+        }
         int id = objectId - gRobotIndexStartOffset;
         auto robot = _wm->getWorld()->getRobot(id);
         if(robot->getIsPredator())
             continue;
         prey.push_back(std::make_pair(robot, _wm->getDistanceValueFromCameraSensor(i)));
+
     }
 
     return prey;
