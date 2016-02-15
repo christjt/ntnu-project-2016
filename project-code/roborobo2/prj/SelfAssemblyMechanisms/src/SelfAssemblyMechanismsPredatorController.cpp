@@ -62,7 +62,7 @@ void SelfAssemblyMechanismsPredatorController::step()
 void SelfAssemblyMechanismsPredatorController::eat(Robot* prey)
 {
     for(auto connection: ((GroupRobotWorldModel*)prey->getWorldModel())->getConnectionMechanism().getConnections()){
-        ((GroupRobotWorldModel*)prey)->disconnectFrom(connection.first);
+        ((GroupRobotWorldModel*)prey->getWorldModel())->disconnectFrom(connection.first);
     }
     prey->getWorldModel()->setAlive(false);
     prey->unregisterRobot();

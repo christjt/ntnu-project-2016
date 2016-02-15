@@ -33,7 +33,6 @@ void GroupRobotWorldModel::connectTo(GroupRobotWorldModel* other)
 void GroupRobotWorldModel::disconnectFrom(GroupRobotWorldModel* other)
 {
     //First traverse all neighbors except the connection to be removed to figure out if there is a cycle
-    std::cout << "Other " << other << std::endl;
     getConnectionMechanism().disconnect(other);
 
     if(other->getConnectionMechanism().isWorldModelInConnections(this)){
