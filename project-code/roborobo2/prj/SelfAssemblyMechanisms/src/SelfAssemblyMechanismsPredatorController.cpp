@@ -31,6 +31,33 @@ void SelfAssemblyMechanismsPredatorController::step()
         }
     }
 
+    for(int i = 0; i < _wm->_cameraSensorsNb; i++)
+    {
+
+        if(_wm->getDistanceValueFromCameraSensor(i) >= gSensorRange){
+            continue;
+        }
+
+        int objectId = _wm->getObjectIdFromCameraSensor(i);
+        bool isOtherRobot =  Agent::isInstanceOf(objectId);
+        if(!isOtherRobot){
+            continue;
+        }
+
+        if(i < 2){
+            _wm->_desiredRotationalVelocity = -3;
+        }
+        else if(i >= 2 && i <= 3){
+            _wm->_desiredRotationalVelocity = 0;
+        }
+        else if(i > 3){
+            _wm->_desiredRotationalVelocity = 3;
+        }
+
+        return;
+    }
+
+
     exploreMovement();
 
 
@@ -38,7 +65,7 @@ void SelfAssemblyMechanismsPredatorController::step()
 
 void SelfAssemblyMechanismsPredatorController::eat(Robot* prey)
 {
-    prey->getWorldModel()->setAlive(false);
+    //prey->getWorldModel()->setAlive(false);
     prey->unregisterRobot();
     _wm->_world->unregisterRobot(prey->getWorldModel()->getId());
 }
