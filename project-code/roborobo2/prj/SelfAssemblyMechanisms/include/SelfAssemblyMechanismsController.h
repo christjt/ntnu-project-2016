@@ -23,7 +23,7 @@ class SelfAssemblyMechanismsController : public Controller
 		//Initializes the variables
 		SelfAssemblyMechanismsController( RobotWorldModel *__wm );
 		~SelfAssemblyMechanismsController();
-		
+		bool done = false;
 		void reset();
 		void step();
 };

@@ -68,9 +68,10 @@ bool ConnectionPort::isSpatiallySound(const PortPosition& other) const
 }
 
 void ConnectionPort::disconnect(){
+
     if(connectedTo == nullptr)
         return;
-    connectedTo->disconnect();
+    connectedTo->connectedTo = nullptr;
     connectedTo = nullptr;
 }
 bool ConnectionPort::canDisconnect()

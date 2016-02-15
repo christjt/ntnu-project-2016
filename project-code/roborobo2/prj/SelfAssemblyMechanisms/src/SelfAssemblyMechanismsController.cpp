@@ -25,6 +25,7 @@ void SelfAssemblyMechanismsController::reset()
 	// nothing to do.
 }
 
+int ticks = 0;
 void SelfAssemblyMechanismsController::step()
 {
 	if(!_wm->isAlive()){
@@ -36,7 +37,23 @@ void SelfAssemblyMechanismsController::step()
 
 
 
-	_wm->_desiredTranslationalValue = 0.5;
+	if(groupWM->getConnectionMechanism().numConnections() > 1){
+		ticks++;
+		done = true;
+
+	}
+
+	if(groupWM->getId() == 3 && ticks > 600 && groupWM->getConnectionMechanism().numConnections() > 0){
+		auto other = (*(groupWM->getConnectionMechanism().getConnections().begin())).first;
+		groupWM->disconnectFrom(other);
+		if(groupWM->getConnectionMechanism().numConnections() == 0){
+			_wm->_desiredRotationalVelocity = 1;
+
+		}
+
+	}
+	_wm->_desiredTranslationalValue = 1.0;
+
 	std::vector<float> message = std::vector<float>(gInitialNumberOfRobots);
 	message[_wm->getId()] = 1.0;
 
@@ -56,14 +73,17 @@ void SelfAssemblyMechanismsController::step()
 
 				if(!other->getIsPredator())
 				{
-					((GroupRobotWorldModel*)_wm)->connectTo((GroupRobotWorldModel*)other->getWorldModel());
-					if(((GroupRobotWorldModel*)_wm)->getConnectionMechanism().numConnections() > 1)
-						_wm->_desiredRotationalVelocity = 0.5;
+					if(!done){
+						((GroupRobotWorldModel*)_wm)->connectTo((GroupRobotWorldModel*)other->getWorldModel());
+
+					}
+
 				}
 
 			}
 
 		}
 	}
+
 }
 
