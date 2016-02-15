@@ -26,7 +26,7 @@ void SelfAssemblyMechanismsPredatorController::step()
 
     for(auto pair: prey)
     {
-        if(pair.second <= 1){
+        if(pair.second <= 5){
             eat(pair.first);
         }
     }
@@ -53,7 +53,7 @@ void SelfAssemblyMechanismsPredatorController::step()
 
         return;
     }
-    
+
     exploreMovement();
 
 
@@ -74,7 +74,6 @@ std::vector<std::pair<Robot*, double>> SelfAssemblyMechanismsPredatorController:
 
         if(_wm->getDistanceValueFromCameraSensor(i) >= gSensorRange)
         {
-            std::cout << _wm->getObjectIdFromCameraSensor(i) << "\n";
             continue;
         }
 
@@ -95,7 +94,7 @@ std::vector<std::pair<Robot*, double>> SelfAssemblyMechanismsPredatorController:
 }
 
 void SelfAssemblyMechanismsPredatorController::exploreMovement(){
-    _wm->_desiredTranslationalValue =  + 1 - ( (double)gSensorRange - ((_wm->getCameraSensorValue(2,5)+_wm->getCameraSensorValue(3,5))/2) )  / (double)gSensorRange;
+    _wm->_desiredTranslationalValue =  1.05 - ( (double)gSensorRange - ((_wm->getCameraSensorValue(2,5)+_wm->getCameraSensorValue(3,5))/2) )  / (double)gSensorRange;
 
     if ( _wm->getCameraSensorValue(0,5) + _wm->getCameraSensorValue(1,5) + _wm->getCameraSensorValue(2,5) < _wm->getCameraSensorValue(3,5) + _wm->getCameraSensorValue(4,5) + _wm->getCameraSensorValue(5,5) )
     {
@@ -113,7 +112,7 @@ void SelfAssemblyMechanismsPredatorController::exploreMovement(){
             _wm->_desiredRotationalVelocity = _orientationThreshold * _orientationDirection;
 
         }
-        else if(abs(_wm->_desiredRotationalVelocity) <= _boundaryPoint)
+        else if(fabs(_wm->_desiredRotationalVelocity) <= _boundaryPoint)
         {
             _wm->_desiredRotationalVelocity += _orientationChange * _orientationDirection;
         }
