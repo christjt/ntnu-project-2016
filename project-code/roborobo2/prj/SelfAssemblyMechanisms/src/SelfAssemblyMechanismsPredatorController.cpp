@@ -11,7 +11,6 @@
 
 SelfAssemblyMechanismsPredatorController::SelfAssemblyMechanismsPredatorController( RobotWorldModel *__wm ) : Controller ( __wm )
 {
-    std::cout << "Added predator controller" << "\n";
 
 }
 

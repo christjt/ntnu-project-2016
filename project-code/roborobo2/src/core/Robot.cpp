@@ -49,8 +49,6 @@ void Robot::initSensors(RobotWorldModel *_wm)
 {
 	_wm->_cameraSensorsNb = 0;
 
-	std::cout << gRobotHeight << "\n";
-
 	//count sensors
 	for ( int x = 0 ; x != gRobotWidth ; x++ ) // image is analysed a first time to count the nuber of sensors (faster than dynamically re-allocating array size for every new sensor)
 		for ( int y = 0 ; y != gRobotHeight ; y++ )
