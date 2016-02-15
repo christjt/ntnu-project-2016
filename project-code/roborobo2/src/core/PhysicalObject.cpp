@@ -87,7 +87,16 @@ void PhysicalObject::init()
     {
         _displayColorGreen = gPhysicalObjectDefaultDisplayColorGreen; // default
     }
-    
+
+    s = "physicalObject[";
+    s += out.str();
+    s += "].isWalkable";
+    if( gProperties.hasProperty(s)){
+        gProperties.checkAndGetPropertyValue(s, &isWalkable, false);
+        std::cout << "has property " << isWalkable <<  std::endl;
+    }else{
+        isWalkable = false;
+    }
     s = "physicalObject[";
 	s += out.str();
 	s += "].displayColorBlue";

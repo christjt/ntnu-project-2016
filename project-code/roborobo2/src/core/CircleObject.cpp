@@ -224,8 +224,10 @@ void CircleObject::registerObject()
     }
     
     // draw object
-    if(canBeWalked)
+    if(isWalkable)
         return;
+
+    std::cout << "HELLO" << std::endl;
 
     color = SDL_MapRGBA( gEnvironmentImage->format, (Uint8)((id_converted & 0xFF0000)>>16), (Uint8)((id_converted & 0xFF00)>>8), (Uint8)(id_converted & 0xFF), 0x00 );
     
