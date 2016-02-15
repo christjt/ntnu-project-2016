@@ -21,7 +21,7 @@ void GroupRobotWorldModel::connectTo(GroupRobotWorldModel* other)
 {
     if(!other->isAlive())
         return;
-    
+
     if(!connectionMechanism.canConnect(other)){
         return;
     }
@@ -55,7 +55,6 @@ void GroupRobotWorldModel::disconnectFrom(GroupRobotWorldModel* other)
         other->group->addMember(robot);
     }
 
-    std::cout << "Other " << other->group->size() << std::endl;
 
 }
 
