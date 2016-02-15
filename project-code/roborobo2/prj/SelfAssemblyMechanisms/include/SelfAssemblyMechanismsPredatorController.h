@@ -18,6 +18,8 @@ class SelfAssemblyMechanismsPredatorController : public Controller {
         void eat(Robot* prey);
 
     private:
+        void exploreMovement();
+
         const double _orientationChange = 0.01;
         int _orientationDirection;
         const double _orientationThreshold = 0.01;
