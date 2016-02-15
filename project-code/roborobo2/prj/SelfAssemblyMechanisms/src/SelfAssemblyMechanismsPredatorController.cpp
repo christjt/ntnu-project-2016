@@ -88,7 +88,7 @@ std::vector<std::pair<Robot*, double>> SelfAssemblyMechanismsPredatorController:
         auto robot = _wm->getWorld()->getRobot(id);
         if(robot->getIsPredator())
             continue;
-        prey.push_back(std::make_pair(robot,1.0));
+        prey.push_back(std::make_pair(robot, _wm->getDistanceValueFromCameraSensor(i)));
     }
 
     return prey;
