@@ -17,7 +17,7 @@ class ConnectionMechanisms
         void visitNeighbors(std::unordered_set<GroupRobotWorldModel*>& visited);
         double desiredRotationalVelocity;
         double rotationalVelocity;
-        double orientation;
+        double orientation = 0.0;
         double maxRotationalVelocity = 45.0;
 
     public:

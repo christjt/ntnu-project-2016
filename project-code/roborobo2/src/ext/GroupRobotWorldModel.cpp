@@ -5,7 +5,6 @@
 
 GroupRobotWorldModel::GroupRobotWorldModel():connectionMechanism(this, PortFactory::createPorts(this)), communicationModule(this)
 {
-
 }
 
 
