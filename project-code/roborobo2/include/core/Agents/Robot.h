@@ -88,7 +88,7 @@ class Robot : public Agent
 		 // use transl/rot delta to compute x/y delta.
 
 		//Moves the agent
-		void move( int __recursiveIt = 0 );
+		virtual void move( int __recursiveIt = 0 );
 		
 		virtual void show();
 

@@ -11,11 +11,14 @@ class GroupRobot: public Robot
         void show();
         void applyDynamics();
         void registerRobot();
+        void move( int __recursiveIt = 0 );
+
 
     protected:
         void applyRobotPhysics();
     private:
         void drawConnectionPoint(const ConnectionPort& port);
         GroupRobotWorldModel* wm;
+        Vector2<double> backup;
 };
 #endif //ROBOROBO2_GROUPROBOT_H

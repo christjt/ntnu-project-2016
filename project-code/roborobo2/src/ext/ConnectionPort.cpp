@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-const double _collisionPositionOffset = 1;
-const double _collisionOrientationOffset = 1.0;
+const double _collisionPositionOffset = 2;
+const double _collisionOrientationOffset = 2.0;
 const double PERFECT_ORIENTATIONAL_FIT = 180.0;
 
 ConnectionPort::ConnectionPort(const PortType& _portType, const PortPosition& _position):position(_position), portType(_portType)
@@ -47,6 +47,13 @@ bool ConnectionPort::portsCompatible(const PortType& other) const
 
 }
 
+bool ConnectionPort::isBroken(){
+    if(!connectedTo)
+        return false;
+
+    return !isGeometricValidConnection(connectedTo->position);
+
+}
 bool ConnectionPort::isGeometricValidConnection(const PortPosition& other) const
 {
 
