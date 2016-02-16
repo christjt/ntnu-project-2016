@@ -66,8 +66,25 @@ void GroupRobotWorldModel::addRobotToGroup(GroupRobotWorldModel* otherWM)
 
 void GroupRobotWorldModel::updateTranslationVector()
 {
+    backUpPosition.x = _xReal;
+    backUpPosition.y = _yReal;
+
     translation.x = _actualTranslationalValue * cos((_agentAbsoluteOrientation +_actualRotationalVelocity)  * M_PI / 180);
     translation.y = _actualTranslationalValue * sin((_agentAbsoluteOrientation +_actualRotationalVelocity)  * M_PI / 180);
+    moveCompleted = false;
+}
+
+Vector2<double>& GroupRobotWorldModel::getBackupPosition()
+{
+    return backUpPosition;
+}
+bool GroupRobotWorldModel::hasPendingMove()
+{
+    return !moveCompleted;
+}
+
+void GroupRobotWorldModel::setMoveCompleted(bool moveCompleted){
+    this->moveCompleted = moveCompleted;
 }
 
 Vector2<double>GroupRobotWorldModel::getTranslation()

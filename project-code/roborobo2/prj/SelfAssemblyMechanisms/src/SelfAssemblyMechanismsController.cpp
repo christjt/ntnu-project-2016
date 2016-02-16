@@ -35,11 +35,14 @@ void SelfAssemblyMechanismsController::step()
 		return;
 	}
 
-
+	if(groupWM->getConnectionMechanism().numConnections() > 0){
+		_wm->_desiredRotationalVelocity = 0.5;
+	}
 
 	if(groupWM->getConnectionMechanism().numConnections() > 1){
 		ticks++;
 		done = true;
+
 
 	}
 
@@ -75,6 +78,7 @@ void SelfAssemblyMechanismsController::step()
 				{
 					if(!done){
 						((GroupRobotWorldModel*)_wm)->connectTo((GroupRobotWorldModel*)other->getWorldModel());
+
 
 					}
 

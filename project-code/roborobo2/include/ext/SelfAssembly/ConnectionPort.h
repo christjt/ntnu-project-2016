@@ -14,11 +14,13 @@ class ConnectionPort{
         bool isOrientationalSound(const PortPosition& other) const;
         bool isSpatiallySound(const PortPosition& other) const;
         bool isGeometricValidConnection(const PortPosition& other) const;
+
     public:
         ConnectionPort(const PortType &portType, const PortPosition& position);
         bool connect(ConnectionPort* other);
         bool canConnectTo(const ConnectionPort& other) const;
         bool isEngaged() const;
+        bool isBroken();
         void disconnect();
         bool canDisconnect();
         PortType getPortType() const;

@@ -1,5 +1,5 @@
 #include "SelfAssembly/GroupRobot.h"
-
+#include "SelfAssembly/ConnectionPort.h"
 double sign(double num);
 
 GroupRobot::GroupRobot( World*__world ):Robot(__world)
@@ -9,13 +9,15 @@ GroupRobot::GroupRobot( World*__world ):Robot(__world)
 
 void GroupRobot::applyDynamics(){
     Robot::applyDynamics();
-
     wm->updateTranslationVector();
     ConnectionMechanisms& connectionMechanism = wm->getConnectionMechanism();
+
+
     if(connectionMechanism.numConnections() > 0){
         connectionMechanism.setRotationalVelocity(0);
         return;
     }
+
     double desired = fabs(connectionMechanism.getDesiredRotationalVelocity());
     if(desired > 0){
         if(desired < connectionMechanism.getMaxRotationalVelocity()){
@@ -26,7 +28,33 @@ void GroupRobot::applyDynamics(){
     }else{
         connectionMechanism.setRotationalVelocity(0);
     }
+}
 
+
+void GroupRobot::move( int __recursiveIt )
+{
+
+    Robot::move(__recursiveIt);
+    for(auto& connection: wm->getConnectionMechanism().getConnections()){
+        auto other = connection.first;
+        if(other->hasPendingMove())
+            continue;
+
+        auto port = connection.second;
+        if(port->isBroken()){
+            auto backup = wm->getBackupPosition();
+            auto otherBackup = other->getBackupPosition();
+
+            _wm->_xReal = backup.x;
+            _wm->_yReal = backup.y;
+            setCoord((int)_wm->_xReal+0.5,(int)_wm->_yReal+0.5);
+            other->_xReal = otherBackup.x;
+            other->_yReal = otherBackup.y;
+            other->getWorld()->getRobot(other->getId())->setCoord((int)other->_xReal+0.5,(int)other->_yReal+0.5);
+          
+        }
+    }
+    wm->setMoveCompleted(true);
 }
 
 double sign(double num){
