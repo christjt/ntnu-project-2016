@@ -44,6 +44,8 @@ void GroupRobot::move( int __recursiveIt )
         if(port->isBroken()){
             auto backup = wm->getBackupPosition();
             auto otherBackup = other->getBackupPosition();
+            auto otherRobot = other->getWorld()->getRobot(other->getId());
+            otherRobot->unregisterRobot();
 
             _wm->_xReal = backup.x;
             _wm->_yReal = backup.y;
@@ -51,7 +53,8 @@ void GroupRobot::move( int __recursiveIt )
             other->_xReal = otherBackup.x;
             other->_yReal = otherBackup.y;
             other->getWorld()->getRobot(other->getId())->setCoord((int)other->_xReal+0.5,(int)other->_yReal+0.5);
-          
+            otherRobot->registerRobot();
+
         }
     }
     wm->setMoveCompleted(true);

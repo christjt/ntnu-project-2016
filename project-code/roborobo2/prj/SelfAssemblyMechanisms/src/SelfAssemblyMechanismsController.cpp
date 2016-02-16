@@ -36,7 +36,8 @@ void SelfAssemblyMechanismsController::step()
 	}
 
 	if(groupWM->getConnectionMechanism().numConnections() > 0){
-		_wm->_desiredRotationalVelocity = 0.5;
+		if(_wm->getId() == 0)
+			_wm->_desiredRotationalVelocity = 0.5;
 	}
 
 	if(groupWM->getConnectionMechanism().numConnections() > 1){

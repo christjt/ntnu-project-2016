@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-const double _collisionPositionOffset = 5;
+const double _collisionPositionOffset = 2;
 const double _collisionOrientationOffset = 2.0;
 const double PERFECT_ORIENTATIONAL_FIT = 180.0;
 
