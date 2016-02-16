@@ -295,6 +295,7 @@ bool World::loadFiles()
     
     gRobotMaskImage = load_image( gRobotMaskImageFilename );
     gRobotDisplayImage = load_image( gRobotDisplayImageFilename );
+	gPredatorDisplayImage = load_image( gPredatorDisplayImageFilename );
 	
 	// Load the agent specifications image
     
@@ -339,6 +340,12 @@ bool World::loadFiles()
 		std::cerr << "Could not load agent display image\n";
 		returnValue = false;
     }
+
+	if ( gPredatorDisplayImage == NULL )
+	{
+		std::cerr << "Could not load predator display image\n";
+		returnValue = false;
+	}
             
     if( gRobotSpecsImage == NULL )
     {
@@ -404,6 +411,7 @@ bool World::loadFiles()
 	// set transparency color
 	SDL_SetColorKey( gRobotMaskImage, SDL_SRCCOLORKEY, SDL_MapRGBA( gRobotMaskImage->format, 0xFF, 0xFF, 0xFF,0 ) );
    	SDL_SetColorKey( gRobotDisplayImage, SDL_SRCCOLORKEY, SDL_MapRGBA( gRobotMaskImage->format, 0xFF, 0xFF, 0xFF,0 ) );
+	SDL_SetColorKey( gPredatorDisplayImage, SDL_SRCCOLORKEY, SDL_MapRGBA( gRobotMaskImage->format, 0xFF, 0xFF, 0xFF,0 ) );
 
 	SDL_SetColorKey( gForegroundImage, SDL_SRCCOLORKEY, SDL_MapRGBA( gForegroundImage->format, 0xFF, 0xFF, 0xFF,0 ) );
 	SDL_SetColorKey( gEnvironmentImage, SDL_SRCCOLORKEY, SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF,0 ) );

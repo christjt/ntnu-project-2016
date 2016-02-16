@@ -115,6 +115,7 @@ std::string gLogFullFilename =                  ""; // cf. the initLog method
 
 std::string gRobotMaskImageFilename =			"data/agent-mask.png";
 std::string gRobotDisplayImageFilename =		"data/agent-mask.png";
+std::string gPredatorDisplayImageFilename =		"data/predator-mask.png";
 std::string gRobotSpecsImageFilename =			"data/agent-specs.png";
 std::string gForegroundImageFilename =			"data/foreground.png";   // MANDATORY: use png (avoid jpg approximation)
 std::string gEnvironmentImageFilename =			"data/environment.png";
@@ -260,6 +261,7 @@ SDL_Surface *gEnvironmentImage = NULL;
 SDL_Surface *gBackgroundImage = NULL;
 SDL_Surface *gRobotMaskImage = NULL;
 SDL_Surface *gRobotDisplayImage = NULL;
+SDL_Surface *gPredatorDisplayImage = NULL;
 SDL_Surface *gRobotSpecsImage = NULL;
 SDL_Surface *gTrajectoryMonitorImage = NULL;
 SDL_Surface *gGroundSensorImage = NULL;
@@ -287,6 +289,7 @@ void clean_up()
 
     SDL_FreeSurface( gRobotMaskImage );
     SDL_FreeSurface( gRobotDisplayImage );
+	SDL_FreeSurface( gPredatorDisplayImage );
     SDL_FreeSurface( gForegroundImage );
 	SDL_FreeSurface( gEnvironmentImage );
     
@@ -1634,6 +1637,15 @@ bool loadProperties( std::string __propertiesFilename )
 		std::cout << "[WARNING] gRobotDisplayImageFilename string value is missing (value will be copied from gRobotMaskImageFilename).\n";
         gRobotDisplayImageFilename = gProperties.getProperty("gRobotMaskImageFilename");
 	}
+
+	if ( gProperties.hasProperty("gPredatorDisplayImageFilename") )
+		gPredatorDisplayImageFilename = gProperties.getProperty("gPredatorDisplayImageFilename");
+	else
+	{
+		std::cout << "[WARNING] gPredatorDisplayImageFilename string value is missing (value will be copied from gRobotMaskImageFilename).\n";
+		gPredatorDisplayImageFilename = gProperties.getProperty("gRobotMaskImageFilename");
+	}
+
 	
     if ( gProperties.hasProperty("gRobotSpecsImageFilename") )
 		gRobotSpecsImageFilename = gProperties.getProperty("gRobotSpecsImageFilename");

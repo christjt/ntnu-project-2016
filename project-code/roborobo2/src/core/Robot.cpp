@@ -686,7 +686,18 @@ void Robot::show() // display on screen
     //Show the dot
     
 	if ( gNiceRendering )
-		apply_surface( _x - gCamera.x, _y - gCamera.y, gRobotDisplayImage, gScreen ); // OPTIONAL (agent is already visible/registered through the environment image -- but: may be useful for image capture
+	{
+		if(!this->getIsPredator()){
+			apply_surface( _x - gCamera.x, _y - gCamera.y, gRobotDisplayImage, gScreen ); // OPTIONAL (agent is already visible/registered through the environment image -- but: may be useful for image capture
+		}
+		else{
+			std::cout << gPredatorDisplayImage << "\n";
+			apply_surface( _x - gCamera.x, _y - gCamera.y, gPredatorDisplayImage, gScreen ); // OPTIONAL (agent is already visible/registered through the environment image -- but: may be useful for image capture
+		}
+
+
+	}
+
 
 	if ( gRobotLEDdisplay == true )
 	{

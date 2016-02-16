@@ -61,6 +61,7 @@ extern LogManager *gLogManager;
 
 extern std::string gRobotMaskImageFilename;
 extern std::string gRobotDisplayImageFilename;
+extern std::string gPredatorDisplayImageFilename;
 extern std::string gRobotSpecsImageFilename;
 extern std::string gForegroundImageFilename;
 extern std::string gEnvironmentImageFilename;
@@ -194,6 +195,7 @@ extern SDL_Surface *gEnvironmentImage;	// the real environment: all obstacle ass
 extern SDL_Surface *gBackgroundImage;	// decorative background image
 extern SDL_Surface *gRobotMaskImage;	// mask used for collision
 extern SDL_Surface *gRobotDisplayImage;	// image used for display (only) - if missing in config file, then copied from gRobotMaskImage
+extern SDL_Surface *gPredatorDisplayImage;
 extern SDL_Surface *gRobotSpecsImage;	// image contains specs wrt. proximity sensor (location and orientation)
 
 extern SDL_Surface *gTrajectoryMonitorImage; // this image is used when monitoring robot trajectories
