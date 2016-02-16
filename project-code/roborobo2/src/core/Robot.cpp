@@ -691,7 +691,6 @@ void Robot::show() // display on screen
 			apply_surface( _x - gCamera.x, _y - gCamera.y, gRobotDisplayImage, gScreen ); // OPTIONAL (agent is already visible/registered through the environment image -- but: may be useful for image capture
 		}
 		else{
-			std::cout << gPredatorDisplayImage << "\n";
 			apply_surface( _x - gCamera.x, _y - gCamera.y, gPredatorDisplayImage, gScreen ); // OPTIONAL (agent is already visible/registered through the environment image -- but: may be useful for image capture
 		}
 
