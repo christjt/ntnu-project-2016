@@ -25,8 +25,8 @@ SelfAssemblyMechanismsController::~SelfAssemblyMechanismsController()
 
 void SelfAssemblyMechanismsController::reset()
 {
-	MLPFactory* factory = new MLPFactory(3,3);
 	messageWidth =  wm->getConnectionMechanism().getPorts().size();
+	MLPFactory* factory = new MLPFactory(wm->_cameraSensorsNb + messageWidth*2, messageWidth*2 +3);
 	translator = new NetworkTranslator(factory->create(), wm->_cameraSensorsNb, messageWidth);
 }
 

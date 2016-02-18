@@ -2,7 +2,7 @@
 
 NetworkTranslator::NetworkTranslator(Neural::NeuralNetwork* ann, int nSensors, int nPorts):
         inputs(nSensors + nPorts*2, 0.0), outputs(ann->readOut()), sensorOffset(0), portOffset(nSensors), messageOffset(nSensors + nPorts),
-        messageOutOffset(0), connectionOutOffset(messageOffset), motorOutOffset(connectionOutOffset)
+        messageOutOffset(0), connectionOutOffset(nPorts), motorOutOffset(nPorts*2 + 3)
 {
     this->ann = ann;
 }
