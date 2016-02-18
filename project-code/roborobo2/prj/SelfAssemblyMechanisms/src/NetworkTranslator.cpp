@@ -45,7 +45,7 @@ bool NetworkTranslator::getDesiresConnection(int i)
 
 RobotMessage NetworkTranslator::getMessageOut()
 {
-    std::vector<double> message(outputs.begin() + messageOffset, outputs.begin()+connectionOutOffset);
+    std::vector<double> message(4, 0.0);
     return RobotMessage(message);
 }
 
