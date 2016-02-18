@@ -6,4 +6,6 @@ class NetworkFactory
 {
     static Neural::NeuralNetwork create();
 };
+
+
 #endif //ROBOROBO2_NETWORKFACTORY_H

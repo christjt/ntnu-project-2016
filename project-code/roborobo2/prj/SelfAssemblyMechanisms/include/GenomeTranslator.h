@@ -7,8 +7,10 @@ template <class TGenome>
 class GenomeTranslator
 {
     private:
-        Neural::NeuralNetwork* ann;
         double numberOfWeights;
+    protected:
+        Neural::NeuralNetwork* ann;
+
     public:
         GenomeTranslator(Neural::NeuralNetwork* _ann):ann(_ann), numberOfWeights(_ann->getRequiredNumberOfWeights()){}
         virtual void translateToWeights(TGenome& genome) = 0;
