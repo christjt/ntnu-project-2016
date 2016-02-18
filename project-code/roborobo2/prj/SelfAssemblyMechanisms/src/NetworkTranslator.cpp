@@ -1,7 +1,7 @@
 #include "SelfAssemblyMechanisms/include/NetworkTranslator.h"
 
 NetworkTranslator::NetworkTranslator(Neural::NeuralNetwork* ann, int nSensors, int nPorts):
-        inputs(nSensors + nPorts*2, 0.0), outputs(ann->readOut()), sensorOffset(0), portOffset(nSensors), messageOffset(nSensors + nPorts),
+        inputs(nSensors + nPorts*2, 0.0), outputs(nPorts*2 +3), sensorOffset(0), portOffset(nSensors), messageOffset(nSensors + nPorts),
         messageOutOffset(0), connectionOutOffset(nPorts), motorOutOffset(nPorts*2)
 {
     this->ann = ann;
@@ -15,7 +15,9 @@ void NetworkTranslator::setSensorInput(int sensor, double value)
 void NetworkTranslator::setMessageInput(const RobotMessage& message)
 {
     auto messageContents = message.get();
-    inputs.insert(inputs.begin() + messageOffset, messageContents.begin(), messageContents.end());
+    for(int i = messageOffset; i < messageOutOffset + messageContents.size(); i++){
+        inputs[i] = messageContents[i-messageOutOffset];
+    }
 }
 
 void NetworkTranslator::setConnectionInput(int connection, bool status)
