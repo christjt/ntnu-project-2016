@@ -15,8 +15,8 @@ void NetworkTranslator::setSensorInput(int sensor, double value)
 void NetworkTranslator::setMessageInput(const RobotMessage& message)
 {
     auto messageContents = message.get();
-    for(int i = messageOffset; i < messageOutOffset + messageContents.size(); i++){
-        inputs[i] = messageContents[i-messageOutOffset];
+    for(auto i = 0u; i < messageContents.size(); i++){
+        inputs[messageOffset + i] = messageContents[i];
     }
 }
 
