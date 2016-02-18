@@ -2,8 +2,15 @@
 #define ROBOROBO2_NETWORKFACTORY_H
 
 #include <neuralnetworks/NeuralNetwork.h>
+
 class NetworkFactory
 {
-    static Neural::NeuralNetwork create();
+    protected:
+        int _nInputNodes;
+        int _nOutputNodes;
+
+    public:
+        virtual Neural::NeuralNetwork* create() = 0;
+
 };
 #endif //ROBOROBO2_NETWORKFACTORY_H
