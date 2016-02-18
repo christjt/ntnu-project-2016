@@ -13,4 +13,6 @@ class NetworkFactory
         virtual Neural::NeuralNetwork* create() = 0;
 
 };
+
+
 #endif //ROBOROBO2_NETWORKFACTORY_H

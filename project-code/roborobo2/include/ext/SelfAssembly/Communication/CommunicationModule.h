@@ -6,18 +6,18 @@
 #include <iostream>
 struct RobotMessage{
     private:
-        std::vector<float> message;
+        std::vector<double> message;
     private:
     public:
     RobotMessage(){};
 
-    RobotMessage(std::vector<float> contents){
+    RobotMessage(std::vector<double> contents){
             message = contents;
         };
 
-        std::vector<float> get() const{
-            return message;
-        }
+    const std::vector<double>& get() const{
+        return message;
+    }
 
     RobotMessage operator+(const RobotMessage& other){
         if(other.message.size() != message.size()){

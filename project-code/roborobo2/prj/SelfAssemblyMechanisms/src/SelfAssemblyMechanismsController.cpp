@@ -12,7 +12,7 @@
 SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) : Controller ( __wm )
 {
 	// nothing to do
-	groupWM = (GroupRobotWorldModel*)_wm;
+	wm = (GroupRobotWorldModel*)_wm;
 }
 
 SelfAssemblyMechanismsController::~SelfAssemblyMechanismsController()
@@ -22,71 +22,60 @@ SelfAssemblyMechanismsController::~SelfAssemblyMechanismsController()
 
 void SelfAssemblyMechanismsController::reset()
 {
-	// nothing to do.
+	messageWidth =  wm->getConnectionMechanism().getPorts().size();
+	translator = new NetworkTranslator(nullptr, wm->_cameraSensorsNb, messageWidth);
 }
 
 int ticks = 0;
 void SelfAssemblyMechanismsController::step()
 {
-	if(!_wm->isAlive()){
-		_wm->_desiredTranslationalValue = 0.0;
-		_wm->_desiredRotationalVelocity = 0.0;
-		groupWM->getConnectionMechanism().setDesiredRotationalVelocity(0.0);
+	if(!wm->isAlive()){
+		wm->_desiredTranslationalValue = 0.0;
+		wm->_desiredRotationalVelocity = 0.0;
+		wm->getConnectionMechanism().setDesiredRotationalVelocity(0.0);
 		return;
 	}
 
-	if(groupWM->getConnectionMechanism().numConnections() > 0){
-		if(_wm->getId() == 0)
-			_wm->_desiredRotationalVelocity = 0.5;
-	}
-
-	if(groupWM->getConnectionMechanism().numConnections() > 1){
-		ticks++;
-		done = true;
-
-
-	}
-
-	if(groupWM->getId() == 3 && ticks > 600 && groupWM->getConnectionMechanism().numConnections() > 0){
-		auto other = (*(groupWM->getConnectionMechanism().getConnections().begin())).first;
-		groupWM->disconnectFrom(other);
-		if(groupWM->getConnectionMechanism().numConnections() == 0){
-			_wm->_desiredRotationalVelocity = 1;
-
-		}
-
-	}
-	_wm->_desiredTranslationalValue = 1.0;
-
-	std::vector<float> message = std::vector<float>(gInitialNumberOfRobots);
-	message[_wm->getId()] = 1.0;
-
-	((GroupRobotWorldModel*)_wm)->getCommunicationModule().broadcast(RobotMessage(message));
-	auto received = ((GroupRobotWorldModel*)_wm)->getCommunicationModule().read(gInitialNumberOfRobots);
-
-	((GroupRobotWorldModel*)_wm)->getConnectionMechanism().setDesiredRotationalVelocity(1.0);
-	for(int i = 0; i < _wm->_cameraSensorsNb; i++)
+	std::vector<GroupRobotWorldModel*> nearbyRobots;
+	for(int i = 0; i < wm->_cameraSensorsNb; i++)
 	{
-		auto distance =  _wm->getDistanceValueFromCameraSensor(i);
-		auto isOtherRobot =  Agent::isInstanceOf(_wm->getObjectIdFromCameraSensor(i));
-		if(isOtherRobot){
-			if(distance < 10)
-			{
-				auto world = _wm->_world;
-				auto other = world->getRobot((int)_wm->getObjectIdFromCameraSensor(i) - gRobotIndexStartOffset);
-
-				if(!other->getIsPredator())
-				{
-					if(!done){
-						((GroupRobotWorldModel*)_wm)->connectTo((GroupRobotWorldModel*)other->getWorldModel());
-
-
-					}
-
-				}
-
+		translator->setSensorInput(i, wm->getDistanceValueFromCameraSensor(i));
+		auto objectId = wm->getObjectIdFromCameraSensor(i);
+		if(Agent::isInstanceOf(objectId))
+		{
+			int id = objectId - gRobotIndexStartOffset;
+			Robot* robot = wm->getWorld()->getRobot(id);
+			if(!robot->getIsPredator()){
+				nearbyRobots.push_back((GroupRobotWorldModel*)robot->getWorldModel());
 			}
+		}
+	}
 
+	translator->setMessageInput(wm->getCommunicationModule().read(messageWidth));
+	auto connectionMechanism = wm->getConnectionMechanism();
+	auto ports = connectionMechanism.getPorts();
+	for(auto i = 0u; i < ports.size(); i++)
+	{
+		translator->setConnectionInput(i, ports[i]->isEngaged());
+	}
+
+	translator->step();
+
+	wm->_desiredTranslationalValue = translator->getTranslationOutput();
+	wm->_desiredRotationalVelocity = translator->getRotationOutput();
+	connectionMechanism.setDesiredRotationalVelocity(translator->getSensorRotationOutput());
+
+	wm->getCommunicationModule().broadcast(translator->getMessageOut());
+	for(auto i = 0u; i < ports.size(); i++)
+	{
+		if(translator->getDesiresConnection(i)){
+			for(GroupRobotWorldModel* robot: nearbyRobots){
+				if(connectionMechanism.canConnect(robot))
+				{
+					connectionMechanism.connect(robot);
+					break;
+				}
+			}
 		}
 	}
 
