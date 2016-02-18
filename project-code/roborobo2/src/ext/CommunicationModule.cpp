@@ -8,7 +8,7 @@ CommunicationModule::CommunicationModule(GroupRobotWorldModel* owner){
 
 RobotMessage CommunicationModule::read(int messageSize){
     auto neighbors = owner->getConnectionMechanism().getConnections();
-    RobotMessage initial = RobotMessage(std::vector<float>(messageSize));
+    RobotMessage initial = RobotMessage(std::vector<double >(messageSize, 0.0));
     for(auto neighbor: neighbors){
         initial = initial + neighbor.first->getCommunicationModule().outgoingMessage;
     }

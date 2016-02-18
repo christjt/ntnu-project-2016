@@ -14,11 +14,14 @@
 
 #include "WorldModels/RobotWorldModel.h"
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
-
+#include "NetworkTranslator.h"
 class SelfAssemblyMechanismsController : public Controller
 {
-	protected:
-		GroupRobotWorldModel* groupWM;
+
+	private:
+		GroupRobotWorldModel* wm;
+		NetworkTranslator* translator;
+		int messageWidth;
 	public:
 		//Initializes the variables
 		SelfAssemblyMechanismsController( RobotWorldModel *__wm );

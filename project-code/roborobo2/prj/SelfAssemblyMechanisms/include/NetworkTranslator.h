@@ -11,8 +11,8 @@ class NetworkTranslator
         const int sensorOffset;
         const int portOffset;
         const int messageOffset;
-        const int connectionOutOffset;
         const int messageOutOffset;
+        const int connectionOutOffset;
         const int motorOutOffset;
 
         Neural::NeuralNetwork* ann;

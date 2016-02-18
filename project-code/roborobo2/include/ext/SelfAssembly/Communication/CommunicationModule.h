@@ -15,9 +15,9 @@ struct RobotMessage{
             message = contents;
         };
 
-        std::vector<double>& get() const{
-            return message;
-        }
+    const std::vector<double>& get() const{
+        return message;
+    }
 
     RobotMessage operator+(const RobotMessage& other){
         if(other.message.size() != message.size()){
