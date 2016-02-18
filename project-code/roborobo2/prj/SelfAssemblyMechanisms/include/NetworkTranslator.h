@@ -5,8 +5,19 @@
 #include "SelfAssembly/Communication/CommunicationModule.h"
 class NetworkTranslator
 {
+    private:
+        std::vector<double> inputs;
+        std::vector<double> outputs;
+        const int sensorOffset;
+        const int portOffset;
+        const int messageOffset;
+        const int connectionOutOffset;
+        const int messageOutOffset;
+        const int motorOutOffset;
+
+        Neural::NeuralNetwork* ann;
     public:
-        NetworkTranslator(int nSensors, int nPorts);
+        NetworkTranslator(Neural::NeuralNetwork* ann, int nSensors, int nPorts);
         void setSensorInput(int sensor, double value);
         void setMessageInput(const RobotMessage& message);
         void setConnectionInput(int connection, bool status);
@@ -14,6 +25,8 @@ class NetworkTranslator
         double getRotationOutput();
         double getSensorRotationOutput();
         bool getDesiresConnection(int i);
+        RobotMessage getMessageOut();
+        void step();
 
 };
 #endif //ROBOROBO2_NETWORKTRANSLATOR_H
