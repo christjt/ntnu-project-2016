@@ -20,6 +20,7 @@ class SelfAssemblyMechanismsWorldObserver : public WorldObserver
 	protected:
 		EA::EvolutionaryAlgorithm algorithm;
 		std::default_random_engine generator;
+		void updateAgentWeights(EA::DoubleVectorGenotype& genotype);
 	public:
 		SelfAssemblyMechanismsWorldObserver( World *__world );
 		~SelfAssemblyMechanismsWorldObserver();

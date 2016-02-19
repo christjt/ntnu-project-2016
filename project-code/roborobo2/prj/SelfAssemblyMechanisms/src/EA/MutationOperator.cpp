@@ -2,8 +2,8 @@
 // Created by christopher on 11.11.15.
 //
 
-#include "Aggregate/include/EA/MutationOperator.h"
-#include "Aggregate/include/EA/DoubleVectorGenotype.h"
+#include "SelfAssemblyMechanisms/include/EA/MutationOperator.h"
+#include "SelfAssemblyMechanisms/include/EA/DoubleVectorGenotype.h"
 
 using namespace EA;
 MutationOperator::MutationOperator(double mutationRate) {

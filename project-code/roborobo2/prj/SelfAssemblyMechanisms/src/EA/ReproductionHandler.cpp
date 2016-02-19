@@ -2,7 +2,7 @@
 // Created by christopher on 11.11.15.
 //
 
-#include "Aggregate/include/EA/ReproductionHandler.h"
+#include "SelfAssemblyMechanisms/include/EA/ReproductionHandler.h"
 #include <iostream>
 using namespace EA;
 ReproductionHandler::ReproductionHandler(std::default_random_engine &random, CrossoverOperator cross, MutationOperator mutate) : _cross(cross), _mutate(mutate)

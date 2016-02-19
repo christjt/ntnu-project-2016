@@ -2,7 +2,7 @@
 // Created by christopher on 10.11.15.
 //
 
-#include "Aggregate/include/EA/DoubleVectorGenotype.h"
+#include "SelfAssemblyMechanisms/include/EA/DoubleVectorGenotype.h"
 
 using namespace EA;
 DoubleVectorGenotype::DoubleVectorGenotype(int size, double rangeMin, double rangeMax){
@@ -36,7 +36,7 @@ std::string DoubleVectorGenotype::toString(){
 
     return ss.str();
 }
-std::vector<double> DoubleVectorGenotype::getVector(){
+std::vector<double>& DoubleVectorGenotype::getVector(){
     return vector;
 }
 double DoubleVectorGenotype::getFitness() const{

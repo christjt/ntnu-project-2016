@@ -28,7 +28,7 @@ namespace EA{
         double getRangeMin();
         double getRangeMax();
 
-        std::vector<double> getVector();
+        std::vector<double>& getVector();
 
         void randomize(std::default_random_engine &random);
 
@@ -44,8 +44,8 @@ namespace EA{
 
         bool operator < (const DoubleVectorGenotype& genotype) const;
 
-    protected:
-        void setVector(std::vector<double> vector);
+        protected:
+            void setVector(std::vector<double> vector);
     };
 
 }
