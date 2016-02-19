@@ -70,9 +70,6 @@ void SelfAssemblyMechanismsController::step()
 	wm->_desiredTranslationalValue = SelfAssemblyMechanismsUtilities::normalizeDesiredTranslation(translator->getTranslationOutput());
 	wm->_desiredRotationalVelocity = translator->getRotationOutput();
 
-	std::cout << wm->_desiredTranslationalValue << "\n";
-	std::cout << wm->_desiredRotationalVelocity << "\n";
-
 	connectionMechanism.setDesiredRotationalVelocity(translator->getSensorRotationOutput());
 
 	wm->getCommunicationModule().broadcast(translator->getMessageOut());
