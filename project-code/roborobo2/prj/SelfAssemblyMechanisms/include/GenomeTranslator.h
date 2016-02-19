@@ -12,9 +12,9 @@ class GenomeTranslator
         Neural::NeuralNetwork* ann;
 
     public:
-        GenomeTranslator(Neural::NeuralNetwork* _ann):ann(_ann), numberOfWeights(_ann->getRequiredNumberOfWeights()){}
+        GenomeTranslator(Neural::NeuralNetwork* _ann):numberOfWeights(_ann->getRequiredNumberOfWeights()),ann(_ann){}
         virtual void translateToWeights(TGenome& genome) = 0;
-        double getRequiredNumberOfWeights()
+        int getRequiredNumberOfWeights()
         {
             return numberOfWeights;
         }

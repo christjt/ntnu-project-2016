@@ -26,8 +26,8 @@ SelfAssemblyMechanismsController::~SelfAssemblyMechanismsController()
 void SelfAssemblyMechanismsController::reset()
 {
 	messageWidth =  wm->getConnectionMechanism().getPorts().size();
-	NetworkFactory* factory = NetworkFactory::createFactory(wm->_cameraSensorsNb + messageWidth*2, messageWidth*2 +3);
-	translator = new NetworkTranslator(factory->create(), wm->_cameraSensorsNb, messageWidth);
+	translator = new NetworkTranslator(wm->_cameraSensorsNb, messageWidth);
+	genomeTranslator = new DoubleVectorGenotypeTranslator(translator->getAnn());
 }
 
 int ticks = 0;

@@ -1,10 +1,10 @@
 #include "SelfAssemblyMechanisms/include/NetworkTranslator.h"
-
-NetworkTranslator::NetworkTranslator(Neural::NeuralNetwork* ann, int nSensors, int nPorts):
+#include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
+NetworkTranslator::NetworkTranslator(int nSensors, int nPorts):
         inputs(nSensors + nPorts*2, 0.0), outputs(nPorts*2 +3), sensorOffset(0), portOffset(nSensors), messageOffset(nSensors + nPorts),
         messageOutOffset(0), connectionOutOffset(nPorts), motorOutOffset(nPorts*2)
 {
-    this->ann = ann;
+    this->ann = NetworkFactory::createFactory(nSensors + nPorts*2, nPorts*2 +3)->create();
 }
 
 void NetworkTranslator::setSensorInput(int sensor, double value)

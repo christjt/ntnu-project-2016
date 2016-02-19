@@ -10,6 +10,7 @@
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsPredatorController.h"
 #include "SelfAssembly/PortPosition.h"
 #include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
+#include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsController.h"
 PortPosition* first;
 PortPosition* second;
 
@@ -28,6 +29,7 @@ SelfAssemblyMechanismsWorldObserver::~SelfAssemblyMechanismsWorldObserver()
 
 void SelfAssemblyMechanismsWorldObserver::reset()
 {
+	int nWeights = ((SelfAssemblyMechanismsController*)_world->getRobot(0)->getController())->getGenomeTranslator()->getRequiredNumberOfWeights();
 
 }
 

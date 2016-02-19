@@ -2,6 +2,7 @@
 #define ROBOROBO2_NETWORKFACTORY_H
 
 #include <neuralnetworks/NeuralNetwork.h>
+#include <memory>
 enum class ANNType{MLP};
 class NetworkFactory
 {
@@ -13,7 +14,7 @@ class NetworkFactory
     public:
         static ANNType factoryType;
         virtual Neural::NeuralNetwork* create() = 0;
-        static NetworkFactory* createFactory(int nInputNodes, int nOutputNodes);
+        static std::shared_ptr<NetworkFactory> createFactory(int nInputNodes, int nOutputNodes);
 };
 
 
