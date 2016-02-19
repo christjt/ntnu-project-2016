@@ -12,6 +12,8 @@
 
 #include "SelfAssemblyMechanisms/include/NetworkFactories/MLPFactory.h"
 #include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
+#include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsUtilities.h"
+
 SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) : Controller ( __wm )
 {
 	// nothing to do
@@ -65,8 +67,12 @@ void SelfAssemblyMechanismsController::step()
 
 	translator->step();
 
-	wm->_desiredTranslationalValue = translator->getTranslationOutput();
+	wm->_desiredTranslationalValue = SelfAssemblyMechanismsUtilities::normalizeDesiredTranslation(translator->getTranslationOutput());
 	wm->_desiredRotationalVelocity = translator->getRotationOutput();
+
+	std::cout << wm->_desiredTranslationalValue << "\n";
+	std::cout << wm->_desiredRotationalVelocity << "\n";
+
 	connectionMechanism.setDesiredRotationalVelocity(translator->getSensorRotationOutput());
 
 	wm->getCommunicationModule().broadcast(translator->getMessageOut());
