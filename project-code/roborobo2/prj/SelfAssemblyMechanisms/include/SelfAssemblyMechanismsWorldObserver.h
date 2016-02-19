@@ -11,6 +11,8 @@
 
 #include "Observers/WorldObserver.h"
 
+#include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsSharedData.h"
+
 class World;
 
 class SelfAssemblyMechanismsWorldObserver : public WorldObserver
