@@ -38,13 +38,6 @@ SelfAssemblyMechanismsWorldObserver::~SelfAssemblyMechanismsWorldObserver()
 
 void SelfAssemblyMechanismsWorldObserver::reset()
 {
-	std::cout << SelfAssemblyMechanismsSharedData::gEvolutionaryGenerationIterations << "\n";
-	std::cout << SelfAssemblyMechanismsSharedData::gPopulationSize << "\n";
-	std::cout << SelfAssemblyMechanismsSharedData::gMaxGenerations << "\n";
-	std::cout << SelfAssemblyMechanismsSharedData::gTargetFitness << "\n";
-	std::cout << SelfAssemblyMechanismsSharedData::gNNFactory << "\n";
-
-
 	int nWeights = 0;
 	for(int i = 0; i < gNumberOfRobots; i++)
 	{
