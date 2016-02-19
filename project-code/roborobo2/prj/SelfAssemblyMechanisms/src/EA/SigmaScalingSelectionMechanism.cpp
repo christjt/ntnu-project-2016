@@ -1,5 +1,5 @@
-#include "Aggregate/include/EA/SigmaScalingSelectionMechanism.h"
-#include "Aggregate/include/EA/RouletteWheel.h"
+#include "SelfAssemblyMechanisms/include/EA/SigmaScalingSelectionMechanism.h"
+#include "SelfAssemblyMechanisms/include/EA/RouletteWheel.h"
 #include <algorithm>
 #include <iostream>
 

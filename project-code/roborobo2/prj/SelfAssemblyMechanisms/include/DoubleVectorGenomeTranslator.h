@@ -3,13 +3,14 @@
 
 #include "GenomeTranslator.h"
 #include <neuralnetworks/NeuralNetwork.h>
-class DoubleVectorGenotypeTranslator:public GenomeTranslator<std::vector<double>>
+#include "EA/DoubleVectorGenotype.h"
+class DoubleVectorGenotypeTranslator:public GenomeTranslator<EA::DoubleVectorGenotype>
 {
     public:
         DoubleVectorGenotypeTranslator(Neural::NeuralNetwork* ann):GenomeTranslator(ann){}
-        void translateToWeights(std::vector<double>& genome)
+        void translateToWeights(EA::DoubleVectorGenotype& genome)
         {
-            ann->setWeigths(genome);
+            ann->setWeigths(genome.getVector());
         };
 };
 #endif //ROBOROBO2_DOUBLEVECTORGENOMETRANSLATOR_H

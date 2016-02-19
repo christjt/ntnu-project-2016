@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Aggregate/include/EA/EvolutionaryAlgorithm.h"
+#include "SelfAssemblyMechanisms/include/EA/EvolutionaryAlgorithm.h"
 using namespace EA;
 
 void EvolutionaryAlgorithm::generateInitialPopulation(int populationSize, int nWeights, std::default_random_engine &random)
@@ -9,8 +9,7 @@ void EvolutionaryAlgorithm::generateInitialPopulation(int populationSize, int nW
         DoubleVectorGenotype genotype(nWeights, -1.0, 1.0);
         genotype.randomize(random);
         _genomes.push_back(genotype);
-        std::cout << genotype.toString() << std::endl;
-        std::cout << std::endl;
+
     }
 }
 void EvolutionaryAlgorithm::nextGeneration(int nCrossovers, double mutationChance, std::default_random_engine &random)

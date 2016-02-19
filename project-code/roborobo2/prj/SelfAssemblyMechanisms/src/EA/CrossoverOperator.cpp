@@ -2,7 +2,7 @@
 // Created by christopher on 11.11.15.
 //
 
-#include "Aggregate/include/EA/CrossoverOperator.h"
+#include "SelfAssemblyMechanisms/include/EA/CrossoverOperator.h"
 
 using namespace EA;
 CrossoverOperator::CrossoverOperator(int nCrossoverPoints) {

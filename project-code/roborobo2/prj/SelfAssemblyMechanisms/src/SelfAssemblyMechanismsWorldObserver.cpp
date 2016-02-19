@@ -38,18 +38,38 @@ SelfAssemblyMechanismsWorldObserver::~SelfAssemblyMechanismsWorldObserver()
 
 void SelfAssemblyMechanismsWorldObserver::reset()
 {
-
 	std::cout << SelfAssemblyMechanismsSharedData::gEvolutionaryGenerationIterations << "\n";
 	std::cout << SelfAssemblyMechanismsSharedData::gPopulationSize << "\n";
 	std::cout << SelfAssemblyMechanismsSharedData::gMaxGenerations << "\n";
 	std::cout << SelfAssemblyMechanismsSharedData::gTargetFitness << "\n";
 	std::cout << SelfAssemblyMechanismsSharedData::gNNFactory << "\n";
 
-	int nWeights = ((SelfAssemblyMechanismsController*)_world->getRobot(0)->getController())->getGenomeTranslator()->getRequiredNumberOfWeights();
 
+	int nWeights = 0;
+	for(int i = 0; i < gNumberOfRobots; i++)
+	{
+		Robot* robot = _world->getRobot(0);
+		if(robot->getIsPredator())
+			continue;
+		nWeights = ((SelfAssemblyMechanismsController*)robot->getController())->getGenomeTranslator()->getRequiredNumberOfWeights();
+		break;
+	}
+
+	algorithm.generateInitialPopulation(gNumberOfRobots - gNumberOfPredators, nWeights, generator);
+	updateAgentWeights(algorithm.getGenomes()[1]);
 
 }
+void SelfAssemblyMechanismsWorldObserver::updateAgentWeights(EA::DoubleVectorGenotype& genotype)
+{
+	for(int i = 0; i <  gNumberOfRobots; i++)
+	{
+		Robot* robot = _world->getRobot(i);
+		if(!robot->getIsPredator()){
+			((SelfAssemblyMechanismsController*)robot->getController())->getGenomeTranslator()->translateToWeights(genotype);
 
+		}
+	}
+}
 void SelfAssemblyMechanismsWorldObserver::step()
 {
 

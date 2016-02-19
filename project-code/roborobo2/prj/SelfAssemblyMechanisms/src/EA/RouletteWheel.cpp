@@ -2,7 +2,7 @@
 // Created by eirikjak on 10.11.15.
 //
 
-#include "Aggregate/include/EA/RouletteWheel.h"
+#include "SelfAssemblyMechanisms/include/EA/RouletteWheel.h"
 #include <algorithm>
 #include <iostream>
 #include <stdexcept>
