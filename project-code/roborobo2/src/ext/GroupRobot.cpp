@@ -112,7 +112,11 @@ void GroupRobot::show(){
     }
     Robot::show();
 }
-
+void GroupRobot::reset()
+{
+    Robot::reset();
+    wm->reset();
+}
 void GroupRobot::registerRobot()
 {
     if(!wm->isAlive())

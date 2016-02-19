@@ -12,7 +12,7 @@ class GroupRobot: public Robot
         void applyDynamics();
         void registerRobot();
         void move( int __recursiveIt = 0 );
-
+        void reset();
 
     protected:
         void applyRobotPhysics();

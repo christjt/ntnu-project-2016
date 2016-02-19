@@ -37,6 +37,7 @@ class GroupRobotWorldModel: public RobotWorldModel
         void setId(int id);
         bool hasPendingMove();
         void setMoveCompleted(bool moveCompleted);
+        void reset();
 
 };
 

@@ -73,6 +73,12 @@ void GroupRobotWorldModel::updateTranslationVector()
     moveCompleted = false;
 }
 
+void GroupRobotWorldModel::reset()
+{
+    this->group = std::make_shared<RobotGroup>();
+    this->group->addMember(this);
+    this->connectionMechanism = ConnectionMechanisms(this, PortFactory::createPorts(this));
+}
 Vector2<double>& GroupRobotWorldModel::getBackupPosition()
 {
     return backUpPosition;

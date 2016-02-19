@@ -26,13 +26,12 @@ void EvolutionaryAlgorithm::nextGeneration(int nCrossovers, double mutationChanc
         if(genome.getFitness() > max){
             max = genome.getFitness();
         }
-        std::cout << "Fitness: " << genome.getFitness() << std::endl;
     }
 
     std::cout <<" Best fitness:" << max << std::endl;
 
     auto matingParents = selection.selectParents(_genomes, _genomes.size(), random);
-    std::cout << "parents selected" << std::endl;
+    std::cout << "parents selected " << std::endl;
     auto offspring = reproductionHandler.produceOffspring(matingParents, random);
     std::cout << "offspring created" << std::endl;
     _genomes = offspring;

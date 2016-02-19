@@ -78,7 +78,7 @@ class Robot : public Agent
 		Robot( World *__world );
 		virtual ~Robot();
 
-		void reset();
+		virtual void reset();
 
 		virtual void stepBehavior();
 		virtual void stepBehavior(Uint8* __keyboardStates);
