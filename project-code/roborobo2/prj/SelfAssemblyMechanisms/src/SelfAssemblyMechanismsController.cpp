@@ -11,7 +11,7 @@
 #include "Agents/Robot.h"
 
 #include "SelfAssemblyMechanisms/include/NetworkFactories/MLPFactory.h"
-
+#include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
 SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) : Controller ( __wm )
 {
 	// nothing to do
@@ -26,7 +26,7 @@ SelfAssemblyMechanismsController::~SelfAssemblyMechanismsController()
 void SelfAssemblyMechanismsController::reset()
 {
 	messageWidth =  wm->getConnectionMechanism().getPorts().size();
-	MLPFactory* factory = new MLPFactory(wm->_cameraSensorsNb + messageWidth*2, messageWidth*2 +3);
+	NetworkFactory* factory = NetworkFactory::createFactory(wm->_cameraSensorsNb + messageWidth*2, messageWidth*2 +3);
 	translator = new NetworkTranslator(factory->create(), wm->_cameraSensorsNb, messageWidth);
 }
 
