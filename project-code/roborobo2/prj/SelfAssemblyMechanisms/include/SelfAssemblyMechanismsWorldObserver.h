@@ -10,6 +10,8 @@
 #include "RoboroboMain/roborobo.h"
 
 #include "Observers/WorldObserver.h"
+#include "EA/EvolutionaryAlgorithm.h"
+#include <random>
 
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsSharedData.h"
 
@@ -18,7 +20,8 @@ class World;
 class SelfAssemblyMechanismsWorldObserver : public WorldObserver
 {
 	protected:
-		
+		EA::EvolutionaryAlgorithm algorithm;
+		std::default_random_engine generator;
 	public:
 		SelfAssemblyMechanismsWorldObserver( World *__world );
 		~SelfAssemblyMechanismsWorldObserver();

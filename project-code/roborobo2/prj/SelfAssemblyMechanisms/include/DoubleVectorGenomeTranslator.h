@@ -3,7 +3,7 @@
 
 #include "GenomeTranslator.h"
 #include <neuralnetworks/NeuralNetwork.h>
-class DoubleVectorGenotypeTranslator: GenomeTranslator<std::vector<double>>
+class DoubleVectorGenotypeTranslator:public GenomeTranslator<std::vector<double>>
 {
     public:
         DoubleVectorGenotypeTranslator(Neural::NeuralNetwork* ann):GenomeTranslator(ann){}

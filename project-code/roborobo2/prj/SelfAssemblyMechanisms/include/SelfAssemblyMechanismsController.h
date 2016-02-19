@@ -15,12 +15,14 @@
 #include "WorldModels/RobotWorldModel.h"
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 #include "NetworkTranslator.h"
+#include "DoubleVectorGenomeTranslator.h"
 class SelfAssemblyMechanismsController : public Controller
 {
 
 	private:
 		GroupRobotWorldModel* wm;
 		NetworkTranslator* translator;
+		DoubleVectorGenotypeTranslator* genomeTranslator;
 		int messageWidth;
 	public:
 		//Initializes the variables
@@ -29,6 +31,10 @@ class SelfAssemblyMechanismsController : public Controller
 		bool done = false;
 		void reset();
 		void step();
+		DoubleVectorGenotypeTranslator* getGenomeTranslator()
+		{
+			return genomeTranslator;
+		}
 };
 
 

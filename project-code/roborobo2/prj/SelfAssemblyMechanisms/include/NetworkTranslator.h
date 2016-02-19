@@ -14,10 +14,10 @@ class NetworkTranslator
         const int messageOutOffset;
         const int connectionOutOffset;
         const int motorOutOffset;
-
         Neural::NeuralNetwork* ann;
+
     public:
-        NetworkTranslator(Neural::NeuralNetwork* ann, int nSensors, int nPorts);
+        NetworkTranslator(int nSensors, int nPorts);
         void setSensorInput(int sensor, double value);
         void setMessageInput(const RobotMessage& message);
         void setConnectionInput(int connection, bool status);
@@ -27,6 +27,11 @@ class NetworkTranslator
         bool getDesiresConnection(int i);
         RobotMessage getMessageOut();
         void step();
+
+        Neural::NeuralNetwork* getAnn()
+        {
+            return ann;
+        }
 
 };
 #endif //ROBOROBO2_NETWORKTRANSLATOR_H
