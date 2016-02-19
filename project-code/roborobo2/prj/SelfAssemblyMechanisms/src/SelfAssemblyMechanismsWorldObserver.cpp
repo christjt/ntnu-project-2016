@@ -40,7 +40,11 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 	}
 
 	algorithm.generateInitialPopulation(gNumberOfRobots - gNumberOfPredators, nWeights, generator);
-	updateAgentWeights(algorithm.getGenomes()[1]);
+	currentGenome = 0;
+	steps = 0;
+	stepsPerGeneration = 200;
+	generationSize = (int)algorithm.getGenomes().size();
+	updateAgentWeights(algorithm.getGenomes()[currentGenome]);
 
 }
 void SelfAssemblyMechanismsWorldObserver::updateAgentWeights(EA::DoubleVectorGenotype& genotype)
@@ -48,14 +52,28 @@ void SelfAssemblyMechanismsWorldObserver::updateAgentWeights(EA::DoubleVectorGen
 	for(int i = 0; i <  gNumberOfRobots; i++)
 	{
 		Robot* robot = _world->getRobot(i);
-		if(!robot->getIsPredator()){
+		if(!robot->getIsPredator())
+		{
 			((SelfAssemblyMechanismsController*)robot->getController())->getGenomeTranslator()->translateToWeights(genotype);
-
 		}
 	}
 }
 void SelfAssemblyMechanismsWorldObserver::step()
 {
-
+	if(steps == stepsPerGeneration)
+	{
+		algorithm.getGenomes()[currentGenome].setFitness(0.1);
+		steps = 0;
+		currentGenome++;
+		if(currentGenome == generationSize)
+		{
+			algorithm.nextGeneration(2, 0.05, generator);
+			currentGenome = 0;
+		}
+		srand(gRandomSeed);
+		_world->resetWorld();
+		updateAgentWeights(algorithm.getGenomes()[currentGenome]);
+	}
+	steps++;
 
 }
