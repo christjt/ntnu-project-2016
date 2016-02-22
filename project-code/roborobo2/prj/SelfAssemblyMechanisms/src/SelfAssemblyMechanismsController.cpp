@@ -67,7 +67,9 @@ void SelfAssemblyMechanismsController::step()
 
 	translator->step();
 
-	wm->_desiredTranslationalValue = SelfAssemblyMechanismsUtilities::normalizeDouble(translator->getTranslationOutput(), -1, 1, 0, 1);
+	wm->_desiredTranslationalValue = translator->getTranslationOutput();
+	if(wm->_desiredTranslationalValue < 0)
+		wm->_desiredTranslationalValue = 0;
 	wm->_desiredRotationalVelocity = translator->getRotationOutput();
 
 	connectionMechanism.setDesiredRotationalVelocity(translator->getSensorRotationOutput());

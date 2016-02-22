@@ -54,7 +54,7 @@ RobotMessage NetworkTranslator::getMessageOut()
 void NetworkTranslator::step()
 {
     ann->setInputs(inputs);
-    inputs.clear();
     ann->step();
+    inputs.clear();
     outputs = ann->readOut();
 }
