@@ -13,6 +13,6 @@ MLPFactory::MLPFactory(int nInputNodes, int nOutputNodes) {
 Neural::NeuralNetwork* MLPFactory::create(){
 
     std::vector<double> weights(_nInputNodes * _nOutputNodes, 0.0);
-    return new Neural::MLP(weights, _nInputNodes, _nOutputNodes, false, false, 0);
+    return new Neural::MLP(weights, _nInputNodes, _nOutputNodes, true, false, 1.0);
 
 }

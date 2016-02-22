@@ -27,12 +27,14 @@ class SelfAssemblyMechanismsWorldObserver : public WorldObserver
 		int steps;
 		int stepsPerGeneration;
 		int generationSize;
+
 	public:
 		SelfAssemblyMechanismsWorldObserver( World *__world );
 		~SelfAssemblyMechanismsWorldObserver();
 				
 		void reset();
 		void step();
+		double evaluate();
 		
 };
 

@@ -48,10 +48,10 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 		break;
 	}
 
-	algorithm.generateInitialPopulation(gNumberOfRobots - gNumberOfPredators, nWeights, generator);
+	algorithm.generateInitialPopulation(2, nWeights, generator);
 	currentGenome = 0;
 	steps = 0;
-	stepsPerGeneration = 200;
+	stepsPerGeneration = 1500;
 	generationSize = (int)algorithm.getGenomes().size();
 	updateAgentWeights(algorithm.getGenomes()[currentGenome]);
 
@@ -71,7 +71,7 @@ void SelfAssemblyMechanismsWorldObserver::step()
 {
 	if(steps == stepsPerGeneration)
 	{
-		algorithm.getGenomes()[currentGenome].setFitness(0.1);
+		algorithm.getGenomes()[currentGenome].setFitness(evaluate());
 		steps = 0;
 		currentGenome++;
 		if(currentGenome == generationSize)
@@ -84,5 +84,19 @@ void SelfAssemblyMechanismsWorldObserver::step()
 		updateAgentWeights(algorithm.getGenomes()[currentGenome]);
 	}
 	steps++;
+}
 
+double SelfAssemblyMechanismsWorldObserver::evaluate()
+{
+	int nRobots = gNumberOfRobots - gNumberOfPredators;
+	int nDead = 0;
+	for(int i = 0; i < gNumberOfRobots; i++){
+		Robot* robot = _world->getRobot(i);
+		if(!robot->getIsPredator()){
+			if(!robot->getWorldModel()->isAlive())
+				nDead++;
+		}
+	}
+
+	return 1 - (double)nDead/nRobots;
 }
