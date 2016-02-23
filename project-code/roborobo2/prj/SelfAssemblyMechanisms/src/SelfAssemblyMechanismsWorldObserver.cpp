@@ -48,11 +48,12 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 		break;
 	}
 
-	algorithm.generateInitialPopulation(2, nWeights, generator);
+	algorithm.generateInitialPopulation(10, nWeights, 2, generator);
 	currentGenome = 0;
 	steps = 0;
 	stepsPerGeneration = 1500;
 	generationSize = (int)algorithm.getGenomes().size();
+	worldSeed = gRandomSeed+1;
 	updateAgentWeights(algorithm.getGenomes()[currentGenome]);
 
 }
@@ -76,10 +77,11 @@ void SelfAssemblyMechanismsWorldObserver::step()
 		currentGenome++;
 		if(currentGenome == generationSize)
 		{
-			algorithm.nextGeneration(2, 0.05, generator);
+			algorithm.nextGeneration(2, 0.005, generator);
 			currentGenome = 0;
+			worldSeed++;
 		}
-		srand(gRandomSeed);
+		srand(worldSeed);
 		_world->resetWorld();
 		updateAgentWeights(algorithm.getGenomes()[currentGenome]);
 	}
