@@ -43,25 +43,33 @@ SelfAssemblyMechanismsWorldObserver::~SelfAssemblyMechanismsWorldObserver()
 
 void SelfAssemblyMechanismsWorldObserver::reset()
 {
-	int nWeights = 0;
-	for(int i = 0; i < gNumberOfRobots; i++)
+	if(!SelfAssemblyMechanismsSharedData::gDisplayBestGenome){
+		int nWeights = 0;
+		for(int i = 0; i < gNumberOfRobots; i++)
+		{
+			Robot* robot = _world->getRobot(0);
+			if(robot->getIsPredator())
+				continue;
+			nWeights = ((SelfAssemblyMechanismsController*)robot->getController())->getGenomeTranslator()->getRequiredNumberOfWeights();
+			break;
+		}
+
+		currentGenome = 0;
+		steps = 0;
+		cGenerations = 0;
+		stepsPerGeneration = SelfAssemblyMechanismsSharedData::gEvolutionaryGenerationIterations;
+		generationSize = SelfAssemblyMechanismsSharedData::gPopulationSize;
+
+		algorithm.generateInitialPopulation(generationSize, nWeights, 2, generator);
+		worldSeed = gRandomSeed+1;
+		updateAgentWeights(algorithm.getGenomes()[currentGenome]);
+
+	}else
 	{
-		Robot* robot = _world->getRobot(0);
-		if(robot->getIsPredator())
-			continue;
-		nWeights = ((SelfAssemblyMechanismsController*)robot->getController())->getGenomeTranslator()->getRequiredNumberOfWeights();
-		break;
+		loadGeneration();
 	}
 
-	currentGenome = 0;
-	steps = 0;
-	stepsPerGeneration = SelfAssemblyMechanismsSharedData::gEvolutionaryGenerationIterations;
-	generationSize = SelfAssemblyMechanismsSharedData::gPopulationSize;
 
-	algorithm.generateInitialPopulation(generationSize, nWeights, 2, generator);
-	worldSeed = gRandomSeed+1;
-
-	updateAgentWeights(algorithm.getGenomes()[currentGenome]);
 
 }
 void SelfAssemblyMechanismsWorldObserver::updateAgentWeights(EA::DoubleVectorGenotype& genotype)
@@ -78,6 +86,9 @@ void SelfAssemblyMechanismsWorldObserver::updateAgentWeights(EA::DoubleVectorGen
 
 void SelfAssemblyMechanismsWorldObserver::step()
 {
+	if(SelfAssemblyMechanismsSharedData::gDisplayBestGenome)
+		return;
+
 	if(steps == stepsPerGeneration)
 	{
 		algorithm.getGenomes()[currentGenome].setFitness(evaluate());
@@ -97,7 +108,6 @@ void SelfAssemblyMechanismsWorldObserver::step()
 				}
 			}
 
-			std::cout << SelfAssemblyMechanismsSharedData::gMaxGenerations << std::endl;
 			if(cGenerations == SelfAssemblyMechanismsSharedData::gMaxGenerations){
 				std::cout << "Max generations " << SelfAssemblyMechanismsSharedData::gMaxGenerations << " is reached" << std::endl;
 				saveGeneration();
@@ -138,6 +148,9 @@ void SelfAssemblyMechanismsWorldObserver::saveGeneration()
 	std::ofstream out;
 	out.open(SelfAssemblyMechanismsSharedData::gEAResultsOutputFilename);
 	auto genomes = algorithm.getGenomes();
+	std::sort(genomes.begin(), genomes.end(), [](EA::DoubleVectorGenotype a, EA::DoubleVectorGenotype b){
+		return a.getFitness() > b.getFitness();
+	});
 	for(auto& genome: genomes)
 	{
 		out << genome.getFitness() << ":" << genome.toString() << "," << std::endl;
@@ -152,17 +165,15 @@ void SelfAssemblyMechanismsWorldObserver::loadGeneration()
 	std::string inLine;
 	std::getline(in,inLine);
 	auto separator = inLine.find(":");
-	std::string weightsString;
-	weightsString.replace(inLine.begin() + separator, inLine.end(), inLine);
-
+	std::string weightsString = inLine.substr(separator+1);
 	std::vector<double> weights;
-	while(weightsString.find(",") != std::string::npos)
+	while(weightsString.find(",", 0) != std::string::npos)
 	{
-		auto pos = weightsString.find(",");
+		auto pos = weightsString.find(",", 0);
 		double weight = stod(weightsString.substr(0, pos));
 		weightsString.erase(0, pos +1);
 		weights.push_back(weight);
 	}
-
-	
+	EA::DoubleVectorGenotype genotype(weights, -1, 1);
+	updateAgentWeights(genotype);
 }
