@@ -26,7 +26,13 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gNNFactory",&SelfAssemblyMechanismsSharedData::gNNFactory,true);
 
 	generator.seed(0);
-	NetworkFactory::factoryType = ANNType::MLP;
+
+	switch (SelfAssemblyMechanismsSharedData::gNNFactory)
+	{
+		case 0: NetworkFactory::factoryType = ANNType::MLP;
+	}
+
+
 
 
 }
