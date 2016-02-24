@@ -2,7 +2,6 @@
  * @author Nicolas Bredeche <nicolas.bredeche@upmc.fr>
  */
 
-
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsWorldObserver.h"
 #include "World/World.h"
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
@@ -11,6 +10,8 @@
 #include "SelfAssembly/PortPosition.h"
 #include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsController.h"
+#include "SelfAssemblyMechanisms/include/EA/DoubleVectorGenotype.h"
+#include <iostream>
 PortPosition* first;
 PortPosition* second;
 
@@ -24,7 +25,9 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gMaxGenerations",&SelfAssemblyMechanismsSharedData::gMaxGenerations,true);
 	gProperties.checkAndGetPropertyValue("gTargetFitness",&SelfAssemblyMechanismsSharedData::gTargetFitness,true);
 	gProperties.checkAndGetPropertyValue("gNNFactory",&SelfAssemblyMechanismsSharedData::gNNFactory,true);
-
+	gProperties.checkAndGetPropertyValue("gDisplayBestGenome", &SelfAssemblyMechanismsSharedData::gDisplayBestGenome, true);
+	SelfAssemblyMechanismsSharedData::gGenomeFileName = gProperties.getProperty("gGenomeFilename");
+	SelfAssemblyMechanismsSharedData::gEAResultsOutputFilename = gProperties.getProperty("gEAResultsOutputFilename");
 	generator.seed(0);
 
 	switch (SelfAssemblyMechanismsSharedData::gNNFactory)
@@ -76,6 +79,7 @@ void SelfAssemblyMechanismsWorldObserver::updateAgentWeights(EA::DoubleVectorGen
 		}
 	}
 }
+
 void SelfAssemblyMechanismsWorldObserver::step()
 {
 	if(steps == stepsPerGeneration)
@@ -92,6 +96,7 @@ void SelfAssemblyMechanismsWorldObserver::step()
 				if(genome.getFitness() >= SelfAssemblyMechanismsSharedData::gTargetFitness)
 				{
 					std::cout << "Target fitness: " << genome.getFitness() << " is reached" << std::endl;
+					saveGeneration();
 					exit(0);
 				}
 			}
@@ -126,4 +131,38 @@ double SelfAssemblyMechanismsWorldObserver::evaluate()
 	}
 
 	return 1 - (double)nDead/nRobots;
+}
+
+void SelfAssemblyMechanismsWorldObserver::saveGeneration()
+{
+	std::ofstream out;
+	out.open(SelfAssemblyMechanismsSharedData::gEAResultsOutputFilename);
+	auto genomes = algorithm.getGenomes();
+	for(auto& genome: genomes)
+	{
+		out << genome.getFitness() << ":" << genome.toString() << "," << std::endl;
+	}
+	out.close();
+}
+
+void SelfAssemblyMechanismsWorldObserver::loadGeneration()
+{
+	std::ifstream in;
+	in.open(SelfAssemblyMechanismsSharedData::gGenomeFileName);
+	std::string inLine;
+	std::getline(in,inLine);
+	auto separator = inLine.find(":");
+	std::string weightsString;
+	weightsString.replace(inLine.begin() + separator, inLine.end(), inLine);
+
+	std::vector<double> weights;
+	while(weightsString.find(",") != std::string::npos)
+	{
+		auto pos = weightsString.find(",");
+		double weight = stod(weightsString.substr(0, pos));
+		weightsString.erase(0, pos +1);
+		weights.push_back(weight);
+	}
+
+	
 }
