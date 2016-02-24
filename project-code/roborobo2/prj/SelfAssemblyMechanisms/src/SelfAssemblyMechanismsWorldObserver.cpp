@@ -32,6 +32,8 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 
 	generator.seed(0);
 
+	cGenerations = 0;
+
 	switch (SelfAssemblyMechanismsSharedData::gNNFactory)
 	{
 		case 0: NetworkFactory::factoryType = ANNType::MLP;
@@ -102,6 +104,7 @@ void SelfAssemblyMechanismsWorldObserver::step()
 					exit(0);
 				}
 			}
+
 
 			if(cGenerations == SelfAssemblyMechanismsSharedData::gMaxGenerations){
 				std::cout << "Max generations " << SelfAssemblyMechanismsSharedData::gMaxGenerations << " is reached" << std::endl;
