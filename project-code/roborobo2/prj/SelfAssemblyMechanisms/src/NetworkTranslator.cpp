@@ -57,8 +57,4 @@ void NetworkTranslator::step()
     ann->step();
     inputs.clear();
     outputs = ann->readOut();
-    for(auto& d: outputs){
-        std::cout << d << ",";
-    }
-    std::cout << std::endl;
 }
