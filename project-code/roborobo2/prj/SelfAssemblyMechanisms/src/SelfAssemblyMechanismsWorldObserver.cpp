@@ -48,13 +48,14 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 		break;
 	}
 
-
 	currentGenome = 0;
 	steps = 0;
 	stepsPerGeneration = SelfAssemblyMechanismsSharedData::gEvolutionaryGenerationIterations;
 	generationSize = SelfAssemblyMechanismsSharedData::gPopulationSize;
 
-	algorithm.generateInitialPopulation(generationSize, nWeights, generator);
+	algorithm.generateInitialPopulation(generationSize, nWeights, 2, generator);
+	worldSeed = gRandomSeed+1;
+
 	updateAgentWeights(algorithm.getGenomes()[currentGenome]);
 
 }
@@ -82,7 +83,6 @@ void SelfAssemblyMechanismsWorldObserver::step()
 
 			for (auto& genome : algorithm.getGenomes())
 			{
-				std::cout << genome.getFitness() << std::endl;
 				if(genome.getFitness() >= SelfAssemblyMechanismsSharedData::gTargetFitness)
 				{
 					std::cout << "Target fitness: " << genome.getFitness() << " is reached" << std::endl;
@@ -97,8 +97,10 @@ void SelfAssemblyMechanismsWorldObserver::step()
 				std::cout << "Max generations " << SelfAssemblyMechanismsSharedData::gMaxGenerations << " is reached" << std::endl;
 				exit(0);
 			}
+
+			worldSeed++;
 		}
-		srand(gRandomSeed);
+		srand(worldSeed);
 		_world->resetWorld();
 		updateAgentWeights(algorithm.getGenomes()[currentGenome]);
 	}

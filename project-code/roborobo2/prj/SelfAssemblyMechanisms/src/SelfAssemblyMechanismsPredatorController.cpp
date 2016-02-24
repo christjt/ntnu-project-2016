@@ -25,7 +25,11 @@ void SelfAssemblyMechanismsPredatorController::step()
 
     for(auto pair: prey)
     {
-        if(pair.second <= 5){
+        if(pair.second <= 5 )
+        {
+            auto wm = (GroupRobotWorldModel*)pair.first->getWorldModel();
+            if(wm->getConnectionMechanism().numConnections() > 0)
+                continue;
             eat(pair.first);
         }
     }
