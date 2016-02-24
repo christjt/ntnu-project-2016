@@ -2,6 +2,7 @@
  * @author Nicolas Bredeche <nicolas.bredeche@upmc.fr>
  */
 
+
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsWorldObserver.h"
 #include "World/World.h"
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
@@ -25,9 +26,10 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gMaxGenerations",&SelfAssemblyMechanismsSharedData::gMaxGenerations,true);
 	gProperties.checkAndGetPropertyValue("gTargetFitness",&SelfAssemblyMechanismsSharedData::gTargetFitness,true);
 	gProperties.checkAndGetPropertyValue("gNNFactory",&SelfAssemblyMechanismsSharedData::gNNFactory,true);
+	gProperties.checkAndGetPropertyValue("gEAResultsOutputFilename", &SelfAssemblyMechanismsSharedData::gEAResultsOutputFilename, true);
 	gProperties.checkAndGetPropertyValue("gDisplayBestGenome", &SelfAssemblyMechanismsSharedData::gDisplayBestGenome, true);
-	SelfAssemblyMechanismsSharedData::gGenomeFileName = gProperties.getProperty("gGenomeFilename");
-	SelfAssemblyMechanismsSharedData::gEAResultsOutputFilename = gProperties.getProperty("gEAResultsOutputFilename");
+	gProperties.checkAndGetPropertyValue("gGenomeFilename", &SelfAssemblyMechanismsSharedData::gGenomeFileName, true);
+
 	generator.seed(0);
 	NetworkFactory::factoryType = ANNType::MLP;
 
@@ -95,13 +97,16 @@ void SelfAssemblyMechanismsWorldObserver::step()
 				}
 			}
 
+			if(cGenerations == SelfAssemblyMechanismsSharedData::gMaxGenerations){
+				std::cout << "Max generations " << SelfAssemblyMechanismsSharedData::gMaxGenerations << " is reached" << std::endl;
+				saveGeneration();
+				exit(0);
+			}
+
 			algorithm.nextGeneration(2, 0.05, generator);
 			currentGenome = 0;
 
-			if(cGenerations == SelfAssemblyMechanismsSharedData::gMaxGenerations){
-				std::cout << "Max generations " << SelfAssemblyMechanismsSharedData::gMaxGenerations << " is reached" << std::endl;
-				exit(0);
-			}
+
 
 			worldSeed++;
 		}

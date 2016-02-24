@@ -10,7 +10,7 @@ class SelfAssemblyMechanismsSharedData {
         static double gTargetFitness;
         static int gNNFactory;
         static std::string gEAResultsOutputFilename;
-        static int gDisplayBestGenome;
+        static bool gDisplayBestGenome;
         static std::string gGenomeFileName;
 };
 
