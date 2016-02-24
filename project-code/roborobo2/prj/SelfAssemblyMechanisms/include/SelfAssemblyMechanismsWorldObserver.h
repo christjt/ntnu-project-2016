@@ -28,7 +28,8 @@ class SelfAssemblyMechanismsWorldObserver : public WorldObserver
 		int stepsPerGeneration;
 		int generationSize;
 		int worldSeed;
-
+		void saveGeneration();
+		void loadGeneration();
 	public:
 		SelfAssemblyMechanismsWorldObserver( World *__world );
 		~SelfAssemblyMechanismsWorldObserver();
