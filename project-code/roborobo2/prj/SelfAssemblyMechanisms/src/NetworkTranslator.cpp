@@ -57,5 +57,4 @@ void NetworkTranslator::step()
     ann->step();
     inputs.clear();
     outputs = ann->readOut();
-
 }

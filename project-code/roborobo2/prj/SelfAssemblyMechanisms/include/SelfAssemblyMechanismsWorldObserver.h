@@ -26,6 +26,7 @@ class SelfAssemblyMechanismsWorldObserver : public WorldObserver
 		int currentGenome;
 		int steps;
 		int stepsPerGeneration;
+		int cGenerations;
 		int generationSize;
 		int worldSeed;
 		void saveGeneration();
