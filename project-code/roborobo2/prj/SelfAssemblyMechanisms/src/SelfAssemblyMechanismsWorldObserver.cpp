@@ -31,7 +31,15 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gGenomeFilename", &SelfAssemblyMechanismsSharedData::gGenomeFileName, true);
 
 	generator.seed(0);
-	NetworkFactory::factoryType = ANNType::MLP;
+
+	cGenerations = 0;
+
+	switch (SelfAssemblyMechanismsSharedData::gNNFactory)
+	{
+		case 0: NetworkFactory::factoryType = ANNType::MLP;
+	}
+
+
 
 
 }
