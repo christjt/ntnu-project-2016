@@ -1,7 +1,7 @@
 #ifndef ROBOROBO2_SELFASSEMBLYMECHANISMSSHAREDDATA_H
 #define ROBOROBO2_SELFASSEMBLYMECHANISMSSHAREDDATA_H
 
-#include <string>
+#include <RoboroboMain/roborobo.h>
 class SelfAssemblyMechanismsSharedData {
     public:
         static int gEvolutionaryGenerationIterations;
@@ -10,7 +10,7 @@ class SelfAssemblyMechanismsSharedData {
         static double gTargetFitness;
         static int gNNFactory;
         static std::string gEAResultsOutputFilename;
-        static bool gDisplayBestGenome;
+        static int gDisplayBestGenome;
         static std::string gGenomeFileName;
 };
 

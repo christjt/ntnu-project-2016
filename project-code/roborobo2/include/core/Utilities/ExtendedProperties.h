@@ -10,7 +10,6 @@
 #include <zsu/Properties.h>
 
 using namespace zsu;
-
 class  ExtendedProperties : public Properties {
 
 	public:
