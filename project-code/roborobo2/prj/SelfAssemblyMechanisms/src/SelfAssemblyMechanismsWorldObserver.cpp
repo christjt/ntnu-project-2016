@@ -104,8 +104,7 @@ void SelfAssemblyMechanismsWorldObserver::step()
 					exit(0);
 				}
 			}
-
-
+			
 			if(cGenerations == SelfAssemblyMechanismsSharedData::gMaxGenerations){
 				std::cout << "Max generations " << SelfAssemblyMechanismsSharedData::gMaxGenerations << " is reached" << std::endl;
 				saveGeneration();

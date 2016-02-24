@@ -10,7 +10,6 @@ void EvolutionaryAlgorithm::generateInitialPopulation(int populationSize, int nW
         DoubleVectorGenotype genotype(nWeights, -1.0, 1.0);
         genotype.randomize(random);
         _genomes.push_back(genotype);
-        std::cout << genotype.toString() << std::endl;
     }
 }
 void EvolutionaryAlgorithm::nextGeneration(int nCrossovers, double mutationChance, std::default_random_engine &random)
