@@ -73,7 +73,7 @@ void SelfAssemblyMechanismsController::step()
 
 	translator->step();
 
-	wm->_desiredTranslationalValue = translator->getTranslationOutput()*3;
+	wm->_desiredTranslationalValue = translator->getTranslationOutput();
 	if(wm->_desiredTranslationalValue < 0)
 		wm->_desiredTranslationalValue = 0;
 	wm->_desiredRotationalVelocity = translator->getRotationOutput();
