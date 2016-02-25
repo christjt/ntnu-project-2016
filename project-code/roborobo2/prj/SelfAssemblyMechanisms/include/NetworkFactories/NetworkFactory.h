@@ -15,6 +15,7 @@ class NetworkFactory
         static ANNType factoryType;
         virtual Neural::NeuralNetwork* create() = 0;
         static std::shared_ptr<NetworkFactory> createFactory(int nInputNodes, int nOutputNodes);
+        static std::vector<unsigned > hiddenLayers;
 };
 
 

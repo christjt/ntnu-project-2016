@@ -7,6 +7,11 @@ class SelfAssemblyMechanismsSharedData {
         static int gEvolutionaryGenerationIterations;
         static int gPopulationSize;
         static int gMaxGenerations;
+        static int gCrossover;
+        static double gMutation;
+        static int gElitism;
+        static int gNHiddenLayers;
+        static std::vector<unsigned > gHiddenLayers;
         static double gTargetFitness;
         static int gNNFactory;
         static std::string gEAResultsOutputFilename;

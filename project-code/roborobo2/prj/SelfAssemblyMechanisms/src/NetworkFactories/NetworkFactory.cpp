@@ -1,6 +1,8 @@
 #include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
 #include "SelfAssemblyMechanisms/include/NetworkFactories/MLPFactory.h"
 ANNType NetworkFactory::factoryType = ANNType::MLP;
+std::vector<unsigned> NetworkFactory::hiddenLayers = std::vector<unsigned>();
+
 std::shared_ptr<NetworkFactory> NetworkFactory::createFactory(int nInputNodes, int nOutputNodes)
 {
     switch(NetworkFactory::factoryType){

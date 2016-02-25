@@ -23,8 +23,9 @@ namespace EA
         void insertElites();
         void updateElites();
     public:
+        void setElitism(int nElites);
         std::vector<DoubleVectorGenotype>& getGenomes();
-        void generateInitialPopulation(int populationSize, int nWeights, int nElites, std::default_random_engine &random);
+        void generateInitialPopulation(int populationSize, int nWeights, std::default_random_engine &random);
         void nextGeneration(int nCrossovers, double mutationChance, std::default_random_engine &random);
     };
 }

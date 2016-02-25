@@ -2,9 +2,8 @@
 #include "SelfAssemblyMechanisms/include/EA/EvolutionaryAlgorithm.h"
 using namespace EA;
 
-void EvolutionaryAlgorithm::generateInitialPopulation(int populationSize, int nWeights, int nElites, std::default_random_engine &random)
+void EvolutionaryAlgorithm::generateInitialPopulation(int populationSize, int nWeights,  std::default_random_engine &random)
 {
-    this->nElites = nElites;
     _genomes.clear();
     for(int i = 0; i < populationSize; i++){
         DoubleVectorGenotype genotype(nWeights, -1.0, 1.0);
@@ -15,7 +14,6 @@ void EvolutionaryAlgorithm::generateInitialPopulation(int populationSize, int nW
 void EvolutionaryAlgorithm::nextGeneration(int nCrossovers, double mutationChance, std::default_random_engine &random)
 {
     static int generation;
-    static DoubleVectorGenotype elite = _genomes[0];
     generation++;
     CrossoverOperator cross(nCrossovers);
     MutationOperator mutation(mutationChance);
@@ -60,4 +58,8 @@ void EvolutionaryAlgorithm::updateElites()
 std::vector<DoubleVectorGenotype>& EvolutionaryAlgorithm::getGenomes()
 {
     return _genomes;
+}
+void EvolutionaryAlgorithm::setElitism(int nElites)
+{
+    this->nElites = nElites;
 }

@@ -29,11 +29,24 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gEAResultsOutputFilename", &SelfAssemblyMechanismsSharedData::gEAResultsOutputFilename, true);
 	gProperties.checkAndGetPropertyValue("gDisplayBestGenome", &SelfAssemblyMechanismsSharedData::gDisplayBestGenome, true);
 	gProperties.checkAndGetPropertyValue("gGenomeFilename", &SelfAssemblyMechanismsSharedData::gGenomeFileName, true);
+	gProperties.checkAndGetPropertyValue("gElitism", &SelfAssemblyMechanismsSharedData::gElitism, true);
+	gProperties.checkAndGetPropertyValue("gCrossover", &SelfAssemblyMechanismsSharedData::gCrossover, true);
+	gProperties.checkAndGetPropertyValue("gMutation", &SelfAssemblyMechanismsSharedData::gMutation, true);
+	gProperties.checkAndGetPropertyValue("gNHiddenLayers", &SelfAssemblyMechanismsSharedData::gNHiddenLayers, true);
+	SelfAssemblyMechanismsSharedData::gHiddenLayers = std::vector<unsigned>(SelfAssemblyMechanismsSharedData::gNHiddenLayers+2);
 
+	for(int i = 0; i < SelfAssemblyMechanismsSharedData::gNHiddenLayers; i++)
+	{
+		std::ostringstream layerProp;
+		layerProp << "layers[" << i << "]";
+		SelfAssemblyMechanismsSharedData::gHiddenLayers[i+1] =  atoi(gProperties.getProperty(layerProp.str(), "0").c_str());
+	}
+
+	algorithm.setElitism(SelfAssemblyMechanismsSharedData::gMutation);
 	generator.seed(0);
-
 	cGenerations = 0;
 
+	NetworkFactory::hiddenLayers = SelfAssemblyMechanismsSharedData::gHiddenLayers;
 	switch (SelfAssemblyMechanismsSharedData::gNNFactory)
 	{
 		case 0: NetworkFactory::factoryType = ANNType::MLP;
@@ -68,7 +81,7 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 		stepsPerGeneration = SelfAssemblyMechanismsSharedData::gEvolutionaryGenerationIterations;
 		generationSize = SelfAssemblyMechanismsSharedData::gPopulationSize;
 
-		algorithm.generateInitialPopulation(generationSize, nWeights, 2, generator);
+		algorithm.generateInitialPopulation(generationSize, nWeights, generator);
 		worldSeed = gRandomSeed+1;
 		updateAgentWeights(algorithm.getGenomes()[currentGenome]);
 
@@ -122,7 +135,7 @@ void SelfAssemblyMechanismsWorldObserver::step()
 				exit(0);
 			}
 
-			algorithm.nextGeneration(2, 0.05, generator);
+			algorithm.nextGeneration(SelfAssemblyMechanismsSharedData::gCrossover, SelfAssemblyMechanismsSharedData::gMutation, generator);
 			currentGenome = 0;
 
 
