@@ -45,15 +45,20 @@ void SelfAssemblyMechanismsController::step()
 	std::vector<GroupRobotWorldModel*> nearbyRobots;
 	for(int i = 0; i < wm->_cameraSensorsNb; i++)
 	{
-		translator->setSensorInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i))/gSensorRange);
 		auto objectId = wm->getObjectIdFromCameraSensor(i);
 		if(Agent::isInstanceOf(objectId))
 		{
 			int id = objectId - gRobotIndexStartOffset;
 			Robot* robot = wm->getWorld()->getRobot(id);
 			if(!robot->getIsPredator()){
+				translator->setRobotInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i)/gSensorRange));
 				nearbyRobots.push_back((GroupRobotWorldModel*)robot->getWorldModel());
+			}else{
+				translator->setPredatorInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i)/gSensorRange));
 			}
+		}else
+		{
+			translator->setEnvironmentInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i))/gSensorRange);
 		}
 	}
 

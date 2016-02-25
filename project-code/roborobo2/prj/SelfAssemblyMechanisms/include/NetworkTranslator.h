@@ -8,7 +8,9 @@ class NetworkTranslator
     private:
         std::vector<double> inputs;
         std::vector<double> outputs;
-        const int sensorOffset;
+        const int predatorSensorOffset;
+        const int robotSensorOffset;
+        const int environmentOffset;
         const int portOffset;
         const int messageOffset;
         const int messageOutOffset;
@@ -18,7 +20,9 @@ class NetworkTranslator
 
     public:
         NetworkTranslator(int nSensors, int nPorts);
-        void setSensorInput(int sensor, double value);
+        void setPredatorInput(int sensor, double value);
+        void setRobotInput(int sensor, double value);
+        void setEnvironmentInput(int sensor, double value);
         void setMessageInput(const RobotMessage& message);
         void setConnectionInput(int connection, bool status);
         double getTranslationOutput();
