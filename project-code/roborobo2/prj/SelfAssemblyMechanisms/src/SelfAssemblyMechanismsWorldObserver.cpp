@@ -33,13 +33,13 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gCrossover", &SelfAssemblyMechanismsSharedData::gCrossover, true);
 	gProperties.checkAndGetPropertyValue("gMutation", &SelfAssemblyMechanismsSharedData::gMutation, true);
 	gProperties.checkAndGetPropertyValue("gNHiddenLayers", &SelfAssemblyMechanismsSharedData::gNHiddenLayers, true);
-	SelfAssemblyMechanismsSharedData::gHiddenLayers = std::vector<unsigned>(SelfAssemblyMechanismsSharedData::gNHiddenLayers+2);
+	SelfAssemblyMechanismsSharedData::gHiddenLayers = std::vector<unsigned>(SelfAssemblyMechanismsSharedData::gNHiddenLayers);
 
 	for(int i = 0; i < SelfAssemblyMechanismsSharedData::gNHiddenLayers; i++)
 	{
 		std::ostringstream layerProp;
 		layerProp << "layers[" << i << "]";
-		SelfAssemblyMechanismsSharedData::gHiddenLayers[i+1] =  atoi(gProperties.getProperty(layerProp.str(), "0").c_str());
+		SelfAssemblyMechanismsSharedData::gHiddenLayers[i] =  atoi(gProperties.getProperty(layerProp.str(), "0").c_str());
 	}
 
 	algorithm.setElitism(SelfAssemblyMechanismsSharedData::gMutation);

@@ -29,10 +29,7 @@ void SelfAssemblyMechanismsController::reset()
 {
 	messageWidth =  wm->getConnectionMechanism().getPorts().size();
 	translator = new NetworkTranslator(wm->_cameraSensorsNb, messageWidth);
-
-
 	genomeTranslator = new DoubleVectorGenotypeTranslator(translator->getAnn());
-	std::cout << genomeTranslator->getRequiredNumberOfWeights() << std::endl;
 }
 
 int ticks = 0;
