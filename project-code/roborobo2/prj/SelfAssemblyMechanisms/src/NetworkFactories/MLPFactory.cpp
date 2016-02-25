@@ -26,6 +26,7 @@ Neural::NeuralNetwork* MLPFactory::create(){
     std::vector<double> weights(nWeights, 0.0);
     std::cout << nWeights << std::endl;
     if(hiddenLayers.size() > 2){
+        std::cout << "lelwut" << std::endl;
         return new Neural::MLP(weights, _nInputNodes, _nOutputNodes, hiddenLayers);
     }else{
         return new Neural::MLP(weights, _nInputNodes, _nOutputNodes, true, true, 0.5);
