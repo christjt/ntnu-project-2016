@@ -42,7 +42,7 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 		SelfAssemblyMechanismsSharedData::gHiddenLayers[i] =  atoi(gProperties.getProperty(layerProp.str(), "0").c_str());
 	}
 
-	algorithm.setElitism(SelfAssemblyMechanismsSharedData::gMutation);
+	algorithm.setElitism(SelfAssemblyMechanismsSharedData::gElitism);
 	generator.seed(0);
 	cGenerations = 0;
 
