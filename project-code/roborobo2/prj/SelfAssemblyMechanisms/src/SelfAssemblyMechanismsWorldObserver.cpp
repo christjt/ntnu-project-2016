@@ -139,8 +139,6 @@ void SelfAssemblyMechanismsWorldObserver::step()
 			currentGenome = 0;
 
 
-
-			worldSeed++;
 		}
 		srand(worldSeed);
 		_world->resetWorld();
@@ -169,9 +167,11 @@ void SelfAssemblyMechanismsWorldObserver::saveGeneration()
 	std::ofstream out;
 	out.open(SelfAssemblyMechanismsSharedData::gEAResultsOutputFilename);
 	auto genomes = algorithm.getGenomes();
+	genomes.insert(genomes.end(), algorithm.getElites().begin(), algorithm.getElites().end());
 	std::sort(genomes.begin(), genomes.end(), [](EA::DoubleVectorGenotype a, EA::DoubleVectorGenotype b){
 		return a.getFitness() > b.getFitness();
 	});
+
 	for(auto& genome: genomes)
 	{
 		out << genome.getFitness() << ":" << genome.toString() << "," << std::endl;

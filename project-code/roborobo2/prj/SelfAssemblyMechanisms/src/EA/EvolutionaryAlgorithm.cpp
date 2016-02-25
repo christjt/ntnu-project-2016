@@ -20,6 +20,7 @@ void EvolutionaryAlgorithm::nextGeneration(int nCrossovers, double mutationChanc
     ReproductionHandler reproductionHandler(random, cross, mutation);
     SigmaScalingSelectionMechanism selection;
     std::cout << "generation: " << generation << std::endl;
+
     insertElites();
     updateElites();
 
@@ -35,6 +36,10 @@ void EvolutionaryAlgorithm::insertElites()
         return a.getFitness() < b.getFitness();
     });
 
+    for(auto& genome: _genomes){
+        std::cout << genome.getFitness() << std::endl;
+    }
+
     for(auto i = 0u; i < elites.size(); i++){
         _genomes[i] = elites[i];
     }
@@ -44,10 +49,6 @@ void EvolutionaryAlgorithm::updateElites()
     std::sort(_genomes.begin(), _genomes.end(), [](DoubleVectorGenotype a, DoubleVectorGenotype b){
         return a.getFitness() < b.getFitness();
     });
-
-    for(auto& genome: _genomes){
-        std::cout << genome.getFitness() << std::endl;
-    }
 
     elites.assign(_genomes.begin() + (_genomes.size() -nElites), _genomes.end());
     std::cout << "elites" << std::endl;
@@ -62,4 +63,8 @@ std::vector<DoubleVectorGenotype>& EvolutionaryAlgorithm::getGenomes()
 void EvolutionaryAlgorithm::setElitism(int nElites)
 {
     this->nElites = nElites;
+}
+std::vector<DoubleVectorGenotype>& EvolutionaryAlgorithm::getElites()
+{
+    return elites;
 }

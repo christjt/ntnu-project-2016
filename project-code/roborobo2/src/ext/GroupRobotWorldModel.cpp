@@ -18,6 +18,7 @@ void GroupRobotWorldModel::setId(int id){
 
 void GroupRobotWorldModel::connectTo(GroupRobotWorldModel* other)
 {
+
     if(!other->isAlive())
         return;
 

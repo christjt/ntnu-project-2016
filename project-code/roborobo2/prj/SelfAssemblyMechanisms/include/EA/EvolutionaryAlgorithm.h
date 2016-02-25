@@ -27,6 +27,7 @@ namespace EA
         std::vector<DoubleVectorGenotype>& getGenomes();
         void generateInitialPopulation(int populationSize, int nWeights, std::default_random_engine &random);
         void nextGeneration(int nCrossovers, double mutationChance, std::default_random_engine &random);
+        std::vector<DoubleVectorGenotype>& getElites();
     };
 }
 

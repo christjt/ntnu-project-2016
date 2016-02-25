@@ -85,11 +85,7 @@ void SelfAssemblyMechanismsController::step()
 	{
 		if(translator->getDesiresConnection(i)){
 			for(GroupRobotWorldModel* robot: nearbyRobots){
-				if(connectionMechanism.canConnect(robot))
-				{
-					connectionMechanism.connect(robot);
-					break;
-				}
+				wm->connectTo(robot);
 			}
 		}
 	}
