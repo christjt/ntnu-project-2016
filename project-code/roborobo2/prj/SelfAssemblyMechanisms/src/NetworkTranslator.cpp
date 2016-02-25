@@ -1,11 +1,11 @@
 #include "SelfAssemblyMechanisms/include/NetworkTranslator.h"
 #include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
 NetworkTranslator::NetworkTranslator(int nSensors, int nPorts):
-        inputs(3*nSensors + nPorts*2, 0.0), outputs(nPorts*2 +3),
+        inputs(3*nSensors + nPorts*2, 0.0), outputs(nPorts*2 + 3),
         predatorSensorOffset(0), robotSensorOffset(nSensors), environmentOffset(nSensors*2), portOffset(nSensors*3), messageOffset(nSensors*3 + nPorts),
         messageOutOffset(0), connectionOutOffset(nPorts), motorOutOffset(nPorts*2)
 {
-    this->ann = NetworkFactory::createFactory(nSensors + nPorts*2, nPorts*2 +3)->create();
+    this->ann = NetworkFactory::createFactory(3*nSensors + nPorts*2, nPorts*2 +3)->create();
 }
 
 

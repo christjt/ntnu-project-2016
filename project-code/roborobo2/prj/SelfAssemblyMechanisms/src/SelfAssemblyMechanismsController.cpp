@@ -30,6 +30,7 @@ void SelfAssemblyMechanismsController::reset()
 	messageWidth =  wm->getConnectionMechanism().getPorts().size();
 	translator = new NetworkTranslator(wm->_cameraSensorsNb, messageWidth);
 	genomeTranslator = new DoubleVectorGenotypeTranslator(translator->getAnn());
+
 }
 
 int ticks = 0;
