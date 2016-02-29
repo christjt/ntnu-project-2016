@@ -32,6 +32,7 @@ void SelfAssemblyMechanismsAgentObserver::step()
 {
     // * send callback messages to objects touched or walked upon.
 
+    
     if(_wm->getEnergyLevel() > 0)
     {
         _wm->substractEnergy(1);

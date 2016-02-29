@@ -37,6 +37,8 @@ class Plotter(Tk.Canvas, FileSystemEventHandler):
             if len(elites) > 1:
                 best_elite = max([float(fitness) for fitness in elites.split(',')])
                 elite_points.append(best_elite)
+            else:
+                elite_points.append(0)
         self.plot.cla()
         self.plot.plot(genome_points, label='best fitness')
         self.plot.plot(elite_points, label='elite fitness')
