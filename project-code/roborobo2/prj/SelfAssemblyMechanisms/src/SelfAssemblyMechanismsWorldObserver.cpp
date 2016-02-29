@@ -87,7 +87,7 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 	{
 		genomes = initEA();
 	}
-	distributeGenomes(genomes);
+	currentGeneration = distributeGenomes(genomes);
 	currentGenome = currentGeneration.begin();
 	updateAgentWeights(*currentGenome);
 }
@@ -132,7 +132,7 @@ int SelfAssemblyMechanismsWorldObserver::getRequiredNumberOfWeights()
 	throw "No robots found";
 }
 
-void SelfAssemblyMechanismsWorldObserver::distributeGenomes(std::vector<EA::DoubleVectorGenotype> genomes)
+std::vector<EA::DoubleVectorGenotype> SelfAssemblyMechanismsWorldObserver::distributeGenomes(std::vector<EA::DoubleVectorGenotype> genomes)
 {
 
 
@@ -150,7 +150,7 @@ void SelfAssemblyMechanismsWorldObserver::distributeGenomes(std::vector<EA::Doub
 		free(sendBuff);
 	free(recvBuff);
 
-	currentGeneration = received;
+	return received;
 }
 
 
@@ -204,10 +204,6 @@ std::vector<EA::DoubleVectorGenotype> SelfAssemblyMechanismsWorldObserver::gathe
 }
 
 
-void SelfAssemblyMechanismsWorldObserver::broadcastGenomes()
-{
-
-}
 void SelfAssemblyMechanismsWorldObserver::updateAgentWeights(EA::DoubleVectorGenotype& genotype)
 {
 	for(int i = 0; i <  gNumberOfRobots; i++)
@@ -259,7 +255,7 @@ void SelfAssemblyMechanismsWorldObserver::nextGeneration()
 	std::vector<EA::DoubleVectorGenotype> nextGeneration;
 	if(rank == 0)
 		nextGeneration = algorithm.nextGeneration(currentGeneration, SelfAssemblyMechanismsSharedData::gCrossover, SelfAssemblyMechanismsSharedData::gMutation, generator);
-	distributeGenomes(nextGeneration);
+	currentGeneration = distributeGenomes(nextGeneration);
 	currentGenome = currentGeneration.begin();
 
 }
