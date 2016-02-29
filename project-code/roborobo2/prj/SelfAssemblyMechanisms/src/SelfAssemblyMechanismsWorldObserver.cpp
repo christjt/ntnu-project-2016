@@ -14,6 +14,7 @@
 #include "SelfAssemblyMechanisms/include/EA/DoubleVectorGenotype.h"
 #include <iostream>
 #include <mpi/mpi.h>
+#include "SelfAssemblyMechanisms/include/Logger/ConsoleLogger.h"
 #include <stddef.h>
 #include <stdio.h>
 PortPosition* first;
@@ -45,7 +46,7 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 		SelfAssemblyMechanismsSharedData::gHiddenLayers[i] =  atoi(gProperties.getProperty(layerProp.str(), "0").c_str());
 	}
 
-	algorithm.setElitism(SelfAssemblyMechanismsSharedData::gElitism);
+
 	generator.seed(0);
 	cGenerations = 0;
 	srand(gRandomSeed);
@@ -85,6 +86,8 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 	std::vector<EA::DoubleVectorGenotype> genomes;
 	if(rank == 0)
 	{
+		algorithm.setElitism(SelfAssemblyMechanismsSharedData::gElitism);
+		algorithm.setLogger(new ConsoleLogger());
 		genomes = initEA();
 	}
 	currentGeneration = distributeGenomes(genomes);

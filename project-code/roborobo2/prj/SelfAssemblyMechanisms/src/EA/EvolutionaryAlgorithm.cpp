@@ -1,5 +1,7 @@
 #include <iostream>
 #include "SelfAssemblyMechanisms/include/EA/EvolutionaryAlgorithm.h"
+#include "SelfAssemblyMechanisms/include/EA/Logger.h"
+
 using namespace EA;
 
 std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::generateInitialPopulation(int populationSize, int nWeights,  std::default_random_engine &random)
@@ -14,21 +16,16 @@ std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::generateInitialPopulati
 }
 std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::nextGeneration(std::vector<DoubleVectorGenotype>& genomes,int nCrossovers, double mutationChance, std::default_random_engine &random)
 {
-    static int generation;
-    generation++;
     CrossoverOperator cross(nCrossovers);
     MutationOperator mutation(mutationChance);
     ReproductionHandler reproductionHandler(random, cross, mutation);
     SigmaScalingSelectionMechanism selection;
-    std::cout << "generation: " << generation << std::endl;
 
     insertElites(genomes);
     updateElites(genomes);
-
+    logger->logGeneration(elites, genomes);
     auto matingParents = selection.selectParents(genomes, genomes.size(), random);
-    std::cout << "parents selected " << std::endl;
     auto offspring = reproductionHandler.produceOffspring(matingParents, random);
-    std::cout << "offspring created" << std::endl;
     return offspring;
 }
 
@@ -37,10 +34,6 @@ void EvolutionaryAlgorithm::insertElites(std::vector<DoubleVectorGenotype>& geno
     std::sort(genomes.begin(), genomes.end(), [](DoubleVectorGenotype a, DoubleVectorGenotype b){
         return a.getFitness() < b.getFitness();
     });
-
-    for(auto& genome: genomes){
-        std::cout << genome.getFitness() << std::endl;
-    }
 
     for(auto i = 0u; i < elites.size(); i++){
         genomes[i] = elites[i];
@@ -52,12 +45,7 @@ void EvolutionaryAlgorithm::updateElites(std::vector<DoubleVectorGenotype>& geno
     std::sort(genomes.begin(), genomes.end(), [](DoubleVectorGenotype a, DoubleVectorGenotype b){
         return a.getFitness() < b.getFitness();
     });
-
     elites.assign(genomes.begin() + (genomes.size() -nElites), genomes.end());
-    std::cout << "elites" << std::endl;
-    for(auto& genome: elites){
-        std::cout << genome.getFitness() << std::endl;
-    }
 }
 
 void EvolutionaryAlgorithm::setElitism(int nElites)
@@ -65,7 +53,11 @@ void EvolutionaryAlgorithm::setElitism(int nElites)
     this->nElites = nElites;
 }
 
-std::vector<DoubleVectorGenotype>& EvolutionaryAlgorithm::getElites()
+void EvolutionaryAlgorithm::setLogger(Logger* logger)
+{
+    this->logger = logger;
+}
+const std::vector<DoubleVectorGenotype>& EvolutionaryAlgorithm::getElites() const
 {
     return elites;
 }

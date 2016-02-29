@@ -12,8 +12,10 @@
 #include "ReproductionHandler.h"
 #include "SigmaScalingSelectionMechanism.h"
 #include <random>
+#include <memory>
 namespace EA
 {
+    class Logger;
     class EvolutionaryAlgorithm
     {
     private:
@@ -21,11 +23,13 @@ namespace EA
         int nElites;
         void insertElites(std::vector<DoubleVectorGenotype>& genomes);
         void updateElites(std::vector<DoubleVectorGenotype>& genomes);
+        Logger* logger;
     public:
         void setElitism(int nElites);
+        void setLogger(Logger* logger);
         std::vector<DoubleVectorGenotype> generateInitialPopulation(int populationSize, int nWeights, std::default_random_engine &random);
         std::vector<DoubleVectorGenotype> nextGeneration(std::vector<DoubleVectorGenotype>& genomes, int nCrossovers, double mutationChance, std::default_random_engine &random);
-        std::vector<DoubleVectorGenotype>& getElites();
+        const std::vector<DoubleVectorGenotype>& getElites() const;
     };
 }
 
