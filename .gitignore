@@ -10,6 +10,7 @@
 *.bbl
 *.blg
 *.dvi
+*.pyc
 *.glg
 *.gls
 *.ilg
