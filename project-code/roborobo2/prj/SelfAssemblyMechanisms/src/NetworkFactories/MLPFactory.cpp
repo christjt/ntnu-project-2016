@@ -13,9 +13,9 @@ MLPFactory::MLPFactory(int nInputNodes, int nOutputNodes) {
 Neural::NeuralNetwork* MLPFactory::create(){
     std::vector<double> weights(0, 0.0);
     if(hiddenLayers.size()){
-        return new Neural::MLP(weights, _nInputNodes, _nOutputNodes, hiddenLayers, true, true);
+        return new Neural::MLP(weights, _nInputNodes, _nOutputNodes, hiddenLayers, true, false);
     }else{
-        return new Neural::MLP(weights, _nInputNodes, _nOutputNodes, true, true);
+        return new Neural::MLP(weights, _nInputNodes, _nOutputNodes, true, false);
     }
 
 
