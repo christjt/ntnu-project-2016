@@ -30,9 +30,13 @@ class Plotter(Tk.Canvas, FileSystemEventHandler):
     def update(self, log):
         genome_points = []
         elite_points = []
+        avg_points = []
         for line in log:
             genomes, elites = line.split(':')
-            best_genome = max([float(fitness) for fitness in genomes.split(',')])
+            fitness_values = [float(fitness) for fitness in genomes.split(',')]
+            best_genome = max(fitness_values)
+            avg_fitness = sum(fitness_values)/len(fitness_values)
+            avg_points.append(avg_fitness)
             genome_points.append(best_genome)
             if len(elites) > 1:
                 best_elite = max([float(fitness) for fitness in elites.split(',')])
@@ -40,8 +44,9 @@ class Plotter(Tk.Canvas, FileSystemEventHandler):
             else:
                 elite_points.append(0)
         self.plot.cla()
-        self.plot.plot(genome_points, label='best fitness')
-        self.plot.plot(elite_points, label='elite fitness')
+        self.plot.plot(genome_points, label='Best fitness')
+        self.plot.plot(elite_points, label='Elite fitness')
+        self.plot.plot(avg_points, label='Avg fitness')
         self.plot.legend()
         self.plot.set_ylim([0, 1.2])
         self.canvas.show()
