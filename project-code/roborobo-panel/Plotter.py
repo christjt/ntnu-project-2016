@@ -2,6 +2,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
+from math import sqrt
 import Tkinter as Tk
 
 
@@ -31,13 +32,16 @@ class Plotter(Tk.Canvas, FileSystemEventHandler):
         genome_points = []
         elite_points = []
         avg_points = []
+        sd_points = []
         for line in log:
             genomes, elites = line.split(':')
             fitness_values = [float(fitness) for fitness in genomes.split(',')]
             best_genome = max(fitness_values)
+            genome_points.append(best_genome)
             avg_fitness = sum(fitness_values)/len(fitness_values)
             avg_points.append(avg_fitness)
-            genome_points.append(best_genome)
+            standard_dev = sqrt((1.0/len(fitness_values)*sum([(fitness - avg_fitness)*(fitness - avg_fitness) for fitness in fitness_values])))
+            sd_points.append(standard_dev)
             if len(elites) > 1:
                 best_elite = max([float(fitness) for fitness in elites.split(',')])
                 elite_points.append(best_elite)
@@ -47,6 +51,7 @@ class Plotter(Tk.Canvas, FileSystemEventHandler):
         self.plot.plot(genome_points, label='Best fitness')
         self.plot.plot(elite_points, label='Elite fitness')
         self.plot.plot(avg_points, label='Avg fitness')
+        self.plot.plot(sd_points, label='SD fitness')
         self.plot.legend()
         self.plot.set_ylim([0, 1.2])
         self.canvas.show()
