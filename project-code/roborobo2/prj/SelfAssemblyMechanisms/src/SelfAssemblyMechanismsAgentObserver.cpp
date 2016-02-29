@@ -3,6 +3,7 @@
  */
 
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsAgentObserver.h"
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
 
 
@@ -32,11 +33,16 @@ void SelfAssemblyMechanismsAgentObserver::step()
 {
     // * send callback messages to objects touched or walked upon.
 
-    if(_wm->getEnergyLevel() > 0)
+    if(_wm->getEnergyLevel() > 0 && !((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator())
     {
         _wm->substractEnergy(1);
-        /*if(_wm->getEnergyLevel() <= 0)
-            _wm->setAlive(false);*/
+        if(_wm->getEnergyLevel() <= 0){
+            for(auto connection: (((GroupRobotWorldModel*)_wm)->getConnectionMechanism().getConnections())) {
+                ((GroupRobotWorldModel*)_wm)->disconnectFrom(connection.first);
+            }
+            _wm->setAlive(false);
+        }
+
 
     }
     // through distance sensors

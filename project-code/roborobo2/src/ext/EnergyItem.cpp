@@ -12,7 +12,7 @@ EnergyItem::EnergyItem( int __id ) :CircleObject( __id ) // should only be calle
     std::string s = "";
 	std::stringstream out;
 	out << getId();
-    
+
     s = "physicalObject[";
 	s += out.str();
 	s += "].energy";

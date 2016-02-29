@@ -36,10 +36,8 @@ void SelfAssemblyMechanismsController::reset()
 int ticks = 0;
 void SelfAssemblyMechanismsController::step()
 {
+
 	if(!wm->isAlive()){
-		wm->_desiredTranslationalValue = 0.0;
-		wm->_desiredRotationalVelocity = 0.0;
-		wm->getConnectionMechanism().setDesiredRotationalVelocity(0.0);
 		return;
 	}
 

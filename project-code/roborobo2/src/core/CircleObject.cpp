@@ -227,8 +227,6 @@ void CircleObject::registerObject()
     if(isWalkable)
         return;
 
-    std::cout << "HELLO" << std::endl;
-
     color = SDL_MapRGBA( gEnvironmentImage->format, (Uint8)((id_converted & 0xFF0000)>>16), (Uint8)((id_converted & 0xFF00)>>8), (Uint8)(id_converted & 0xFF), 0x00 );
     
     for (Sint16 xColor = _xCenterPixel - Sint16(_radius) ; xColor < _xCenterPixel + Sint16(_radius) ; xColor++)

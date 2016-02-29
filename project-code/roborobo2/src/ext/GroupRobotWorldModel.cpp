@@ -81,6 +81,8 @@ void GroupRobotWorldModel::reset()
     this->connectionMechanism = ConnectionMechanisms(this, PortFactory::createPorts(this));
     this->backUpPosition = Vector2<double>();
     this->translation = Vector2<double>();
+
+    this->setEnergyLevel(gEnergyInit);
 }
 Vector2<double>& GroupRobotWorldModel::getBackupPosition()
 {
