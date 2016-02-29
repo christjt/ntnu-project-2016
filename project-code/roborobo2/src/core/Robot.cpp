@@ -21,7 +21,7 @@ Robot::Robot()
 Robot::Robot( World *__world )
 {
 	_wm = gConfigurationLoader->make_RobotWorldModel(); // TODO: externalize object referenced to create the new instance
-
+	_isPredator = false;
 	//init world model
 	initWorldModel(_wm, __world);
 
@@ -164,7 +164,6 @@ void Robot::reset()
 	str_Ycoord = "robot[";
 	str_Ycoord += out.str();
 	str_Ycoord += "].y";
-    
     int tries = 0;
     int maxTries = gLocationFinderMaxNbOfTrials;
     bool randomPick = true;
@@ -192,6 +191,10 @@ void Robot::reset()
 			{
 				if ( ( abs((double)x - gWorld->getRobot(i)->_wm->_xReal) <= gRobotWidth+1 ) && ( abs((double)y - gWorld->getRobot(i)->_wm->_yReal) <= gRobotHeight+1 ) ) // uses square boxes as location approximation
 				{
+					if(_wm->getId() == 10){
+					//	std::cout << "(" << x <<"," << y << ")" << std::endl;
+					//	std::cout << gWorld->getRobot(i)->_wm->getId() << "(" << gWorld->getRobot(i)->_wm->_xReal <<"," << gWorld->getRobot(i)->_wm->_yReal << ")" << std::endl;
+					}
 					success = false;
 					break; // terminate for statement.
 				}
@@ -226,9 +229,10 @@ void Robot::reset()
 			}
 
 			tries++;
-				
+
 		} while ( success == false && tries < maxTries );
-			
+
+			//std::cout << "Robot( " << x << "," << y << ") " << _wm->getId() << " placed after " << tries << " tries" << std::endl;
 		if ( tries == gLocationFinderMaxNbOfTrials )
 		{
             std::cerr << "[CRITICAL] Random initialization of initial position for agent #" << _wm->getId() << " after trying " << maxTries << " random picks (all failed). There may be too few (none?) possible locations (you may try to manually set initial positions). EXITING.\n";

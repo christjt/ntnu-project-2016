@@ -79,6 +79,8 @@ void GroupRobotWorldModel::reset()
     this->group = std::make_shared<RobotGroup>();
     this->group->addMember(this);
     this->connectionMechanism = ConnectionMechanisms(this, PortFactory::createPorts(this));
+    this->backUpPosition = Vector2<double>();
+    this->translation = Vector2<double>();
 }
 Vector2<double>& GroupRobotWorldModel::getBackupPosition()
 {

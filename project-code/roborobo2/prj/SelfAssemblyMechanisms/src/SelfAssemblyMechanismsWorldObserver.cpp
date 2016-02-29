@@ -13,6 +13,9 @@
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsController.h"
 #include "SelfAssemblyMechanisms/include/EA/DoubleVectorGenotype.h"
 #include <iostream>
+#include <mpi/mpi.h>
+#include <stddef.h>
+#include <stdio.h>
 PortPosition* first;
 PortPosition* second;
 
@@ -45,17 +48,15 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	algorithm.setElitism(SelfAssemblyMechanismsSharedData::gElitism);
 	generator.seed(0);
 	cGenerations = 0;
-
+	srand(gRandomSeed);
 	NetworkFactory::hiddenLayers = SelfAssemblyMechanismsSharedData::gHiddenLayers;
 	switch (SelfAssemblyMechanismsSharedData::gNNFactory)
 	{
 		case 0: NetworkFactory::factoryType = ANNType::MLP;
 	}
 
-
-
-
 }
+
 
 SelfAssemblyMechanismsWorldObserver::~SelfAssemblyMechanismsWorldObserver()
 {
@@ -64,33 +65,147 @@ SelfAssemblyMechanismsWorldObserver::~SelfAssemblyMechanismsWorldObserver()
 
 void SelfAssemblyMechanismsWorldObserver::reset()
 {
-	if(!SelfAssemblyMechanismsSharedData::gDisplayBestGenome){
-		int nWeights = 0;
-		for(int i = 0; i < gNumberOfRobots; i++)
-		{
-			Robot* robot = _world->getRobot(0);
-			if(robot->getIsPredator())
-				continue;
-			nWeights = ((SelfAssemblyMechanismsController*)robot->getController())->getGenomeTranslator()->getRequiredNumberOfWeights();
-			break;
-		}
+	numberOfWeights = getRequiredNumberOfWeights();
+	steps = 0;
+	cGenerations = 0;
+	stepsPerGeneration = SelfAssemblyMechanismsSharedData::gEvolutionaryGenerationIterations;
+	generationSize = SelfAssemblyMechanismsSharedData::gPopulationSize;
+	worldSeed = gRandomSeed+1;
 
-		currentGenome = 0;
-		steps = 0;
-		cGenerations = 0;
-		stepsPerGeneration = SelfAssemblyMechanismsSharedData::gEvolutionaryGenerationIterations;
-		generationSize = SelfAssemblyMechanismsSharedData::gPopulationSize;
+	initMPI();
+	srand(gRandomSeed);
+	createMPIDatatypes();
 
-		algorithm.generateInitialPopulation(generationSize, nWeights, generator);
-		worldSeed = gRandomSeed+1;
-		updateAgentWeights(algorithm.getGenomes()[currentGenome]);
 
-	}else
+	if(SelfAssemblyMechanismsSharedData::gDisplayBestGenome)
 	{
 		loadGeneration();
+		return;
+	}
+	std::vector<EA::DoubleVectorGenotype> genomes;
+	if(rank == 0)
+	{
+		genomes = initEA();
+	}
+	distributeGenomes(genomes);
+	currentGenome = currentGeneration.begin();
+	updateAgentWeights(*currentGenome);
+}
+
+void SelfAssemblyMechanismsWorldObserver::initMPI()
+{
+	MPI_Init(NULL, NULL);
+	MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+}
+
+void SelfAssemblyMechanismsWorldObserver::createMPIDatatypes()
+{
+	const int nitems=2;
+	int blocklengths[2] = {1, numberOfWeights};
+	MPI_Datatype types[2] = {MPI_DOUBLE, MPI_DOUBLE};
+	MPI_Aint offsets[2];
+
+	offsets[0] = offsetof(GenomeDTO, fitness);
+	offsets[1] = offsetof(GenomeDTO, weights);
+
+	MPI_Type_create_struct(nitems, blocklengths, offsets, types, &genomeDTODatatype);
+	MPI_Type_commit(&genomeDTODatatype);
+
+}
+
+std::vector<EA::DoubleVectorGenotype> SelfAssemblyMechanismsWorldObserver::initEA()
+{
+
+	return algorithm.generateInitialPopulation(generationSize, getRequiredNumberOfWeights(), generator);
+}
+
+int SelfAssemblyMechanismsWorldObserver::getRequiredNumberOfWeights()
+{
+	for(int i = 0; i < gNumberOfRobots; i++)
+	{
+		Robot* robot = _world->getRobot(0);
+		if(robot->getIsPredator())
+			continue;
+		return ((SelfAssemblyMechanismsController*)robot->getController())->getGenomeTranslator()->getRequiredNumberOfWeights();
+	}
+	throw "No robots found";
+}
+
+void SelfAssemblyMechanismsWorldObserver::distributeGenomes(std::vector<EA::DoubleVectorGenotype> genomes)
+{
+
+
+	GenomeDTO* sendBuff = nullptr;
+	GenomeDTO* recvBuff = (GenomeDTO *) malloc((sizeof(GenomeDTO) + sizeof(double) * numberOfWeights) * generationSize/world_size);
+	if(rank == 0)
+	{
+		sendBuff = pack(genomes);
 	}
 
+	MPI_Scatter(sendBuff, generationSize/world_size, genomeDTODatatype, recvBuff, generationSize/world_size, genomeDTODatatype, 0, MPI_COMM_WORLD);
+	auto received = unpack(recvBuff, generationSize/world_size);
 
+	if(rank == 0)
+		free(sendBuff);
+	free(recvBuff);
+
+	currentGeneration = received;
+}
+
+
+GenomeDTO* SelfAssemblyMechanismsWorldObserver::pack(std::vector<EA::DoubleVectorGenotype> genomes)
+{
+
+	char* dtos = (char*)malloc((sizeof(GenomeDTO) + sizeof(double)*numberOfWeights)*genomes.size());
+	for(size_t i = 0; i < genomes.size(); i++)
+	{
+		GenomeDTO* dto = (GenomeDTO*)(dtos + (sizeof(GenomeDTO) + sizeof(double)*numberOfWeights)*i);
+		dto->fitness = genomes[i].getFitness();
+		memcpy(dto->weights, &genomes[i].getVector().front(), sizeof(double)*numberOfWeights);
+	}
+
+	return (GenomeDTO*)dtos;
+}
+
+std::vector<EA::DoubleVectorGenotype> SelfAssemblyMechanismsWorldObserver::unpack(GenomeDTO* genomeDTO, size_t size)
+{
+	std::vector<EA::DoubleVectorGenotype> genomes;
+	for(size_t i = 0; i < size; i++)
+	{
+		GenomeDTO* dto = (GenomeDTO*)((char*)genomeDTO + (sizeof(GenomeDTO) + sizeof(double)*numberOfWeights)*i);
+		std::vector<double > weights(dto->weights, dto->weights + numberOfWeights);
+		EA::DoubleVectorGenotype genome(weights, -1, 1);
+		genome.setFitness(dto->fitness);
+		genomes.push_back(genome);
+	}
+
+	return genomes;
+}
+
+std::vector<EA::DoubleVectorGenotype> SelfAssemblyMechanismsWorldObserver::gatherGenomes()
+{
+
+	GenomeDTO* sendBuff = pack(currentGeneration);
+	GenomeDTO* recvBuff = nullptr;
+	if(rank == 0)
+	{
+		recvBuff = (GenomeDTO *) malloc((sizeof(GenomeDTO) + sizeof(double) * numberOfWeights) * generationSize);
+	}
+	MPI_Gather(sendBuff, currentGeneration.size(), genomeDTODatatype, recvBuff, currentGeneration.size(), genomeDTODatatype, 0, MPI_COMM_WORLD);
+	std::vector<EA::DoubleVectorGenotype> genomes;
+	if(rank == 0)
+	{
+		genomes =  unpack(recvBuff, generationSize);
+		free(recvBuff);
+	}
+	free(sendBuff);
+	return genomes;
+}
+
+
+void SelfAssemblyMechanismsWorldObserver::broadcastGenomes()
+{
 
 }
 void SelfAssemblyMechanismsWorldObserver::updateAgentWeights(EA::DoubleVectorGenotype& genotype)
@@ -112,39 +227,71 @@ void SelfAssemblyMechanismsWorldObserver::step()
 
 	if(steps == stepsPerGeneration)
 	{
-		algorithm.getGenomes()[currentGenome].setFitness(evaluate());
+
+		currentGenome->setFitness(evaluate());
+
 		steps = 0;
 		currentGenome++;
-		if(currentGenome == generationSize)
+		if(currentGenome == currentGeneration.end())
 		{
 			cGenerations++;
-
-			for (auto& genome : algorithm.getGenomes())
-			{
-				if(genome.getFitness() >= SelfAssemblyMechanismsSharedData::gTargetFitness)
-				{
-					std::cout << "Target fitness: " << genome.getFitness() << " is reached" << std::endl;
-					saveGeneration();
-					exit(0);
-				}
-			}
-
-			if(cGenerations == SelfAssemblyMechanismsSharedData::gMaxGenerations){
-				std::cout << "Max generations " << SelfAssemblyMechanismsSharedData::gMaxGenerations << " is reached" << std::endl;
-				saveGeneration();
-				exit(0);
-			}
-
-			algorithm.nextGeneration(SelfAssemblyMechanismsSharedData::gCrossover, SelfAssemblyMechanismsSharedData::gMutation, generator);
-			currentGenome = 0;
-
+			currentGeneration = gatherGenomes();
+			evaluateCompletionCriteria();
+			nextGeneration();
 
 		}
-		srand(worldSeed);
+		srand(gRandomSeed);
+	//	std::cout << "Reset!" << std::endl;
 		_world->resetWorld();
-		updateAgentWeights(algorithm.getGenomes()[currentGenome]);
+		updateAgentWeights(*currentGenome);
 	}
+
 	steps++;
+}
+void SelfAssemblyMechanismsWorldObserver::resetWorld()
+{
+	for(int i = 0; i < gNumberOfRobots; i++){
+
+	}
+}
+void SelfAssemblyMechanismsWorldObserver::nextGeneration()
+{
+	std::vector<EA::DoubleVectorGenotype> nextGeneration;
+	if(rank == 0)
+		nextGeneration = algorithm.nextGeneration(currentGeneration, SelfAssemblyMechanismsSharedData::gCrossover, SelfAssemblyMechanismsSharedData::gMutation, generator);
+	distributeGenomes(nextGeneration);
+	currentGenome = currentGeneration.begin();
+
+}
+void SelfAssemblyMechanismsWorldObserver::evaluateCompletionCriteria()
+{
+
+	int terminate = 0;
+	if(rank == 0){
+		for (auto& genome : currentGeneration)
+		{
+			if(genome.getFitness() >= SelfAssemblyMechanismsSharedData::gTargetFitness)
+			{
+				std::cout << "Target fitness: " << genome.getFitness() << " is reached" << std::endl;
+				terminate = 1;
+			}
+		}
+
+		if(cGenerations == SelfAssemblyMechanismsSharedData::gMaxGenerations){
+			std::cout << "Max generations " << SelfAssemblyMechanismsSharedData::gMaxGenerations << " is reached" << std::endl;
+			terminate = 1;
+		}
+	}
+
+	MPI_Bcast(&terminate, 1, MPI_INT, 0, MPI_COMM_WORLD);
+	if(terminate)
+	{
+		if(rank == 0){
+			saveGeneration();
+		}
+		MPI_Finalize();
+		exit(0);
+	}
 }
 
 double SelfAssemblyMechanismsWorldObserver::evaluate()
@@ -166,13 +313,13 @@ void SelfAssemblyMechanismsWorldObserver::saveGeneration()
 {
 	std::ofstream out;
 	out.open(SelfAssemblyMechanismsSharedData::gEAResultsOutputFilename);
-	auto genomes = algorithm.getGenomes();
-	genomes.insert(genomes.end(), algorithm.getElites().begin(), algorithm.getElites().end());
-	std::sort(genomes.begin(), genomes.end(), [](EA::DoubleVectorGenotype a, EA::DoubleVectorGenotype b){
+	auto finalGenomes = currentGeneration;
+	finalGenomes.insert(finalGenomes.end(), algorithm.getElites().begin(), algorithm.getElites().end());
+	std::sort(finalGenomes.begin(), finalGenomes.end(), [](EA::DoubleVectorGenotype a, EA::DoubleVectorGenotype b){
 		return a.getFitness() > b.getFitness();
 	});
 
-	for(auto& genome: genomes)
+	for(auto& genome: finalGenomes)
 	{
 		out << genome.getFitness() << ":" << genome.toString() << "," << std::endl;
 	}

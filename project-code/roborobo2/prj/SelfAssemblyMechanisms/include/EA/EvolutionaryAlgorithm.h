@@ -17,16 +17,14 @@ namespace EA
     class EvolutionaryAlgorithm
     {
     private:
-        std::vector<DoubleVectorGenotype> _genomes;
         std::vector<DoubleVectorGenotype> elites;
         int nElites;
-        void insertElites();
-        void updateElites();
+        void insertElites(std::vector<DoubleVectorGenotype>& genomes);
+        void updateElites(std::vector<DoubleVectorGenotype>& genomes);
     public:
         void setElitism(int nElites);
-        std::vector<DoubleVectorGenotype>& getGenomes();
-        void generateInitialPopulation(int populationSize, int nWeights, std::default_random_engine &random);
-        void nextGeneration(int nCrossovers, double mutationChance, std::default_random_engine &random);
+        std::vector<DoubleVectorGenotype> generateInitialPopulation(int populationSize, int nWeights, std::default_random_engine &random);
+        std::vector<DoubleVectorGenotype> nextGeneration(std::vector<DoubleVectorGenotype>& genomes, int nCrossovers, double mutationChance, std::default_random_engine &random);
         std::vector<DoubleVectorGenotype>& getElites();
     };
 }
