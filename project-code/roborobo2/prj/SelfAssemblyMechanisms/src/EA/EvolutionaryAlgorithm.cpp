@@ -20,10 +20,9 @@ std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::nextGeneration(std::vec
     MutationOperator mutation(mutationChance);
     ReproductionHandler reproductionHandler(random, cross, mutation);
     SigmaScalingSelectionMechanism selection;
-
+    logger->logGeneration(elites, genomes);
     insertElites(genomes);
     updateElites(genomes);
-    logger->logGeneration(elites, genomes);
     auto matingParents = selection.selectParents(genomes, genomes.size(), random);
     auto offspring = reproductionHandler.produceOffspring(matingParents, random);
     return offspring;

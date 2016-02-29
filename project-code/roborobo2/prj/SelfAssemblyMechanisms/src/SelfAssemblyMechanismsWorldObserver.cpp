@@ -15,6 +15,8 @@
 #include <iostream>
 #include <mpi/mpi.h>
 #include "SelfAssemblyMechanisms/include/Logger/ConsoleLogger.h"
+#include "SelfAssemblyMechanisms/include/Logger/MultiLogger.h"
+#include "SelfAssemblyMechanisms/include/Logger/FileLogger.h"
 #include <stddef.h>
 #include <stdio.h>
 PortPosition* first;
@@ -37,6 +39,8 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gCrossover", &SelfAssemblyMechanismsSharedData::gCrossover, true);
 	gProperties.checkAndGetPropertyValue("gMutation", &SelfAssemblyMechanismsSharedData::gMutation, true);
 	gProperties.checkAndGetPropertyValue("gNHiddenLayers", &SelfAssemblyMechanismsSharedData::gNHiddenLayers, true);
+	gProperties.checkAndGetPropertyValue("gEALogFilename", &SelfAssemblyMechanismsSharedData::gEALog, true);
+
 	SelfAssemblyMechanismsSharedData::gHiddenLayers = std::vector<unsigned>(SelfAssemblyMechanismsSharedData::gNHiddenLayers);
 
 	for(int i = 0; i < SelfAssemblyMechanismsSharedData::gNHiddenLayers; i++)
@@ -87,7 +91,7 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 	if(rank == 0)
 	{
 		algorithm.setElitism(SelfAssemblyMechanismsSharedData::gElitism);
-		algorithm.setLogger(new ConsoleLogger());
+		algorithm.setLogger(new MultiLogger{new ConsoleLogger(), new FileLogger(SelfAssemblyMechanismsSharedData::gEALog)});
 		genomes = initEA();
 	}
 	currentGeneration = distributeGenomes(genomes);
