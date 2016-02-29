@@ -33,6 +33,7 @@ void SelfAssemblyMechanismsAgentObserver::step()
 {
     // * send callback messages to objects touched or walked upon.
 
+
     if(_wm->getEnergyLevel() > 0 && !((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator())
     {
         _wm->substractEnergy(1);
