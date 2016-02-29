@@ -157,10 +157,16 @@ void World::resetWorld()
 {
 	gRobotIndexFocus = 0;
 	_iterations = 0;
-	
+
 	for ( int i = 0 ; i != gNumberOfRobots ; i++ )
 	{
 		robots[i]->unregisterRobot();
+		robots[i]->getWorldModel()->_xReal = 0;
+		robots[i]->getWorldModel()->_yReal = 0;
+	}
+
+	for ( int i = 0 ; i != gNumberOfRobots ; i++ )
+	{
 		robots[i]->reset();
 		robots[i]->registerRobot();
 		robotRegistry[i]=true;

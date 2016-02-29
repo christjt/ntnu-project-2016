@@ -36,6 +36,7 @@ std::string DoubleVectorGenotype::toString(){
 
     return ss.str();
 }
+
 std::vector<double>& DoubleVectorGenotype::getVector(){
     return vector;
 }

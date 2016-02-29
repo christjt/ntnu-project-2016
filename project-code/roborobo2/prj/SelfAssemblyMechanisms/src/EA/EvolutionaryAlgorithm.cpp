@@ -2,16 +2,17 @@
 #include "SelfAssemblyMechanisms/include/EA/EvolutionaryAlgorithm.h"
 using namespace EA;
 
-void EvolutionaryAlgorithm::generateInitialPopulation(int populationSize, int nWeights,  std::default_random_engine &random)
+std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::generateInitialPopulation(int populationSize, int nWeights,  std::default_random_engine &random)
 {
-    _genomes.clear();
+    std::vector<DoubleVectorGenotype> genomes;
     for(int i = 0; i < populationSize; i++){
         DoubleVectorGenotype genotype(nWeights, -1.0, 1.0);
         genotype.randomize(random);
-        _genomes.push_back(genotype);
+        genomes.push_back(genotype);
     }
+    return genomes;
 }
-void EvolutionaryAlgorithm::nextGeneration(int nCrossovers, double mutationChance, std::default_random_engine &random)
+std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::nextGeneration(std::vector<DoubleVectorGenotype>& genomes,int nCrossovers, double mutationChance, std::default_random_engine &random)
 {
     static int generation;
     generation++;
@@ -21,49 +22,49 @@ void EvolutionaryAlgorithm::nextGeneration(int nCrossovers, double mutationChanc
     SigmaScalingSelectionMechanism selection;
     std::cout << "generation: " << generation << std::endl;
 
-    insertElites();
-    updateElites();
+    insertElites(genomes);
+    updateElites(genomes);
 
-    auto matingParents = selection.selectParents(_genomes, _genomes.size(), random);
+    auto matingParents = selection.selectParents(genomes, genomes.size(), random);
     std::cout << "parents selected " << std::endl;
     auto offspring = reproductionHandler.produceOffspring(matingParents, random);
     std::cout << "offspring created" << std::endl;
-    _genomes = offspring;
+    return offspring;
 }
-void EvolutionaryAlgorithm::insertElites()
+
+void EvolutionaryAlgorithm::insertElites(std::vector<DoubleVectorGenotype>& genomes)
 {
-    std::sort(_genomes.begin(), _genomes.end(), [](DoubleVectorGenotype a, DoubleVectorGenotype b){
+    std::sort(genomes.begin(), genomes.end(), [](DoubleVectorGenotype a, DoubleVectorGenotype b){
         return a.getFitness() < b.getFitness();
     });
 
-    for(auto& genome: _genomes){
+    for(auto& genome: genomes){
         std::cout << genome.getFitness() << std::endl;
     }
 
     for(auto i = 0u; i < elites.size(); i++){
-        _genomes[i] = elites[i];
+        genomes[i] = elites[i];
     }
 }
-void EvolutionaryAlgorithm::updateElites()
+
+void EvolutionaryAlgorithm::updateElites(std::vector<DoubleVectorGenotype>& genomes)
 {
-    std::sort(_genomes.begin(), _genomes.end(), [](DoubleVectorGenotype a, DoubleVectorGenotype b){
+    std::sort(genomes.begin(), genomes.end(), [](DoubleVectorGenotype a, DoubleVectorGenotype b){
         return a.getFitness() < b.getFitness();
     });
 
-    elites.assign(_genomes.begin() + (_genomes.size() -nElites), _genomes.end());
+    elites.assign(genomes.begin() + (genomes.size() -nElites), genomes.end());
     std::cout << "elites" << std::endl;
     for(auto& genome: elites){
         std::cout << genome.getFitness() << std::endl;
     }
 }
-std::vector<DoubleVectorGenotype>& EvolutionaryAlgorithm::getGenomes()
-{
-    return _genomes;
-}
+
 void EvolutionaryAlgorithm::setElitism(int nElites)
 {
     this->nElites = nElites;
 }
+
 std::vector<DoubleVectorGenotype>& EvolutionaryAlgorithm::getElites()
 {
     return elites;

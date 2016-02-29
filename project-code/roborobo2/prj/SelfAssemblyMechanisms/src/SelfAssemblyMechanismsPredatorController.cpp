@@ -17,6 +17,8 @@ SelfAssemblyMechanismsPredatorController::SelfAssemblyMechanismsPredatorControll
 void SelfAssemblyMechanismsPredatorController::reset()
 {
     // nothing to do.
+    _orientationDirection = 0;
+   // std::cout << "Initial pos" << _wm->getXReal() << "," << _wm->getYReal() << std::endl;
 }
 
 void SelfAssemblyMechanismsPredatorController::step()
