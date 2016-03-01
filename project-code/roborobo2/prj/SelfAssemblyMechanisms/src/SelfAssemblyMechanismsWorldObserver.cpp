@@ -239,6 +239,7 @@ void SelfAssemblyMechanismsWorldObserver::step()
 		{
 			cGenerations++;
 			currentGeneration = gatherGenomes();
+			saveGeneration();
 			evaluateCompletionCriteria();
 			nextGeneration();
 
@@ -251,6 +252,7 @@ void SelfAssemblyMechanismsWorldObserver::step()
 
 	steps++;
 }
+
 void SelfAssemblyMechanismsWorldObserver::resetWorld()
 {
 	for(int i = 0; i < gNumberOfRobots; i++){
@@ -271,6 +273,8 @@ void SelfAssemblyMechanismsWorldObserver::evaluateCompletionCriteria()
 
 	int terminate = 0;
 	if(rank == 0){
+
+
 		for (auto& genome : currentGeneration)
 		{
 			if(genome.getFitness() >= SelfAssemblyMechanismsSharedData::gTargetFitness)
@@ -314,6 +318,9 @@ double SelfAssemblyMechanismsWorldObserver::evaluate()
 
 void SelfAssemblyMechanismsWorldObserver::saveGeneration()
 {
+	if(rank != 0)
+		return;
+
 	std::ofstream out;
 	out.open(SelfAssemblyMechanismsSharedData::gEAResultsOutputFilename);
 	auto finalGenomes = currentGeneration;

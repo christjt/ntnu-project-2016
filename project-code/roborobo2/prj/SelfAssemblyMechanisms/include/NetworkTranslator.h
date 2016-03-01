@@ -11,6 +11,7 @@ class NetworkTranslator
         const int predatorSensorOffset;
         const int robotSensorOffset;
         const int environmentOffset;
+        const int energyOffset;
         const int portOffset;
         const int messageOffset;
         const int messageOutOffset;
@@ -23,6 +24,7 @@ class NetworkTranslator
         void setPredatorInput(int sensor, double value);
         void setRobotInput(int sensor, double value);
         void setEnvironmentInput(int sensor, double value);
+        void setEnergyInput(int sensor, double value);
         void setMessageInput(const RobotMessage& message);
         void setConnectionInput(int connection, bool status);
         double getTranslationOutput();
