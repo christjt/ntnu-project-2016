@@ -73,7 +73,11 @@ void SelfAssemblyMechanismsController::updateSensorValues()
 			}
 		}else
 		{
-			translator->setEnvironmentInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i))/gSensorRange);
+			if(EnergyItem::isInstanceOf(objectId)){
+				translator->setEnergyInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i)/gSensorRange));
+			}else{
+				translator->setEnvironmentInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i))/gSensorRange);
+			}
 		}
 	}
 }

@@ -4,18 +4,18 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 from matplotlib.figure import Figure
 from math import sqrt
 import Tkinter as Tk
-
+from os import path
 
 class Plotter(Tk.Canvas, FileSystemEventHandler):
 
     def __init__(self, root, log_path):
         observer = Observer()
-        observer.schedule(self, log_path)
+        observer.schedule(self, path.dirname(log_path))
         observer.start()
-
+        self.log_path = log_path
         f = Figure(figsize=(6, 6), dpi=100)
         self.plot = f.add_subplot(111)
-        self.plot.set_ylim([0, 1.2])
+        self.plot.set_ylim([0, 1.4])
         self.canvas = FigureCanvasTkAgg(f, master=root)
         self.canvas.show()
         self.canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
@@ -25,6 +25,8 @@ class Plotter(Tk.Canvas, FileSystemEventHandler):
         self.canvas._tkcanvas.pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
 
     def on_modified(self, event):
+        if event.src_path != self.log_path:
+            return
         with open(event.src_path, 'r') as log:
             self.update(log.readlines())
 
@@ -53,6 +55,6 @@ class Plotter(Tk.Canvas, FileSystemEventHandler):
         self.plot.plot(avg_points, label='Avg fitness')
         self.plot.plot(sd_points, label='SD fitness')
         self.plot.legend()
-        self.plot.set_ylim([0, 1.2])
+        self.plot.set_ylim([0, 1.4])
         self.canvas.show()
 

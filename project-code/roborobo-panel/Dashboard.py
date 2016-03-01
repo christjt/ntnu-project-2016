@@ -8,7 +8,7 @@ matplotlib.use('TKAgg')
 from matplotlib.figure import Figure
 
 root = Tk.Tk()
-plotter = Plotter(root, '../roborobo2/prj/SelfAssemblyMechanisms/data/ea')
+plotter = Plotter(root, '../roborobo2/prj/SelfAssemblyMechanisms/data/ea/log.txt')
 
 run_btn = Tk.Button(root, text="run");
 
