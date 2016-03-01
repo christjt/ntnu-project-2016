@@ -51,7 +51,7 @@ void SelfAssemblyMechanismsPredatorController::step()
 
         int id = objectId - gRobotIndexStartOffset;
         auto robot = _wm->getWorld()->getRobot(id);
-        if(robot->getIsPredator())
+        if(robot->getIsPredator() || ((GroupRobotWorldModel*)robot->getWorldModel())->getGroup()->size() > 1)
             continue;
 
         _wm->_desiredRotationalVelocity = i/2 * 3 - 3;

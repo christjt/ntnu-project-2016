@@ -37,6 +37,9 @@ void SelfAssemblyMechanismsAgentObserver::step()
     if(_wm->getEnergyLevel() > 0 && !((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator())
     {
         _wm->substractEnergy(1);
+        if(((GroupRobotWorldModel*)_wm)->getGroup()->size() > 1){
+            _wm->substractEnergy(1);
+        }
         if(_wm->getEnergyLevel() <= 0){
             for(auto connection: (((GroupRobotWorldModel*)_wm)->getConnectionMechanism().getConnections())) {
                 ((GroupRobotWorldModel*)_wm)->disconnectFrom(connection.first);
