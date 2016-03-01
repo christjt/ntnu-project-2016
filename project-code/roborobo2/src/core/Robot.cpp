@@ -657,10 +657,9 @@ bool Robot::isCollision()
 	}
 	else
 	{
-
-		// * environment objects 
-		for ( int i = 0 ; i != gRobotWidth ; i++ )
-			for ( int j = 0 ; j != gRobotHeight ; j++ )
+		// * environment objects
+		for ( int j = 0 ; j != gRobotWidth ; j++ )
+			for ( int i = 0 ; i != gRobotHeight ; i++ )
 			{
 				if ( getPixel32( gRobotMaskImage , i , j) != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, 0 ) ) // opt: bounding box instead of pixel-to-pixel test.
 				{

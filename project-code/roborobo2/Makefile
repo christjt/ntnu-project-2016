@@ -1,6 +1,6 @@
 MODULES =  SelfAssemblyMechanisms
 CC           = mpiCC
-CCFLAGS      = -Wall -O3 -std=c++0x -pg -lm
+CCFLAGS      = -Wall -O3 -std=c++0x  -lm
 LDFLAGS      = `sdl-config --cflags --libs`
 RM           = rm -f 
 MAKE         = make 
@@ -49,9 +49,9 @@ verifyMods:
 $(TARGET): $(OBJ)
 ifeq ($(strip $(VERBOSE)),)
 	@echo "[LD]	" $@
-	@$(CC) $(LDFLAGS) -o $@ $^ -lSDL_image -lSDL -pg -lm
+	@$(CC) $(LDFLAGS) -o $@ $^ -lSDL_image -lSDL  -lm
 else
-	$(CC) $(LDFLAGS) -o $@ $^ -lSDL_image -lSDL -pg -lm
+	$(CC) $(LDFLAGS) -o $@ $^ -lSDL_image -lSDL  -lm
 endif
 
 %.o: %.cpp

@@ -34,6 +34,9 @@ void GroupRobot::applyDynamics(){
 void GroupRobot::move( int __recursiveIt )
 {
 
+    if(!wm->isAlive())
+        return;
+
     Robot::move(__recursiveIt);
     for(auto& connection: wm->getConnectionMechanism().getConnections()){
         auto other = connection.first;
