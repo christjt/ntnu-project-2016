@@ -58,6 +58,7 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	switch (SelfAssemblyMechanismsSharedData::gNNFactory)
 	{
 		case 0: NetworkFactory::factoryType = ANNType::MLP;
+		case 1: NetworkFactory::factoryType = ANNType::Elman;
 	}
 
 }

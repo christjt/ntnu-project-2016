@@ -72,6 +72,10 @@ void NetworkTranslator::step()
 {
     ann->setInputs(inputs);
     ann->step();
-    inputs.clear();
+    for(auto i= 0u; i < inputs.size(); i++)
+    {
+        inputs[i] = 0;
+    }
+
     outputs = ann->readOut();
 }

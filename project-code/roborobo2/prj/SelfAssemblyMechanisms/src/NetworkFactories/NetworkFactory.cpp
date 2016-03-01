@@ -1,5 +1,7 @@
 #include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
 #include "SelfAssemblyMechanisms/include/NetworkFactories/MLPFactory.h"
+#include "SelfAssemblyMechanisms/include/NetworkFactories/ElmanFactory.h"
+
 ANNType NetworkFactory::factoryType = ANNType::MLP;
 std::vector<unsigned> NetworkFactory::hiddenLayers = std::vector<unsigned>();
 
@@ -7,6 +9,7 @@ std::shared_ptr<NetworkFactory> NetworkFactory::createFactory(int nInputNodes, i
 {
     switch(NetworkFactory::factoryType){
         case ANNType::MLP: return std::shared_ptr<NetworkFactory>(new MLPFactory(nInputNodes, nOutputNodes));
+        case ANNType::Elman: return std::shared_ptr<NetworkFactory>(new ElmanFactory(nInputNodes, nOutputNodes));
     }
     throw "Invalid factory type";
 

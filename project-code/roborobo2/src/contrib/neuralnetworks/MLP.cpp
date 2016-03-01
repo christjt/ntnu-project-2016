@@ -60,12 +60,12 @@ void MLP::step() {
 	std::vector<double> tmp;
 
 	// Verify that the number of layers is correct
-//	if(_nbNeuronsPerLayer.size() < 2)
-//		throw NeuralNetworkException("MLP must have at least 2 layers : input and output");
-//	if(_nbNeuronsPerLayer[0] != _inputs.size())
-//		throw NeuralNetworkException("nbNeuronsPerLayer has an incorrect number of inputs neurons (first layer)");
-//	if(_nbNeuronsPerLayer[_nbNeuronsPerLayer.size() - 1] == 0)
-//		throw NeuralNetworkException("nbNeuronsPerLayer has an incorrect number of output neurons (output layer)");
+	if(_nbNeuronsPerLayer.size() < 2)
+		throw NeuralNetworkException("MLP must have at least 2 layers : input and output");
+	if(_nbNeuronsPerLayer[0] != _inputs.size())
+		throw NeuralNetworkException("nbNeuronsPerLayer has an incorrect number of inputs neurons (first layer)");
+	if(_nbNeuronsPerLayer[_nbNeuronsPerLayer.size() - 1] == 0)
+		throw NeuralNetworkException("nbNeuronsPerLayer has an incorrect number of output neurons (output layer)");
 
 //	unsigned int nbBiais = 0;
 //	if(_activeBiais)
