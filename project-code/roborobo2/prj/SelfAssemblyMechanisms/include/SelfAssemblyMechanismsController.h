@@ -24,6 +24,14 @@ class SelfAssemblyMechanismsController : public Controller
 		NetworkTranslator* translator;
 		DoubleVectorGenotypeTranslator* genomeTranslator;
 		int messageWidth;
+		void updateSensorValues();
+		void findNearbyRobots(std::vector<GroupRobotWorldModel*>& dest);
+		void updateMessageInput();
+		void updateConnectionInput();
+		void applyTranslationOutput();
+		void applyRotationalOutput();
+		void applyMessageOutput();
+		void applyConnectionOutput(const std::vector<GroupRobotWorldModel*>& nearbyRobots);
 	public:
 		//Initializes the variables
 		SelfAssemblyMechanismsController( RobotWorldModel *__wm );

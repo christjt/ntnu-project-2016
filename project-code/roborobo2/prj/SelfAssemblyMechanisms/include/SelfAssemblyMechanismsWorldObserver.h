@@ -43,6 +43,7 @@ class SelfAssemblyMechanismsWorldObserver : public WorldObserver
 		void initMPI();
 		void resetWorld();
 
+
 		void createMPIDatatypes();
 		GenomeDTO* pack(std::vector<EA::DoubleVectorGenotype> genome);
 		std::vector<EA::DoubleVectorGenotype> unpack(GenomeDTO* genomeDTO, size_t size);
