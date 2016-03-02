@@ -52,7 +52,7 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	}
 
 
-	generator.seed(0);
+	generator.seed(gRandomSeed);
 	cGenerations = 0;
 	srand(gRandomSeed);
 	NetworkFactory::hiddenLayers = SelfAssemblyMechanismsSharedData::gHiddenLayers;
