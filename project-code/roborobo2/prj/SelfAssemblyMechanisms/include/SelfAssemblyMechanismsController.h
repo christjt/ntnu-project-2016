@@ -21,9 +21,9 @@ class SelfAssemblyMechanismsController : public Controller
 
 	private:
 		GroupRobotWorldModel* wm;
-		NetworkTranslator* translator;
-		DoubleVectorGenotypeTranslator* genomeTranslator;
 		int messageWidth;
+		std::shared_ptr<NetworkTranslator> translator;
+		std::shared_ptr<DoubleVectorGenotypeTranslator> genomeTranslator;
 		void updateSensorValues();
 		void findNearbyRobots(std::vector<GroupRobotWorldModel*>& dest);
 		void updateMessageInput();
@@ -39,7 +39,7 @@ class SelfAssemblyMechanismsController : public Controller
 		bool done = false;
 		void reset();
 		void step();
-		DoubleVectorGenotypeTranslator* getGenomeTranslator()
+		std::shared_ptr<DoubleVectorGenotypeTranslator> getGenomeTranslator()
 		{
 			return genomeTranslator;
 		}

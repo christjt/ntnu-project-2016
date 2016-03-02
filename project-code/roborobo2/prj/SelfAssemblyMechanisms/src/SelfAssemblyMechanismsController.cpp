@@ -14,7 +14,8 @@
 #include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsUtilities.h"
 
-SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) : Controller ( __wm )
+SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) :
+		Controller ( __wm )
 {
 	// nothing to do
 	wm = (GroupRobotWorldModel*)_wm;
@@ -27,9 +28,9 @@ SelfAssemblyMechanismsController::~SelfAssemblyMechanismsController()
 
 void SelfAssemblyMechanismsController::reset()
 {
-	messageWidth =  wm->getConnectionMechanism().getPorts().size();
-	translator = new NetworkTranslator(wm->_cameraSensorsNb, messageWidth);
-	genomeTranslator = new DoubleVectorGenotypeTranslator(translator->getAnn());
+	messageWidth = wm->getConnectionMechanism().getPorts().size();
+	translator = std::shared_ptr<NetworkTranslator>(new NetworkTranslator(wm->_cameraSensorsNb, messageWidth));
+	genomeTranslator =  std::shared_ptr<DoubleVectorGenotypeTranslator>(new DoubleVectorGenotypeTranslator(translator->getAnn()));
 
 }
 

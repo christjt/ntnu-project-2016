@@ -3,21 +3,22 @@
 
 #include <neuralnetworks/NeuralNetwork.h>
 #include "SelfAssembly/Communication/CommunicationModule.h"
+#include <memory>
 class NetworkTranslator
 {
     private:
+        std::shared_ptr<Neural::NeuralNetwork> ann;
         std::vector<double> inputs;
         std::vector<double> outputs;
-        const int predatorSensorOffset;
-        const int robotSensorOffset;
-        const int environmentOffset;
-        const int energyOffset;
-        const int portOffset;
-        const int messageOffset;
-        const int messageOutOffset;
-        const int connectionOutOffset;
-        const int motorOutOffset;
-        Neural::NeuralNetwork* ann;
+        int predatorSensorOffset;
+        int robotSensorOffset;
+        int environmentOffset;
+        int energyOffset;
+        int portOffset;
+        int messageOffset;
+        int messageOutOffset;
+        int connectionOutOffset;
+        int motorOutOffset;
 
     public:
         NetworkTranslator(int nSensors, int nPorts);
@@ -34,7 +35,7 @@ class NetworkTranslator
         RobotMessage getMessageOut();
         void step();
 
-        Neural::NeuralNetwork* getAnn()
+        std::shared_ptr<Neural::NeuralNetwork> getAnn()
         {
             return ann;
         }
