@@ -55,6 +55,10 @@ void EnergyItem::isWalked( int __idAgent )
 //    if ( gVerbose && gDisplayMode <= 1)
 //        std::cout << "[DEBUG] Physical object #" << this->getId() << " (energy item) walked upon by robot #" << __idAgent << std::endl;
 
+    Robot* robot = gWorld->getRobot(__idAgent);
+    if(robot->getIsPredator())
+        return;
+
     double energyRequestedValueByRobot;
     double energyProvided;
     switch ( energyMode )
