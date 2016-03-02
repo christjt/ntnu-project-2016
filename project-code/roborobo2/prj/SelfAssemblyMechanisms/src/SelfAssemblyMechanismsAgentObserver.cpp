@@ -15,7 +15,7 @@ SelfAssemblyMechanismsAgentObserver::SelfAssemblyMechanismsAgentObserver( RobotW
 {
 	_wm = __wm;
     _wm->setEnergyLevel(gEnergyInit);
-
+    robotLifetime = 0;
 }
 
 SelfAssemblyMechanismsAgentObserver::~SelfAssemblyMechanismsAgentObserver()
@@ -25,13 +25,14 @@ SelfAssemblyMechanismsAgentObserver::~SelfAssemblyMechanismsAgentObserver()
 
 void SelfAssemblyMechanismsAgentObserver::reset()
 {
-	// nothing to do.
-
+    robotLifetime = 0;
 }
 
 void SelfAssemblyMechanismsAgentObserver::step()
 {
-    // * send callback messages to objects touched or walked upon.
+    if(_wm->isAlive()){
+        robotLifetime++;
+    }
 
 
     if(_wm->getEnergyLevel() > 0 && !((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator())

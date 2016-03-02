@@ -4,6 +4,7 @@
 
 
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsWorldObserver.h"
+#include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsAgentObserver.h"
 #include "World/World.h"
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 #include "Config/GlobalConfigurationLoader.h"
@@ -307,16 +308,19 @@ void SelfAssemblyMechanismsWorldObserver::evaluateCompletionCriteria()
 double SelfAssemblyMechanismsWorldObserver::evaluate()
 {
 	int nRobots = gNumberOfRobots - gNumberOfPredators;
-	int nDead = 0;
+	int maxAllLifetime = nRobots * SelfAssemblyMechanismsSharedData::gEvolutionaryGenerationIterations;
+	int sumLifetime = 0;
+
+
 	for(int i = 0; i < gNumberOfRobots; i++){
 		Robot* robot = _world->getRobot(i);
 		if(!robot->getIsPredator()){
-			if(!robot->getWorldModel()->isAlive())
-				nDead++;
+			SelfAssemblyMechanismsAgentObserver* observer = (SelfAssemblyMechanismsAgentObserver*) _world->getRobot(i)->getObserver();
+			sumLifetime += observer->getLifetime();
 		}
 	}
 
-	return 1 - (double)nDead/nRobots;
+	return (double)sumLifetime/maxAllLifetime;
 }
 
 void SelfAssemblyMechanismsWorldObserver::saveGeneration()

@@ -12,10 +12,15 @@
 
 class SelfAssemblyMechanismsAgentObserver : public AgentObserver
 {
+	private:
+		int robotLifetime;
+
 	public:
 		SelfAssemblyMechanismsAgentObserver( );
 		SelfAssemblyMechanismsAgentObserver( RobotWorldModel *__wm );
 		~SelfAssemblyMechanismsAgentObserver();
+
+		int getLifetime(){ return robotLifetime; };
 				
 		void reset();
 		void step();
