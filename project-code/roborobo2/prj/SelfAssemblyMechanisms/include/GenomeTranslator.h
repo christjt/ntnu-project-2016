@@ -2,6 +2,7 @@
 #define ROBOROBO2_GENOMETRANSLATOR_H
 
 #include <neuralnetworks/NeuralNetwork.h>
+#include <memory>
 
 template <class TGenome>
 class GenomeTranslator
@@ -9,10 +10,10 @@ class GenomeTranslator
     private:
         double numberOfWeights;
     protected:
-        Neural::NeuralNetwork* ann;
+        std::shared_ptr<Neural::NeuralNetwork> ann;
 
     public:
-        GenomeTranslator(Neural::NeuralNetwork* _ann):numberOfWeights(_ann->getRequiredNumberOfWeights()),ann(_ann){}
+        GenomeTranslator(std::shared_ptr<Neural::NeuralNetwork> _ann):numberOfWeights(_ann->getRequiredNumberOfWeights()),ann(_ann){}
         virtual void translateToWeights(TGenome& genome) = 0;
         int getRequiredNumberOfWeights()
         {

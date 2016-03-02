@@ -7,7 +7,7 @@
 class DoubleVectorGenotypeTranslator:public GenomeTranslator<EA::DoubleVectorGenotype>
 {
     public:
-        DoubleVectorGenotypeTranslator(Neural::NeuralNetwork* ann):GenomeTranslator(ann){}
+        DoubleVectorGenotypeTranslator(std::shared_ptr<Neural::NeuralNetwork> ann):GenomeTranslator(ann){}
         void translateToWeights(EA::DoubleVectorGenotype& genome)
         {
             ann->setWeigths(genome.getVector());
