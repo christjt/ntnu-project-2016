@@ -18,6 +18,8 @@ class SelfAssemblyMechanismsSharedData {
         static std::string gEALog;
         static bool gDisplayBestGenome;
         static std::string gGenomeFileName;
+        static double gPassiveEnergyDrain;
+        static double gConnectionEnergyDrain;
 };
 
 

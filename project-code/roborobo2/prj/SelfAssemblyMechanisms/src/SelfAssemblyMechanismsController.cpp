@@ -114,7 +114,7 @@ void SelfAssemblyMechanismsController::updateConnectionInput()
 
 void SelfAssemblyMechanismsController::applyTranslationOutput()
 {
-	wm->_desiredTranslationalValue = translator->getTranslationOutput()*2;
+	wm->_desiredTranslationalValue = translator->getTranslationOutput()*1.99;
 	if(wm->_desiredTranslationalValue < 0)
 		wm->_desiredTranslationalValue = 0;
 }

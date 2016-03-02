@@ -4,7 +4,7 @@
 
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsAgentObserver.h"
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
-
+#include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsSharedData.h"
 
 
 SelfAssemblyMechanismsAgentObserver::SelfAssemblyMechanismsAgentObserver( )
@@ -37,9 +37,9 @@ void SelfAssemblyMechanismsAgentObserver::step()
 
     if(_wm->getEnergyLevel() > 0 && !((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator())
     {
-        _wm->substractEnergy(1);
+        _wm->substractEnergy(SelfAssemblyMechanismsSharedData::gPassiveEnergyDrain);
         if(((GroupRobotWorldModel*)_wm)->getGroup()->size() > 1){
-            _wm->substractEnergy(1);
+            _wm->substractEnergy(SelfAssemblyMechanismsSharedData::gConnectionEnergyDrain);
         }
         if(_wm->getEnergyLevel() <= 0){
             for(auto connection: (((GroupRobotWorldModel*)_wm)->getConnectionMechanism().getConnections())) {

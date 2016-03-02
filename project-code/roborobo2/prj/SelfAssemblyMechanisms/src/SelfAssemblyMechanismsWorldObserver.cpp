@@ -41,6 +41,8 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gMutation", &SelfAssemblyMechanismsSharedData::gMutation, true);
 	gProperties.checkAndGetPropertyValue("gNHiddenLayers", &SelfAssemblyMechanismsSharedData::gNHiddenLayers, true);
 	gProperties.checkAndGetPropertyValue("gEALogFilename", &SelfAssemblyMechanismsSharedData::gEALog, true);
+	gProperties.checkAndGetPropertyValue("gPassiveEnergyDrain", &SelfAssemblyMechanismsSharedData::gPassiveEnergyDrain, true);
+	gProperties.checkAndGetPropertyValue("gConnectionEnergyDrain", &SelfAssemblyMechanismsSharedData::gConnectionEnergyDrain, true);
 
 	SelfAssemblyMechanismsSharedData::gHiddenLayers = std::vector<unsigned>(SelfAssemblyMechanismsSharedData::gNHiddenLayers);
 

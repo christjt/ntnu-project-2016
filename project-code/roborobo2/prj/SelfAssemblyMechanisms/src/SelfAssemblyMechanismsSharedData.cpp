@@ -17,5 +17,6 @@ int SelfAssemblyMechanismsSharedData::gNNFactory = 0;
 std::string SelfAssemblyMechanismsSharedData::gEAResultsOutputFilename;
 std::string SelfAssemblyMechanismsSharedData::gGenomeFileName;
 bool SelfAssemblyMechanismsSharedData::gDisplayBestGenome;
-
+double SelfAssemblyMechanismsSharedData::gPassiveEnergyDrain = 1;
+double SelfAssemblyMechanismsSharedData::gConnectionEnergyDrain = 1;
 
