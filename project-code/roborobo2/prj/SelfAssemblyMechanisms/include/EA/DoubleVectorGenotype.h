@@ -28,7 +28,7 @@ namespace EA{
         double getRangeMin();
         double getRangeMax();
 
-        std::vector<double>& getVector();
+        const std::vector<double>& getVector() const;
 
         void randomize(std::default_random_engine &random);
 

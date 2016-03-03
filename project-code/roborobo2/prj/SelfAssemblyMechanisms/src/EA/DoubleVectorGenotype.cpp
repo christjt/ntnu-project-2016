@@ -37,7 +37,7 @@ std::string DoubleVectorGenotype::toString(){
     return ss.str();
 }
 
-std::vector<double>& DoubleVectorGenotype::getVector(){
+const std::vector<double>& DoubleVectorGenotype::getVector() const{
     return vector;
 }
 double DoubleVectorGenotype::getFitness() const{
