@@ -9,6 +9,7 @@ int SelfAssemblyMechanismsSharedData::gMaxGenerations = 10;
 int SelfAssemblyMechanismsSharedData::gNScenarios = 1;
 int SelfAssemblyMechanismsSharedData::gElitism = 1;
 int SelfAssemblyMechanismsSharedData::gCrossover = 1;
+double SelfAssemblyMechanismsSharedData::gMutationStep = 0;
 double SelfAssemblyMechanismsSharedData::gMutation = 0.05;
 int SelfAssemblyMechanismsSharedData::gNHiddenLayers = 0;
 std::vector<unsigned> SelfAssemblyMechanismsSharedData::gHiddenLayers = std::vector<unsigned >();

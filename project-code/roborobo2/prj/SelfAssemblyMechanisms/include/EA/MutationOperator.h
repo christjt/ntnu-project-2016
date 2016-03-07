@@ -17,6 +17,7 @@ namespace EA{
     protected:
         double _mutationRate;
     };
+
 }
 
 #endif //ROBOROBO2_MUTATIONOPERATOR_H

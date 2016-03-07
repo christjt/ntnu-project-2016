@@ -2,7 +2,7 @@
 // Created by christopher on 07.03.16.
 //
 
-#include "SelfAssemblyMechanisms/include/EA/MutationOperators/RerollMutationOperator.h"
+#include "SelfAssemblyMechanisms/include/EA/RerollMutationOperator.h"
 #include "SelfAssemblyMechanisms/include/EA/DoubleVectorGenotype.h"
 
 using namespace EA;
