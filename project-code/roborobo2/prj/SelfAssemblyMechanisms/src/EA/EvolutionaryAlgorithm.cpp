@@ -1,7 +1,8 @@
 #include <iostream>
 #include "SelfAssemblyMechanisms/include/EA/EvolutionaryAlgorithm.h"
 #include "SelfAssemblyMechanisms/include/EA/Logger.h"
-#include "SelfAssemblyMechanisms/include/EA/MutationOperators/RerollMutationOperator.h"
+#include "SelfAssemblyMechanisms/include/EA/IncrementalMutationOperator.h"
+#include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsSharedData.h"
 
 using namespace EA;
 
@@ -18,7 +19,7 @@ std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::generateInitialPopulati
 std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::nextGeneration(std::vector<DoubleVectorGenotype>& genomes,int nCrossovers, double mutationChance, std::default_random_engine &random)
 {
     CrossoverOperator cross(nCrossovers);
-    RerollMutationOperator* mutation = new RerollMutationOperator(mutationChance);
+    IncrementalMutationOperator* mutation = new IncrementalMutationOperator(mutationChance, SelfAssemblyMechanismsSharedData::gMutationStep); //Change this line to change mutation operator
     ReproductionHandler reproductionHandler(random, cross, mutation);
     SigmaScalingSelectionMechanism selection;
 

@@ -40,6 +40,7 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gElitism", &SelfAssemblyMechanismsSharedData::gElitism, true);
 	gProperties.checkAndGetPropertyValue("gCrossover", &SelfAssemblyMechanismsSharedData::gCrossover, true);
 	gProperties.checkAndGetPropertyValue("gMutation", &SelfAssemblyMechanismsSharedData::gMutation, true);
+	gProperties.checkAndGetPropertyValue("gMutationStep", &SelfAssemblyMechanismsSharedData::gMutationStep, true);
 	gProperties.checkAndGetPropertyValue("gNHiddenLayers", &SelfAssemblyMechanismsSharedData::gNHiddenLayers, true);
 	gProperties.checkAndGetPropertyValue("gEALogFilename", &SelfAssemblyMechanismsSharedData::gEALog, true);
 	gProperties.checkAndGetPropertyValue("gPassiveEnergyDrain", &SelfAssemblyMechanismsSharedData::gPassiveEnergyDrain, true);

@@ -12,6 +12,7 @@ class SelfAssemblyMechanismsSharedData {
         static double gMutation;
         static int gElitism;
         static int gNHiddenLayers;
+        static double gMutationStep;
         static std::vector<unsigned > gHiddenLayers;
         static double gTargetFitness;
         static int gNNFactory;
