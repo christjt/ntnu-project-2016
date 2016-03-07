@@ -17,7 +17,7 @@ class GenomeVariationLogger: public EA::Logger
         {
             for(auto i = 0u; i < genome.getVector().size(); i++)
             {
-                difference += abs(best.getVector()[i] - genome.getVector()[i]);
+                difference += fabs(best.getVector()[i] - genome.getVector()[i]);
             }
         }
         std::cout << "Genome variation " << difference << std::endl;
