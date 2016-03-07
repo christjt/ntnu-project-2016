@@ -14,8 +14,10 @@
 #include "Config/GlobalConfigurationLoader.h"
 
 #include "Agents/Predator.h"
-
-
+#include <unordered_set>
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
+#include "SelfAssembly/RobotGroup.h"
+#include <algorithm>
 /********/
 
 /**/
@@ -264,21 +266,62 @@ void World::updateAgentController(int agent, Uint8 *__keyboardStates)
 }
 void World::moveAgents(int* shuffledIndex)
 {
+
 	for ( int i = 0 ; i < gNumberOfRobots ; i++ )
 	{
 		robots[shuffledIndex[i]]->applyDynamics();
 	}
 
-	for ( int i = 0 ; i < gNumberOfRobots ; i++ )
-	{
-		moveAgent(shuffledIndex[i]);
+	std::unordered_set<RobotGroup*> groups;
+	std::vector<int> entities;
 
+	for(int i = 0; i < gNumberOfRobots; i++)
+	{
+		Robot* robot = robots[i];
+		if(robot->getIsPredator())
+		{
+			entities.push_back(i);
+			continue;
+		}
+
+		auto wm = (GroupRobotWorldModel*) robot->getWorldModel();
+		if(!wm->isAlive())
+			continue;
+
+		auto group = wm->getGroup().get();
+		if(groups.find(group) == groups.end())
+		{
+			groups.insert(group);
+			entities.push_back(i);
+		}
+	}
+	std::random_shuffle(entities.begin(), entities.end());
+
+	for(auto id: entities)
+	{
+		Robot* entity = robots[id];
+
+		if(entity->getIsPredator())
+		{
+			moveAgent(id);
+			continue;
+		}
+
+		auto wm = (GroupRobotWorldModel*)entity->getWorldModel();
+		if(wm->getGroup()->size() == 1)
+		{
+			moveAgent(id);
+		}else
+		{
+			moveGroup(wm->getGroup().get());
+		}
 	}
 
 }
 
 void World::moveAgent(int agent)
 {
+
 	// unregister itself (otw: own sensor may see oneself)
 	if ( robotRegistry[agent] )
 	{
@@ -292,7 +335,26 @@ void World::moveAgent(int agent)
 	robots[agent]->registerRobot();
 	robotRegistry[agent]=true;
 }
+void World::moveGroup(RobotGroup* group)
+{
 
+	for(auto it = group->begin(); it != group->end(); it++)
+	{
+		robots[it->first]->unregisterRobot();
+	}
+
+	for(auto it = group->begin(); it != group->end(); it++)
+	{
+		robots[it->first]->move();
+	}
+
+	for(auto it = group->begin(); it != group->end(); it++)
+	{
+		robots[it->first]->registerRobot();
+		robotRegistry[it->first]=true;
+	}
+
+}
 bool World::loadFiles()
 {
 	bool returnValue = true;

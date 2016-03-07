@@ -252,7 +252,9 @@ void SelfAssemblyMechanismsWorldObserver::step()
 		}
 		srand(gRandomSeed);
 	//	std::cout << "Reset!" << std::endl;
+
 		_world->resetWorld();
+
 		updateAgentWeights(*currentGenome);
 	}
 

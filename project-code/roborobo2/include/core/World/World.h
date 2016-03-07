@@ -19,7 +19,7 @@
 #include "Observers/WorldObserver.h"
 
 class Robot;
-
+class RobotGroup;
 class World
 {
 	protected:
@@ -39,6 +39,7 @@ class World
 		void updateAgentController(int agent, Uint8 *__keyboardStates);
 		void moveAgents(int* shuffledIndex);
 		void moveAgent(int agent);
+		void moveGroup(RobotGroup* group);
     public:
 
 		World();

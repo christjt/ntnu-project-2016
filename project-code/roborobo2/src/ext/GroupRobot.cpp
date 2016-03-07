@@ -60,6 +60,7 @@ void GroupRobot::move( int __recursiveIt )
 
         }
     }
+
     wm->setMoveCompleted(true);
 }
 
