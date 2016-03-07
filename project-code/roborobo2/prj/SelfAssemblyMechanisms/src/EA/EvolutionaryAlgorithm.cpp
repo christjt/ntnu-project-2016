@@ -20,6 +20,11 @@ std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::nextGeneration(std::vec
     MutationOperator mutation(mutationChance);
     ReproductionHandler reproductionHandler(random, cross, mutation);
     SigmaScalingSelectionMechanism selection;
+
+    std::sort(genomes.begin(), genomes.end(), [](DoubleVectorGenotype a, DoubleVectorGenotype b){
+        return a.getFitness() < b.getFitness();
+    });
+
     logger->logGeneration(elites, genomes);
     insertElites(genomes);
     updateElites(genomes);
@@ -30,9 +35,6 @@ std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::nextGeneration(std::vec
 
 void EvolutionaryAlgorithm::insertElites(std::vector<DoubleVectorGenotype>& genomes)
 {
-    std::sort(genomes.begin(), genomes.end(), [](DoubleVectorGenotype a, DoubleVectorGenotype b){
-        return a.getFitness() < b.getFitness();
-    });
 
     for(auto i = 0u; i < elites.size(); i++){
         genomes[i] = elites[i];

@@ -8,26 +8,23 @@ class NetworkTranslator
 {
     private:
         std::shared_ptr<Neural::NeuralNetwork> ann;
-        std::vector<double> inputs;
-        std::vector<double> outputs;
-        int predatorSensorOffset;
-        int robotSensorOffset;
-        int environmentOffset;
-        int energyOffset;
-        int portOffset;
-        int messageOffset;
         int messageOutOffset;
         int connectionOutOffset;
         int motorOutOffset;
 
+    protected:
+        std::vector<double> inputs;
+        std::vector<double> outputs;
+
+
     public:
-        NetworkTranslator(int nSensors, int nPorts);
-        void setPredatorInput(int sensor, double value);
-        void setRobotInput(int sensor, double value);
-        void setEnvironmentInput(int sensor, double value);
-        void setEnergyInput(int sensor, double value);
-        void setMessageInput(const RobotMessage& message);
-        void setConnectionInput(int connection, bool status);
+        NetworkTranslator(int nInputNodes, int nPorts);
+        virtual void setPredatorInput(int sensor, double value) = 0;
+        virtual void setRobotInput(int sensor, double value) = 0;
+        virtual void setEnvironmentInput(int sensor, double value) = 0;
+        virtual void setEnergyInput(int sensor, double value) = 0;
+        virtual void setMessageInput(const RobotMessage& message) = 0;
+        virtual void setConnectionInput(int connection, bool status) = 0;
         double getTranslationOutput();
         double getRotationOutput();
         double getSensorRotationOutput();

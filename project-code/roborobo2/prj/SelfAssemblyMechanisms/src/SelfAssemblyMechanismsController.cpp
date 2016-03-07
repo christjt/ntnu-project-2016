@@ -13,6 +13,8 @@
 #include "SelfAssemblyMechanisms/include/NetworkFactories/MLPFactory.h"
 #include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsUtilities.h"
+#include "SelfAssemblyMechanisms/include/DenseInputNetworkTranslator.h"
+#include "SelfAssemblyMechanisms/include/SparseInputNetworkTranslator.h"
 
 SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) :
 		Controller ( __wm )
@@ -29,7 +31,7 @@ SelfAssemblyMechanismsController::~SelfAssemblyMechanismsController()
 void SelfAssemblyMechanismsController::reset()
 {
 	messageWidth = wm->getConnectionMechanism().getPorts().size();
-	translator = std::shared_ptr<NetworkTranslator>(new NetworkTranslator(wm->_cameraSensorsNb, messageWidth));
+	translator = std::shared_ptr<SparseInputNetworkTranslator>(new SparseInputNetworkTranslator(wm->_cameraSensorsNb, messageWidth));
 	genomeTranslator =  std::shared_ptr<DoubleVectorGenotypeTranslator>(new DoubleVectorGenotypeTranslator(translator->getAnn()));
 
 }

@@ -18,6 +18,7 @@
 #include "SelfAssemblyMechanisms/include/Logger/ConsoleLogger.h"
 #include "SelfAssemblyMechanisms/include/Logger/MultiLogger.h"
 #include "SelfAssemblyMechanisms/include/Logger/FileLogger.h"
+#include "SelfAssemblyMechanisms/include/Logger/GenomeVariationLogger.h"
 #include <stddef.h>
 #include <stdio.h>
 PortPosition* first;
@@ -97,7 +98,7 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 	if(rank == 0)
 	{
 		algorithm.setElitism(SelfAssemblyMechanismsSharedData::gElitism);
-		algorithm.setLogger(new MultiLogger{new ConsoleLogger(), new FileLogger(SelfAssemblyMechanismsSharedData::gEALog)});
+		algorithm.setLogger(new MultiLogger{new ConsoleLogger(), new GenomeVariationLogger(), new FileLogger(SelfAssemblyMechanismsSharedData::gEALog)});
 		genomes = initEA();
 	}
 	currentGeneration = distributeGenomes(genomes);

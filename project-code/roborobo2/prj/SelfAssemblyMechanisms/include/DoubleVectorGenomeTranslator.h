@@ -10,7 +10,8 @@ class DoubleVectorGenotypeTranslator:public GenomeTranslator<EA::DoubleVectorGen
         DoubleVectorGenotypeTranslator(std::shared_ptr<Neural::NeuralNetwork> ann):GenomeTranslator(ann){}
         void translateToWeights(EA::DoubleVectorGenotype& genome)
         {
-            ann->setWeigths(genome.getVector());
+            auto genomeCopy = genome.getVector();
+            ann->setWeigths(genomeCopy);
         };
 };
 #endif //ROBOROBO2_DOUBLEVECTORGENOMETRANSLATOR_H
