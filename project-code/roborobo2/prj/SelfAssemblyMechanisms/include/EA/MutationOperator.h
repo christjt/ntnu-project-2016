@@ -13,8 +13,8 @@ namespace EA{
     class MutationOperator{
     public:
         MutationOperator(double mutationRate);
-        DoubleVectorGenotype apply(DoubleVectorGenotype parent, std::default_random_engine &random);
-    private:
+        virtual DoubleVectorGenotype apply(DoubleVectorGenotype parent, std::default_random_engine &random) = 0;
+    protected:
         double _mutationRate;
     };
 }

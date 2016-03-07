@@ -8,7 +8,6 @@
 #include <vector>
 #include "DoubleVectorGenotype.h"
 #include "CrossoverOperator.h"
-#include "MutationOperator.h"
 #include "ReproductionHandler.h"
 #include "SigmaScalingSelectionMechanism.h"
 #include <random>

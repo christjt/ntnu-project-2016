@@ -16,9 +16,9 @@ namespace EA
     {
     private:
         CrossoverOperator _cross;
-        MutationOperator _mutate;
+        MutationOperator* _mutate;
     public:
-        ReproductionHandler(std::default_random_engine &random, CrossoverOperator cross, MutationOperator mutate);
+        ReproductionHandler(std::default_random_engine &random, CrossoverOperator cross, MutationOperator* mutate);
         std::vector<DoubleVectorGenotype> produceOffspring(std::vector<DoubleVectorGenotype> matingParents, std::default_random_engine &random);
     };
 }
