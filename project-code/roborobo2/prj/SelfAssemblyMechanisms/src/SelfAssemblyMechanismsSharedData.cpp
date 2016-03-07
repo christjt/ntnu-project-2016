@@ -6,6 +6,7 @@
 int SelfAssemblyMechanismsSharedData::gEvolutionaryGenerationIterations = 100;
 int SelfAssemblyMechanismsSharedData::gPopulationSize = 10;
 int SelfAssemblyMechanismsSharedData::gMaxGenerations = 10;
+int SelfAssemblyMechanismsSharedData::gNScenarios = 1;
 int SelfAssemblyMechanismsSharedData::gElitism = 1;
 int SelfAssemblyMechanismsSharedData::gCrossover = 1;
 double SelfAssemblyMechanismsSharedData::gMutation = 0.05;

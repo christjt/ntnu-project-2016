@@ -44,6 +44,7 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gEALogFilename", &SelfAssemblyMechanismsSharedData::gEALog, true);
 	gProperties.checkAndGetPropertyValue("gPassiveEnergyDrain", &SelfAssemblyMechanismsSharedData::gPassiveEnergyDrain, true);
 	gProperties.checkAndGetPropertyValue("gConnectionEnergyDrain", &SelfAssemblyMechanismsSharedData::gConnectionEnergyDrain, true);
+	gProperties.checkAndGetPropertyValue("gNScenarios", &SelfAssemblyMechanismsSharedData::gNScenarios, true);
 
 	SelfAssemblyMechanismsSharedData::gHiddenLayers = std::vector<unsigned>(SelfAssemblyMechanismsSharedData::gNHiddenLayers);
 
@@ -55,7 +56,6 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	}
 
 
-	generator.seed(gRandomSeed);
 	cGenerations = 0;
 	srand(gRandomSeed);
 	NetworkFactory::hiddenLayers = SelfAssemblyMechanismsSharedData::gHiddenLayers;
@@ -85,7 +85,16 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 	worldSeed = gRandomSeed+1;
 
 	initMPI();
+	generator.seed(gRandomSeed);
 	srand(gRandomSeed);
+
+	for(int i = 0; i < SelfAssemblyMechanismsSharedData::gNScenarios; i++)
+	{
+		scenarios.push_back(gRandomSeed + i);
+		std::cout << gRandomSeed +i << std::endl;
+	}
+	currentScenario = scenarios.begin();
+
 	createMPIDatatypes();
 
 
@@ -127,7 +136,6 @@ void SelfAssemblyMechanismsWorldObserver::createMPIDatatypes()
 	MPI_Type_commit(&genomeDTODatatype);
 
 }
-
 std::vector<EA::DoubleVectorGenotype> SelfAssemblyMechanismsWorldObserver::initEA()
 {
 
@@ -238,10 +246,16 @@ void SelfAssemblyMechanismsWorldObserver::step()
 	if(steps == stepsPerGeneration)
 	{
 
-		currentGenome->setFitness(evaluate());
+		currentGenome->setFitness(currentGenome->getFitness() + evaluate()/scenarios.size());
 
 		steps = 0;
-		currentGenome++;
+
+		currentScenario++;
+		if(currentScenario == scenarios.end()){
+			currentGenome++;
+			currentScenario = scenarios.begin();
+		}
+
 		if(currentGenome == currentGeneration.end())
 		{
 			cGenerations++;
@@ -249,13 +263,11 @@ void SelfAssemblyMechanismsWorldObserver::step()
 			saveGeneration();
 			evaluateCompletionCriteria();
 			nextGeneration();
+			currentScenario = scenarios.begin();
 
 		}
-		srand(gRandomSeed);
-	//	std::cout << "Reset!" << std::endl;
-
+		srand(*currentScenario);
 		_world->resetWorld();
-
 		updateAgentWeights(*currentGenome);
 	}
 

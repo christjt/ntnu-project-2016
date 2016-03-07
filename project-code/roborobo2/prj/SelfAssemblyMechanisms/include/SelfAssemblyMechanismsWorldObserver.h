@@ -27,7 +27,9 @@ class SelfAssemblyMechanismsWorldObserver : public WorldObserver
 		std::default_random_engine generator;
 		void updateAgentWeights(EA::DoubleVectorGenotype& genotype);
 		std::vector<EA::DoubleVectorGenotype>::iterator currentGenome;
-		int steps;
+		std::vector<int> scenarios;
+		std::vector<int>::iterator currentScenario;
+ 		int steps;
 		int stepsPerGeneration;
 		int cGenerations;
 		int generationSize;
