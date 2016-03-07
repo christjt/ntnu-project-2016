@@ -91,7 +91,6 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 	for(int i = 0; i < SelfAssemblyMechanismsSharedData::gNScenarios; i++)
 	{
 		scenarios.push_back(gRandomSeed + i);
-		std::cout << gRandomSeed +i << std::endl;
 	}
 	currentScenario = scenarios.begin();
 
