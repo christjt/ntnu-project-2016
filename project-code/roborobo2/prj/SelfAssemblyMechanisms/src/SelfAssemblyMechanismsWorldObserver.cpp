@@ -109,6 +109,7 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 	if(rank == 0)
 	{
 		algorithm.setElitism(SelfAssemblyMechanismsSharedData::gElitism);
+		algorithm.setExplorationThreshold(SelfAssemblyMechanismsSharedData::gExplorationThreshold);
 		algorithm.setLogger(new MultiLogger{new ConsoleLogger(), new GenomeVariationLogger(), new FileLogger(SelfAssemblyMechanismsSharedData::gEALog)});
 		genomes = initEA();
 	}
