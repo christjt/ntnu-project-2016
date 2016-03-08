@@ -2,6 +2,7 @@
 #include "SelfAssemblyMechanisms/include/EA/EvolutionaryAlgorithm.h"
 #include "SelfAssemblyMechanisms/include/EA/Logger.h"
 #include "SelfAssemblyMechanisms/include/EA/IncrementalMutationOperator.h"
+#include "SelfAssemblyMechanisms/include/EA/RerollMutationOperator.h"
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsSharedData.h"
 
 using namespace EA;
@@ -18,14 +19,20 @@ std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::generateInitialPopulati
 }
 std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::nextGeneration(std::vector<DoubleVectorGenotype>& genomes,int nCrossovers, double mutationChance, std::default_random_engine &random)
 {
-    CrossoverOperator cross(nCrossovers);
-    IncrementalMutationOperator* mutation = new IncrementalMutationOperator(mutationChance, SelfAssemblyMechanismsSharedData::gMutationStep); //Change this line to change mutation operator
-    ReproductionHandler reproductionHandler(random, cross, mutation);
-    SigmaScalingSelectionMechanism selection;
+
 
     std::sort(genomes.begin(), genomes.end(), [](DoubleVectorGenotype a, DoubleVectorGenotype b){
         return a.getFitness() < b.getFitness();
     });
+    MutationOperator* mutation;
+    if(computeGenomeVariation(genomes) < explorationThreshold){
+        mutation = new RerollMutationOperator(SelfAssemblyMechanismsSharedData::gExplorationMutationRate); //Change this line to change mutation operator
+    }else{
+        mutation = new IncrementalMutationOperator(mutationChance, SelfAssemblyMechanismsSharedData::gMutationStep); //Change this line to change mutation operator
+    }
+    CrossoverOperator cross(nCrossovers);
+    ReproductionHandler reproductionHandler(random, cross, mutation);
+    SigmaScalingSelectionMechanism selection;
 
     logger->logGeneration(elites, genomes);
     insertElites(genomes);
@@ -49,6 +56,21 @@ void EvolutionaryAlgorithm::updateElites(std::vector<DoubleVectorGenotype>& geno
         return a.getFitness() < b.getFitness();
     });
     elites.assign(genomes.begin() + (genomes.size() -nElites), genomes.end());
+}
+
+
+double EvolutionaryAlgorithm::computeGenomeVariation(std::vector<DoubleVectorGenotype>& genomes)
+{
+    auto& best = genomes[genomes.size()-1];
+    double difference = 0.0;
+    for(auto& genome: genomes)
+    {
+        for(auto i = 0u; i < genome.getVector().size(); i++)
+        {
+            difference += fabs(best.getVector()[i] - genome.getVector()[i]);
+        }
+    }
+    return (difference/genomes.size())/best.getVector().size();
 }
 
 void EvolutionaryAlgorithm::setElitism(int nElites)

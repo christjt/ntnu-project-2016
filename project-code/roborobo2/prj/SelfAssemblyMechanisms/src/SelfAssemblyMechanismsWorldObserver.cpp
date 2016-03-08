@@ -46,6 +46,8 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gPassiveEnergyDrain", &SelfAssemblyMechanismsSharedData::gPassiveEnergyDrain, true);
 	gProperties.checkAndGetPropertyValue("gConnectionEnergyDrain", &SelfAssemblyMechanismsSharedData::gConnectionEnergyDrain, true);
 	gProperties.checkAndGetPropertyValue("gNScenarios", &SelfAssemblyMechanismsSharedData::gNScenarios, true);
+	gProperties.checkAndGetPropertyValue("gExplorationThreshold", &SelfAssemblyMechanismsSharedData::gExplorationThreshold, true);
+	gProperties.checkAndGetPropertyValue("gExplorationMutationRate", &SelfAssemblyMechanismsSharedData::gExplorationMutationRate, true);
 
 	SelfAssemblyMechanismsSharedData::gHiddenLayers = std::vector<unsigned>(SelfAssemblyMechanismsSharedData::gNHiddenLayers);
 

@@ -6,6 +6,8 @@ class SelfAssemblyMechanismsSharedData {
     public:
         static int gEvolutionaryGenerationIterations;
         static int gNScenarios;
+        static double gExplorationThreshold;
+        static double gExplorationMutationRate;
         static int gPopulationSize;
         static int gMaxGenerations;
         static int gCrossover;

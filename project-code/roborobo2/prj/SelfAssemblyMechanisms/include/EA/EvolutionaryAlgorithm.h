@@ -20,10 +20,16 @@ namespace EA
     private:
         std::vector<DoubleVectorGenotype> elites;
         int nElites;
+        double computeGenomeVariation(std::vector<DoubleVectorGenotype>& genomes);
         void insertElites(std::vector<DoubleVectorGenotype>& genomes);
         void updateElites(std::vector<DoubleVectorGenotype>& genomes);
         Logger* logger;
+        double explorationThreshold = 1.0;
     public:
+        void setExplorationThreshold(double threshold)
+        {
+            this->explorationThreshold = threshold;
+        }
         void setElitism(int nElites);
         void setLogger(Logger* logger);
         std::vector<DoubleVectorGenotype> generateInitialPopulation(int populationSize, int nWeights, std::default_random_engine &random);

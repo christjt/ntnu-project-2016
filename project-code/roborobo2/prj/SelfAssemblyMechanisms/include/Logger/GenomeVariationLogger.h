@@ -21,7 +21,7 @@ class GenomeVariationLogger: public EA::Logger
             }
         }
         std::cout << "Genome variation " << difference << std::endl;
-        std::cout << "Variation per genome " << difference/generation.size() << std::endl;
+        std::cout << "Variation per genome " << (difference/generation.size())/best.getVector().size() << std::endl;
     }
 };
 #endif //ROBOROBO2_GENOMEVARIATIONLOGGER_H
