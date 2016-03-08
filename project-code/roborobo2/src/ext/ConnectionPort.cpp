@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-const double _collisionPositionOffset = 2;
+const double _collisionPositionOffset = 4;
 const double _collisionOrientationOffset = 2.0;
 const double PERFECT_ORIENTATIONAL_FIT = 180.0;
 
@@ -64,6 +64,7 @@ bool ConnectionPort::isOrientationalSound(const PortPosition& other) const
 {
     double otherOrientation = other.getOrientation();
     double thisOrientation = position.getOrientation();
+
     return (fabs(thisOrientation- otherOrientation) < (PERFECT_ORIENTATIONAL_FIT + _collisionOrientationOffset)) && (fabs(thisOrientation - otherOrientation) > (PERFECT_ORIENTATIONAL_FIT - _collisionOrientationOffset));
 }
 
@@ -71,6 +72,7 @@ bool ConnectionPort::isSpatiallySound(const PortPosition& other) const
 {
     Vector2<double> otherPos = other.getPosition();
     Vector2<double> thisPos = position.getPosition();
+    std::cout << ((otherPos - thisPos).length())<< std::endl;
     return (otherPos - thisPos).length() < _collisionPositionOffset;
 }
 
