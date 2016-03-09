@@ -32,12 +32,11 @@ std::vector<DoubleVectorGenotype> EvolutionaryAlgorithm::nextGeneration(std::vec
     }
     CrossoverOperator cross(nCrossovers);
     ReproductionHandler reproductionHandler(random, cross, mutation);
-    SigmaScalingSelectionMechanism selection;
 
     logger->logGeneration(elites, genomes);
     insertElites(genomes);
     updateElites(genomes);
-    auto matingParents = selection.selectParents(genomes, genomes.size(), random);
+    auto matingParents = selectionMechanism->selectParents(genomes, genomes.size(), random);
     auto offspring = reproductionHandler.produceOffspring(matingParents, random);
     return offspring;
 }

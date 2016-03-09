@@ -8,6 +8,8 @@ class SelfAssemblyMechanismsSharedData {
         static int gNScenarios;
         static double gExplorationThreshold;
         static double gExplorationMutationRate;
+        static int gTournamentGroupSize;
+        static double gTournamentPickChance;
         static int gPopulationSize;
         static int gMaxGenerations;
         static int gCrossover;

@@ -5,12 +5,11 @@
 #ifndef ROBOROBO2_SIGMASCALINGSELECTIONMECHANISM_H
 #define ROBOROBO2_SIGMASCALINGSELECTIONMECHANISM_H
 
-#include "DoubleVectorGenotype.h"
-#include <vector>
-#include <random>
+#include "SelectionMechanism.h"
+
 namespace EA
 {
-    class SigmaScalingSelectionMechanism
+    class SigmaScalingSelectionMechanism: public SelectionMechanism
     {
     public:
         std::vector<DoubleVectorGenotype> selectParents(std::vector<DoubleVectorGenotype> &adultPool, int selectCount, std::default_random_engine &random);

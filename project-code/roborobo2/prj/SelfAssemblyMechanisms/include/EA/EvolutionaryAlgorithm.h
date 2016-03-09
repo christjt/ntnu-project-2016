@@ -9,7 +9,7 @@
 #include "DoubleVectorGenotype.h"
 #include "CrossoverOperator.h"
 #include "ReproductionHandler.h"
-#include "SigmaScalingSelectionMechanism.h"
+#include "SelectionMechanism.h"
 #include <random>
 #include <memory>
 namespace EA
@@ -25,11 +25,18 @@ namespace EA
         void updateElites(std::vector<DoubleVectorGenotype>& genomes);
         Logger* logger;
         double explorationThreshold = 1.0;
+        SelectionMechanism* selectionMechanism;
     public:
         void setExplorationThreshold(double threshold)
         {
             this->explorationThreshold = threshold;
         }
+
+        void setSelectionMechanism(SelectionMechanism* selectionMechanism)
+        {
+            this->selectionMechanism = selectionMechanism;
+        }
+
         void setElitism(int nElites);
         void setLogger(Logger* logger);
         std::vector<DoubleVectorGenotype> generateInitialPopulation(int populationSize, int nWeights, std::default_random_engine &random);

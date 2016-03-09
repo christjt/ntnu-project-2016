@@ -13,6 +13,8 @@
 #include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsController.h"
 #include "SelfAssemblyMechanisms/include/EA/DoubleVectorGenotype.h"
+#include "SelfAssemblyMechanisms/include/EA/SigmaScalingSelectionMechanism.h"
+#include "SelfAssemblyMechanisms/include/EA/TournamentSelectionMechanism.h"
 #include <iostream>
 #include <mpi/mpi.h>
 #include "SelfAssemblyMechanisms/include/Logger/ConsoleLogger.h"
@@ -48,6 +50,8 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gNScenarios", &SelfAssemblyMechanismsSharedData::gNScenarios, true);
 	gProperties.checkAndGetPropertyValue("gExplorationThreshold", &SelfAssemblyMechanismsSharedData::gExplorationThreshold, true);
 	gProperties.checkAndGetPropertyValue("gExplorationMutationRate", &SelfAssemblyMechanismsSharedData::gExplorationMutationRate, true);
+	gProperties.checkAndGetPropertyValue("gTournamentGroupSize", &SelfAssemblyMechanismsSharedData::gTournamentGroupSize, true);
+	gProperties.checkAndGetPropertyValue("gTournamentPickChance", &SelfAssemblyMechanismsSharedData::gTournamentPickChance, true);
 
 	SelfAssemblyMechanismsSharedData::gHiddenLayers = std::vector<unsigned>(SelfAssemblyMechanismsSharedData::gNHiddenLayers);
 
@@ -110,6 +114,7 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 	{
 		algorithm.setElitism(SelfAssemblyMechanismsSharedData::gElitism);
 		algorithm.setExplorationThreshold(SelfAssemblyMechanismsSharedData::gExplorationThreshold);
+		algorithm.setSelectionMechanism(new EA::TournamentSelectionMechanism(SelfAssemblyMechanismsSharedData::gTournamentGroupSize, SelfAssemblyMechanismsSharedData::gTournamentPickChance));
 		algorithm.setLogger(new MultiLogger{new ConsoleLogger(), new GenomeVariationLogger(), new FileLogger(SelfAssemblyMechanismsSharedData::gEALog)});
 		genomes = initEA();
 	}
