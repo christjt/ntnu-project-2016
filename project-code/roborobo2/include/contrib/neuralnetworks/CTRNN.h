@@ -45,7 +45,7 @@ namespace Neural
                 return _gains.size();
             };
 
-            int _getNumberOgTimeConstants()
+            int _getNumberOfTimeConstants()
             {
                 return _timeConstants.size();
             };
