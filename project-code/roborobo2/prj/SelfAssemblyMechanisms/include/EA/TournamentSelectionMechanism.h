@@ -31,7 +31,7 @@ namespace EA
                         group.push_back(individual);
                     }
                     std::sort(group.begin(), group.end(), [](DoubleVectorGenotype a, DoubleVectorGenotype b){
-                        return a.getFitness() < b.getFitness();
+                        return a.getFitness() > b.getFitness();
                     });
 
                     DoubleVectorGenotype* selected = nullptr;
