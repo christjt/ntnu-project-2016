@@ -9,6 +9,7 @@ class SelfAssemblyMechanismsSharedData {
         static double gExplorationThreshold;
         static double gExplorationMutationRate;
         static int gTournamentGroupSize;
+        static bool gCanEatPredators;
         static double gTournamentPickChance;
         static int gPopulationSize;
         static int gMaxGenerations;
