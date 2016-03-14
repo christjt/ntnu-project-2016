@@ -19,6 +19,8 @@ namespace Neural
             std::vector<double> _timeConstants;
 
             std::vector< std::vector<double> > _lastOutputs;
+            std::vector< std::vector<double> > _internalCharge;
+
             void initLastOutputs();
             unsigned int computeRequiredNumberOfWeights();
             unsigned int computeNumberOfParameterNodes();
