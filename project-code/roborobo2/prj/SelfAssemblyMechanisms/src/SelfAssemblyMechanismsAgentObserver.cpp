@@ -34,8 +34,31 @@ void SelfAssemblyMechanismsAgentObserver::step()
         robotLifetime++;
     }
 
+    bool isPredator = ((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator();
+    if(!isPredator){
+        auto wm = (GroupRobotWorldModel*)_wm;
+        if(wm->getGroup()->size() >= 3)
+        {
+            auto nearbyPredators = findPredators();
+            for(auto& predator: nearbyPredators)
+            {
+                if(predator.second <= 5 )
+                {
+                    auto predatorWm = predator.first->getWorldModel();
+                    predatorWm->setAlive(false);
+                    predator.first->unregisterRobot();
+                    _wm->_world->unregisterRobot(predatorWm->getId());
+                    for(auto it = wm->getGroup()->begin(); it != wm->getGroup()->end(); it++)
+                    {
+                        (*it).second->addEnergy(500);
+                    }
+                }
+            }
+        }
+    }
 
-    if(_wm->getEnergyLevel() > 0 && !((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator())
+
+    if(_wm->getEnergyLevel() > 0 && !isPredator)
     {
         _wm->substractEnergy(SelfAssemblyMechanismsSharedData::gPassiveEnergyDrain);
         if(((GroupRobotWorldModel*)_wm)->getGroup()->size() > 1){
@@ -75,3 +98,29 @@ void SelfAssemblyMechanismsAgentObserver::step()
     }
 }
 
+std::vector<std::pair<Robot*, double>> SelfAssemblyMechanismsAgentObserver::findPredators()
+{
+    std::vector<std::pair<Robot*, double>> predators;
+    for(int i = 0; i < _wm->_cameraSensorsNb; i++)
+    {
+
+        if(_wm->getDistanceValueFromCameraSensor(i) >= gSensorRange)
+        {
+            continue;
+        }
+
+        int objectId = _wm->getObjectIdFromCameraSensor(i);
+        bool isOtherRobot =  Agent::isInstanceOf(objectId);
+        if(!isOtherRobot){
+            continue;
+        }
+        int id = objectId - gRobotIndexStartOffset;
+        auto robot = _wm->getWorld()->getRobot(id);
+        if(!robot->getIsPredator())
+            continue;
+        predators.push_back(std::make_pair(robot, _wm->getDistanceValueFromCameraSensor(i)));
+
+    }
+
+    return predators;
+}

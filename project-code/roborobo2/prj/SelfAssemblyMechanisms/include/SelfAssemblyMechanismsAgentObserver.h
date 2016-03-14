@@ -9,12 +9,13 @@
 #include "RoboroboMain/roborobo.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "Observers/AgentObserver.h"
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 
 class SelfAssemblyMechanismsAgentObserver : public AgentObserver
 {
 	private:
 		int robotLifetime;
-
+		std::vector<std::pair<Robot*, double>> findPredators();
 	public:
 		SelfAssemblyMechanismsAgentObserver( );
 		SelfAssemblyMechanismsAgentObserver( RobotWorldModel *__wm );
