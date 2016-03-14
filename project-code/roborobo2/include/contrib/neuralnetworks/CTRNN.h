@@ -21,11 +21,10 @@ namespace Neural
             std::vector< std::vector<double> > _lastOutputs;
             std::vector< std::vector<double> > _internalCharge;
 
-            void initLastOutputs();
+            void initLastOutputsAndCharge();
             unsigned int computeRequiredNumberOfWeights();
             unsigned int computeNumberOfParameterNodes();
             double activationFunction(double internalState, double gain);
-
 
 
         public:
@@ -33,16 +32,6 @@ namespace Neural
             std::vector< std::vector<double> > const& getLastOutputs() const;
             void step();
             static std::string getNNTypeName() { return "CTRNN"; };
-
-            void setTimeConstants(std::vector<double>& timeConstraints)
-            {
-                _timeConstants = timeConstraints;
-            };
-
-            void setGains(std::vector<double>& gains)
-            {
-                _gains = gains;
-            };
 
             int getNumberOfGains()
             {
@@ -54,7 +43,16 @@ namespace Neural
                 return _timeConstants.size();
             };
 
-            void setNNparameters(std::vector<double> parameters);
+            void setTimeConstants(std::vector<double>& timeConstraints)
+            {
+                _timeConstants = timeConstraints;
+            };
+
+            void setGains(std::vector<double>& gains)
+            {
+                _gains = gains;
+            };
+
     };
 }
 
