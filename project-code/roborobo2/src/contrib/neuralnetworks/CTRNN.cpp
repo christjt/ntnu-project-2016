@@ -11,6 +11,7 @@ CTRNN::CTRNN(std::vector<double>& weights, unsigned int nbInputs, unsigned int n
              MLP(weights, nbInputs, nbOutputs, nbNeuronsPerLayer, activeBias, onlyUseBiasForFirstHiddenLayer, biasValue)
 
 {
+    initLastOutputsAndCharge();
     _timeConstants = std::vector<double>(computeNumberOfParameterNodes(), 0.0);
     _gains = std::vector<double>(computeNumberOfParameterNodes(), 0.0);
 }
@@ -33,7 +34,7 @@ unsigned int CTRNN::computeNumberOfParameterNodes()
     return sum;
 }
 
-void CTRNN::initLastOutputs()
+void CTRNN::initLastOutputsAndCharge()
 {
     _lastOutputs = std::vector< std::vector<double> >(_nbNeuronsPerLayer.size() - 1);
     _internalCharge = std::vector< std::vector<double> >(_nbNeuronsPerLayer.size() - 1);
@@ -120,23 +121,5 @@ void CTRNN::step()
     }
 
     _outputs = lastLayerOut;
-}
-
-void CTRNN::setNNparameters(std::vector<double> parameters)
-{
-    auto weightsFirst = parameters.begin();
-    auto timeConstantsFirst = weightsFirst + computeRequiredNumberOfWeights();
-    auto gainsFirst = timeConstantsFirst + computeNumberOfParameterNodes();
-    auto last = gainsFirst + computeNumberOfParameterNodes();
-
-    std::vector<double> newWeights(weightsFirst, timeConstantsFirst);
-    setWeigths(newWeights);
-
-    std::vector<double> newTimeConstraints(timeConstantsFirst, gainsFirst);
-    setTimeConstants(newTimeConstraints);
-
-    std::vector<double> newGains(gainsFirst, last);
-    setGains(newGains);
-
 }
 
