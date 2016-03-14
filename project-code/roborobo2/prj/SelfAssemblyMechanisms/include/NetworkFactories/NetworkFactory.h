@@ -3,7 +3,7 @@
 
 #include <neuralnetworks/NeuralNetwork.h>
 #include <memory>
-enum class ANNType{MLP, Elman};
+enum class ANNType{MLP, Elman, CTRNN};
 class NetworkFactory
 {
     private:

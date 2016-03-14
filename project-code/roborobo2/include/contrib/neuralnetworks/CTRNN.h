@@ -26,6 +26,14 @@ namespace Neural
             unsigned int computeNumberOfParameterNodes();
             double activationFunction(double internalState, double gain);
 
+
+
+        public:
+            CTRNN(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, std::vector<unsigned int>& nbNeuronsPerLayer, bool activeBias = false, bool onlyUseBiasForFirstHiddenLayer = false, double biasValue = 1.0);
+            std::vector< std::vector<double> > const& getLastOutputs() const;
+            void step();
+            static std::string getNNTypeName() { return "CTRNN"; };
+
             void setTimeConstants(std::vector<double>& timeConstraints)
             {
                 _timeConstants = timeConstraints;
@@ -36,18 +44,12 @@ namespace Neural
                 _gains = gains;
             };
 
-        public:
-            CTRNN(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, std::vector<unsigned int>& nbNeuronsPerLayer, bool activeBias = false, bool onlyUseBiasForFirstHiddenLayer = false, double biasValue = 1.0);
-            std::vector< std::vector<double> > const& getLastOutputs() const;
-            void step();
-            static std::string getNNTypeName() { return "CTRNN"; };
-
-            int _getNumberOfGains()
+            int getNumberOfGains()
             {
                 return _gains.size();
             };
 
-            int _getNumberOfTimeConstants()
+            int getNumberOfTimeConstants()
             {
                 return _timeConstants.size();
             };

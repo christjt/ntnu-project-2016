@@ -2,6 +2,8 @@
 #define ROBOROBO2_ELMANFACTORY_H
 
 #include <neuralnetworks/Elman.h>
+#include "NetworkFactory.h"
+
 class ElmanFactory : public NetworkFactory {
 public:
     ElmanFactory(int nInputNodes, int nOutputNodes)

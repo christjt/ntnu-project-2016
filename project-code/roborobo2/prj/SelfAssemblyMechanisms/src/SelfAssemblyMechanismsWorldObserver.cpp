@@ -74,6 +74,8 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 			break;
 		case 1: NetworkFactory::factoryType = ANNType::Elman;
 			break;
+		case 2: NetworkFactory::factoryType = ANNType::CTRNN;
+			break;
 	}
 
 }

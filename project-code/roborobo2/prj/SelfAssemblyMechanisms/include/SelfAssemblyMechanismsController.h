@@ -16,6 +16,7 @@
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 #include "NetworkTranslator.h"
 #include "DoubleVectorGenomeTranslator.h"
+#include "CTRNNGenomeTranslator.h"
 class SelfAssemblyMechanismsController : public Controller
 {
 
@@ -23,7 +24,7 @@ class SelfAssemblyMechanismsController : public Controller
 		GroupRobotWorldModel* wm;
 		int messageWidth;
 		std::shared_ptr<NetworkTranslator> translator;
-		std::shared_ptr<DoubleVectorGenotypeTranslator> genomeTranslator;
+		std::shared_ptr<CTRNNGenomeTranslator> genomeTranslator;
 		void updateSensorValues();
 		void findNearbyRobots(std::vector<GroupRobotWorldModel*>& dest);
 		void updateMessageInput();

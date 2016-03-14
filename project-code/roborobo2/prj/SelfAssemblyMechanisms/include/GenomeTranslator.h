@@ -15,7 +15,7 @@ class GenomeTranslator
     public:
         GenomeTranslator(std::shared_ptr<Neural::NeuralNetwork> _ann):numberOfWeights(_ann->getRequiredNumberOfWeights()),ann(_ann){}
         virtual void translateToWeights(TGenome& genome) = 0;
-        int getRequiredNumberOfWeights()
+        virtual int getRequiredNumberOfWeights()
         {
             return numberOfWeights;
         }

@@ -32,7 +32,7 @@ void SelfAssemblyMechanismsController::reset()
 {
 	messageWidth = wm->getConnectionMechanism().getPorts().size();
 	translator = std::shared_ptr<SparseInputNetworkTranslator>(new SparseInputNetworkTranslator(wm->_cameraSensorsNb, messageWidth));
-	genomeTranslator =  std::shared_ptr<DoubleVectorGenotypeTranslator>(new DoubleVectorGenotypeTranslator(translator->getAnn()));
+	genomeTranslator =  std::shared_ptr<CTRNNGenomeTranslator>(new CTRNNGenomeTranslator(translator->getAnn()));
 
 }
 
