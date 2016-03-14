@@ -42,7 +42,6 @@ public:
 
     int getRequiredNumberOfWeights()
     {
-        std::cout <<"hello" << std::endl;
         Neural::CTRNN* network = (Neural::CTRNN*)ann.get();
         return DoubleVectorGenotypeTranslator::getRequiredNumberOfWeights() + network->getNumberOfGains() + network->getNumberOfTimeConstants();
     }
