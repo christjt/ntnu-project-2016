@@ -70,14 +70,14 @@ void SelfAssemblyMechanismsController::updateSensorValues()
 			int id = objectId - gRobotIndexStartOffset;
 			Robot* robot = wm->getWorld()->getRobot(id);
 			if(!robot->getIsPredator()){
-				translator->setRobotInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i)/gSensorRange));
+				translator->setRobotInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i))/gSensorRange);
 			}else{
-				translator->setPredatorInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i)/gSensorRange));
+				translator->setPredatorInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i))/gSensorRange);
 			}
 		}else
 		{
 			if(EnergyItem::isInstanceOf(objectId)){
-				translator->setEnergyInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i)/gSensorRange));
+				translator->setEnergyInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i))/gSensorRange);
 			}else{
 				translator->setEnvironmentInput(i, (gSensorRange - wm->getDistanceValueFromCameraSensor(i))/gSensorRange);
 			}
@@ -123,8 +123,8 @@ void SelfAssemblyMechanismsController::applyTranslationOutput()
 
 void SelfAssemblyMechanismsController::applyRotationalOutput()
 {
-	wm->_desiredRotationalVelocity = translator->getRotationOutput();
-	wm->getConnectionMechanism().setDesiredRotationalVelocity(translator->getSensorRotationOutput());
+	wm->_desiredRotationalVelocity = SelfAssemblyMechanismsUtilities::normalizeDouble(translator->getRotationOutput(), 0.0, 1.0, -1.0, 1.0);
+	wm->getConnectionMechanism().setDesiredRotationalVelocity(SelfAssemblyMechanismsUtilities::normalizeDouble(translator->getSensorRotationOutput(), 0.0, 1.0, -1.0, 1.0));
 
 }
 
