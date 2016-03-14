@@ -35,7 +35,7 @@ void SelfAssemblyMechanismsAgentObserver::step()
     }
 
     bool isPredator = ((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator();
-    if(!isPredator){
+    if(SelfAssemblyMechanismsSharedData::gCanEatPredators && !isPredator){
         auto wm = (GroupRobotWorldModel*)_wm;
         if(wm->getGroup()->size() >= 3)
         {
