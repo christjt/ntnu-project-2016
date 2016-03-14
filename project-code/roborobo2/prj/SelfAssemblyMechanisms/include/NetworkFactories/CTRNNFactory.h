@@ -13,7 +13,7 @@ public:
     Neural::NeuralNetwork* create()
     {
         std::vector<double> weights;
-        return new Neural::CTRNN(weights, _nInputNodes, _nOutputNodes, hiddenLayers, true, false);
+        return new Neural::CTRNN(weights, _nInputNodes, _nOutputNodes, hiddenLayers, true, false, 1);
 
     }
 };

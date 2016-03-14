@@ -104,13 +104,17 @@ void CTRNN::step()
 
         //Compute change in internal state and apply
         for(unsigned int j = 0; j < nbOutputs; j++) {
-            dy_dt[j] += (1/_timeConstants[timeConstantIndex++]) * (-_internalCharge[k][j] + s_i[j]);
+            dy_dt[j] += (1.0/_timeConstants[timeConstantIndex++]) * (-_internalCharge[k][j] + s_i[j]);
+
             _internalCharge[k][j] = _internalCharge[k][j] + dy_dt[j];
+
         }
 
         // Activation Function
         for(unsigned int i = 0; i < nbOutputs; i++)
-            s_i[i] = 1/(1 + exp(-_gains[gainIndex++] * _internalCharge[k][i]));
+        {
+            s_i[i] = 1.0/(1.0 + exp(-_gains[gainIndex++] * _internalCharge[k][i]));
+        }
 
         lastLayerOut = s_i;
 

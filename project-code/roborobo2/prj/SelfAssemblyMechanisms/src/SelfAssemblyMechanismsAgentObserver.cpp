@@ -34,8 +34,8 @@ void SelfAssemblyMechanismsAgentObserver::step()
         robotLifetime++;
     }
 
-    bool isPredator = ((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator();
-    if(SelfAssemblyMechanismsSharedData::gCanEatPredators && !isPredator){
+   bool isPredator = ((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator();
+  /*  if(SelfAssemblyMechanismsSharedData::gCanEatPredators && !isPredator){
         auto wm = (GroupRobotWorldModel*)_wm;
         if(wm->getGroup()->size() >= 3)
         {
@@ -55,7 +55,7 @@ void SelfAssemblyMechanismsAgentObserver::step()
                 }
             }
         }
-    }
+    }*/
 
 
     if(_wm->getEnergyLevel() > 0 && !isPredator)

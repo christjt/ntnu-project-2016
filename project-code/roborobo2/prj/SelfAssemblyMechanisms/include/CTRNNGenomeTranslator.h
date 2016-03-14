@@ -25,18 +25,17 @@ public:
         for(auto i = 0u; i < newTimeConstraints.size(); i++)
         {
             newTimeConstraints[i] = SelfAssemblyMechanismsUtilities::normalizeDouble(newTimeConstraints[i], -1.0, 1.0, 1.0, 2.0);
-        }
-        network->setTimeConstants(newTimeConstraints);
 
+        }
+
+        network->setTimeConstants(newTimeConstraints);
         std::vector<double> newGains(gainsFirst, last);
         for(auto i = 0u; i < newGains.size(); i++)
         {
             newGains[i] = SelfAssemblyMechanismsUtilities::normalizeDouble(newGains[i], -1.0, 1.0, 1.0, 5.0);
-        }
 
+        }
         network->setGains(newGains);
-        auto genomeCopy = genome.getVector();
-        ann->setWeigths(genomeCopy);
     };
 
 
