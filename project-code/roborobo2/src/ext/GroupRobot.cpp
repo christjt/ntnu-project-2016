@@ -39,24 +39,23 @@ void GroupRobot::move( int __recursiveIt )
 
     Robot::move(__recursiveIt);
     for(auto& connection: wm->getConnectionMechanism().getConnections()){
-        auto other = connection.first;
-        if(other->hasPendingMove())
+        if(connection.first->hasPendingMove())
             continue;
 
         auto port = connection.second;
         if(port->isBroken()){
-            auto backup = wm->getBackupPosition();
-            auto otherBackup = other->getBackupPosition();
-            auto otherRobot = other->getWorld()->getRobot(other->getId());
-            otherRobot->unregisterRobot();
 
-            _wm->_xReal = backup.x;
-            _wm->_yReal = backup.y;
-            setCoord((int)_wm->_xReal+0.5,(int)_wm->_yReal+0.5);
-            other->_xReal = otherBackup.x;
-            other->_yReal = otherBackup.y;
-            other->getWorld()->getRobot(other->getId())->setCoord((int)other->_xReal+0.5,(int)other->_yReal+0.5);
-            otherRobot->registerRobot();
+            for(auto it = wm->getGroup()->begin(); it != wm->getGroup()->end(); it++)
+            {
+                auto robotWm = it->second;
+                auto backup = robotWm->getBackupPosition();
+                robotWm->_xReal = backup.x;
+                robotWm->_yReal = backup.y;
+                auto robot = robotWm->getWorld()->getRobot(robotWm->getId());
+                robot->setCoord((int)robotWm->_xReal+0.5,(int)robotWm->_yReal+0.5);
+            }
+
+
 
         }
     }
@@ -76,6 +75,8 @@ void GroupRobot::applyRobotPhysics()
         auto robotWM = (*it).second;
         translation += robotWM->getTranslation();
     }
+    if(groupWM->getGroup()->size() == 3)
+        std::cout <<translation.length()/(groupWM->getGroup()->size()) << std::endl;
     _wm->_agentAbsoluteLinearSpeed = translation.length()/(groupWM->getGroup()->size());
     _wm->_agentAbsoluteOrientation = (180/M_PI)*atan2(translation.y, translation.x);//_wm->_agentAbsoluteOrientation + _wm->_actualRotationalVelocity;
     // * recalibrate orientation within ]-180°,+180°]
