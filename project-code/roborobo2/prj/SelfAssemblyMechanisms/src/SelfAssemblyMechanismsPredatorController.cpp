@@ -23,6 +23,12 @@ void SelfAssemblyMechanismsPredatorController::reset()
 
 void SelfAssemblyMechanismsPredatorController::step()
 {
+
+    if(!_wm->isAlive())
+    {
+        return;
+    }
+
     std::vector<std::pair<Robot*, double>> prey = findPrey();
 
     for(auto pair: prey)
