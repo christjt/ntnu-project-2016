@@ -75,8 +75,6 @@ void GroupRobot::applyRobotPhysics()
         auto robotWM = (*it).second;
         translation += robotWM->getTranslation();
     }
-    if(groupWM->getGroup()->size() == 3)
-        std::cout <<translation.length()/(groupWM->getGroup()->size()) << std::endl;
     _wm->_agentAbsoluteLinearSpeed = translation.length()/(groupWM->getGroup()->size());
     _wm->_agentAbsoluteOrientation = (180/M_PI)*atan2(translation.y, translation.x);//_wm->_agentAbsoluteOrientation + _wm->_actualRotationalVelocity;
     // * recalibrate orientation within ]-180°,+180°]

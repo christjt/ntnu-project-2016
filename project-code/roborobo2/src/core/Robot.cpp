@@ -686,7 +686,10 @@ bool Robot::isCollision()
 void Robot::show() // display on screen
 {
     //Show the dot
-    
+
+	if(!_wm->isAlive())
+		return;
+
 	if ( gNiceRendering )
 	{
 		if(!this->getIsPredator()){

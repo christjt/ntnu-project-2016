@@ -53,6 +53,7 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gTournamentGroupSize", &SelfAssemblyMechanismsSharedData::gTournamentGroupSize, true);
 	gProperties.checkAndGetPropertyValue("gTournamentPickChance", &SelfAssemblyMechanismsSharedData::gTournamentPickChance, true);
 	gProperties.checkAndGetPropertyValue("gCanEatPredators", &SelfAssemblyMechanismsSharedData::gCanEatPredators, true);
+	gProperties.checkAndGetPropertyValue("gPredatorEnergyReward", &SelfAssemblyMechanismsSharedData::gPredatorEnergyReward, true);
 
 
 	SelfAssemblyMechanismsSharedData::gHiddenLayers = std::vector<unsigned>(SelfAssemblyMechanismsSharedData::gNHiddenLayers);

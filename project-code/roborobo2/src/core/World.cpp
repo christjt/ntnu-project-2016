@@ -278,6 +278,9 @@ void World::moveAgents(int* shuffledIndex)
 	for(int i = 0; i < gNumberOfRobots; i++)
 	{
 		Robot* robot = robots[i];
+		if(!robot->getWorldModel()->isAlive())
+			continue;
+
 		if(robot->getIsPredator())
 		{
 			entities.push_back(i);
@@ -285,8 +288,6 @@ void World::moveAgents(int* shuffledIndex)
 		}
 
 		auto wm = (GroupRobotWorldModel*) robot->getWorldModel();
-		if(!wm->isAlive())
-			continue;
 
 		auto group = wm->getGroup().get();
 		if(groups.find(group) == groups.end())

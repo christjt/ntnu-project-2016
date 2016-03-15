@@ -35,7 +35,7 @@ void SelfAssemblyMechanismsAgentObserver::step()
     }
 
    bool isPredator = ((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator();
-  /*  if(SelfAssemblyMechanismsSharedData::gCanEatPredators && !isPredator){
+    if(SelfAssemblyMechanismsSharedData::gCanEatPredators && !isPredator){
         auto wm = (GroupRobotWorldModel*)_wm;
         if(wm->getGroup()->size() >= 3)
         {
@@ -50,12 +50,12 @@ void SelfAssemblyMechanismsAgentObserver::step()
                     _wm->_world->unregisterRobot(predatorWm->getId());
                     for(auto it = wm->getGroup()->begin(); it != wm->getGroup()->end(); it++)
                     {
-                        (*it).second->addEnergy(500);
+                        (*it).second->addEnergy(SelfAssemblyMechanismsSharedData::gPredatorEnergyReward);
                     }
                 }
             }
         }
-    }*/
+    }
 
 
     if(_wm->getEnergyLevel() > 0 && !isPredator)

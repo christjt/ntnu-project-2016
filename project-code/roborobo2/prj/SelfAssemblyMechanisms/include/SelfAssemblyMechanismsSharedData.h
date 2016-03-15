@@ -27,6 +27,7 @@ class SelfAssemblyMechanismsSharedData {
         static std::string gGenomeFileName;
         static double gPassiveEnergyDrain;
         static double gConnectionEnergyDrain;
+        static double gPredatorEnergyReward;
 };
 
 

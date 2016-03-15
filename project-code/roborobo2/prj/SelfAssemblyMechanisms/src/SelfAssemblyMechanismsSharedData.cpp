@@ -14,7 +14,7 @@ double SelfAssemblyMechanismsSharedData::gExplorationMutationRate = 1.0;
 int SelfAssemblyMechanismsSharedData::gTournamentGroupSize = 4;
 double SelfAssemblyMechanismsSharedData::gTournamentPickChance = 0.5;
 bool SelfAssemblyMechanismsSharedData::gCanEatPredators = false;
-
+double SelfAssemblyMechanismsSharedData::gPredatorEnergyReward = 500;
 double SelfAssemblyMechanismsSharedData::gMutationStep = 0;
 double SelfAssemblyMechanismsSharedData::gMutation = 0.05;
 int SelfAssemblyMechanismsSharedData::gNHiddenLayers = 0;
