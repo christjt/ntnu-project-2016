@@ -114,6 +114,11 @@ void SelfAssemblyMechanismsController::updateConnectionInput()
 	}
 }
 
+void SelfAssemblyMechanismsController::updateEnergyLevel()
+{
+	translator->setEnergyLevel(wm->getEnergyLevel()/gEnergyMax);
+}
+
 void SelfAssemblyMechanismsController::applyTranslationOutput()
 {
 	wm->_desiredTranslationalValue = translator->getTranslationOutput()*1.99;
@@ -141,6 +146,17 @@ void SelfAssemblyMechanismsController::applyConnectionOutput(const std::vector<G
 		if(translator->getDesiresConnection(i)){
 			for(GroupRobotWorldModel* robot: nearbyRobots){
 				wm->connectTo(robot);
+			}
+		}
+
+		if(translator->getDesiresDisconnect(i))
+		{
+			for(auto connection: wm->getConnectionMechanism().getConnections())
+			{
+				if(connection.second == ports[i])
+				{
+					wm->disconnectFrom(connection.first);
+				}
 			}
 		}
 	}
