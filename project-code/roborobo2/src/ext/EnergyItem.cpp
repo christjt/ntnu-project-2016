@@ -3,7 +3,7 @@
 #include "RoboroboMain/roborobo.h"
 #include "Utilities/Misc.h"
 #include "World/World.h"
-
+#include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 #include <iomanip>
 
 EnergyItem::EnergyItem( int __id ) :CircleObject( __id ) // should only be called by PhysicalObjectFactory
@@ -49,7 +49,6 @@ void EnergyItem::isTouched( int __idAgent )
 //    if ( gVerbose && gDisplayMode <= 1)
 //        std::cout << "[DEBUG] Physical object #" << this->getId() << " (energy item) touched by robot #" << __idAgent << std::endl;
 }
-
 void EnergyItem::isWalked( int __idAgent )
 {
 //    if ( gVerbose && gDisplayMode <= 1)
@@ -64,14 +63,14 @@ void EnergyItem::isWalked( int __idAgent )
     switch ( energyMode )
     {
         case 0: // give all
-            gWorld->getRobot(__idAgent)->getWorldModel()->addEnergy( maxEnergyLevel );
+            giveEnergy(__idAgent, maxEnergyLevel);
             regrowTime = regrowTimeMax; // time to regrow is proportionate to energy taken
             break;
             
         case 1: // give what is asked, fixed respawn delay
             energyRequestedValueByRobot = gWorld->getRobot(__idAgent)->getWorldModel()->getEnergyRequestValue(); // in [0,1[ (guaranteed)
             energyProvided = energyRequestedValueByRobot * maxEnergyLevel;
-            gWorld->getRobot(__idAgent)->getWorldModel()->addEnergy( energyProvided );
+            giveEnergy(__idAgent, energyProvided);
             assert ( energyProvided >= 0 );
             regrowTime = regrowTimeMax;
             break;
@@ -79,7 +78,7 @@ void EnergyItem::isWalked( int __idAgent )
         case 2: // give what is asked, remaining sets respawn delay
             energyRequestedValueByRobot = gWorld->getRobot(__idAgent)->getWorldModel()->getEnergyRequestValue(); // in [0,1[ (guaranteed)
             energyProvided = energyRequestedValueByRobot * maxEnergyLevel;
-            gWorld->getRobot(__idAgent)->getWorldModel()->addEnergy( energyProvided );
+            giveEnergy(__idAgent, energyProvided);
             assert ( energyProvided >= 0 );
             regrowTime = (int)( (double)regrowTimeMax * ( energyProvided/maxEnergyLevel ) ); // time to regrow is proportionate to energy taken
             break;
@@ -93,5 +92,17 @@ void EnergyItem::isWalked( int __idAgent )
     unregisterObject();
     hide();
     _visible = false;
+}
+
+void EnergyItem::giveEnergy(int agentId, double amount)
+{
+    auto robot = gWorld->getRobot(agentId);
+    auto wm = (GroupRobotWorldModel*)robot->getWorldModel();
+
+    for(auto it = wm->getGroup()->begin(); it != wm->getGroup()->end(); it++)
+    {
+        auto member = it->second;
+        member->addEnergy(amount/wm->getGroup()->size());
+    }
 }
 

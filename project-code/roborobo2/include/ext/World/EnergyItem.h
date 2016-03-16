@@ -20,6 +20,7 @@ class EnergyItem : public CircleObject
 private:
     double maxEnergyLevel;
     int energyMode;         // 0: give all energy ; 1: give what is asked, fixed respawn delay ; 2: give what is asked, linear respawn time (ie. from what is asked).
+    void giveEnergy(int agentId, double amount);
 
 public :
     

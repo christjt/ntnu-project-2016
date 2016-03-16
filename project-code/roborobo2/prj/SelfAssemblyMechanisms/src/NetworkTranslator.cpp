@@ -1,9 +1,9 @@
 #include "SelfAssemblyMechanisms/include/NetworkTranslator.h"
 #include "SelfAssemblyMechanisms/include/NetworkFactories/NetworkFactory.h"
 NetworkTranslator::NetworkTranslator(int nInputNodes, int nPorts):
-        ann(NetworkFactory::createFactory(nInputNodes, nPorts*2 +3)->create()),
-        messageOutOffset(0), connectionOutOffset(nPorts), motorOutOffset(nPorts*2),
-        inputs(nInputNodes, 0.0), outputs(nPorts*2 + 3)
+        ann(NetworkFactory::createFactory(nInputNodes, nPorts*3 +3)->create()),
+        messageOutOffset(0), connectionOutOffset(nPorts),disconnectOutOffset(nPorts*2), motorOutOffset(nPorts*3),
+        inputs(nInputNodes, 0.0), outputs(nPorts*3 + 3)
 
 {
 }
@@ -26,6 +26,11 @@ double NetworkTranslator::getSensorRotationOutput()
 bool NetworkTranslator::getDesiresConnection(int i)
 {
     return outputs[connectionOutOffset + i] > 0.5;
+}
+
+bool NetworkTranslator::getDesiresDisconnect(int i)
+{
+    return outputs[disconnectOutOffset +i ] > 0.5;
 }
 
 RobotMessage NetworkTranslator::getMessageOut()

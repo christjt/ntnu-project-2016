@@ -15,6 +15,7 @@ class SparseInputNetworkTranslator: public NetworkTranslator
         int sensorOffset;
         int portOffset;
         int messageOffset;
+        int energyLevelOffset;
 
     public:
         SparseInputNetworkTranslator(int nSensors, int nPorts);
@@ -24,6 +25,8 @@ class SparseInputNetworkTranslator: public NetworkTranslator
         void setEnergyInput(int sensor, double value);
         void setMessageInput(const RobotMessage& message);
         void setConnectionInput(int connection, bool status);
+        void setEnergyLevel(double energyLevel);
+
 
 
 };

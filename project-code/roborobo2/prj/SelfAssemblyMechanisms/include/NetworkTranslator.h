@@ -10,6 +10,7 @@ class NetworkTranslator
         std::shared_ptr<Neural::NeuralNetwork> ann;
         int messageOutOffset;
         int connectionOutOffset;
+        int disconnectOutOffset;
         int motorOutOffset;
 
     protected:
@@ -25,10 +26,12 @@ class NetworkTranslator
         virtual void setEnergyInput(int sensor, double value) = 0;
         virtual void setMessageInput(const RobotMessage& message) = 0;
         virtual void setConnectionInput(int connection, bool status) = 0;
+        virtual void setEnergyLevel(double energyLevel) = 0;
         double getTranslationOutput();
         double getRotationOutput();
         double getSensorRotationOutput();
         bool getDesiresConnection(int i);
+        bool getDesiresDisconnect(int i);
         RobotMessage getMessageOut();
         void step();
 

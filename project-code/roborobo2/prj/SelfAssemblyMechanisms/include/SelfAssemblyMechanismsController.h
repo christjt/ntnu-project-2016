@@ -29,6 +29,7 @@ class SelfAssemblyMechanismsController : public Controller
 		void findNearbyRobots(std::vector<GroupRobotWorldModel*>& dest);
 		void updateMessageInput();
 		void updateConnectionInput();
+		void updateEnergyLevel();
 		void applyTranslationOutput();
 		void applyRotationalOutput();
 		void applyMessageOutput();

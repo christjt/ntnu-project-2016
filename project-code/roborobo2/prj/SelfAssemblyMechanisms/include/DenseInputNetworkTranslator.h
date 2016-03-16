@@ -14,6 +14,7 @@ class DenseInputNetworkTranslator: public NetworkTranslator
         int energyOffset;
         int portOffset;
         int messageOffset;
+        int energyLevelOffset;
 
     public:
         DenseInputNetworkTranslator(int nSensors, int nPorts);
@@ -23,6 +24,7 @@ class DenseInputNetworkTranslator: public NetworkTranslator
         void setEnergyInput(int sensor, double value);
         void setMessageInput(const RobotMessage& message);
         void setConnectionInput(int connection, bool status);
+        void setEnergyLevel(double energyLevel);
 
 
 };
