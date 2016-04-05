@@ -1,0 +1,94 @@
+Every year the expansion and development of robots increases. 
+We see robots being used in large military operations in the form of drones, as well as small robots in households that can vacuum you house while you are gone.
+A lot of this technology has only recently been developed and it is expected that it will continue to grow and become a part of almost every aspect of society.
+
+As a part of advancing robotics a lot of the different functionality and behaviour of robots are being explored.
+These mechanisms include self-replicating machines, artificial intelligence, self-assembly, inter-robot communication, etc.
+In this report we will be exploring a robot's ability to self-assemble. 
+
+Self-assembly is the autonomous organization of components into patterns or structures without human intervention \cite{whitesides_self-assembly_2002}.
+We can observe self-assembling processes in nature at a molecular scale \cite{heylighen_science_2001} as well as at a planetary scale in the form of solar systems; each of which presents many different configurations.
+There are several reasons to study self-assembly.
+One reason is, the cells in the human body self-assemble, so understanding this mechanism can help us understand life and the prerequisites for it.
+In chemistry it has been discovered that polymers can self-assemble from monomers in order to form materials that can be used in a wide range of applications\cite{chung_use_2004}\cite{siracusa_biodegradable_2008}. 
+In electronics, the self-assembly of nano particles can be used to create certain semiconductors such as solar panels\cite{henini_chapter_2008}.
+In either case, understanding and controlling self-assembly is essential.
+
+Self-assembly is also used as a practical strategy for making nano structures as well as providing beneficial characteristics to the field of robotics.
+In a more general sense, self-assembly can improve the movement of robots by being able to overcome larger obstacles in the environment and having a large sensory field by grouping the sensors in a self-assembly structure.
+
+According to \cite{yim_modular_2007}, there are three main characteristics that self-reconfigurable systems benefit from.
+The first is versatility, systems can self-assemble into new structures based on the specific task it is to solve.
+For example, the system may change from a rolling robot to a snake robot depending on the situation.
+The second characteristic is robustness.
+Since the robots are usually homogeneous, one can replace broken robots to repair the system.
+It is also possible to automate this process, leading to self-repair which makes the system more robust than other traditional systems.
+The last characteristic is the potential low cost of developing a self-reconfigurable system.
+Constructing many of the same type of robot generally lowers the overall robot cost.
+In addition, there are many complex machines that can be built from  a reconfigurable system that saves cost through reuse and generality.
+There are clear benefits of using self-assembly mechanisms in robotics.
+However, there have been many different approaches to try to achieve self-assembly in different systems of robots.
+
+Self-assembly can form many different configurations based on the topology of the organized structure.
+In addition, self-assembly systems vary in their ability to reconfigure and disassemble depending on the challenges the environment provides.
+One class of self assembly systems is stochastic reconfiguration. 
+With stochastic reconfiguration the robots do not have movement capabilities themselves. 
+The robots are moved passively by the environment, and bind to each other on random collisions\cite{gro_autonomous_2006}. 
+With this form of reconfiguration, the reconfiguration time can only be guaranteed statistically\cite{yim_modular_2007}.
+\cite{bishop_programmable_2005} demonstrates how robots named "programmable parts" can self-organize through passive movements provided by the environment. Systems that use stochastic reconfiguration are most common at micro level environments, and only achieve self-assembly because of the influence by their environment.
+These characteristics do not conform to what we are trying to study, so this report will not delve further into this topic.
+
+Following, the report covers how to implement machine learning in a system that takes advantage of self-assembly.
+In particular, how self-assembly can be used in conjunction with evolutionary robotics.
+Evolutionary robotics represents a way to automate the design of control systems for autonomous robots, using algorithms based on Darwinian evolution \cite{trianni_evolving_2004}.
+Evolutionary robotics is a field of research that lies under the field of artificial intelligence. 
+The main purpose of evolutionary robotics is to develop autonomous robot controllers that solves a given task which is not directly programmed by a human.
+Evolutionary robotics takes advantage of selective reproduction based on how well the robots solve a certain task.
+The controller of a robot is most often represented with an \emph{artificial neural network} where the parameters of the neural network are set by an evolutionary algorithm.
+
+There have been previous studies about using machine learning to promote self-assembly\cite{trianni_evolving_2004}\cite{montanier_adaptive_2014}\cite{li_co-evolution_2015}. 
+However, many of these studies uses differing self-assembly mechanisms such as the architecture used by the self-assembly system, the actions that are performed by the robots to achieve an organized structure and the docking mechanism hardware.
+Therefore, the motivation of this research is to analyse if any of these mechanisms are superior in terms of promoting self-assembly in regards to learned robot controllers.
+
+\section{Report objectives}
+The main focus of this report is to compare the different mechanisms that influences self-assembling robots that are governed by machine learning. 
+Relevant mechanisms are the self-assembly architecture, the assembly protocol and docking(assembly) mechanisms. 
+The main objectives of this report includes:
+
+\begin{itemize}
+
+\item Implementing a simulation that uses the various mechanisms presented in this report.
+
+\item Compare and analyse the results of the simulation. 
+
+\item Based on the analysis, make a conclusion as to the advantage of using certain implementations of self-assembly mechanisms.
+
+\end{itemize}
+
+\section{Problem statement}
+The scope of this report covers the self-assembly mechanisms in a system of robots. 
+The grand question the report is trying to contribute to is: How does the elements present in a system of robots influence the emergence of self-assembly where the robots are given basic learning capabilities?
+To get a better understanding of this field, this report present methods and analysis to answer the following questions:
+
+\begin{itemize}
+
+\item In what way does an evolved assembly protocol influence robot’s ability to achieve self-assembly?
+
+\item How does the number of connectors provided by the docking mechanism influence the systems ability to self-assemble?
+
+\item How do self-assembly systems scale when using many robots?
+
+\item In what way can the learning algorithm and its implementation influence the self-assembling functionality?
+
+\end{itemize}
+
+In addition to these comparisons of the mechanisms in self-assembly systems, the report will also cover how introducing collective behaviour in the systems affects the emergence of self-assembly, specifically:
+
+\begin{itemize}
+
+\item How does introducing local communication between the robots influence the system's ability to self-assemble and how does it effect the behaviour of self-assembled robots?
+
+\end{itemize}
+
+\section{Structure of report}
+
