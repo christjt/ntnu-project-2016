@@ -1,8 +1,8 @@
 Every year the expansion and development of robots increases. 
-We see robots being used in large military operations in the form of drones, as well as small robots in households that can vacuum you house while you are gone.
+We see robots being used in large military operations in the form of drones, as well as small robots in households that can vacuum your house while you are gone.
 A lot of this technology has only recently been developed and it is expected that it will continue to grow and become a part of almost every aspect of society.
 
-As a part of advancing robotics a lot of the different functionality and behaviour of robots are being explored.
+As a part of advancing robotics, a lot of the different functionality and behaviour of robots are being explored.
 These mechanisms include self-replicating machines, artificial intelligence, self-assembly, inter-robot communication, etc.
 In this report we will be exploring a robot's ability to self-assemble. 
 
@@ -15,7 +15,7 @@ In electronics, the self-assembly of nano particles can be used to create certai
 In either case, understanding and controlling self-assembly is essential.
 
 Self-assembly is also used as a practical strategy for making nano structures as well as providing beneficial characteristics to the field of robotics.
-In a more general sense, self-assembly can improve the movement of robots by being able to overcome larger obstacles in the environment and having a large sensory field by grouping the sensors in a self-assembly structure.
+In a more general sense, self-assembly can improve the movement of robots by being able to overcome larger obstacles in the environment and having a large sensory field by grouping the sensors in a self-assembled structure.
 
 According to \cite{yim_modular_2007}, there are three main characteristics that self-reconfigurable systems benefit from.
 The first is versatility, systems can self-assemble into new structures based on the specific task it is to solve.
@@ -45,6 +45,12 @@ Evolutionary robotics is a field of research that lies under the field of artifi
 The main purpose of evolutionary robotics is to develop autonomous robot controllers that solves a given task which is not directly programmed by a human.
 Evolutionary robotics takes advantage of selective reproduction based on how well the robots solve a certain task.
 The controller of a robot is most often represented with an \emph{artificial neural network} where the parameters of the neural network are set by an evolutionary algorithm.
+
+The experiment will be done in simulation with the Roborobo platform. 
+Roborobo is a light-weight multi-platform simulator for extensive robotics experiments, based on basic robotic hardware setup.
+The experiment is a simple predator/pray scenario, where the evolved robots(pray) can self-assemble to gain certain advantages over its pray.
+While creating the simulation, great care has been taken into making most of the parameters of the system configurable.
+This is done so that testing the different mechanisms is simple, such that we can compare how introducing different mechanisms effects the robot's ability to self-assemble and the behaviour of the robots.
 
 There have been previous studies about using machine learning to promote self-assembly\cite{trianni_evolving_2004}\cite{montanier_adaptive_2014}\cite{li_co-evolution_2015}. 
 However, many of these studies uses differing self-assembly mechanisms such as the architecture used by the self-assembly system, the actions that are performed by the robots to achieve an organized structure and the docking mechanism hardware.
