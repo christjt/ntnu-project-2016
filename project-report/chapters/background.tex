@@ -1,5 +1,31 @@
 \section{Problem Area}
 
+
+
+The purpose of this chapter is to introduce the background and main concepts required to describe and compare self-reconfiguring robotic systems.
+At first, section \ref{sec:sfArchitecture} describes the most common architectures used.
+Continuing, section \ref{sec:hardware} discusses the hardware components required for self-assembly.
+Section \ref{sec:protocol} defines the protocol(set of actions) the robots follow to achieve self-assembly.
+Finally, section \ref{sec:learning} introduces machine learning in self-assembly systems.
+This chapter forms the basis of the theory that will be used in simulation which is discussed in Chapter 3.
+
+\section{Related work}
+Self-assembly in robotics is a relatively new field of research, however there are still some papers which attempts to discuss and compare the different mechanisms in a self-assembly system. 
+\cite{murata_self-reconfigurable_2007} mainly covers the potential of reconfigurable systems, as well as the challenges of self-reconfigurable robotics. 
+Though this article does not conduct any experiment, it does touch upon some of the same issues that this report is trying to outline.
+
+\cite{yim_modular_2002} is an article released in 2002 that tries to explain how modular robots can self-reconfigure to solve different tasks. 
+In particular, this article looks at \emph{PolyBot} and how it is able to reconfigure into different shapes. 
+\cite{yim_modular_2002} also covers some of the benefits in general of having a self-reconfigurable system, as well as challenges that are still being explored.
+
+\cite{yim_modular_2007} is the more complete and detailed of the articles presented here. 
+In addition to the general benefits and challenges of modular self-reconfigurable robot system, it also looks at the different architectures the system can take, application areas and history of the field.
+The article also includes an extensive list containing many self-reconfigurable modular systems and the type of architecture they have.
+
+These papers outline what a modular self-reconfigurable system is and what the benefits and challenges of these systems are.
+However, there are no direct comparison between the mechanisms themselves.
+\cite{yim_modular_2007} introduces many different systems that work quite differently, but there is no conclusion based on if  these systems promote self-assembly or not.
+
 \subsection{Artificial neural networks}
 Computers excel at performing tasks that can be described as a series well-defined steps, and can at these tasks easily outperform humans in doing so.
 Tasks that humans find easy, such as understating speech or recognizing faces has proven to be difficult to describe a series of unambiguous operations in the conventional computation model.
@@ -9,9 +35,9 @@ Artificial neural networks(ANN) take inspiration from how biological neural netw
 ANN's consist of interconnected processing units(neurons) which work in parallel to solve a specific problem.
 The neurons employ a simplified model of how a biological neuron works.
 The operation of an artificial neuron consists of two main components, depicted in figure \ref{fig:artificial-neuron}.
- 
-\begin{figure}[H]
 
+\begin{figure}[H]
+	
 	\centering
 	\includegraphics[width=0.5\textwidth]{chapters/res/Neuron.png}
 	\caption{Model of an artificial neuron.}
@@ -43,30 +69,6 @@ Creating good robot controllers can be difficult as the number of sensors and ac
 The designers may know what desired behavior for the robots is, but expressing this in the conventional computing model as a series of instructions can be difficult.
 Instead, with machine learning an ANN can learn from examples of desired behavior provided by the controller designers.
 This approach allows designers to create the desired controllers by providing examples instead of knowing the exact solution.
-
-The purpose of this chapter is to introduce the background and main concepts required to describe and compare self-reconfiguring robotic systems.
-At first, section \ref{sec:sfArchitecture} describes the most common architectures used.
-Continuing, section \ref{sec:hardware} discusses the hardware components required for self-assembly.
-Section \ref{sec:protocol} defines the protocol(set of actions) the robots follow to achieve self-assembly.
-Finally, section \ref{sec:learning} introduces machine learning in self-assembly systems.
-This chapter forms the basis of the theory that will be used in simulation which is discussed in Chapter 3.
-
-\section{Related work}
-Self-assembly in robotics is a relatively new field of research, however there are still some papers which attempts to discuss and compare the different mechanisms in a self-assembly system. 
-\cite{murata_self-reconfigurable_2007} mainly covers the potential of reconfigurable systems, as well as the challenges of self-reconfigurable robotics. 
-Though this article does not conduct any experiment, it does touch upon some of the same issues that this report is trying to outline.
-
-\cite{yim_modular_2002} is an article released in 2002 that tries to explain how modular robots can self-reconfigure to solve different tasks. 
-In particular, this article looks at \emph{PolyBot} and how it is able to reconfigure into different shapes. 
-\cite{yim_modular_2002} also covers some of the benefits in general of having a self-reconfigurable system, as well as challenges that are still being explored.
-
-\cite{yim_modular_2007} is the more complete and detailed of the articles presented here. 
-In addition to the general benefits and challenges of modular self-reconfigurable robot system, it also looks at the different architectures the system can take, application areas and history of the field.
-The article also includes an extensive list containing many self-reconfigurable modular systems and the type of architecture they have.
-
-These papers outline what a modular self-reconfigurable system is and what the benefits and challenges of these systems are.
-However, there are no direct comparison between the mechanisms themselves.
-\cite{yim_modular_2007} introduces many different systems that work quite differently, but there is no conclusion based on if  these systems promote self-assembly or not.
 
 \section{Self-assembly architectures}
 \label{sec:sfArchitecture}
