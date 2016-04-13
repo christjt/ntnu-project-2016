@@ -50,7 +50,7 @@ $y_i$ denotes the internal state of neuron $i$.
 To derive the next internal state, Beer computes $\frac{dy_i}{dt}$ as a combination of the next inputs and the current internal state of the node, where a time constant $\tau_i$ decides rate of drain. 
 $\theta_i$ is a term added for neuron specific bias, but is only added here for mathematical soundness as it was simply added as a bias node during implementation and hence incorporated in $s_i$.
 The time constant $\tau_i$ is what gives CTRNNs the ability to produce rich functionality and convincingly sophisticated cognition.
-If $\tau_i$ has a low value then we will have a high degree of gain and hence having the next state being dominated by its new input.
+If $\tau_i$ has a low value then we will have a high degree of drain and hence having the next state being dominated by its new input.
 However, if $\tau_i$ has a high value, then we have a higher degree of memory because it will be dominated by its previous state.
 
 \begin{equation}
