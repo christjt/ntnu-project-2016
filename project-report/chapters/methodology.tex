@@ -59,12 +59,12 @@ Additionally, to ensure fairness the predators cannot be placed within a thresho
 	The movement of a group is decided by first converting the desired direction and velocity into a translation vector.
 	\begin{equation}
 		\centering
-		\vec{v_{xy}} = velocity\cdot[\cos(angle), sin(angle)]
+		\vec{v_{xy}} = v\cdot[\cos(\theta), sin(\theta)]
 	\end{equation}
 	The combined movement for the group is then decided by averaging the translation vectors from each member in the group.
 	\begin{equation}
 		\centering
-		v_t = \frac{1}{n}\sum_{i=0}^{n} v_{i}
+		\vec{v_t} = \frac{1}{n}\sum_{i=0}^{n} \vec{v_{i}}
 	\end{equation}
 	Once the translation vector for the group is computed it can be applied to each member of the group by converting it back to the format of direction and velocity that roborobo uses.
 	
@@ -76,8 +76,8 @@ Additionally, to ensure fairness the predators cannot be placed within a thresho
 	If a robot in the group collides with something, the robots in the group are reverted to their original position.
 	\subsubsection{Connections}
 	It is useful to treat the connections between robots in a group as a graph, where the robots are nodes and connections are edges.
-	Connecting robots can then be treated as simply adding an edge between the two nodes representing that are connecting.
-	In the same way, disconnecting then consists of removing the edge between the nodes representing the connected robots.
+	Connecting robots can then be treated as simply adding an edge between the two nodes representing the robots.
+	Similar to connecting, disconnecting consists of removing the edge between the nodes representing the robots.
 	In the case that a robot has multiple connections in the group extra care has to be taken, because removing one edge may split the graph into two smaller sub-graphs.
 	If this occurs the two sub-graphs must now be treated as two new separate groups.
 	It can be determined if a robot can simply be disconnected, or if we have to split the group by finding out if there is a cycle that leads back to the robot that is to be disconnected.
@@ -85,13 +85,45 @@ Additionally, to ensure fairness the predators cannot be placed within a thresho
 	
 	 
 	\subsection{Docking mechanism}
-	As described in section \ref{sec:mechanisms}, there is a wide variety of docking mechanisms.
-	The docking mechanism implemented is therefore highly configurable, to suppo
+	As described in section \ref{sec:mechanisms}, there is a wide variety of docking mechanisms used in previous projects.
+	The docking mechanism implemented is therefore highly configurable, to support a wide variety of different mechanisms.
+	The configurable properties are as following, the number of ports, the placement of ports, and different genders for the ports. 
+	
+	\subsubsection{Connection validation}
+		The robots can attempt a connection at any time, this requires a procedure to make sure the attempted connections are valid.
+		Before a connection can be established there are three requirements that have to be met.
+		First, the ports have to be spatially sound. 
+		Here the distance between the ports have to be less than a threshold value.
 		
-		\subsubsection{Connection validation}
+		\begin{equation}
+		|\vec{p_1} - \vec{p_2}| < \epsilon
+		\end{equation}
+		
+		Next, the position of the ports has to be geometrically sound.
+		Here the angle between the ports have to fit within a threshold range.
+		
+		\begin{equation}
+		 180 - \epsilon < |\theta_1 - \theta_2| < 180 + \epsilon
+		\end{equation}
+		
+		Finally the gender of the ports must be compatible, meaning one of them is female while the other is male, or at least one of the ports being universal.
+		
 	\subsection{Local communication}
-		\subsubsection{Message aggregation, message lattice}
-		
+	The robots are equipped with a communication module that allows local communication with their connected neighbors.
+	The message format is very simple, the robots can broadcast "packets" of floating point numbers.
+	The size of the packets is equal to the number of connection ports.
+	At the receiving end, the packets sent by neighbors are aggregated into a single packet.
+	The aggregation is performed as adding the components of each packet with the corresponding components in the other packets. Figure \ref{fig:local_communication} illustrates this process.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.65\textwidth]{chapters/res/Local_communication.png}
+		\caption{Robot B aggregating the messages received from robot A, and C.}
+		\label{fig:local_communication}
+	\end{figure}
+	
+	In the robot controller, the messages from the communication module is fed into dedicated message input neurons, and the value of the message output neurons are broadcast to the neighbors.
+
 		
 	\subsection{Predators}
 		\subsubsection{Search strategy}
