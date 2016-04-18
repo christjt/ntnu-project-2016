@@ -122,15 +122,40 @@ Additionally, to ensure fairness the predators cannot be placed within a thresho
 		\label{fig:local_communication}
 	\end{figure}
 	
-	In the robot controller, the messages from the communication module is fed into dedicated message input neurons, and the value of the message output neurons are broadcast to the neighbors.
+	In the robot controller, the messages from the communication module is fed into dedicated message input neurons, and the value of the message output neurons are broadcast to the neighbours.
 
 		
-	\subsection{Predators}
-		\subsubsection{Search strategy}
-		\subsubsection{Hunting strategy}
-	\subsection{Energy drain}
-		\subsubsection{Passive}
-		\subsubsection{Active}
+\subsection{Predators}
+A crucial part of the environment in the simulation are the predator robots.
+These robots are not under the influence of the evolutionary algorithm and rather uses a much simpler pre-programmed controller.
+The predator robots have two basic actions that can influence the system: the predators can either eat prey or explore the envelopment.
+
+\begin{figure}[H]
+		\centering
+		\frame{\includegraphics[width=0.65\textwidth]{chapters/res/predator_snippet.png}}
+		\caption{A screenshot of a simulation. The predators are marked with red and the robots guided by the evolutionary algorithm are marked with blue}
+		\label{fig:predator_screendump}
+	\end{figure}
+
+As seen in figure \ref{fig:predator_screendump}, the predators also uses six sensors which they use to decide if they are colliding with an object and what that object is.	
+In terms of exploration, the predator controller uses a simple object avoidance tactic.
+If the predator robots senses an object on any of its side sensors, it will change its rotational velocity to avoid this object.
+In practice, this means that if the predator senses an object on the right, it will steer left, etc.
+In the case where there is no collision, a slight random rotational velocity is added such that its movement is more dynamic.
+This object avoidance behaviour is always employed as long as it does not sense a robot(prey).
+In this case, it will have the opposite behaviour and turn towards the object, as it intends to consume the prey.
+
+In addition to movement, the predators can also consume a robot. 
+This happens when there is a collision between a normal robot and a predator robot.
+If a robot is consumed, it is removed from the environment and amount of time it stayed alive is recorded for use in the fitness function of the evolutionary algorithm. 
+For a predator to be able to eat a robot, the robot must not be part of a robot group of a size less then some configurable threshold.
+The reason for this is to give the normal robots some advantage of self-assembling in hopes of potentially evolving this behaviour.  
+
+
+
+\subsection{Energy drain}
+\subsubsection{Passive}
+\subsubsection{Active}
 \clearpage
 \section{CTRNN}
 For this project, an artificial neural network that has gained a lot a popularity in regards to robotics known as Continuous-Time Recurrent Neural Network (CTRNN) was implemented. 
