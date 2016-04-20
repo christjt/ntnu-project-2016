@@ -244,6 +244,55 @@ Having the ability to change the activation function on a neuron to neuron basis
 		\subsubsection{Random}
 		\subsubsection{Incremental}
 	\subsection{Selection mechanism}
+	The selection step of an evolutionary algorithm is responsible for selecting which individuals should become parents.
+	In other words, it applies selection pressure.
+	If the selection pressure is too high the algorithm may converge prematurely, and if it is too low the search may take more time than necessary.
+	For the experiment two different selection mechanisms have been implemented.
+		\subsubsection{Proportional selection}
+		In this selection scheme individuals are selected for reproduction with a probability proportional to their fitness compared to the total fitness in the population.
+		It is common to apply a scaling function on the fitness in the population to adjust selection pressure.
+		A scaling function that is often used with proportional selection is \emph{Sigma scaling}\cite{goh_sexual_2003}:
+		\begin{equation}
+		S(f, \overline{f}, \sigma, s) = s + \frac{f - \overline{f} }{2\sigma}
+		\end{equation}
+		
+		where \emph{f} is the fitness of an individual, $\overline{f}$ is the mean fitness of the generation, $\sigma$ is the fitness variance, and \emph{s} is a scaling factor that can be used to adjust the selection pressure.
+		
+		Sigma scaling modifies the selection pressure introduced in the raw fitness by using the populations fitness variance as a scaling factor.
+		This has the effect of dampening the selection pressure when there are a few individuals with an exceedingly higher fitness than the rest, and increasing the selection pressure when the population has a low variance.
+		
+		The values obtained from the scaling can now be used to select parents by sampling the distribution.
+		\emph{Roulette wheel selection}(RWS)\cite{goh_sexual_2003}  is one such method.
+		RWS can be visualized as giving each potential parent a sector with size relative to the scaled fitness in the roulette wheel(figure \ref{fig:roulette}).
+		The parents are then selected by spinning the wheel until the desired number of parents are picked.
+		
+		\begin{figure}[H]
+			
+			\centering
+			\includegraphics[width=0.80\textwidth, clip]{chapters/res/roulette.png}
+			\caption{A roulette wheel where the size of each sector represents the probability of picking a particular parent.}
+			\label{fig:roulette}
+		\end{figure}
+		
+		\subsubsection{Tournament selection}
+		In contrast to proportional selection the individuals do not compete with the entire population, but instead compete within groups selected at random.
+		Tournament selection performs parent selection by picking individuals at random into a group.
+		From the group the fittest individual is selected as the parent.
+		This process is repeated until the desired number of parents have been selected.
+		The group size varies between implementations, but typical implementations compare two\cite{goh_sexual_2003} individuals at a time, depicted in figure \ref{fig:tournament}
+		
+				\begin{figure}[H]
+					
+					\centering
+					\includegraphics[width=\textwidth, clip]{chapters/res/Tournament.png}
+					\caption{Selecting parents using a binary tournament.}
+					\label{fig:tournament}
+				\end{figure}
+		The described process introduces a high selection pressure since it selects the fittest individual from each group.
+		It is common to include an acceptance threshold, $t$, into the selection to modify the selection pressure\cite{goh_sexual_2003}.
+		Each time an individual is to be selected a random number $r \in (0, 1)$, is generated.
+		If $r < t$, then the fittest individual is chosen, otherwise the less fit individual is chosen. The selection pressure can then be tuned by increasing or decreasing the acceptance threshold. A lower value for $t$ decreases the selection pressure, while a higher value increases the selection pressure.
+		
 \clearpage
 \section{Data gathering}
 	\section{Loggers}
