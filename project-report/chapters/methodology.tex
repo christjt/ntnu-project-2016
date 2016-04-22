@@ -40,13 +40,54 @@ Additionally, to ensure fairness the predators cannot be placed within a thresho
 \end{figure}
 
 \section{Roborobo overview}
-	\subsection{Agent observers}
-	\subsection{Agent controllers}
-	\subsection{World observers}
+The programming interface for roborobo is divided into three main components(\emph{World observer, Agent observers, Agent controllers}).
+Each robot in the simulation receives an instance of the \emph{agent controller}, and an instance of the \emph{agent observer}.
+The philosophy of the roborobo framework is that the programmer should implement the robot behavior in the \emph{agent controller}, and use the \emph{agent observer} and \emph{world observer} to access state about agents and the world.
+This relationship is visualised in figure \ref{fig:component-relationship}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.31\textwidth}
+		\label{fig:controller}
+		\centering
+		\hspace*{1.15cm}\includegraphics[height=\linewidth]{chapters/res/agent_controller.png}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{0.31\textwidth}
+		\label{fig:agent-observer}
+		\centering
+		\includegraphics[height=\linewidth]{chapters/res/agent_observer.png}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{0.31\textwidth}
+		\label{fig:world-observer}
+		\centering
+		\includegraphics[height=\linewidth]{chapters/res/world_observer.png}
+		\caption{}
+	\end{subfigure}
+	\caption{The relationship between a)the agent controller, b)the agent observer, and c)the world observer. }
+	\label{fig:component-relationship}
+\end{figure}
+
+Each robot in the simulation also receives a component called a \emph{world model}.
+The world model contains the representation of the outside world that the agent is aware of.
+This includes state such as sensors readings and current velocity.
+
+The observers can be used to perform tasks that are not directly related to the robot behavior.
+In each simulation step the observers are run before any of the \emph{agent controllers} are run.
+This means that the observers have a stable snapshot of the world between each update.
+The observers are therefore useful for performing tasks that should be performed between each update of the world.
+Examples of useful applications of the observers is updating the agent world models, monitoring, logging, computing fitness, and managing evolutionary algorithms.
+In the standard case, understanding the components described in this section is sufficient to perform a wide variety of simulations.
+
+
+The experiment described in this chapter does not fit within these bounds, the necessary modifications to the framework is further described in section \ref{sec:modifications}.
+
 
 \clearpage
 
 \section{Roborobo modifications}
+\label{sec:modifications}
 	\subsection{Robot Groups}
 	As mentioned in the description, roborobo does not support self-assembly out of the box.
 	Self-assembly support therefore requires adding additional abstractions to roborobo.
