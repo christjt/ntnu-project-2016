@@ -335,6 +335,24 @@ The results from the preliminary trials caused an incremental mutation operator 
 It works in a similar manner as the random operator, where a weight is chosen for mutation at some percentage, but instead of completely re-rolling its value, it only differs from its original value by a certain threshold.
 This still causes a mutation to occur, but it will not be as drastic, yielding smoother results. 
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.3\textwidth}
+		\label{fig:mutation-random}
+		\centering
+		\includegraphics[height=\linewidth]{chapters/res/mutation_random.png}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{0.3\textwidth}
+		\label{fig:mutation-incremental}
+		\centering
+		\includegraphics[height=\linewidth]{chapters/res/mutation_incremental.png}
+		\caption{}
+	\end{subfigure}
+	\caption{ }
+	\label{fig:mutation-operators}
+\end{figure}
+
 \subsection{Selection mechanism}
 The selection step of an evolutionary algorithm is responsible for selecting which individuals should become parents.
 In other words, it applies selection pressure.
