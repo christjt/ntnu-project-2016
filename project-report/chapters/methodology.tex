@@ -279,6 +279,19 @@ Having the ability to change the activation function on a neuron to neuron basis
 \clearpage
 \section{Evolutionary algorithm}
 	\subsection{Genotype}
+		The genotype contains the configuration for the neural network used in the robot controller.
+		The structure of the genotype is an array of double precision floating point numbers in the range $(-1, 1)$.
+		Each number in the genotype represents a specific weight, gain, or time constant in the neural network.
+		Before the genotype can be used to configure the neural network the values are mapped into the relevant range for each type of parameter, figure \ref{fig:genotype-mapping}.
+		The selected range, $(-1, 1)$ used for the values in the genotype is therefore arbitrary, and holds no special significance. 
+		
+		\begin{figure}[H]
+			
+			\centering
+			\includegraphics[width=0.80\textwidth, clip]{chapters/res/genotype_translation.png}
+			\caption{Mapping the genotype into weights, gains, and time constants.}
+			\label{fig:genotype-mapping}
+		\end{figure}
 	\subsection{Initialization}
 	\subsection{Mutation operators}
 		\subsubsection{Random}
