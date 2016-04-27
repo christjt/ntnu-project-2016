@@ -278,12 +278,44 @@ Having the ability to change the activation function on a neuron to neuron basis
 		\subsubsection{Sparse}
 \clearpage
 \section{Evolutionary algorithm}
-	\subsection{Genotype}
-	\subsection{Initialization}
-	\subsection{Mutation operators}
-		\subsubsection{Random}
-		\subsubsection{Incremental}
-	\subsection{Selection mechanism}
+\subsection{Genotype}
+\label{sec:genotype}
+\subsection{Initialization}
+As seen in theory, there are two ways to initialize a population. 
+It can either be done completely random, or there can be a more particular initialization with bias. 
+In the case with this experiment, a purely random initialization was implemented.
+The reason for this is simply that there is no trivial functionality that these robots should have for it to reach the most optimal solution.
+
+Since this experiment is about researching self-assembly, one might think that initializing our robots with a behaviour to promote this, could be beneficial.
+There are two main issues with an approach like this.
+First, self-assembly in this complex system is an emergent behaviour(see ch. \ref{sec:complex_systems}).
+This means that there is no trivial configuration of the neural network that gives rise to self-assembly.
+It is rather, emergent from the robots' behaviour and their connections with each other in the environment.
+As explained in chapter \ref{ch:background}, there are mechanisms such as the assembly protocol, the assembly architecture, and also the hardware mechanisms used.
+None of these mechanisms can simply coded into a neural network.
+
+The second issue with implementing a bias towards self-assembly is that this might actually not be the best survival strategy in this experiment.
+Even though the experiment is designed to give the robots a slight benefit from self-assembling, this might not be the case in reality.
+Due to these two reasons, it was decided to have a strictly random initialization.
+
+\subsection{Mutation operators}
+As seen in section \ref{sec:evo_alg}, the proper step after mating genotypes is applying a mutation to the resulting genome.
+This is done using a mutation operator.
+During implementation of the experiment, two different mutation operators where implemented, the random mutation operator and the incremental mutation operator.
+
+\subsubsection{Random}
+During the first iteration of implementation, a standard random mutation operator was implemented.
+As explained in \ref{sec:genotype}, the genotype is modelled using doubles, so a random mutation operator for this implementation simply re-rolls the selected double, $x$, to a new double where $x \in [-1, 1]$. 
+The number of weights to be mutated is configurable and is represented as some percentage, \emph{mutation rate}.
+
+\subsubsection{Incremental}
+During initial trials, it was observed that the impact of completely changing the value of a weight on the neural network could potentially drastically change the behaviour of the robots.
+This in turn, yields poorer results of the evolutionary algorithm because of constant destabilisation of the emergent behaviours.
+The results from the preliminary trials caused an incremental mutation operator to be implemented.
+It works in a similar manner as the random operator, where a weight is chosen for mutation at some percentage, but instead of completely re-rolling its value, it only differs from its original value by a certain threshold.
+This still causes a mutation to occur, but it will not be as drastic, yielding smoother results. 
+
+\subsection{Selection mechanism}
 	The selection step of an evolutionary algorithm is responsible for selecting which individuals should become parents.
 	In other words, it applies selection pressure.
 	If the selection pressure is too high the algorithm may converge prematurely, and if it is too low the search may take more time than necessary.
