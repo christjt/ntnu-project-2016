@@ -87,82 +87,89 @@ The experiment described in this chapter does not fit within these bounds, the n
 
 \section{Roborobo modifications}
 \label{sec:modifications}
-	\subsection{Robot Groups}
-	As mentioned in the description, roborobo does not support self-assembly out of the box.
-	Self-assembly support therefore requires adding additional abstractions to roborobo.
-	The high level abstraction that encapsulates the behavior for connected robots is called a \emph{Robot group}.
-	All robots that are capable of self-assembly are robot groups.
-	This means that single robots that are not connected are simply robot groups with one member.
-	The responsibilities of the robot group is to take care of group movement, handling collisions, connecting and disconnecting. 
-	\subsubsection{Movement}
-	In the roborobo framework the robots movement is decided by the robot controller by requesting a certain angular and translational velocity.
-	The movement of a group is decided by first converting the desired direction and velocity into a translation vector.
-	\begin{equation}
-		\centering
-		\vec{v_{xy}} = v\cdot[\cos(\theta), sin(\theta)]
-	\end{equation}
-	The combined movement for the group is then decided by averaging the translation vectors from each member in the group.
-	\begin{equation}
-		\centering
-		\vec{v_t} = \frac{1}{n}\sum_{i=0}^{n} \vec{v_{i}}
-	\end{equation}
-	Once the translation vector for the group is computed it can be applied to each member of the group by converting it back to the format of direction and velocity that roborobo uses.
+
+\subsection{Robot Groups}
+As mentioned in the description, roborobo does not support self-assembly out of the box.
+Self-assembly support therefore requires adding additional abstractions to roborobo.
+The high level abstraction that encapsulates the behavior for connected robots is called a \emph{Robot group}.
+All robots that are capable of self-assembly are robot groups.
+This means that single robots that are not connected are simply robot groups with one member.
+The responsibilities of the robot group is to take care of group movement, handling collisions, connecting and disconnecting. 
 	
-	\subsubsection{Collisions}
-	Roborobo already performs collision detection for robots, but in robot groups some additional logic is required.
-	The collision behavior for robots is that if they collide with a solid object, they stop.
-	This is a problem for groups of more than one robot because if one robot collides it may get left behind by the rest of the group.
-	This is solved by backing up the position of each robot in a group before applying the computed translation.
-	If a robot in the group collides with something, the robots in the group are reverted to their original position.
-	\subsubsection{Connections}
-	It is useful to treat the connections between robots in a group as a graph, where the robots are nodes and connections are edges.
-	Connecting robots can then be treated as simply adding an edge between the two nodes representing the robots.
-	Similar to connecting, disconnecting consists of removing the edge between the nodes representing the robots.
-	In the case that a robot has multiple connections in the group extra care has to be taken, because removing one edge may split the graph into two smaller sub-graphs.
-	If this occurs the two sub-graphs must now be treated as two new separate groups.
-	It can be determined if a robot can simply be disconnected, or if we have to split the group by finding out if there is a cycle that leads back to the robot that is to be disconnected.
-	The existence of a cycle is determined by first removing the edge representing the connection, and then performing a depth first search.
+\subsubsection{Movement}
+In the roborobo framework the robots movement is decided by the robot controller by requesting a certain angular and translational velocity.
+The movement of a group is decided by first converting the desired direction and velocity into a translation vector.
+	
+\begin{equation}
+	\centering
+	\vec{v_{xy}} = v\cdot[\cos(\theta), sin(\theta)]
+\end{equation}
+	
+The combined movement for the group is then decided by averaging the translation vectors from each member in the group.
+	
+\begin{equation}
+	\centering
+	\vec{v_t} = \frac{1}{n}\sum_{i=0}^{n} \vec{v_{i}}
+\end{equation}
+	
+Once the translation vector for the group is computed it can be applied to each member of the group by converting it back to the format of direction and velocity that roborobo uses.
+	
+\subsubsection{Collisions}
+Roborobo already performs collision detection for robots, but in robot groups some additional logic is required.
+The collision behaviour for robots is that if they collide with a solid object, they stop.
+This is a problem for groups of more than one robot because if one robot collides it may get left behind by the rest of the group.
+This is solved by backing up the position of each robot in a group before applying the computed translation.
+If a robot in the group collides with something, the robots in the group are reverted to their original position.
+
+\subsubsection{Connections}
+It is useful to treat the connections between robots in a group as a graph, where the robots are nodes and connections are edges.
+Connecting robots can then be treated as simply adding an edge between the two nodes representing the robots.
+Similar to connecting, disconnecting consists of removing the edge between the nodes representing the robots.
+In the case that a robot has multiple connections in the group extra care has to be taken, because removing one edge may split the graph into two smaller sub-graphs.
+If this occurs the two sub-graphs must now be treated as two new separate groups.
+It can be determined if a robot can simply be disconnected, or if we have to split the group by finding out if there is a cycle that leads back to the robot that is to be disconnected.
+The existence of a cycle is determined by first removing the edge representing the connection, and then performing a depth first search.
 	
 	 
-	\subsection{Docking mechanism}
-	As described in section \ref{sec:mechanisms}, there is a wide variety of docking mechanisms used in previous projects.
-	The docking mechanism implemented is therefore highly configurable, to support a wide variety of different mechanisms.
-	The configurable properties are as following, the number of ports, the placement of ports, and different genders for the ports. 
+\subsection{Docking mechanism}
+As described in section \ref{sec:mechanisms}, there is a wide variety of docking mechanisms used in previous projects.
+The docking mechanism implemented is therefore highly configurable, to support a wide variety of different mechanisms.
+The configurable properties are as following, the number of ports, the placement of ports, and different genders for the ports. 
 	
-	\subsubsection{Connection validation}
-		The robots can attempt a connection at any time, this requires a procedure to make sure the attempted connections are valid.
-		Before a connection can be established there are three requirements that have to be met.
-		First, the ports have to be spatially sound. 
-		Here the distance between the ports have to be less than a threshold value.
+\subsubsection{Connection validation}
+The robots can attempt a connection at any time, this requires a procedure to make sure the attempted connections are valid.
+Before a connection can be established there are three requirements that have to be met.
+First, the ports have to be spatially sound. 
+Here the distance between the ports have to be less than a threshold value.
 		
-		\begin{equation}
-		|\vec{p_1} - \vec{p_2}| < \epsilon
-		\end{equation}
+\begin{equation}
+	|\vec{p_1} - \vec{p_2}| < \epsilon
+\end{equation}
 		
-		Next, the position of the ports has to be geometrically sound.
-		Here the angle between the ports have to fit within a threshold range.
+Next, the position of the ports has to be geometrically sound.
+Here the angle between the ports have to fit within a threshold range.
 		
-		\begin{equation}
-		 180 - \epsilon < |\theta_1 - \theta_2| < 180 + \epsilon
-		\end{equation}
+\begin{equation}
+	180 - \epsilon < |\theta_1 - \theta_2| < 180 + \epsilon
+\end{equation}
 		
-		Finally the gender of the ports must be compatible, meaning one of them is female while the other is male, or at least one of the ports being universal.
+Finally the gender of the ports must be compatible, meaning one of them is female while the other is male, or at least one of the ports being universal.
 		
 	\subsection{Local communication}
-	The robots are equipped with a communication module that allows local communication with their connected neighbors.
-	The message format is very simple, the robots can broadcast "packets" of floating point numbers.
-	The size of the packets is equal to the number of connection ports.
-	At the receiving end, the packets sent by neighbors are aggregated into a single packet.
-	The aggregation is performed as adding the components of each packet with the corresponding components in the other packets. Figure \ref{fig:local_communication} illustrates this process.
+The robots are equipped with a communication module that allows local communication with their connected neighbors.
+The message format is very simple, the robots can broadcast "packets" of floating point numbers.
+The size of the packets is equal to the number of connection ports.
+At the receiving end, the packets sent by neighbors are aggregated into a single packet.
+The aggregation is performed as adding the components of each packet with the corresponding components in the other packets. Figure \ref{fig:local_communication} illustrates this process.
 	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.65\textwidth]{chapters/res/Local_communication.png}
-		\caption{Robot B aggregating the messages received from robot A, and C.}
-		\label{fig:local_communication}
-	\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.65\textwidth]{chapters/res/Local_communication.png}
+	\caption{Robot B aggregating the messages received from robot A, and C.}
+	\label{fig:local_communication}
+\end{figure}
 	
-	In the robot controller, the messages from the communication module is fed into dedicated message input neurons, and the value of the message output neurons are broadcast to the neighbours.
+In the robot controller, the messages from the communication module is fed into dedicated message input neurons, and the value of the message output neurons are broadcast to the neighbours.
 
 		
 \subsection{Predators}
@@ -280,6 +287,19 @@ Having the ability to change the activation function on a neuron to neuron basis
 \section{Evolutionary algorithm}
 \subsection{Genotype}
 \label{sec:genotype}
+The genotype contains the configuration for the neural network used in the robot controller.
+The structure of the genotype is an array of double precision floating point numbers in the range $(-1, 1)$.
+Each number in the genotype represents a specific weight, gain, or time constant in the neural network.
+Before the genotype can be used to configure the neural network the values are mapped into the relevant range for each type of parameter, figure \ref{fig:genotype-mapping}.
+The selected range, $(-1, 1)$ used for the values in the genotype is therefore arbitrary, and holds no special significance. 
+		
+\begin{figure}[H]		
+	\centering
+	\includegraphics[width=0.80\textwidth, clip]{chapters/res/genotype_translation.png}
+	\caption{Mapping the genotype into weights, gains, and time constants.}
+	\label{fig:genotype-mapping}
+\end{figure}
+
 \subsection{Initialization}
 As seen in theory, there are two ways to initialize a population. 
 It can either be done completely random, or there can be a more particular initialization with bias. 
@@ -305,7 +325,7 @@ During implementation of the experiment, two different mutation operators where 
 
 \subsubsection{Random}
 During the first iteration of implementation, a standard random mutation operator was implemented.
-As explained in \ref{sec:genotype}, the genotype is modelled using doubles, so a random mutation operator for this implementation simply re-rolls the selected double, $x$, to a new double where $x \in [-1, 1]$. 
+As explained in \ref{sec:genotype}, the genotype is modelled using doubles, so a random mutation operator for this implementation simply re-rolls the selected double, $x$, to a new double where $x \in [-1.0, 1.0]$. 
 The number of weights to be mutated is configurable and is represented as some percentage, \emph{mutation rate}.
 
 \subsubsection{Incremental}
@@ -316,54 +336,55 @@ It works in a similar manner as the random operator, where a weight is chosen fo
 This still causes a mutation to occur, but it will not be as drastic, yielding smoother results. 
 
 \subsection{Selection mechanism}
-	The selection step of an evolutionary algorithm is responsible for selecting which individuals should become parents.
-	In other words, it applies selection pressure.
-	If the selection pressure is too high the algorithm may converge prematurely, and if it is too low the search may take more time than necessary.
-	For the experiment two different selection mechanisms have been implemented.
-		\subsubsection{Proportional selection}
-		In this selection scheme individuals are selected for reproduction with a probability proportional to their fitness compared to the total fitness in the population.
-		It is common to apply a scaling function on the fitness in the population to adjust selection pressure.
-		A scaling function that is often used with proportional selection is \emph{Sigma scaling}\cite{goh_sexual_2003}:
-		\begin{equation}
+The selection step of an evolutionary algorithm is responsible for selecting which individuals should become parents.
+In other words, it applies selection pressure.
+If the selection pressure is too high the algorithm may converge prematurely, and if it is too low the search may take more time than necessary.
+For the experiment two different selection mechanisms have been implemented.
+		
+\subsubsection{Proportional selection}
+In this selection scheme individuals are selected for reproduction with a probability proportional to their fitness compared to the total fitness in the population.
+It is common to apply a scaling function on the fitness in the population to adjust selection pressure.
+A scaling function that is often used with proportional selection is \emph{Sigma scaling}\cite{goh_sexual_2003}:
+		
+\begin{equation}
 		S(f, \overline{f}, \sigma, s) = s + \frac{f - \overline{f} }{2\sigma}
-		\end{equation}
+\end{equation}
 		
-		where \emph{f} is the fitness of an individual, $\overline{f}$ is the mean fitness of the generation, $\sigma$ is the fitness variance, and \emph{s} is a scaling factor that can be used to adjust the selection pressure.
+where \emph{f} is the fitness of an individual, $\overline{f}$ is the mean fitness of the generation, $\sigma$ is the fitness variance, and \emph{s} is a scaling factor that can be used to adjust the selection pressure.
 		
-		Sigma scaling modifies the selection pressure introduced in the raw fitness by using the populations fitness variance as a scaling factor.
-		This has the effect of dampening the selection pressure when there are a few individuals with an exceedingly higher fitness than the rest, and increasing the selection pressure when the population has a low variance.
+Sigma scaling modifies the selection pressure introduced in the raw fitness by using the populations fitness variance as a scaling factor.
+This has the effect of dampening the selection pressure when there are a few individuals with an exceedingly higher fitness than the rest, and increasing the selection pressure when the population has a low variance.
 		
-		The values obtained from the scaling can now be used to select parents by sampling the distribution.
-		\emph{Roulette wheel selection}(RWS)\cite{goh_sexual_2003}  is one such method.
-		RWS can be visualized as giving each potential parent a sector with size relative to the scaled fitness in the roulette wheel(figure \ref{fig:roulette}).
-		The parents are then selected by spinning the wheel until the desired number of parents are picked.
+The values obtained from the scaling can now be used to select parents by sampling the distribution.
+\emph{Roulette wheel selection}(RWS)\cite{goh_sexual_2003}  is one such method.
+RWS can be visualized as giving each potential parent a sector with size relative to the scaled fitness in the roulette wheel(figure \ref{fig:roulette}).
+The parents are then selected by spinning the wheel until the desired number of parents are picked.
 		
-		\begin{figure}[H]
-			
-			\centering
-			\includegraphics[width=0.80\textwidth, clip]{chapters/res/roulette.png}
-			\caption{A roulette wheel where the size of each sector represents the probability of picking a particular parent.}
-			\label{fig:roulette}
-		\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.80\textwidth, clip]{chapters/res/roulette.png}
+	\caption{A roulette wheel where the size of each sector represents the probability of picking a particular parent.}
+	\label{fig:roulette}
+\end{figure}
 		
-		\subsubsection{Tournament selection}
-		In contrast to proportional selection the individuals do not compete with the entire population, but instead compete within groups selected at random.
-		Tournament selection performs parent selection by picking individuals at random into a group.
-		From the group the fittest individual is selected as the parent.
-		This process is repeated until the desired number of parents have been selected.
-		The group size varies between implementations, but typical implementations compare two\cite{goh_sexual_2003} individuals at a time, depicted in figure \ref{fig:tournament}
+\subsubsection{Tournament selection}
+In contrast to proportional selection the individuals do not compete with the entire population, but instead compete within groups selected at random.
+Tournament selection performs parent selection by picking individuals at random into a group.
+From the group the fittest individual is selected as the parent.
+This process is repeated until the desired number of parents have been selected.
+The group size varies between implementations, but typical implementations compare two\cite{goh_sexual_2003} individuals at a time, depicted in figure \ref{fig:tournament}
 		
-				\begin{figure}[H]
-					
-					\centering
-					\includegraphics[width=\textwidth, clip]{chapters/res/Tournament.png}
-					\caption{Selecting parents using a binary tournament.}
-					\label{fig:tournament}
-				\end{figure}
-		The described process introduces a high selection pressure since it selects the fittest individual from each group.
-		It is common to include an acceptance threshold, $t$, into the selection to modify the selection pressure\cite{goh_sexual_2003}.
-		Each time an individual is to be selected a random number $r \in (0, 1)$, is generated.
-		If $r < t$, then the fittest individual is chosen, otherwise the less fit individual is chosen. The selection pressure can then be tuned by increasing or decreasing the acceptance threshold. A lower value for $t$ decreases the selection pressure, while a higher value increases the selection pressure.
+\begin{figure}[H]	
+	\centering
+	\includegraphics[width=\textwidth, clip]{chapters/res/Tournament.png}
+	\caption{Selecting parents using a binary tournament.}
+	\label{fig:tournament}
+\end{figure}
+
+The described process introduces a high selection pressure since it selects the fittest individual from each group.
+It is common to include an acceptance threshold, $t$, into the selection to modify the selection pressure\cite{goh_sexual_2003}.
+Each time an individual is to be selected a random number $r \in (0, 1)$, is generated.
+If $r < t$, then the fittest individual is chosen, otherwise the less fit individual is chosen. The selection pressure can then be tuned by increasing or decreasing the acceptance threshold. A lower value for $t$ decreases the selection pressure, while a higher value increases the selection pressure.
 		
 \clearpage
 \section{Data gathering}
