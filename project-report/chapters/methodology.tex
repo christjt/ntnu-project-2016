@@ -132,7 +132,7 @@ The existence of a cycle is determined by first removing the edge representing t
 	
 	 
 \subsection{Docking mechanism}
-As described in section \ref{sec:mechanisms}, there is a wide variety of docking mechanisms used in previous projects.
+As described in section \ref{sec:mechanisms}, there is a wide variety of docking mechanisms used in earlier projects.
 The docking mechanism implemented is therefore highly configurable, to support a wide variety of different mechanisms.
 The configurable properties are as following, the number of ports, the placement of ports, and different genders for the ports. 
 	
@@ -281,8 +281,30 @@ Having the ability to change the activation function on a neuron to neuron basis
 	\subsection{Drain}
 	\subsection{Activation function}
 	\subsection{Topologies}
-		\subsubsection{Dense}
-		\subsubsection{Sparse}
+	%Sensors(6), connection status(n), messages(n), 1 energy level.
+	In the robot controller the neural network is responsible for making decisions.
+	The role of the robot controller is to forward inputs to the input layer of the neural network, and interpret the output.
+	The information that the neural network is provided with is as follows: sensor readings, the connection status of each docking port, messages from the communication module, and finally the current energy level of the robot.
+	Once the inputs are processed the robot controller reads the output layer to decide the values for the motor functions, control of the connection ports, and the message to be sent via the communication module.
+	The number of hidden layers, and the amount of neurons in each of them is configurable at runtime.
+	
+	The robots have to be able to detect, and distinguish between predators, other robots, food, and the environment.
+	To achieve this the robots are equipped with six sensors.
+	To represent this two different input topologies for the sensors have been implemented.
+	\subsubsection{Dense}
+		The dense topology uses 24 nodes to represent the inputs where there is one node per sensor for each of the four different objects that can be detected.
+		With this configuration the robot can distinguish between multiple types of objects at the same time.
+		The motivation for designing another input topology is the concern that by using 24 nodes the search space for the evolutionary algorithm may become too large to find a good solution within a reasonable time.
+	\subsubsection{Sparse}
+		The sparse topology is a compromise between the number of nodes and the robots ability to distinguish between multiple objects at the same time.
+		Here the input layer has six nodes for each of the sensors, and four additional nodes that indicates whether a certain type of object is currently detected by one of the sensors.
+		This brings the number of input nodes for the sensors down to 10, instead of 24.
+		With this configuration the robot can still detect nearby robots, but it can not differentiate between multiple types of objects at the same time.
+	
+	
+	
+		
+		
 \clearpage
 \section{Evolutionary algorithm}
 \subsection{Genotype}
