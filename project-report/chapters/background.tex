@@ -415,7 +415,19 @@ The operation of an artificial neuron consists of two main components, depicted 
 \end{figure}
 First, the neuron sums the action potential from the preceding neurons.
 The activation function is then applied on the sum which produces a new action potential as the output.
-<Activiation function>
+The role of the activation function is to transform the action potential in the node to an output that can be passed to the succeeding nodes.
+These functions often have a thresholding effect where the neuron outputs a low potential until a threshold is reached.
+A common activation function is the logistics equation(\ref{eq:logistics-equation}).
+
+\begin{captioneq}[H]
+	\begin{equation}
+	o_i= \frac{1}{(1+e^{-v})}
+	\label{eq:logistics-equation}
+	\end{equation}
+	
+	\caption{The ouput of node i with internal action potential v.}
+\end{captioneq}
+
 The connection strength between neurons is simulated by introducing weights on the connections.
 A neuron with a higher weight on one of its connections will then be more influenced by that particular connection.
 Learning can then be performed by modifying the weights on the connections in the ANN.
@@ -439,6 +451,8 @@ Creating good robot controllers can be difficult as the number of sensors and ac
 The designers may know what desired behavior for the robots is, but expressing this in the conventional computing model as a series of instructions can be difficult.
 Instead, with machine learning an ANN can learn from examples of desired behavior provided by the controller designers.
 This approach allows designers to create the desired controllers by providing examples instead of knowing the exact solution.
+
+
 
 
 
