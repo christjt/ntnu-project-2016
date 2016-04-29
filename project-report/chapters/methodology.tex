@@ -42,7 +42,7 @@ Additionally, to ensure fairness the predators cannot be placed within a thresho
 \section{Roborobo overview}
 The programming interface for roborobo is divided into three main components(\emph{World observer, Agent observers, Agent controllers}).
 Each robot in the simulation receives an instance of the \emph{agent controller}, and an instance of the \emph{agent observer}.
-The philosophy of the roborobo framework is that the programmer should implement the robot behavior in the \emph{agent controller}, and use the \emph{agent observer} and \emph{world observer} to access state about agents and the world.
+The philosophy of the roborobo framework is that the programmer should implement the robot behaviour in the \emph{agent controller}, and use the \emph{agent observer} and \emph{world observer} to access state about agents and the world.
 This relationship is visualised in figure \ref{fig:component-relationship}.
 
 \begin{figure}[H]
@@ -73,7 +73,7 @@ Each robot in the simulation also receives a component called a \emph{world mode
 The world model contains the representation of the outside world that the agent is aware of.
 This includes state such as sensors readings and current velocity.
 
-The observers can be used to perform tasks that are not directly related to the robot behavior.
+The observers can be used to perform tasks that are not directly related to the robot behaviour.
 In each simulation step the observers are run before any of the \emph{agent controllers} are run.
 This means that the observers have a stable snapshot of the world between each update.
 The observers are therefore useful for performing tasks that should be performed between each update of the world.
@@ -91,7 +91,7 @@ The experiment described in this chapter does not fit within these bounds, the n
 \subsection{Robot Groups}
 As mentioned in the description, roborobo does not support self-assembly out of the box.
 Self-assembly support therefore requires adding additional abstractions to roborobo.
-The high level abstraction that encapsulates the behavior for connected robots is called a \emph{Robot group}.
+The high level abstraction that encapsulates the behaviour for connected robots is called a \emph{Robot group}.
 All robots that are capable of self-assembly are robot groups.
 This means that single robots that are not connected are simply robot groups with one member.
 The responsibilities of the robot group is to take care of group movement, handling collisions, connecting and disconnecting. 
@@ -155,11 +155,11 @@ Here the angle between the ports have to fit within a threshold range.
 		
 Finally the gender of the ports must be compatible, meaning one of them is female while the other is male, or at least one of the ports being universal.
 		
-	\subsection{Local communication}
-The robots are equipped with a communication module that allows local communication with their connected neighbors.
+\subsection{Local communication}
+The robots are equipped with a communication module that allows local communication with their connected neighbours.
 The message format is very simple, the robots can broadcast "packets" of floating point numbers.
 The size of the packets is equal to the number of connection ports.
-At the receiving end, the packets sent by neighbors are aggregated into a single packet.
+At the receiving end, the packets sent by neighbours are aggregated into a single packet.
 The aggregation is performed as adding the components of each packet with the corresponding components in the other packets. Figure \ref{fig:local_communication} illustrates this process.
 	
 \begin{figure}[H]
@@ -178,11 +178,11 @@ These robots are not under the influence of the evolutionary algorithm and rathe
 The predator robots have two basic actions that can influence the system: the predators can either eat prey or explore the envelopment.
 
 \begin{figure}[H]
-		\centering
-		\frame{\includegraphics[width=0.65\textwidth]{chapters/res/predator_snippet.png}}
-		\caption{A screenshot of a simulation. The predators are marked with red and the robots guided by the evolutionary algorithm are marked with blue}
-		\label{fig:predator_screendump}
-	\end{figure}
+	\centering
+	\frame{\includegraphics[width=0.65\textwidth]{chapters/res/predator_snippet.png}}
+	\caption{A screenshot of a simulation. The predators are marked with red and the robots guided by the evolutionary algorithm are marked with blue}
+	\label{fig:predator_screendump}
+\end{figure}
 
 As seen in figure \ref{fig:predator_screendump}, the predators also uses six sensors which they use to decide if they are colliding with an object and what that object is.	
 In terms of exploration, the predator controller uses a simple object avoidance tactic.
@@ -198,12 +198,33 @@ If a robot is consumed, it is removed from the environment and amount of time it
 For a predator to be able to eat a robot, the robot must not be part of a robot group of a size less then some configurable threshold.
 The reason for this is to give the normal robots some advantage of self-assembling in hopes of potentially evolving this behaviour.  
 
-
-
 \subsection{Energy drain}
-\subsubsection{Passive}
-\subsubsection{Active}
-\clearpage
+In addition to the environmental hazards of predators, the robots also must face the issue with having a limited energy supply.
+If a robot loses all if its energy, then it will die and be removed from the environment.
+There are 5 main configurations that handle the energy parameters of the simulation:
+
+\begin{itemize}
+
+\item \emph{gEnergyMax}, is a constant which represents the maximum amount of energy the robot can hold.
+If a robot picks up more energy from an energy source and the total energy exceeded \emph{gEnergyMax}, then the total energy will simply be \emph{gEnergyMax}.
+
+\item \emph{gEnergyInit}, is a configurable parameters which sets the initial energy of a robot when spawned into the environment.
+
+\item \emph{gEnergyItemDefaultInit}, is the store of energy an energy item in the environment holds.
+
+\item \emph{gPassiveEnergyDrain}, is the leak value of energy of a single robot. At each time step, a robot loses \emph{gPassiveEnergyDrain} amount of energy.
+
+\item The final energy parameters is \emph{gConnectionEnergyDrain}, which is an addition drain for being self-assembling with another robot.
+
+
+\end{itemize}
+
+
+The reason for adding an energy hazard for the robots in this experiment, is to not give them a trivial self-assembling scenario.
+If predators were the only environmental obstacle, then the robots would most likely develop a self-assembly strategy and hold this construction in remaining time of simulation.
+It is intended that the robots would have an environment which allowed strategies such as dissembling the self-assembly structure to evolve or perhaps not even self-assemble at all.
+This reasoning is also the justification for giving the robots additional energy drain when assembled.
+
 \section{CTRNN}
 For this project, an artificial neural network that has gained a lot a popularity in regards to robotics known as Continuous-Time Recurrent Neural Network (CTRNN) was implemented. 
 The CTRNN was researched and developed by Randall Beer and adds two new properties to the standard artificial neural network. 
@@ -278,33 +299,29 @@ Having the ability to change the activation function on a neuron to neuron basis
 
 
 
-	\subsection{Drain}
-	\subsection{Activation function}
-	\subsection{Topologies}
-	%Sensors(6), connection status(n), messages(n), 1 energy level.
-	In the robot controller the neural network is responsible for making decisions.
-	The role of the robot controller is to forward inputs to the input layer of the neural network, and interpret the output.
-	The information that the neural network is provided with is as follows: sensor readings, the connection status of each docking port, messages from the communication module, and finally the current energy level of the robot.
-	Once the inputs are processed the robot controller reads the output layer to decide the values for the motor functions, control of the connection ports, and the message to be sent via the communication module.
-	The number of hidden layers, and the amount of neurons in each of them is configurable at runtime.
+
+\subsection{Topologies}
+%Sensors(6), connection status(n), messages(n), 1 energy level.
+In the robot controller the neural network is responsible for making decisions.
+The role of the robot controller is to forward inputs to the input layer of the neural network, and interpret the output.
+The information that the neural network is provided with is as follows: sensor readings, the connection status of each docking port, messages from the communication module, and finally the current energy level of the robot.
+Once the inputs are processed the robot controller reads the output layer to decide the values for the motor functions, control of the connection ports, and the message to be sent via the communication module.
+The number of hidden layers, and the amount of neurons in each of them is configurable at runtime.
 	
-	The robots have to be able to detect, and distinguish between predators, other robots, food, and the environment.
-	To achieve this the robots are equipped with six sensors.
-	To represent this two different input topologies for the sensors have been implemented.
-	\subsubsection{Dense}
-		The dense topology uses 24 nodes to represent the inputs where there is one node per sensor for each of the four different objects that can be detected.
-		With this configuration the robot can distinguish between multiple types of objects at the same time.
-		The motivation for designing another input topology is the concern that by using 24 nodes the search space for the evolutionary algorithm may become too large to find a good solution within a reasonable time.
-	\subsubsection{Sparse}
-		The sparse topology is a compromise between the number of nodes and the robots ability to distinguish between multiple objects at the same time.
-		Here the input layer has six nodes for each of the sensors, and four additional nodes that indicates whether a certain type of object is currently detected by one of the sensors.
-		This brings the number of input nodes for the sensors down to 10, instead of 24.
-		With this configuration the robot can still detect nearby robots, but it can not differentiate between multiple types of objects at the same time.
-	
-	
-	
-		
-		
+The robots have to be able to detect, and distinguish between predators, other robots, food, and the environment.
+To achieve this the robots are equipped with six sensors.
+To represent this two different input topologies for the sensors have been implemented.
+
+\subsubsection{Dense}
+The dense topology uses 24 nodes to represent the inputs where there is one node per sensor for each of the four different objects that can be detected.
+With this configuration the robot can distinguish between multiple types of objects at the same time.
+The motivation for designing another input topology is the concern that by using 24 nodes the search space for the evolutionary algorithm may become too large to find a good solution within a reasonable time.
+\subsubsection{Sparse}
+The sparse topology is a compromise between the number of nodes and the robots ability to distinguish between multiple objects at the same time.
+Here the input layer has six nodes for each of the sensors, and four additional nodes that indicates whether a certain type of object is currently detected by one of the sensors.
+This brings the number of input nodes for the sensors down to 10, instead of 24.
+With this configuration the robot can still detect nearby robots, but it can not differentiate between multiple types of objects at the same time.
+			
 \clearpage
 \section{Evolutionary algorithm}
 \subsection{Genotype}
@@ -425,6 +442,32 @@ The described process introduces a high selection pressure since it selects the 
 It is common to include an acceptance threshold, $t$, into the selection to modify the selection pressure\cite{goh_sexual_2003}.
 Each time an individual is to be selected a random number $r \in (0, 1)$, is generated.
 If $r < t$, then the fittest individual is chosen, otherwise the less fit individual is chosen. The selection pressure can then be tuned by increasing or decreasing the acceptance threshold. A lower value for $t$ decreases the selection pressure, while a higher value increases the selection pressure.
+
+\subsection{Elitism}
+
+\subsection{Evaluation}
+The evaluation function was kept fairly simple as to restrain from guiding the robots.
+Primarily, the evaluation function was simply calculating how many robots survived the trial.
+
+\begin{equation}
+	\label{eq:basic_fitness}
+	f(G) = \frac{G(\bar{R_{tot}})}{R_{tot}}
+\end{equation}
+
+where $f$ is the fitness score of some genome $G$.
+$G(\bar{R_tot})$ is the number of robots that died, $\bar{R_tot}$, in the trial with genome $G$, and $R_n$ is the total number of robots in the system.
+
+This fitness function however, gave poor results mainly due to the fitness graph being discrete and failing to differentiate enough between different genomes.
+Therefore, a different approach was implemented where the lifetime of a robot used instead.
+
+\begin{equation}
+	f(G) = \frac{\sum_{i=1}^n G(L_i)}{nL_{max}}
+\end{equation}
+
+The fitness of a genome is calculated in a similar way as eq. \ref{eq:basic_fitness}.
+The difference here is is that $L_i$ represents the lifetime of robot $i$ during simulation, $n$ is the total number of robots, and $L_{max}$ is the maximum lifetime of a robot.
+It is also possible to add addition fitness for the ability to aggregate such that self-assembly(or at least proximity) is promoted, but as mentioned earlier, the purpose was to limit the amount of evolutionary guiding.
+In the case where self-assembly does not occur, a more sophisticated objective function could be implemented.
 		
 \clearpage
 \section{Data gathering}
