@@ -41,19 +41,19 @@ Some examples are flocking behaviour in birds, fish schooling, and the complex s
 	\begin{subfigure}[b]{0.31\textwidth}
 		\label{fig:flocking}
 		\centering
-		\includegraphics[width=\linewidth]{chapters/res/flocking.jpg}
+		\includegraphics[height=\linewidth]{chapters/res/flocking_edit.jpg}
 		\caption{Flocking\cite{baxter_flocking.jpg_2008}}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.31\textwidth}
 		\label{fig:scholing}
 		\centering
-		\includegraphics[width=\textwidth]{chapters/res/schooling.png}
+		\includegraphics[height=\linewidth]{chapters/res/schooling_edit.png}
 		\caption{Schooling\cite{polyglottus_mockingbird-tales-readings--animal-behavior-5.1.pdf_2011}}
 	\end{subfigure}
 	\begin{subfigure}[b]{0.31\textwidth}
 		\label{fig:social-insects}
 		\centering
-		\includegraphics[width=\linewidth]{chapters/res/Termites_rush_to_damaged_portion_of_mound.jpg}
+		\includegraphics[height=\linewidth]{chapters/res/Termites_rush_to_damaged_portion_of_mound_edit.jpg}
 		\caption{Termites\cite{bauer_termites_rush_to_damaged_portion_of_mound.jpg_2007}}
 	\end{subfigure}
 	\caption{Examples of self-organizing behaviour in nature.}
@@ -199,7 +199,6 @@ A disadvantage with this type of mechanism is that the robots have to match the 
 The swarm-bot platform\cite{gro_autonomous_2006} uses this mechanism for self-assembly in the real world.
 Each robot is equipped with a gripper, and is surrounded by a ring matching the gripper. 
 This means that each robot can initiate one connection to other robots, but multiple robots can connect to each ring.
-A successful connection is strong enough to lift another s-bot.
 There are several advantages with this mechanism; it allows some misalignment that makes docking simpler and the ring makes it possible for several other robots to connect.
 Although many robots can connect to the ring, having only one gripper limits the possible configurations.
 This disadvantage can be mitigated by adding more grippers.
@@ -416,7 +415,19 @@ The operation of an artificial neuron consists of two main components, depicted 
 \end{figure}
 First, the neuron sums the action potential from the preceding neurons.
 The activation function is then applied on the sum which produces a new action potential as the output.
-<Activiation function>
+The role of the activation function is to transform the action potential in the node to an output that can be passed to the succeeding nodes.
+These functions often have a thresholding effect where the neuron outputs a low potential until a threshold is reached.
+A common activation function is the logistics equation(\ref{eq:logistics-equation}).
+
+\begin{captioneq}[H]
+	\begin{equation}
+	o_i= \frac{1}{(1+e^{-v})}
+	\label{eq:logistics-equation}
+	\end{equation}
+	
+	\caption{The ouput of node i with internal action potential v.}
+\end{captioneq}
+
 The connection strength between neurons is simulated by introducing weights on the connections.
 A neuron with a higher weight on one of its connections will then be more influenced by that particular connection.
 Learning can then be performed by modifying the weights on the connections in the ANN.
@@ -440,6 +451,8 @@ Creating good robot controllers can be difficult as the number of sensors and ac
 The designers may know what desired behavior for the robots is, but expressing this in the conventional computing model as a series of instructions can be difficult.
 Instead, with machine learning an ANN can learn from examples of desired behavior provided by the controller designers.
 This approach allows designers to create the desired controllers by providing examples instead of knowing the exact solution.
+
+
 
 
 
