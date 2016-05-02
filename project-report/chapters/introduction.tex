@@ -4,7 +4,7 @@ A lot of this technology has only recently been developed and it is expected tha
 
 As a part of advancing robotics, a lot of the different functionality and behaviour of robots are being explored.
 These mechanisms include self-replicating machines, artificial intelligence, self-assembly, inter-robot communication, etc.
-In this report we will be exploring a robot's ability to self-assemble. 
+In this study we will be exploring a robot's ability to self-assemble. 
 
 Self-assembly is the autonomous organization of components into patterns or structures without human intervention \cite{whitesides_self-assembly_2002}.
 We can observe self-assembling processes in nature at a molecular scale \cite{heylighen_science_2001} as well as at a planetary scale in the form of solar systems; each of which presents many different configurations.
@@ -36,9 +36,14 @@ With stochastic reconfiguration the robots do not have movement capabilities the
 The robots are moved passively by the environment, and bind to each other on random collisions\cite{gro_autonomous_2006}. 
 With this form of reconfiguration, the reconfiguration time can only be guaranteed statistically\cite{yim_modular_2007}.
 \cite{bishop_programmable_2005} demonstrates how robots named "programmable parts" can self-organize through passive movements provided by the environment. Systems that use stochastic reconfiguration are most common at micro level environments, and only achieve self-assembly because of the influence by their environment.
-These characteristics do not conform to what we are trying to study, so this report will not delve further into this topic.
+These characteristics do not conform to what we are trying to study, so this study will not delve further into this topic.
 
-Following, the report covers how to implement machine learning in a system that takes advantage of self-assembly.
+A crucial part of this study is to observe how self-assembly can transpire as an emergent behaviour through machine learning.
+A robot that can improve its performance based on past observations is said to use some form of machine learning.
+The main competing algorithms for machine learning in robot systems, as of writing, are reinforcement leaning and evolutionary algorithms.
+This study will look at machine learning and self-assembly from an evolutionary algorithms point of view.
+
+This study covers how to implement machine learning in a system that takes advantage of self-assembly.
 In particular, how self-assembly can be used in conjunction with evolutionary robotics.
 Evolutionary robotics represents a way to automate the design of control systems for autonomous robots, using algorithms based on Darwinian evolution \cite{trianni_evolving_2004}.
 Evolutionary robotics is a field of research that lies under the field of artificial intelligence. 
@@ -46,24 +51,24 @@ The main purpose of evolutionary robotics is to develop autonomous robot control
 Evolutionary robotics takes advantage of selective reproduction based on how well the robots solve a certain task.
 The controller of a robot is most often represented with an \emph{artificial neural network} where the parameters of the neural network are set by an evolutionary algorithm.
 
+There have been previous studies about using machine learning to promote self-assembly\cite{trianni_evolving_2004}\cite{montanier_adaptive_2014}\cite{li_co-evolution_2015}. 
+However, many of these studies uses differing self-assembly mechanisms such as the architecture used by the self-assembly system, the actions that are performed by the robots to achieve an organized structure and the docking mechanism hardware.
+Therefore, the motivation of this research is to analyse if any of these mechanisms are superior in terms of promoting self-assembly in regards to learned robot controllers.
+
 The experiment will be done in simulation with the Roborobo platform. 
 Roborobo is a light-weight multi-platform simulator for extensive robotics experiments, based on basic robotic hardware setup.
 The experiment is a simple predator/pray scenario, where the evolved robots(pray) can self-assemble to gain certain advantages over its pray.
 While creating the simulation, great care has been taken into making most of the parameters of the system configurable.
 This is done so that testing the different mechanisms is simple, such that we can compare how introducing different mechanisms effects the robot's ability to self-assemble and the behaviour of the robots.
 
-There have been previous studies about using machine learning to promote self-assembly\cite{trianni_evolving_2004}\cite{montanier_adaptive_2014}\cite{li_co-evolution_2015}. 
-However, many of these studies uses differing self-assembly mechanisms such as the architecture used by the self-assembly system, the actions that are performed by the robots to achieve an organized structure and the docking mechanism hardware.
-Therefore, the motivation of this research is to analyse if any of these mechanisms are superior in terms of promoting self-assembly in regards to learned robot controllers.
-
-\section{Report objectives}
-The main focus of this report is to compare the different mechanisms that influences self-assembling robots that are governed by machine learning. 
+\section{Thesis objectives}
+The main focus of this study is to compare the different mechanisms that influences self-assembling robots that are governed by machine learning. 
 Relevant mechanisms are the self-assembly architecture, the assembly protocol and docking(assembly) mechanisms. 
-The main objectives of this report includes:
+The main objectives of this study includes:
 
 \begin{itemize}
 
-\item Implementing a simulation that uses the various mechanisms presented in this report.
+\item Implement and explain a simulation that uses various self-assembly mechanisms such as a self-assembly architecture and an assembly protocol.
 
 \item Compare and analyse the results of the simulation. 
 
@@ -72,9 +77,9 @@ The main objectives of this report includes:
 \end{itemize}
 
 \section{Problem statement}
-The scope of this report covers the self-assembly mechanisms in a system of robots. 
-The grand question the report is trying to contribute to is: How does the elements present in a system of robots influence the emergence of self-assembly where the robots are given basic learning capabilities?
-To get a better understanding of this field, this report present methods and analysis to answer the following questions:
+The scope of this study covers the self-assembly mechanisms in a system of robots. 
+The grand question this study is trying to contribute to is: \textbf{How does the elements present in a system of robots influence the emergence of self-assembly where the robots are given basic learning capabilities?}
+To get a better understanding of this field, this study will present methods and analysis to answer the following questions:
 
 \begin{itemize}
 
@@ -88,7 +93,7 @@ To get a better understanding of this field, this report present methods and ana
 
 \end{itemize}
 
-In addition to these comparisons of the mechanisms in self-assembly systems, the report will also cover how introducing collective behaviour in the systems affects the emergence of self-assembly, specifically:
+In addition to these comparisons of the mechanisms in self-assembly systems, the thesis will also cover collective behaviour in the systems and how this affects the emergence of self-assembly:
 
 \begin{itemize}
 
