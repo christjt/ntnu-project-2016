@@ -309,7 +309,13 @@ Techniques such as using an approximator\cite{brambilla_swarm_2013} to reduce th
 Several projects\cite{li_learning_2004}\cite{balch_behavioral_1998}\cite{mataric_interaction_1994} have successfully applied reinforcement learning in multi-agent systems.
 Given the challenges of RL, as the goals and ambition of projects increase, researchers are drawn towards techniques that resemble evolutionary algorithms\cite{schmidhuber_evolutionary_2000}.
 
+Evolutionary algorithms attempts to find solutions to a problem by simulating the mechanisms of Darwinian evolution\cite{trianni_evolving_2004}.
+In these algorithms, the possible solutions are encoded into genomes and improved iteratively over multiple generations, where well performing individuals reproduce more and spread their genome.
 
+
+
+\subsection{Evolutionary algorithms}
+\label{sec:evo_alg}
 Evolutionary algorithms is a class of algorithm in the category of \emph{bio-inspired algorithms}\cite{binitha_survey_2012}.
 Nature has shown that it is a great optimizer.
 When we examine features and phenomenons in nature, it tends to find the optimal strategy.
@@ -320,10 +326,6 @@ The three main categories are \emph{evolution}, \emph{swarm-based}, and \emph{ec
 These algorithms are optimization algorithms and can therefore be used to automate the design of robot controllers.
 Specifically in the field of evolutionary robotics, the focus has been to employ evolutionary algorithms in the design of robot controllers.
 
-\subsection{Evolutionary algorithms}
-\label{sec:evo_alg}
-Evolutionary algorithms attempts to find solutions to a problem by simulating the mechanisms of Darwinian evolution\cite{trianni_evolving_2004}.
-In these algorithms, the possible solutions are encoded into genomes and improved iteratively over multiple generations, where well performing individuals reproduce more and spread their genome.
 
 There are many variants of evolutionary algorithms, the most common can be categorized by when the evolution takes place\cite{eiben_embodied_2010}.
 \begin{quote} 
@@ -451,6 +453,11 @@ Creating good robot controllers can be difficult as the number of sensors and ac
 The designers may know what desired behavior for the robots is, but expressing this in the conventional computing model as a series of instructions can be difficult.
 Instead, with machine learning an ANN can learn from examples of desired behavior provided by the controller designers.
 This approach allows designers to create the desired controllers by providing examples instead of knowing the exact solution.
+
+Neural networks have been applied to design robot controllers in several\cite{trianni_evolving_2004}\cite{montanier_adaptive_2014}\cite{brandt_atron_2007} self-assembling robot systems.
+These robot systems all use different approaches in how neural networks are applied to create the controller.
+\cite{montanier_adaptive_2014} uses a simple feed forward network, while \cite{trianni_evolving_2004} uses a CTRNN, and finally \cite{brandt_atron_2007} uses multiple neural networks which decide different parts of the behavior.
+This shows that neural networks are a versatile tool in designing robot controllers for self-assembling robot systems.
 
 
 
