@@ -444,6 +444,11 @@ Each time an individual is to be selected a random number $r \in (0, 1)$, is gen
 If $r < t$, then the fittest individual is chosen, otherwise the less fit individual is chosen. The selection pressure can then be tuned by increasing or decreasing the acceptance threshold. A lower value for $t$ decreases the selection pressure, while a higher value increases the selection pressure.
 
 \subsection{Elitism}
+In each step of the evolutionary algorithm the previous generation is replaced by the offspring from the selected parents.
+Completely replacing the previous generation with the new generation has the undesirable effect where mutations in the children can lead to the loss of good partial solutions.
+A configurable level of elitism has therefore been implemented into the evolutionary algorithm.
+At the end of each generation the $n$ fittest individuals are promoted to \emph{elites}, which are allowed entry into the next parent selection unchanged.
+This allows multiple generations build upon the partial solutions in the elites, and ensures that the fittest genomes are preserved between generations.
 
 \subsection{Evaluation}
 The evaluation function was kept fairly simple as to restrain from guiding the robots.
