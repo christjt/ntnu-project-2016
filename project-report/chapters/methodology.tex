@@ -1,4 +1,6 @@
-
+For this study, an experiment was implemented using the \emph{roborobo} simulator\cite{bredeche_roborobo!_2013}.
+Even though \emph{roborobo} contains some functionality for running robot simulations, a lot of modifications were needed for the simulator to fit the needs of this experiment.
+This chapter will include a description of \emph{roborobo}, the modifications that were made to the existing software, the experiment in general and the motivation for its implementation.
 
 \section{Experiment motivation}
 The introduction lists several questions that this report should contribute to.
@@ -322,7 +324,6 @@ Here the input layer has six nodes for each of the sensors, and four additional 
 This brings the number of input nodes for the sensors down to 10, instead of 24.
 With this configuration the robot can still detect nearby robots, but it can not differentiate between multiple types of objects at the same time.
 			
-\clearpage
 \section{Evolutionary algorithm}
 \subsection{Genotype}
 \label{sec:genotype}
