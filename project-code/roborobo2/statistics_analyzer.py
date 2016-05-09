@@ -1,14 +1,16 @@
 import json
 import os
+import sys
 
-print os.listdir('results/')
+results_folder = sys.argv[1]
+out = sys.argv[2]
 
 
 def analyze():
     generations = {}
-    statistics_logs = os.listdir('results/')
+    statistics_logs = os.listdir(results_folder)
     for log in statistics_logs:
-        analyze_log(load_log(os.path.join('results/', log)), generations)
+        analyze_log(load_log(os.path.join(results_folder, log)), generations)
 
     return generations
 
@@ -59,10 +61,10 @@ class Generation:
 
 generation_results = analyze()
 
-out = {}
+result = {}
 for i in generation_results:
-    out[i] = generation_results[i].__dict__
+    result[i] = generation_results[i].__dict__
 
-json.dump(out, open("statistics_analyzed.json", 'w'), indent=1)
+json.dump(result, open(out, 'w'), indent=1)
 
 
