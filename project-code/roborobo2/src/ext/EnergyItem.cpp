@@ -94,10 +94,17 @@ void EnergyItem::isWalked( int __idAgent )
     _visible = false;
 }
 
+#include "SelfAssemblyMechanisms/include/Logger/StatisticsLogger.h"
+
 void EnergyItem::giveEnergy(int agentId, double amount)
 {
     auto robot = gWorld->getRobot(agentId);
     auto wm = (GroupRobotWorldModel*)robot->getWorldModel();
+    StatisticsLogger* logger = StatisticsLogger::getInstance();
+    if(wm->getGroup()->size() > 1)
+        logger->logGroupConsumedEnergy();
+    else
+        logger->logRobotConsumedEnergy();
 
     for(auto it = wm->getGroup()->begin(); it != wm->getGroup()->end(); it++)
     {

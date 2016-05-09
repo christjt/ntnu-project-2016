@@ -8,6 +8,7 @@
 
 #include "SelfAssembly/WorldModels/GroupRobotWorldModel.h"
 #include "Agents/Robot.h"
+#include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsSharedData.h"
 
 SelfAssemblyMechanismsPredatorController::SelfAssemblyMechanismsPredatorController( RobotWorldModel *__wm ) : Controller ( __wm )
 {
@@ -20,10 +21,11 @@ void SelfAssemblyMechanismsPredatorController::reset()
     _orientationDirection = 0;
    // std::cout << "Initial pos" << _wm->getXReal() << "," << _wm->getYReal() << std::endl;
 }
-
+static int steps;
 void SelfAssemblyMechanismsPredatorController::step()
 {
 
+    steps++;
     if(!_wm->isAlive())
     {
         return;
@@ -70,14 +72,24 @@ void SelfAssemblyMechanismsPredatorController::step()
 
 }
 
+#include "SelfAssemblyMechanisms/include/Logger/StatisticsLogger.h"
 void SelfAssemblyMechanismsPredatorController::eat(Robot* prey)
 {
+    if(!prey->getWorldModel()->isAlive())
+        return;
+
     for(auto connection: ((GroupRobotWorldModel*)prey->getWorldModel())->getConnectionMechanism().getConnections()){
-        ((GroupRobotWorldModel*)prey->getWorldModel())->disconnectFrom(connection.first);
+        if(((GroupRobotWorldModel*)prey->getWorldModel())->disconnectFrom(connection.first)){
+            SelfAssemblyMechanismsSharedData::groupEventTriggered = true;
+        }
+
     }
     prey->getWorldModel()->setAlive(false);
     prey->unregisterRobot();
     _wm->_world->unregisterRobot(prey->getWorldModel()->getId());
+    StatisticsLogger::getInstance()->logRobotEaten();
+
+
 }
 
 std::vector<std::pair<Robot*, double>> SelfAssemblyMechanismsPredatorController::findPrey()

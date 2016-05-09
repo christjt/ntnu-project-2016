@@ -11,3 +11,5 @@ roborobo
 analysis.txt
 results.txt
 config/generated-self_assembly_mechanisms.properties
+*.json
+results/

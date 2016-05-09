@@ -7,6 +7,7 @@ class RobotGroup
 {
 private:
     std::unordered_map<int, GroupRobotWorldModel*> members;
+    int id = -1;
 
 public:
     int size();
@@ -15,6 +16,16 @@ public:
     void mergeWith(std::shared_ptr<RobotGroup> other);
     std::unordered_map<int, GroupRobotWorldModel*>::iterator begin();
     std::unordered_map<int, GroupRobotWorldModel*>::iterator end();
+
+    void setId(int id)
+    {
+        this->id = id;
+    }
+
+    int getId()
+    {
+        return this->id;
+    }
 
 };
 #endif //ROBOROBO2_ROBOTGROUP_H

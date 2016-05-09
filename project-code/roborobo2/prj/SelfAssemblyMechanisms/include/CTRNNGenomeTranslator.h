@@ -20,7 +20,7 @@ public:
 
         std::vector<double> newWeights(weightsFirst, timeConstantsFirst);
         network->setWeigths(newWeights);
-
+        
 
         std::vector<double> newTimeConstraints(timeConstantsFirst, gainsFirst);
         for(auto i = 0u; i < newTimeConstraints.size(); i++)

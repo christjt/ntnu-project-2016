@@ -4,6 +4,7 @@
 #include "../EA/Logger.h"
 #include <fstream>
 #include <iostream>
+
 class FileLogger: public EA::Logger
 {
 

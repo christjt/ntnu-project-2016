@@ -45,6 +45,7 @@ SelfAssemblyMechanismsWorldObserver::SelfAssemblyMechanismsWorldObserver( World 
 	gProperties.checkAndGetPropertyValue("gMutationStep", &SelfAssemblyMechanismsSharedData::gMutationStep, true);
 	gProperties.checkAndGetPropertyValue("gNHiddenLayers", &SelfAssemblyMechanismsSharedData::gNHiddenLayers, true);
 	gProperties.checkAndGetPropertyValue("gEALogFilename", &SelfAssemblyMechanismsSharedData::gEALog, true);
+	gProperties.checkAndGetPropertyValue("gStatisticsLog", &SelfAssemblyMechanismsSharedData::gStatisticsLog, true);
 	gProperties.checkAndGetPropertyValue("gPassiveEnergyDrain", &SelfAssemblyMechanismsSharedData::gPassiveEnergyDrain, true);
 	gProperties.checkAndGetPropertyValue("gConnectionEnergyDrain", &SelfAssemblyMechanismsSharedData::gConnectionEnergyDrain, true);
 	gProperties.checkAndGetPropertyValue("gNScenarios", &SelfAssemblyMechanismsSharedData::gNScenarios, true);
@@ -100,12 +101,12 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 	generator.seed(gRandomSeed);
 	srand(gRandomSeed);
 
+
 	for(int i = 0; i < SelfAssemblyMechanismsSharedData::gNScenarios; i++)
 	{
 		scenarios.push_back(gRandomSeed + i);
 	}
 	currentScenario = scenarios.begin();
-
 	createMPIDatatypes();
 
 
@@ -125,6 +126,12 @@ void SelfAssemblyMechanismsWorldObserver::reset()
 	}
 	currentGeneration = distributeGenomes(genomes);
 	currentGenome = currentGeneration.begin();
+	initStatisticsLogger();
+	statisticsLogger->beginGeneration(0);
+	statisticsLogger->beginGenome(&(*currentGenome));
+	statisticsLogger->beginScenario(*currentScenario);
+
+
 	updateAgentWeights(*currentGenome);
 }
 
@@ -135,6 +142,10 @@ void SelfAssemblyMechanismsWorldObserver::initMPI()
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 }
 
+void SelfAssemblyMechanismsWorldObserver::initStatisticsLogger()
+{
+	statisticsLogger = StatisticsLogger::getInstance();
+}
 void SelfAssemblyMechanismsWorldObserver::createMPIDatatypes()
 {
 	const int nitems=2;
@@ -256,29 +267,39 @@ void SelfAssemblyMechanismsWorldObserver::step()
 	if(SelfAssemblyMechanismsSharedData::gDisplayBestGenome)
 		return;
 
+	if(SelfAssemblyMechanismsSharedData::groupEventTriggered)
+		logGroupEvent();
+
 	if(steps == stepsPerGeneration)
 	{
-
 		currentGenome->setFitness(currentGenome->getFitness() + evaluate()/scenarios.size());
-
+		statisticsLogger->logFitness(currentGenome->getFitness());
 		steps = 0;
 
+		statisticsLogger->endScenario();
 		currentScenario++;
+
 		if(currentScenario == scenarios.end()){
+			statisticsLogger->endGenome();
 			currentGenome++;
 			currentScenario = scenarios.begin();
+			if(currentGenome != currentGeneration.end())
+				statisticsLogger->beginGenome(&(*currentGenome));
 		}
 
 		if(currentGenome == currentGeneration.end())
 		{
+			statisticsLogger->endGeneration();
 			cGenerations++;
 			currentGeneration = gatherGenomes();
 			saveGeneration();
 			evaluateCompletionCriteria();
 			nextGeneration();
 			currentScenario = scenarios.begin();
+			statisticsLogger->beginGeneration(cGenerations);
 
 		}
+		statisticsLogger->beginScenario(*currentScenario);
 		srand(*currentScenario);
 		_world->resetWorld();
 		updateAgentWeights(*currentGenome);
@@ -286,6 +307,42 @@ void SelfAssemblyMechanismsWorldObserver::step()
 
 	steps++;
 }
+
+
+void SelfAssemblyMechanismsWorldObserver::logGroupEvent()
+{
+	GroupSnaphot snapshot;
+	std::unordered_set<int> processedGroups;
+
+
+	for(int i = 0; i < gNumberOfRobots; i++)
+	{
+		if(_world->getRobot(i)->getIsPredator())
+			continue;
+
+		auto wm = (GroupRobotWorldModel*)_world->getRobot(i)->getWorldModel();
+		auto robotGroup = wm->getGroup();
+		int groupId = robotGroup->getId();
+		if(robotGroup->size() == 1)
+			continue;
+
+		if(processedGroups.find(groupId) == processedGroups.end()){
+			processedGroups.insert(groupId);
+			GroupData groupData;
+			groupData.size = robotGroup->size();
+			groupData.id = groupId;
+			snapshot.groups.push_back(groupData);
+		}
+	}
+
+	snapshot.numberOfGroups = snapshot.groups.size();
+	snapshot.timestamp = steps;
+
+	statisticsLogger->logGroupSnapshot(snapshot);
+
+	SelfAssemblyMechanismsSharedData::groupEventTriggered = false;
+}
+
 
 void SelfAssemblyMechanismsWorldObserver::resetWorld()
 {
@@ -327,6 +384,7 @@ void SelfAssemblyMechanismsWorldObserver::evaluateCompletionCriteria()
 	MPI_Bcast(&terminate, 1, MPI_INT, 0, MPI_COMM_WORLD);
 	if(terminate)
 	{
+		writeStatisticsLog();
 		if(rank == 0){
 			saveGeneration();
 		}
@@ -335,6 +393,79 @@ void SelfAssemblyMechanismsWorldObserver::evaluateCompletionCriteria()
 	}
 }
 
+void SelfAssemblyMechanismsWorldObserver::writeStatisticsLog()
+{
+
+
+	json localLog = statisticsLogger->serializeToJson();
+	std::string rawJson = localLog.dump();
+
+	int localBufferSize = rawJson.size();
+
+	int displacements[world_size];
+	int recvCounts[world_size];
+	MPI_Gather(&localBufferSize, 1, MPI_INT, recvCounts, 1, MPI_INT, 0, MPI_COMM_WORLD);
+
+
+	int offset = 0;
+	int recvBufferSize = 0;
+
+
+	char* sendBuff = (char*)malloc(sizeof(char)*localBufferSize);
+	memcpy(sendBuff, rawJson.c_str(), rawJson.size());
+
+	char* recvBuff = nullptr;
+	if(rank == 0)
+	{
+		for(int i = 0; i < world_size; i++)
+		{
+			displacements[i] = offset;
+			offset += recvCounts[i];
+			recvBufferSize += recvCounts[i];
+		}
+
+		recvBuff = (char *) malloc((sizeof(char)* recvBufferSize));
+	}
+	MPI_Gatherv(sendBuff, localBufferSize, MPI_CHAR, recvBuff, recvCounts, displacements, MPI_CHAR, 0, MPI_COMM_WORLD);
+
+
+
+	if(rank == 0)
+	{
+		std::vector<json> partials;
+		for(int i = 0; i < world_size; i++){
+			json partial = json::parse(std::string(recvBuff + displacements[i], recvCounts[i]));
+			partials.push_back(partial);
+		}
+
+
+		std::unordered_map<int, std::vector<json>> generations;
+		for(auto& partial: partials){
+
+			for(int i = 0; i < cGenerations; i++){
+				json partialGeneration = partial["generations"][i]["genomes"];
+				std::vector<json> genomes = partialGeneration.get<std::vector<json>>();
+				for(auto& genome: genomes)
+				{
+				    generations[i].push_back(genome);
+				}
+			}
+		}
+
+		json final =  partials[0];
+		for(int i = 0; i < cGenerations; i++){
+			final["generations"][i]["genomes"] = generations[i];
+		}
+
+
+		std::ofstream out;
+		out.open(SelfAssemblyMechanismsSharedData::gStatisticsLog);
+		out << final.dump(1) << std::endl;
+		free(recvBuff);
+	}
+
+	free(sendBuff);
+}
 double SelfAssemblyMechanismsWorldObserver::evaluate()
 {
 	int nRobots = gNumberOfRobots - gNumberOfPredators;

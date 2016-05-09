@@ -15,6 +15,7 @@
 #include "EA/DoubleVectorGenotype.h"
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsSharedData.h"
 #include <mpi/mpi.h>
+#include "Logger/StatisticsLogger.h"
 class World;
 struct GenomeDTO{
 	double fitness;
@@ -23,6 +24,7 @@ struct GenomeDTO{
 class SelfAssemblyMechanismsWorldObserver : public WorldObserver
 {
 	protected:
+		StatisticsLogger* statisticsLogger;
 		EA::EvolutionaryAlgorithm algorithm;
 		std::default_random_engine generator;
 		void updateAgentWeights(EA::DoubleVectorGenotype& genotype);
@@ -43,8 +45,11 @@ class SelfAssemblyMechanismsWorldObserver : public WorldObserver
 		void loadGeneration();
 		int getRequiredNumberOfWeights();
 		void initMPI();
+		void initStatisticsLogger();
 		void resetWorld();
 		void createMPIDatatypes();
+		void writeStatisticsLog();
+		void logGroupEvent();
 		GenomeDTO* pack(std::vector<EA::DoubleVectorGenotype> genome);
 		std::vector<EA::DoubleVectorGenotype> unpack(GenomeDTO* genomeDTO, size_t size);
 		std::vector<EA::DoubleVectorGenotype> distributeGenomes(std::vector<EA::DoubleVectorGenotype> genomes);
