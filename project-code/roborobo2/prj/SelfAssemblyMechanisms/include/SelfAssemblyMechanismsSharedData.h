@@ -28,6 +28,8 @@ class SelfAssemblyMechanismsSharedData {
         static double gPassiveEnergyDrain;
         static double gConnectionEnergyDrain;
         static double gPredatorEnergyReward;
+        static std::string gStatisticsLog;
+        static bool groupEventTriggered;
 };
 
 

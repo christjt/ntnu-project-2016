@@ -20,6 +20,7 @@ double SelfAssemblyMechanismsSharedData::gMutation = 0.05;
 int SelfAssemblyMechanismsSharedData::gNHiddenLayers = 0;
 std::vector<unsigned> SelfAssemblyMechanismsSharedData::gHiddenLayers = std::vector<unsigned >();
 std::string SelfAssemblyMechanismsSharedData::gEALog = "";
+std::string SelfAssemblyMechanismsSharedData::gStatisticsLog = "";
 double SelfAssemblyMechanismsSharedData::gTargetFitness = 1.0;
 int SelfAssemblyMechanismsSharedData::gNNFactory = 0;
 std::string SelfAssemblyMechanismsSharedData::gEAResultsOutputFilename;
@@ -27,4 +28,5 @@ std::string SelfAssemblyMechanismsSharedData::gGenomeFileName;
 bool SelfAssemblyMechanismsSharedData::gDisplayBestGenome;
 double SelfAssemblyMechanismsSharedData::gPassiveEnergyDrain = 1;
 double SelfAssemblyMechanismsSharedData::gConnectionEnergyDrain = 1;
+bool SelfAssemblyMechanismsSharedData::groupEventTriggered = false;
 

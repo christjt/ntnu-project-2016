@@ -15,6 +15,7 @@
 #include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsUtilities.h"
 #include "SelfAssemblyMechanisms/include/DenseInputNetworkTranslator.h"
 #include "SelfAssemblyMechanisms/include/SparseInputNetworkTranslator.h"
+#include "SelfAssemblyMechanisms/include/SelfAssemblyMechanismsSharedData.h"
 
 SelfAssemblyMechanismsController::SelfAssemblyMechanismsController( RobotWorldModel *__wm ) :
 		Controller ( __wm )
@@ -31,7 +32,7 @@ SelfAssemblyMechanismsController::~SelfAssemblyMechanismsController()
 void SelfAssemblyMechanismsController::reset()
 {
 	messageWidth = wm->getConnectionMechanism().getPorts().size();
-	translator = std::shared_ptr<SparseInputNetworkTranslator>(new SparseInputNetworkTranslator(wm->_cameraSensorsNb, messageWidth));
+	translator = std::shared_ptr<DenseInputNetworkTranslator>(new DenseInputNetworkTranslator(wm->_cameraSensorsNb, messageWidth));
 	genomeTranslator =  std::shared_ptr<CTRNNGenomeTranslator>(new CTRNNGenomeTranslator(translator->getAnn()));
 
 }
@@ -145,7 +146,9 @@ void SelfAssemblyMechanismsController::applyConnectionOutput(const std::vector<G
 	{
 		if(translator->getDesiresConnection(i)){
 			for(GroupRobotWorldModel* robot: nearbyRobots){
-				wm->connectTo(robot);
+				if(wm->connectTo(robot))
+					SelfAssemblyMechanismsSharedData::groupEventTriggered = true;
+
 			}
 		}
 
@@ -155,7 +158,8 @@ void SelfAssemblyMechanismsController::applyConnectionOutput(const std::vector<G
 			{
 				if(connection.second == ports[i])
 				{
-					wm->disconnectFrom(connection.first);
+					if(wm->disconnectFrom(connection.first))
+						SelfAssemblyMechanismsSharedData::groupEventTriggered = true;
 				}
 			}
 		}

@@ -24,8 +24,8 @@ class GroupRobotWorldModel: public RobotWorldModel
         bool moveCompleted;
     public:
         GroupRobotWorldModel();
-        void connectTo(GroupRobotWorldModel* other);
-        void disconnectFrom(GroupRobotWorldModel* other);
+        bool connectTo(GroupRobotWorldModel* other);
+        bool disconnectFrom(GroupRobotWorldModel* other);
         void addRobotToGroup(GroupRobotWorldModel* robot);
         void updateTranslationVector();
         void setGroup(std::shared_ptr<RobotGroup> group);

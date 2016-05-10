@@ -16,6 +16,7 @@ SelfAssemblyMechanismsAgentObserver::SelfAssemblyMechanismsAgentObserver( RobotW
 	_wm = __wm;
     _wm->setEnergyLevel(gEnergyInit);
     robotLifetime = 0;
+    logger = StatisticsLogger::getInstance();
 }
 
 SelfAssemblyMechanismsAgentObserver::~SelfAssemblyMechanismsAgentObserver()
@@ -30,9 +31,10 @@ void SelfAssemblyMechanismsAgentObserver::reset()
 
 void SelfAssemblyMechanismsAgentObserver::step()
 {
-    if(_wm->isAlive()){
-        robotLifetime++;
+    if(!_wm->isAlive()){
+        return;
     }
+    robotLifetime++;
 
    bool isPredator = ((GroupRobotWorldModel*)_wm)->getWorld()->getRobot(_wm->getId())->getIsPredator();
     if(SelfAssemblyMechanismsSharedData::gCanEatPredators && !isPredator){
@@ -52,6 +54,8 @@ void SelfAssemblyMechanismsAgentObserver::step()
                     {
                         (*it).second->addEnergy(SelfAssemblyMechanismsSharedData::gPredatorEnergyReward);
                     }
+
+                    logger->logPredatorEaten();
                 }
             }
         }
@@ -66,9 +70,13 @@ void SelfAssemblyMechanismsAgentObserver::step()
         }
         if(_wm->getEnergyLevel() <= 0){
             for(auto connection: (((GroupRobotWorldModel*)_wm)->getConnectionMechanism().getConnections())) {
-                ((GroupRobotWorldModel*)_wm)->disconnectFrom(connection.first);
+                if(((GroupRobotWorldModel*)_wm)->disconnectFrom(connection.first))
+                    SelfAssemblyMechanismsSharedData::groupEventTriggered = true;
+
             }
             _wm->setAlive(false);
+            logger->logRobotStarvedToDeath();
+
         }
 
 
