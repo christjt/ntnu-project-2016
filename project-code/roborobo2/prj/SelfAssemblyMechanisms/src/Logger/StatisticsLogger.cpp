@@ -65,10 +65,6 @@ void StatisticsLogger::logPredatorEaten()
 
 void StatisticsLogger::logGroupSnapshot(GroupSnaphot& groupSnapshot)
 {
-    if(groupSnapshot.groups.size() == 0){
-        if(currentScenario.groupSnapshots.size() == 0 || currentScenario.groupSnapshots.back().numberOfGroups == 0)
-            return;
-    }
     currentScenario.groupSnapshots.push_back(groupSnapshot);
 }
 
@@ -160,15 +156,11 @@ json serializeScenario(const ScenarioData& scenarioData)
 
 json serializeGroupSnapshot(const GroupSnaphot& snapshot)
 {
-    std::vector<json> groups;
-    for(auto& group: snapshot.groups){
-        groups.push_back(serializeGroup(group));
-    }
 
     json groupSnapshot = {
             {"numberOfGroups", snapshot.numberOfGroups},
             {"timestamp", snapshot.timestamp},
-            {"groups", groups},
+            {"sizes", snapshot.groupSizes},
 
     };
     return groupSnapshot;

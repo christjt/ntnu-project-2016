@@ -267,7 +267,7 @@ void SelfAssemblyMechanismsWorldObserver::step()
 	if(SelfAssemblyMechanismsSharedData::gDisplayBestGenome)
 		return;
 
-	if(SelfAssemblyMechanismsSharedData::groupEventTriggered)
+	if(steps % 50 == 0)
 		logGroupEvent();
 
 	if(steps == stepsPerGeneration)
@@ -314,7 +314,6 @@ void SelfAssemblyMechanismsWorldObserver::logGroupEvent()
 	GroupSnaphot snapshot;
 	std::unordered_set<int> processedGroups;
 
-
 	for(int i = 0; i < gNumberOfRobots; i++)
 	{
 		if(_world->getRobot(i)->getIsPredator())
@@ -328,14 +327,12 @@ void SelfAssemblyMechanismsWorldObserver::logGroupEvent()
 
 		if(processedGroups.find(groupId) == processedGroups.end()){
 			processedGroups.insert(groupId);
-			GroupData groupData;
-			groupData.size = robotGroup->size();
-			groupData.id = groupId;
-			snapshot.groups.push_back(groupData);
+			snapshot.groupSizes.push_back(robotGroup->size());
 		}
 	}
 
-	snapshot.numberOfGroups = snapshot.groups.size();
+
+	snapshot.numberOfGroups = snapshot.groupSizes.size();
 	snapshot.timestamp = steps;
 
 	statisticsLogger->logGroupSnapshot(snapshot);
