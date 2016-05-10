@@ -334,6 +334,8 @@ void SelfAssemblyMechanismsWorldObserver::logGroupEvent()
 
 	snapshot.numberOfGroups = snapshot.groupSizes.size();
 	snapshot.timestamp = steps;
+	if(snapshot.numberOfGroups == 0)
+		return;
 
 	statisticsLogger->logGroupSnapshot(snapshot);
 
