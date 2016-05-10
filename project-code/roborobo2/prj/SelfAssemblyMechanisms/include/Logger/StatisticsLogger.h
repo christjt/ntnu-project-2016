@@ -17,7 +17,7 @@ struct GroupData
 struct GroupSnaphot{
     int numberOfGroups;
     int timestamp;
-    std::vector<GroupData> groups;
+    std::vector<int> groupSizes;
 };
 
 struct ScenarioData{
