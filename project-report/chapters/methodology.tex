@@ -3,15 +3,26 @@ Even though \emph{roborobo} contains some functionality for running robot simula
 This chapter will include a description of \emph{roborobo}, the modifications that were made to the existing software, the experiment in general and the motivation for its implementation.
 
 \section{Experiment motivation}
-The introduction lists several questions that this report should contribute to.
+The introduction lists several questions that this project is aiming to answer.
+When designing this experiment, care was taken to not trivialize the environment and the interaction between the robots.
+The thought behind the experiment is to see collective collective behaviour using an evolutionary algorithm.
+The system has been implemented in regards to having as little influence on the algorithm as possible to get correct and analysable results.
+For example, the evaluation function in section \ref{sec:evaluation} is quite simple and does not add any guiding parameters to promote self-assembly.
+
 One of the questions concerns how collective decision making influences the emergence of self-assembly.
 Swarm behaviour found in nature displays how simple agents collectively can make a decision.
 The goal of this experiment is therefore to design a similar environment to promote this form of collective behaviour.
 In this environment the robots have to form swarms for survival, and collectively decide if they should self-assemble or attempt an escape.
 
-The experiment also allows investigation into the other questions this report contributes to.
-By varying the parameters of the experiment it is possible to observe how different docking mechanisms and assembly protocols influence the self-assembly behaviour of the robots.
-Section \ref{sec:results} further describes how this experiment can answer these questions.
+By design, the robots are given a local communication module that can be used to send an array of floating point numbers to its neighbours in the self-assembly structure\ref{sec:local_comm}.
+The influence of this communication and the values that the communication packets take are completely governed by the neural network \ref{sec:ctrnn}.
+
+The system has also been made to be highly configurable such as many of the evolutionary algorithm parameters as well as general environmental setup. 
+By varying the parameters of the experiment it is possible to observe and analyse the problem statements which were discussed in chapter \ref{ch:introduction}.
+Depending on the configuration used when running the simulation, it should be possible to see how different assembly protocols and behaviours emerge, and how the self-assembly behaviour of the robots differ from similar trials and different configurations.
+Chapter \ref{ch:results_and_discussion} portrays the results and analysis of this experiment.
+
+
 \section{Experiment setup}
 \label{sec:description}
 For this experiment a micro-organism environment is imagined, where the organisms find themselves in some liquid pool. 
@@ -42,7 +53,7 @@ Additionally, to ensure fairness the predators cannot be placed within a thresho
 \end{figure}
 
 \section{Roborobo overview}
-The programming interface for roborobo is divided into three main components(\emph{World observer, Agent observers, Agent controllers}).
+The programming interface for roborobo is divided into three main components(\emph{World observer, Agent observers, Agent controllers})\cite{bredeche_roborobo!_2013}.
 Each robot in the simulation receives an instance of the \emph{agent controller}, and an instance of the \emph{agent observer}.
 The philosophy of the roborobo framework is that the programmer should implement the robot behaviour in the \emph{agent controller}, and use the \emph{agent observer} and \emph{world observer} to access state about agents and the world.
 This relationship is visualised in figure \ref{fig:component-relationship}.
@@ -89,6 +100,7 @@ The experiment described in this chapter does not fit within these bounds, the n
 
 \section{Roborobo modifications}
 \label{sec:modifications}
+
 
 \subsection{Robot Groups}
 As mentioned in the description, roborobo does not support self-assembly out of the box.
@@ -158,6 +170,7 @@ Here the angle between the ports have to fit within a threshold range.
 Finally the gender of the ports must be compatible, meaning one of them is female while the other is male, or at least one of the ports being universal.
 		
 \subsection{Local communication}
+\label{sec:local_comm}
 The robots are equipped with a communication module that allows local communication with their connected neighbours.
 The message format is very simple, the robots can broadcast "packets" of floating point numbers.
 The size of the packets is equal to the number of connection ports.
@@ -228,8 +241,9 @@ It is intended that the robots would have an environment which allowed strategie
 This reasoning is also the justification for giving the robots additional energy drain when assembled.
 
 \section{CTRNN}
+\label{sec:ctrnn}
 For this project, an artificial neural network that has gained a lot a popularity in regards to robotics known as Continuous-Time Recurrent Neural Network (CTRNN) was implemented. 
-The CTRNN was researched and developed by Randall Beer and adds two new properties to the standard artificial neural network. 
+The CTRNN was researched and developed by Randall Beer\cite{beer_dynamics_1997} and adds two new properties to the standard artificial neural network. 
 The properties that are introduced in CTRNN is a time constant and a gain.
 
 As most neural networks, the simple integration of the inputs from all neighbouring neurons are added giving us the first standard equation for neural networks:
@@ -325,9 +339,15 @@ This brings the number of input nodes for the sensors down to 10, instead of 24.
 With this configuration the robot can still detect nearby robots, but it can not differentiate between multiple types of objects at the same time.
 			
 \section{Evolutionary algorithm}
+The following section describes the implementation of the evolutionary algorithm for this project.
+In addition, in some of the sections, multiple implementations are mentioned.
+We see an occurrence of this in section \ref{mutation_operators} where both random and incremental mutation operators being explained.
+The reason multiple implementations were done is due to the initial implementation yielding poor results and hence there was made an attempt at improving the results.
 \subsection{Genotype}
 \label{sec:genotype}
-The genotype contains the configuration for the neural network used in the robot controller.
+The genotype contains the weights, gains and time constants for the neural network used in the robot controller.
+During run-time, the genotype size is fixed and depends on the size of the neural network.
+The size of the neural network is configurable (topology and size of each layer) in the simulation configuration file and hence the genotype can change size depending on the simulation run.
 The structure of the genotype is an array of double precision floating point numbers in the range $(-1, 1)$.
 Each number in the genotype represents a specific weight, gain, or time constant in the neural network.
 Before the genotype can be used to configure the neural network the values are mapped into the relevant range for each type of parameter, figure \ref{fig:genotype-mapping}.
@@ -359,20 +379,21 @@ Even though the experiment is designed to give the robots a slight benefit from 
 Due to these two reasons, it was decided to have a strictly random initialization.
 
 \subsection{Mutation operators}
+\label{mutation_operators}
 As seen in section \ref{sec:evo_alg}, the proper step after mating genotypes is applying a mutation to the resulting genome.
 This is done using a mutation operator.
-During implementation of the experiment, two different mutation operators where implemented, the random mutation operator and the incremental mutation operator.
+During implementation of the experiment, two different mutation operators were implemented, the random mutation operator and the incremental mutation operator.
 
-\subsubsection{Random}
 During the first iteration of implementation, a standard random mutation operator was implemented.
 As explained in \ref{sec:genotype}, the genotype is modelled using doubles, so a random mutation operator for this implementation simply re-rolls the selected double, $x$, to a new double where $x \in [-1.0, 1.0]$. 
 The number of weights to be mutated is configurable and is represented as some percentage, \emph{mutation rate}.
 
 \subsubsection{Incremental}
 During initial trials, it was observed that the impact of completely changing the value of a weight on the neural network could potentially drastically change the behaviour of the robots.
-This in turn, yields poorer results of the evolutionary algorithm because of constant destabilisation of the emergent behaviours.
+This in turn, yielded poorer results of the evolutionary algorithm because of constant destabilisation of the emergent behaviours.
 The results from the preliminary trials caused an incremental mutation operator to be implemented.
-It works in a similar manner as the random operator, where a weight is chosen for mutation at some percentage, but instead of completely re-rolling its value, it only differs from its original value by a certain threshold.
+The incremental mutation operator gave better results than the random mutation operator, so it was decided that the random mutation operator should be removed from the system. 
+The incremental mutation operator works in a similar manner as the random operator, where a weight is chosen for mutation at some percentage, but instead of completely re-rolling its value, it only differs from its original value by a certain threshold.
 This still causes a mutation to occur, but it will not be as drastic, yielding smoother results. 
 
 \begin{figure}[H]
@@ -399,10 +420,10 @@ In other words, it applies selection pressure.
 If the selection pressure is too high the algorithm may converge prematurely, and if it is too low the search may take more time than necessary.
 For the experiment two different selection mechanisms have been implemented.
 		
-\subsubsection{Proportional selection}
+The first selection scheme that was implemented in this project was \emph{proportional selection}.
 In this selection scheme individuals are selected for reproduction with a probability proportional to their fitness compared to the total fitness in the population.
 It is common to apply a scaling function on the fitness in the population to adjust selection pressure.
-A scaling function that is often used with proportional selection is \emph{Sigma scaling}\cite{goh_sexual_2003}:
+A scaling function that is often used with proportional selection is \emph{Sigma scaling}\cite{goh_sexual_2003}, which was also initially used in this experiment:
 		
 \begin{equation}
 		S(f, \overline{f}, \sigma, s) = s + \frac{f - \overline{f} }{2\sigma}
@@ -424,6 +445,8 @@ The parents are then selected by spinning the wheel until the desired number of 
 	\caption{A roulette wheel where the size of each sector represents the probability of picking a particular parent.}
 	\label{fig:roulette}
 \end{figure}
+
+The roulette wheel implementation gave less compelling results than expected, which caused tournament selection to be implemented which gave better results and caused the roulette wheel selection mechanism to be removed from the system.
 		
 \subsubsection{Tournament selection}
 In contrast to proportional selection the individuals do not compete with the entire population, but instead compete within groups selected at random.
@@ -452,6 +475,7 @@ At the end of each generation the $n$ fittest individuals are promoted to \emph{
 This allows multiple generations build upon the partial solutions in the elites, and ensures that the fittest genomes are preserved between generations.
 
 \subsection{Evaluation}
+\label{sec:evaluation}
 The evaluation function was kept fairly simple as to restrain from guiding the robots.
 Primarily, the evaluation function was simply calculating how many robots survived the trial.
 
