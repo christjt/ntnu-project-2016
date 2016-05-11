@@ -10,6 +10,7 @@ def analyze():
     generations = {}
     statistics_logs = os.listdir(results_folder)
     for log in statistics_logs:
+        print "Processing %s" % log
         analyze_log(load_log(os.path.join(results_folder, log)), generations)
 
     return generations

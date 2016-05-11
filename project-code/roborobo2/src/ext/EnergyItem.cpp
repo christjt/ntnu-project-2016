@@ -58,6 +58,9 @@ void EnergyItem::isWalked( int __idAgent )
     if(robot->getIsPredator())
         return;
 
+    if(_visible == false)
+        return;
+
     double energyRequestedValueByRobot;
     double energyProvided;
     switch ( energyMode )
@@ -101,8 +104,9 @@ void EnergyItem::giveEnergy(int agentId, double amount)
     auto robot = gWorld->getRobot(agentId);
     auto wm = (GroupRobotWorldModel*)robot->getWorldModel();
     StatisticsLogger* logger = StatisticsLogger::getInstance();
-    if(wm->getGroup()->size() > 1)
+    if(wm->getGroup()->size() > 1){
         logger->logGroupConsumedEnergy();
+    }
     else
         logger->logRobotConsumedEnergy();
 

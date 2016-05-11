@@ -44,6 +44,7 @@ struct GenomeData{
 struct GenerationData{
     int generation;
     std::vector<GenomeData> genomes;
+    std::vector<double> best;
 };
 
 
@@ -67,6 +68,7 @@ public:
     void endGenome();
     void endGeneration();
 
+    void logBestGenome(EA::DoubleVectorGenotype& genome);
     void logScenarioSeed(int seed);
     void logFitness(double fitness);
     void logRobotStarvedToDeath();
