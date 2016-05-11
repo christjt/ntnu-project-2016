@@ -243,6 +243,14 @@ std::vector<EA::DoubleVectorGenotype> SelfAssemblyMechanismsWorldObserver::gathe
 	if(rank == 0)
 	{
 		genomes =  unpack(recvBuff, generationSize);
+
+		auto& best = genomes[0];
+		for(auto i = 0u; i < genomes.size(); i++){
+			if(genomes[i].getFitness() > best.getFitness())
+				best = genomes[i];
+		}
+		statisticsLogger->logBestGenome(best);
+
 		free(recvBuff);
 	}
 	free(sendBuff);
@@ -289,9 +297,11 @@ void SelfAssemblyMechanismsWorldObserver::step()
 
 		if(currentGenome == currentGeneration.end())
 		{
-			statisticsLogger->endGeneration();
 			cGenerations++;
 			currentGeneration = gatherGenomes();
+
+			statisticsLogger->endGeneration();
+
 			saveGeneration();
 			evaluateCompletionCriteria();
 			nextGeneration();

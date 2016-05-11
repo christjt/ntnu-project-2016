@@ -28,6 +28,10 @@ void StatisticsLogger::beginGeneration(int generation)
     currentGeneration.generation = generation;
 }
 
+void StatisticsLogger::logBestGenome(EA::DoubleVectorGenotype& genome)
+{
+    currentGeneration.best = genome.getVector();
+}
 void StatisticsLogger::logScenarioSeed(int seed)
 {
     currentScenario.seed = seed;
@@ -101,6 +105,7 @@ json StatisticsLogger::serializeToJson()
 
 json serializeGeneration(const GenerationData& generationData)
 {
+
     std::vector<json> genomes;
     for(auto& genomeData: generationData.genomes){
         genomes.push_back(serializeGenome(genomeData));
@@ -108,7 +113,8 @@ json serializeGeneration(const GenerationData& generationData)
 
     json generation = {
             {"generation", generationData.generation},
-            {"genomes", genomes}
+            {"genomes", genomes},
+            {"best", generationData.best}
     };
     return generation;
 }
@@ -121,7 +127,7 @@ json serializeGenome(const GenomeData& genomeData)
     }
 
     json genome = {
-         //   {"weights", genomeData.weights},
+            //{"weights", genomeData.weights},
             {"scenarios", scenarios}
     };
 
