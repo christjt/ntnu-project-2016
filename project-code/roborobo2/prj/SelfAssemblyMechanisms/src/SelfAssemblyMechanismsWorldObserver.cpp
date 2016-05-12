@@ -307,6 +307,7 @@ void SelfAssemblyMechanismsWorldObserver::step()
 			saveGeneration();
 			evaluateCompletionCriteria();
 			nextGeneration();
+			statisticsLogger->beginGenome(&(*currentGenome));
 			currentScenario = scenarios.begin();
 			statisticsLogger->beginGeneration(cGenerations);
 
@@ -368,6 +369,7 @@ void SelfAssemblyMechanismsWorldObserver::nextGeneration()
 		nextGeneration = algorithm.nextGeneration(currentGeneration, SelfAssemblyMechanismsSharedData::gCrossover, SelfAssemblyMechanismsSharedData::gMutation, generator);
 	currentGeneration = distributeGenomes(nextGeneration);
 	currentGenome = currentGeneration.begin();
+
 
 }
 void SelfAssemblyMechanismsWorldObserver::evaluateCompletionCriteria()
