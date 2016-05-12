@@ -281,8 +281,9 @@ void SelfAssemblyMechanismsWorldObserver::step()
 
 	if(steps == stepsPerGeneration)
 	{
-		currentGenome->setFitness(currentGenome->getFitness() + evaluate()/scenarios.size());
-		statisticsLogger->logFitness(currentGenome->getFitness());
+		double scenarioFitness = evaluate();
+		currentGenome->setFitness(currentGenome->getFitness() + scenarioFitness/scenarios.size());
+		statisticsLogger->logFitness(scenarioFitness);
 		steps = 0;
 
 		statisticsLogger->endScenario();
