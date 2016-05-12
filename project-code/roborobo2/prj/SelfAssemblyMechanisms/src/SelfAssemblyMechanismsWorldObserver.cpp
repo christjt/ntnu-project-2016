@@ -181,7 +181,6 @@ int SelfAssemblyMechanismsWorldObserver::getRequiredNumberOfWeights()
 std::vector<EA::DoubleVectorGenotype> SelfAssemblyMechanismsWorldObserver::distributeGenomes(std::vector<EA::DoubleVectorGenotype> genomes)
 {
 
-
 	GenomeDTO* sendBuff = nullptr;
 	GenomeDTO* recvBuff = (GenomeDTO *) malloc((sizeof(GenomeDTO) + sizeof(double) * numberOfWeights) * generationSize/world_size);
 	if(rank == 0)
@@ -244,16 +243,18 @@ std::vector<EA::DoubleVectorGenotype> SelfAssemblyMechanismsWorldObserver::gathe
 	{
 		genomes =  unpack(recvBuff, generationSize);
 
-		auto& best = genomes[0];
+		auto best = genomes[0];
 		for(auto i = 0u; i < genomes.size(); i++){
 			if(genomes[i].getFitness() > best.getFitness())
 				best = genomes[i];
 		}
+
 		statisticsLogger->logBestGenome(best);
 
 		free(recvBuff);
 	}
 	free(sendBuff);
+
 	return genomes;
 }
 
