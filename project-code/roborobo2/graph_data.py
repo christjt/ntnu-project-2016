@@ -19,7 +19,7 @@ def getDataTouples(graph_param):
 
 	return dataTouples
 
-def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, dataPointsLeast, dataPointsAverage):
+def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, dataPointsLeast, dataPointsAverage, dataPointsSD):
 
 	xTicks = generateTicks(int(xMin), int(xMax))
 	yTicks = generateTicks(int(yMin), int(yMax))
@@ -35,7 +35,7 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tymin=%s, ymax=%s,\n' % (yMin, yMax)
 	plotString += '\txtick={%s},\n' % xTicks
 	plotString += '\tytick={%s},\n' % yTicks
-	plotString += '\tlegend pos=%s,\n' % 'north west'
+	plotString += '\tlegend pos=%s,\n' % 'outer north east'
 	plotString += '\tymajorgrids=%s,\n' % 'true'
 	plotString += '\tgrid style=%s,\n' % 'dashed'
 	
@@ -47,7 +47,7 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tcoordinates {\n'
 	plotString += '\t%s\n' % dataPointsMost
 	plotString += '\t};\n'
-	plotString += '\t\\legend{%s}\n' % 'Best case: ' + data_property 
+	plotString += '\t\\addlegend{%s}\n' % 'Best case'
 
 	plotString += '\\addplot[\n'
 	plotString += '\tcolor=%s,\n' % 'blue'
@@ -55,15 +55,23 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tcoordinates {\n'
 	plotString += '\t%s\n' % dataPointsAverage
 	plotString += '\t};\n'
-	plotString += '\t\\legend{%s}\n' % 'Average case: ' + data_property 
+	plotString += '\t\\addlegend{%s}\n' % 'Average case'
 
-p	lotString += '\\addplot[\n'
+	plotString += '\\addplot[\n'
 	plotString += '\tcolor=%s,\n' % 'red'
 	plotString += '\t]\n'
 	plotString += '\tcoordinates {\n'
-	plotString += '\t%s\n' % dataPoints
+	plotString += '\t%s\n' % dataPointsLeast
 	plotString += '\t};\n'
-	plotString += '\t\\legend{%s}\n' % 'Worst case: ' + data_property 
+	plotString += '\t\\addlegend{%s}\n' % 'Worst case' 
+
+	plotString += '\\addplot[\n'
+	plotString += '\tcolor=%s,\n' % 'blue!50'
+	plotString += '\t]\n'
+	plotString += '\tcoordinates {\n'
+	plotString += '\t%s\n' % dataPointsSD
+	plotString += '\t};\n'
+	plotString += '\t\\addlegend{%s}\n' % 'Standard Deviation' 
 
 	plotString += '\\end{axis}\n'
 	plotString += '\\end{tikzpicture}\n'
@@ -94,8 +102,9 @@ def main():
 	dataPointsMost = convertTupleArrayToString(getDataTouples('most_' + data_property))
 	dataPointsLeast = convertTupleArrayToString(getDataTouples('least_' + data_property))
 	dataPointsAverage = convertTupleArrayToString(getDataTouples('average_' + data_property))
+	dataPointsSD = convertTupleArrayToString(getDataTouples('average_' + data_property))
 
-	plotString = generatePlot(fig_title, x_label, y_label, xBounds[0], xBounds[1], yBounds[0], yBounds[1], dataPointsMost, dataPointsLeast, dataPointsAverage, data_property)
+	plotString = generatePlot(fig_title, x_label, y_label, xBounds[0], xBounds[1], yBounds[0], yBounds[1], dataPointsMost, dataPointsLeast, dataPointsAverage, dataPointsSD)
 
 	writeToFile(plotString)
 
