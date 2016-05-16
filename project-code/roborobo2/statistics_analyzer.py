@@ -33,24 +33,20 @@ def analyze_log(statistics, generations, n_trials):
         compute_property_statistics("robotsEaten", "robots_eaten", generation_stats, generation, n_trials)
         compute_property_statistics("robotsStarvedToDeath", "robots_starved", generation_stats, generation, n_trials)
 
+        for individual in generation["genomes"]:
+            for scenario in individual["scenarios"]:
+                avg_number_of_groups = sum(snapshot["numberOfGroups"] for snapshot in scenario["groupSnapshots"])/200.0
+                scenario["numberOfGroups"] = avg_number_of_groups
 
-        '''
-        number_of_groups = [0.0]*200
-        group_sizes = [0.0]*200
+        for individual in generation["genomes"]:
+            for scenario in individual["scenarios"]:
+                avg_number_of_groups = sum(snapshot["numberOfGroups"] for snapshot in scenario["groupSnapshots"])/200.0
+                scenario["numberOfGroups"] = avg_number_of_groups
+                sizes = [sum(snapshot["sizes"])/len(snapshot["sizes"]) for snapshot in scenario["groupSnapshots"]]
+                scenario["sizes"] = sum(sizes)/len(sizes) if avg_number_of_groups > 0.0 else 0.0
 
-        for scenario in best_scenarios:
-            for snapshot in scenario["groupSnapshots"]:
-                timestamp = snapshot["timestamp"]
-                timestamp_index = timestamp/50 - 1
-                number_of_groups[timestamp_index] += float(snapshot["numberOfGroups"])/n_scenarios
-                sizes = snapshot["sizes"]
-                group_sizes[timestamp_index] += float(sum(sizes)/len(sizes))/n_scenarios
-
-        for i in range(len(generation_stats.number_of_groups)):
-            generation_stats.number_of_groups[i] += number_of_groups[i]/n_trials
-            generation_stats.group_size[i] += group_sizes[i]/n_trials
-
-        '''
+        compute_property_statistics("numberOfGroups", "number_of_groups", generation_stats, generation, n_trials)
+        compute_property_statistics("sizes", "group_size", generation_stats, generation, n_trials)
 
 
 def compute_property_statistics(prop_name, target_prop, statistics, generation, n_trials):
@@ -164,15 +160,15 @@ class Generation:
         self.least_robots_starved = 0.0
         self.std_dev_robots_starved = 0.0
 
-        self.average_number_of_groups = [0.0]*200
-        self.most_number_of_groups = [0.0]*200
-        self.least_number_of_groups = [0.0]*200
-        self.std_dev_number_of_groups = [0.0]*200
+        self.average_number_of_groups = 0.0
+        self.most_number_of_groups = 0.0
+        self.least_number_of_groups = 0.0
+        self.std_dev_number_of_groups = 0.0
 
-        self.average_group_size = [0.0]*200
-        self.most_group_size = [0.0]*200
-        self.least_group_size = [0.0]*200
-        self.std_dev_group_size = [0.0]*200
+        self.average_group_size = 0.0
+        self.most_group_size = 0.0
+        self.least_group_size = 0.0
+        self.std_dev_group_size = 0.0
 
 
 generation_results = analyze()
