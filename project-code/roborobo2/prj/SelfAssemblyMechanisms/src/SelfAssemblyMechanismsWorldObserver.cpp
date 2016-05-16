@@ -181,7 +181,6 @@ int SelfAssemblyMechanismsWorldObserver::getRequiredNumberOfWeights()
 std::vector<EA::DoubleVectorGenotype> SelfAssemblyMechanismsWorldObserver::distributeGenomes(std::vector<EA::DoubleVectorGenotype> genomes)
 {
 
-
 	GenomeDTO* sendBuff = nullptr;
 	GenomeDTO* recvBuff = (GenomeDTO *) malloc((sizeof(GenomeDTO) + sizeof(double) * numberOfWeights) * generationSize/world_size);
 	if(rank == 0)
@@ -244,16 +243,18 @@ std::vector<EA::DoubleVectorGenotype> SelfAssemblyMechanismsWorldObserver::gathe
 	{
 		genomes =  unpack(recvBuff, generationSize);
 
-		auto& best = genomes[0];
+		auto best = genomes[0];
 		for(auto i = 0u; i < genomes.size(); i++){
 			if(genomes[i].getFitness() > best.getFitness())
 				best = genomes[i];
 		}
+
 		statisticsLogger->logBestGenome(best);
 
 		free(recvBuff);
 	}
 	free(sendBuff);
+
 	return genomes;
 }
 
@@ -280,8 +281,9 @@ void SelfAssemblyMechanismsWorldObserver::step()
 
 	if(steps == stepsPerGeneration)
 	{
-		currentGenome->setFitness(currentGenome->getFitness() + evaluate()/scenarios.size());
-		statisticsLogger->logFitness(currentGenome->getFitness());
+		double scenarioFitness = evaluate();
+		currentGenome->setFitness(currentGenome->getFitness() + scenarioFitness/scenarios.size());
+		statisticsLogger->logFitness(scenarioFitness);
 		steps = 0;
 
 		statisticsLogger->endScenario();
@@ -305,6 +307,7 @@ void SelfAssemblyMechanismsWorldObserver::step()
 			saveGeneration();
 			evaluateCompletionCriteria();
 			nextGeneration();
+			statisticsLogger->beginGenome(&(*currentGenome));
 			currentScenario = scenarios.begin();
 			statisticsLogger->beginGeneration(cGenerations);
 
@@ -366,6 +369,7 @@ void SelfAssemblyMechanismsWorldObserver::nextGeneration()
 		nextGeneration = algorithm.nextGeneration(currentGeneration, SelfAssemblyMechanismsSharedData::gCrossover, SelfAssemblyMechanismsSharedData::gMutation, generator);
 	currentGeneration = distributeGenomes(nextGeneration);
 	currentGenome = currentGeneration.begin();
+
 
 }
 void SelfAssemblyMechanismsWorldObserver::evaluateCompletionCriteria()
