@@ -19,9 +19,7 @@ def getDataTouples(graph_param):
 
 	return dataTouples
 
-def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPoints, legend):
-	
-	dataPoints = convertTupleArrayToString(dataPoints)
+def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, dataPointsLeast, dataPointsAverage):
 
 	xTicks = generateTicks(int(xMin), int(xMax))
 	yTicks = generateTicks(int(yMin), int(yMax))
@@ -44,12 +42,28 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPoints, lege
 	plotString += ']\n\n'
 
 	plotString += '\\addplot[\n'
+	plotString += '\tcolor=%s,\n' % 'green'
+	plotString += '\t]\n'
+	plotString += '\tcoordinates {\n'
+	plotString += '\t%s\n' % dataPointsMost
+	plotString += '\t};\n'
+	plotString += '\t\\legend{%s}\n' % 'Best case: ' + data_property 
+
+	plotString += '\\addplot[\n'
 	plotString += '\tcolor=%s,\n' % 'blue'
+	plotString += '\t]\n'
+	plotString += '\tcoordinates {\n'
+	plotString += '\t%s\n' % dataPointsAverage
+	plotString += '\t};\n'
+	plotString += '\t\\legend{%s}\n' % 'Average case: ' + data_property 
+
+p	lotString += '\\addplot[\n'
+	plotString += '\tcolor=%s,\n' % 'red'
 	plotString += '\t]\n'
 	plotString += '\tcoordinates {\n'
 	plotString += '\t%s\n' % dataPoints
 	plotString += '\t};\n'
-	plotString += '\t\\legend{%s}\n' % legend
+	plotString += '\t\\legend{%s}\n' % 'Worst case: ' + data_property 
 
 	plotString += '\\end{axis}\n'
 	plotString += '\\end{tikzpicture}\n'
@@ -76,11 +90,12 @@ def main():
 	y_label = raw_input('Label for y-axis: ')
 	xBounds = raw_input('Boundaries for x-axis(ex. 0,150): ').split(',')
 	yBounds = raw_input('Boundaries for y-axis(ex. 0,150): ').split(',')
-	legendText = raw_input('Text for legend: ')
 
-	dataPoints = getDataTouples(data_property)
+	dataPointsMost = convertTupleArrayToString(getDataTouples('most_' + data_property))
+	dataPointsLeast = convertTupleArrayToString(getDataTouples('least_' + data_property))
+	dataPointsAverage = convertTupleArrayToString(getDataTouples('average_' + data_property))
 
-	plotString = generatePlot(fig_title, x_label, y_label, xBounds[0], xBounds[1], yBounds[0], yBounds[1], dataPoints, legendText)
+	plotString = generatePlot(fig_title, x_label, y_label, xBounds[0], xBounds[1], yBounds[0], yBounds[1], dataPointsMost, dataPointsLeast, dataPointsAverage, data_property)
 
 	writeToFile(plotString)
 
