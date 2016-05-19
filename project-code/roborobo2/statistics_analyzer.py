@@ -71,7 +71,7 @@ def compute_property_statistics(prop_name, target_prop, statistics, generation, 
 
 
 def generation_average(averages, n_genomes):
-    return sum(averages)/n_genomes
+    return sum(averages)/float(n_genomes)
 
 
 def property_averages(prop, generation, n_scenarios):
@@ -83,7 +83,7 @@ def standard_deviation(mean, values, n):
 
 
 def average(prop, scenarios, length):
-    return sum([scenario[prop] for scenario in scenarios])/length
+    return sum([scenario[prop] for scenario in scenarios])/float(length)
 
 
 def load_log(log_name):
