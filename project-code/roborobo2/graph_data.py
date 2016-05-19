@@ -15,7 +15,7 @@ def getDataTouples(graph_param):
 	dataTouples = []
 
 	for i in range(0, len(results)):
-		dataTouples.append((i, results[str(i)][graph_param][0]))
+		dataTouples.append((i, results[str(i)][graph_param]))
 
 	return dataTouples
 
@@ -47,7 +47,7 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tcoordinates {\n'
 	plotString += '\t%s\n' % dataPointsMost
 	plotString += '\t};\n'
-	plotString += '\t\\addlegend{%s}\n' % 'Best case'
+	plotString += '\t\\addlegendentry{%s}\n' % 'Best case'
 
 	plotString += '\\addplot[\n'
 	plotString += '\tcolor=%s,\n' % 'blue'
@@ -55,7 +55,7 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tcoordinates {\n'
 	plotString += '\t%s\n' % dataPointsAverage
 	plotString += '\t};\n'
-	plotString += '\t\\addlegend{%s}\n' % 'Average case'
+	plotString += '\t\\addlegendentry{%s}\n' % 'Average case'
 
 	plotString += '\\addplot[\n'
 	plotString += '\tcolor=%s,\n' % 'red'
@@ -63,7 +63,7 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tcoordinates {\n'
 	plotString += '\t%s\n' % dataPointsLeast
 	plotString += '\t};\n'
-	plotString += '\t\\addlegend{%s}\n' % 'Worst case' 
+	plotString += '\t\\addlegendentry{%s}\n' % 'Worst case' 
 
 	plotString += '\\addplot[\n'
 	plotString += '\tcolor=%s,\n' % 'blue!50'
@@ -71,7 +71,7 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tcoordinates {\n'
 	plotString += '\t%s\n' % dataPointsSD
 	plotString += '\t};\n'
-	plotString += '\t\\addlegend{%s}\n' % 'Standard Deviation' 
+	plotString += '\t\\addlegendentry{%s}\n' % 'Standard Deviation' 
 
 	plotString += '\\end{axis}\n'
 	plotString += '\\end{tikzpicture}\n'
@@ -81,7 +81,7 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	return plotString
 
 def generateTicks(var_min, var_max):
-	delta = (var_max - var_min) / 5
+	delta = float(var_max - var_min) / 5
 	ticks = []
 	for i in range(0, 6):
 		ticks.append(i*delta)
