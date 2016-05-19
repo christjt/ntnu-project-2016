@@ -5,16 +5,16 @@ import math
 
 results_folder = sys.argv[1]
 out = sys.argv[2]
+n = int(sys.argv[3])
 
 
 def analyze():
     generations = {}
-    statistics_logs = os.listdir(results_folder)
+    statistics_logs = [log for log in os.listdir(results_folder) if log.endswith('.json')][:n]
     statistics_logs.sort()
     for log in statistics_logs:
-        if log.endswith('.json'):
-            print "Processing %s" % log
-            analyze_log(load_log(os.path.join(results_folder, log)), generations, len(statistics_logs))
+        print "Processing %s" % log
+        analyze_log(load_log(os.path.join(results_folder, log)), generations, len(statistics_logs))
 
     return generations
 
