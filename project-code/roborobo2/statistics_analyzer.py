@@ -10,9 +10,11 @@ out = sys.argv[2]
 def analyze():
     generations = {}
     statistics_logs = os.listdir(results_folder)
+    statistics_logs.sort()
     for log in statistics_logs:
-        print "Processing %s" % log
-        analyze_log(load_log(os.path.join(results_folder, log)), generations, len(statistics_logs))
+        if log.endswith('.json'):
+            print "Processing %s" % log
+            analyze_log(load_log(os.path.join(results_folder, log)), generations, len(statistics_logs))
 
     return generations
 
@@ -32,11 +34,6 @@ def analyze_log(statistics, generations, n_trials):
         compute_property_statistics("predatorsEaten", "predators_eaten", generation_stats, generation, n_trials)
         compute_property_statistics("robotsEaten", "robots_eaten", generation_stats, generation, n_trials)
         compute_property_statistics("robotsStarvedToDeath", "robots_starved", generation_stats, generation, n_trials)
-
-        for individual in generation["genomes"]:
-            for scenario in individual["scenarios"]:
-                avg_number_of_groups = sum(snapshot["numberOfGroups"] for snapshot in scenario["groupSnapshots"])/200.0
-                scenario["numberOfGroups"] = avg_number_of_groups
 
         for individual in generation["genomes"]:
             for scenario in individual["scenarios"]:
