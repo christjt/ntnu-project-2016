@@ -3,7 +3,6 @@ import sys
 from pprint import pprint
 
 analyzed_results = sys.argv[1]
-graphs_out_file = sys.argv[2]
 
 def read_results():
 	with open(analyzed_results, 'r') as data_file:
@@ -92,26 +91,49 @@ def convertTupleArrayToString(array):
 
 
 def main():
-	data_property = raw_input('Name of json property to graph(ex. robots_eaten): ')
-	fig_title = raw_input('Title of figure: ')
-	x_label = raw_input('Label for x-axis: ')
-	y_label = raw_input('Label for y-axis: ')
-	xBounds = raw_input('Boundaries for x-axis(ex. 0,150): ').split(',')
-	yBounds = raw_input('Boundaries for y-axis(ex. 0,150): ').split(',')
+	data_properties = [
+				'robots_eaten', 'energy_consumed_by_robot', 'group_size', 
+				'energy_consumed_by_group', 'fitness', 'number_of_groups',
+				'predators_eaten', 'robots_starved'
+				]
+				
+	titles = [
+			'Number of Robots Eaten per Generation',
+			'Energy Consumed by Robot per Generation',
+			'Size of Robot Groups per Generation',
+			'Energy Consumed by Group Robots',
+			'Fitness per Generation',
+			'Number of Robot Groups per Generation',
+			'Number of Predators Eaten',
+			'Number of Robots Starved'
+			]
 
-	dataPointsMost = convertTupleArrayToString(getDataTouples('most_' + data_property))
-	dataPointsLeast = convertTupleArrayToString(getDataTouples('least_' + data_property))
-	dataPointsAverage = convertTupleArrayToString(getDataTouples('average_' + data_property))
-	dataPointsSD = convertTupleArrayToString(getDataTouples('average_' + data_property))
+	yBoundsList = ['0,25', '0,60', '0,3', '0,40', '0,1', '0,8', '0,8', '0,15']
 
-	plotString = generatePlot(fig_title, x_label, y_label, xBounds[0], xBounds[1], yBounds[0], yBounds[1], dataPointsMost, dataPointsLeast, dataPointsAverage, dataPointsSD)
+	for i in range(0, 8):
+	
+		data_property = data_properties[i]
+		fig_title = titles[i]
+		x_label = 'Generation'
+		y_label = titles[i].replace(' per Generation', '')
+		xBounds = '0,150'.split(',')
+		yBounds = yBoundsList[i].split(',')
 
-	writeToFile(plotString)
+		dataPointsMost = convertTupleArrayToString(getDataTouples('most_' + data_property))
+		dataPointsLeast = convertTupleArrayToString(getDataTouples('least_' + data_property))
+		dataPointsAverage = convertTupleArrayToString(getDataTouples('average_' + data_property))
+		dataPointsSD = convertTupleArrayToString(getDataTouples('std_dev_' + data_property))
+
+		plotString = generatePlot(fig_title, x_label, y_label, xBounds[0], xBounds[1], yBounds[0], yBounds[1], dataPointsMost, dataPointsLeast, dataPointsAverage, dataPointsSD)
+
+		filename = data_properties[i] + '-' + analyzed_results.replace('.json', '').replace('.', '-') + '.tex'
+
+		writeToFile(plotString, filename)
 
 
-def writeToFile(string):
-	fig_file = open(graphs_out_file, 'w')
-	fig_file.write(string)
+def writeToFile(plotString, nameOfFile):
+	fig_file = open(nameOfFile, 'w')
+	fig_file.write(plotString)
 	fig_file.close()
 
 main();	
