@@ -108,7 +108,7 @@ def main():
 			'Number of Robots Starved'
 			]
 
-	yBoundsList = ['0,25', '0,60', '0,3', '0,40', '0,1', '0,8', '0,8', '0,15']
+	yBoundsList = ['0,25', '0,60', '0,3', '0,140', '0,1', '0,8', '0,8', '0,15']
 
 	for i in range(0, 8):
 	
