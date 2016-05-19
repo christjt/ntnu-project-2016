@@ -5,11 +5,12 @@ import math
 
 results_folder = sys.argv[1]
 out = sys.argv[2]
+n = int(sys.argv[3])
 
 
 def analyze():
     generations = {}
-    statistics_logs = os.listdir(results_folder)
+    statistics_logs = os.listdir(results_folder)[:n]
     statistics_logs.sort()
     for log in statistics_logs:
         if log.endswith('.json'):
