@@ -1,170 +1,300 @@
-\section{Experiment Results}
+This chapter shows the results of the simulations done with the framework shown in ch. \ref{ch:methodology} as well as discussing the results.
+The chapter is mainly divided into two sections, the first explaining the configuration of the simulation as well as results depicted by graph-data.
+The second section focuses on discussing the results in terms of the reason they have certain values and graphs, as well as a comparison between the different simulations and discovery of correlations and behavioural similarities.
+
+\section{Experimental Results}
+As stated in the chapter introduction, this section covers the results of the simulations. 
+Even though the simulator supports a wide variety of different configurations, three main simulation groups chosen for this particular study.
+The first group considers different connection port configurations for the robots.
+The second simulation group varies the environment that the robots spend their life time in.
+The third and final simulation group aims to observe the affect of local communication between the robots in a self-assembly structure(the implementation is shown in sec. \ref{sec:local_comm}).
+The two first simulation groups targets to contribute to the three main self-assembly mechanisms discussed in ch. \ref{ch:background}(Self-assembly Architectures, Hardware Mechanisms and Assembly Protocols).
+The local communication simulation group aims to study the affect giving the robots the ability to perform simple communication between the robots in a group.
+
 \subsection{Port Configuration}
+The first group of simulations that were done was varying the number of connection ports of the robots and their configuration.
+These simulations where done such that one could record and discuss the impact of connections between the robots.
+In more detail, this group of experiments where conducted such that one could record:
+
+\begin{itemize}
+	\item How the number of ports affected the general performance of the system based on the number of ports.
+	\item If there is any noticeable difference in the self-assembly architecture.
+	\item In what way the port configuration promotes self-assembly, both in therms of the sizes of the different robot groups, and the number of groups.
+	\item How the port configuration affect the fitness of the experiment, in terms of convergence and final result.
+\end{itemize}
+
+The goal of running these simulations is to make correlations between its results to show how configuring the hardware mechanism can affect a self-assembly system
+ 
 \subsubsection{2-ports}
-\begin{figure}[H]
-	\input{chapters/generated-graphs/2-ports/predators_eaten-out-2-ports.tex}
-\end{figure}
+\newpage
 
 \begin{figure}[H]
-	\input{chapters/generated-graphs/2-ports/robots_eaten-out-2-ports.tex}
+\vspace*{-2cm}
+	\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/2-ports/predators_eaten-out-2-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/2-ports/robots_eaten-out-2-ports.tex}}
+	\end{subfigure}%
+}
+\\
+\\
+	\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/2-ports/robots_starved-out-2-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/2-ports/fitness-out-2-ports.tex}}
+	\end{subfigure}%
+}\\
+\\
+\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/2-ports/group_size-out-2-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/2-ports/number_of_groups-out-2-ports.tex}}
+	\end{subfigure}%
+}\\
+\\
+\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/2-ports/energy_consumed_by_robot-out-2-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/2-ports/energy_consumed_by_group-out-2-ports.tex}}
+	\end{subfigure}%
+}
 \end{figure}
 
-\begin{figure}[H]
-	\input{chapters/generated-graphs/2-ports/robots_starved-out-2-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/2-ports/fitness-out-2-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/2-ports/group_size-out-2-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/2-ports/number_of_groups-out-2-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/2-ports/energy_consumed_by_robot-out-2-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/2-ports/energy_consumed_by_group-out-2-ports.tex}
-\end{figure}
+\newpage
 
 \subsubsection{3-ports}
-\begin{figure}[H]
-	\input{chapters/generated-graphs/3-ports/predators_eaten-out-3-ports.tex}
-\end{figure}
+
+\newpage
 
 \begin{figure}[H]
-	\input{chapters/generated-graphs/3-ports/robots_eaten-out-3-ports.tex}
+\vspace*{-2cm}
+	\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/3-ports/predators_eaten-out-3-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/3-ports/robots_eaten-out-3-ports.tex}}
+	\end{subfigure}%
+}
+\\
+\\
+	\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/3-ports/robots_starved-out-3-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/3-ports/fitness-out-3-ports.tex}}
+	\end{subfigure}%
+}\\
+\\
+\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/3-ports/group_size-out-3-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/3-ports/number_of_groups-out-3-ports.tex}}
+	\end{subfigure}%
+}\\
+\\
+\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/3-ports/energy_consumed_by_robot-out-3-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/3-ports/energy_consumed_by_group-out-3-ports.tex}}
+	\end{subfigure}%
+}
 \end{figure}
 
-\begin{figure}[H]
-	\input{chapters/generated-graphs/3-ports/robots_starved-out-3-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/3-ports/fitness-out-3-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/3-ports/group_size-out-3-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/3-ports/number_of_groups-out-3-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/3-ports/energy_consumed_by_robot-out-3-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/3-ports/energy_consumed_by_group-out-3-ports.tex}
-\end{figure}
+\newpage
 
 \subsubsection{4-ports}
-\begin{figure}[H]
-	\input{chapters/generated-graphs/4-ports/predators_eaten-out-4-ports.tex}
-\end{figure}
+
+\newpage
 
 \begin{figure}[H]
-	\input{chapters/generated-graphs/4-ports/robots_eaten-out-4-ports.tex}
+\vspace*{-2cm}
+	\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/4-ports/predators_eaten-out-4-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/4-ports/robots_eaten-out-4-ports.tex}}
+	\end{subfigure}%
+}
+\\
+\\
+	\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/4-ports/robots_starved-out-4-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/4-ports/fitness-out-4-ports.tex}}
+	\end{subfigure}%
+}\\
+\\
+\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/4-ports/group_size-out-4-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/4-ports/number_of_groups-out-4-ports.tex}}
+	\end{subfigure}%
+}\\
+\\
+\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/4-ports/energy_consumed_by_robot-out-4-ports.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/4-ports/energy_consumed_by_group-out-4-ports.tex}}
+	\end{subfigure}%
+}
 \end{figure}
 
-\begin{figure}[H]
-	\input{chapters/generated-graphs/4-ports/robots_starved-out-4-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/4-ports/fitness-out-4-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/4-ports/number_of_groups-out-4-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/4-ports/group_size-out-4-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/4-ports/energy_consumed_by_robot-out-4-ports.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/4-ports/energy_consumed_by_group-out-4-ports.tex}
-\end{figure}
+\newpage
 
 \subsection{Environment Difficulty}
 \subsubsection{Easy Environment}
-\begin{figure}[H]
-	\input{chapters/generated-graphs/easy/predators_eaten-out-easy.tex}
-\end{figure}
+
+\newpage
 
 \begin{figure}[H]
-	\input{chapters/generated-graphs/easy/robots_eaten-out-easy.tex}
+\vspace*{-2cm}
+	\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/easy/predators_eaten-out-easy.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/easy/robots_eaten-out-easy.tex}}
+	\end{subfigure}%
+}
+\\
+\\
+	\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/easy/robots_starved-out-easy.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/easy/fitness-out-easy.tex}}
+	\end{subfigure}%
+}\\
+\\
+\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/easy/group_size-out-easy.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/easy/number_of_groups-out-easy.tex}}
+	\end{subfigure}%
+}\\
+\\
+\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/easy/energy_consumed_by_robot-out-easy.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/easy/energy_consumed_by_group-out-easy.tex}}
+	\end{subfigure}%
+}
 \end{figure}
 
-\begin{figure}[H]
-	\input{chapters/generated-graphs/easy/robots_starved-out-easy.tex}
-\end{figure}
+\newpage
 
-\begin{figure}[H]
-	\input{chapters/generated-graphs/easy/fitness-out-easy.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/easy/number_of_groups-out-easy.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/easy/group_size-out-easy.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/easy/energy_consumed_by_robot-out-easy.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/easy/energy_consumed_by_group-out-easy.tex}
-\end{figure}
 
 \subsubsection{Difficult Environment}
-\begin{figure}[H]
-	\input{chapters/generated-graphs/hard/predators_eaten-out-hard.tex}
-\end{figure}
+
+\newpage
 
 \begin{figure}[H]
-	\input{chapters/generated-graphs/hard/robots_eaten-out-hard.tex}
+\vspace*{-2cm}
+	\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/hard/predators_eaten-out-hard.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/hard/robots_eaten-out-hard.tex}}
+	\end{subfigure}%
+}
+\\
+\\
+	\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/hard/robots_starved-out-hard.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/hard/fitness-out-hard.tex}}
+	\end{subfigure}%
+}\\
+\\
+\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/hard/group_size-out-hard.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/hard/number_of_groups-out-hard.tex}}
+	\end{subfigure}%
+}\\
+\\
+\makebox[\linewidth][c]{%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/hard/energy_consumed_by_robot-out-hard.tex}}
+	\end{subfigure}%
+	\begin{subfigure}[b]{0.7\textwidth}
+		\centering
+		\resizebox{0.9\linewidth}{!}{\input{chapters/generated-graphs/hard/energy_consumed_by_group-out-hard.tex}}
+	\end{subfigure}%
+}
 \end{figure}
 
-\begin{figure}[H]
-	\input{chapters/generated-graphs/hard/robots_starved-out-hard.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/hard/fitness-out-hard.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/hard/number_of_groups-out-hard.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/hard/group_size-out-hard.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/hard/energy_consumed_by_robot-out-hard.tex}
-\end{figure}
-
-\begin{figure}[H]
-	\input{chapters/generated-graphs/hard/energy_consumed_by_group-out-hard.tex}
-\end{figure}
+\newpage
 
 \subsection{Local Communication}
 
