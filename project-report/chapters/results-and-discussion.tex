@@ -100,6 +100,32 @@
 \end{figure}
 
 \subsection{Environment Difficulty}
+The motivation for this experiment is to observe how changing the difficulty of the environment affects the evolved behaviour.
+Modifying the difficulty of the environment makes it possible to observe how the evolutionary pressure affects the promotion of self-assembly.
+It is of interest to see if, and how, the resulting strategies differ.
+Observing the difference in the number of groups, and size of the formed groups can shed light on the role evolutionary pressure plays in the promotion of self-assembly.
+At the same time it may be interesting to see how the energy gathering behaviour changes with the environment.
+If the lower evolutionary pressure in the easier environment will promote more individual gathering, while the more difficult environment promotes a higher degree of self-assembly.
+
+
+The environment difficulty is modified by varying the following simulation parameters.
+The initial energy level the robots, the maximum amount of energy each robot can be charged with, and the number of predators present in the simulation.
+Table \ref{tab-environment} presents the simulation parameters that are varied for the environments.
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline  & Predators & Initial energy & Maximum energy \\ 
+		\hline Easy environment & 4 & 8000 & 10000 \\ 
+		\hline Hard environment & 7 & 6000 & 8000 \\ 
+		\hline 
+		
+	\end{tabular} 
+	\label{tab-environment}
+	\caption{The simulation parameters for the environments.}
+\end{table}
+
+
 \subsubsection{Easy Environment}
 \begin{figure}[H]
 	\input{chapters/generated-graphs/easy/predators_eaten-out-easy.tex}
