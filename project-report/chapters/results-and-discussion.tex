@@ -188,19 +188,24 @@ The goal of running these simulations is to make correlations between its result
 
 \subsection{Environment Difficulty}
 The motivation for this experiment is to observe how changing the difficulty of the environment affects the evolved behaviour.
-Modifying the difficulty of the environment makes it possible to observe how the evolutionary pressure affects the promotion of self-assembly.
-It is of interest to see if, and how, the resulting strategies differ.
-Observing the difference in the number of groups, and size of the formed groups can shed light on the role evolutionary pressure plays in the promotion of self-assembly.
-At the same time it may be interesting to see how the energy gathering behaviour changes with the environment.
-If the lower evolutionary pressure in the easier environment will promote more individual gathering, while the more difficult environment promotes a higher degree of self-assembly.
+For the experiment two environment difficulties were constructed, one easier and one more difficult.
+These environment difficulties were then used in the simulations so that the impact of the evolutionary pressure could be recorded and discussed.
+More specifically the experiments were constructed to investigate how differing environment difficulties affect the following properties of the evolved behaviour.
+
+\begin{itemize}
+	\item The amount of robot groups formed through self-assembly, and the number of robots in each group.
+	\item How the energy gathering behaviour is affected. Whether the robots prefer gathering energy individually, or as robot groups. 
+	\item How the environment difficulty affects the fitness of the experiment, in terms of convergence and final result.
+\end{itemize}
 
 
 The environment difficulty is modified by varying the following simulation parameters.
 The initial energy level the robots, the maximum amount of energy each robot can be charged with, and the number of predators present in the simulation.
 Table \ref{tab-environment} presents the simulation parameters that are varied for the environments.
 
-\begin{table}
+\begin{table}[H]
 	\centering
+	\label{tab-environment}
 	\begin{tabular}{|c|c|c|c|}
 		\hline  & Predators & Initial energy & Maximum energy \\ 
 		\hline Easy environment & 4 & 8000 & 10000 \\ 
@@ -208,11 +213,10 @@ Table \ref{tab-environment} presents the simulation parameters that are varied f
 		\hline 
 		
 	\end{tabular} 
-	\label{tab-environment}
 	\caption{The simulation parameters for the environments.}
 \end{table}
 
-
+The results were obtained by running 20 simulation trials for each difficulty.
 \subsubsection{Easy Environment}
 
 \newpage
