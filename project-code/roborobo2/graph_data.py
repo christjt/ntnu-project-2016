@@ -34,7 +34,6 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tymin=%s, ymax=%s,\n' % (yMin, yMax)
 	plotString += '\txtick={%s},\n' % xTicks
 	plotString += '\tytick={%s},\n' % yTicks
-	plotString += '\tlegend pos=%s,\n' % 'outer north east'
 	plotString += '\tymajorgrids=%s,\n' % 'true'
 	plotString += '\tgrid style=%s,\n' % 'dashed'
 	
@@ -46,7 +45,6 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tcoordinates {\n'
 	plotString += '\t%s\n' % dataPointsMost
 	plotString += '\t};\n'
-	plotString += '\t\\addlegendentry{%s}\n' % 'Best case'
 
 	plotString += '\\addplot[\n'
 	plotString += '\tcolor=%s,\n' % 'blue'
@@ -62,7 +60,6 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tcoordinates {\n'
 	plotString += '\t%s\n' % dataPointsLeast
 	plotString += '\t};\n'
-	plotString += '\t\\addlegendentry{%s}\n' % 'Worst case' 
 
 	plotString += '\\addplot[\n'
 	plotString += '\tcolor=%s,\n' % 'blue!50'
@@ -70,7 +67,6 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tcoordinates {\n'
 	plotString += '\t%s\n' % dataPointsSD
 	plotString += '\t};\n'
-	plotString += '\t\\addlegendentry{%s}\n' % 'Standard Deviation' 
 
 	plotString += '\\end{axis}\n'
 	plotString += '\\end{tikzpicture}\n'
