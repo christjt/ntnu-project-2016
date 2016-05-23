@@ -52,7 +52,6 @@ def generatePlot(title, xLabel, yLabel, xMin, xMax, yMin, yMax, dataPointsMost, 
 	plotString += '\tcoordinates {\n'
 	plotString += '\t%s\n' % dataPointsAverage
 	plotString += '\t};\n'
-	plotString += '\t\\addlegendentry{%s}\n' % 'Average case'
 
 	plotString += '\\addplot[\n'
 	plotString += '\tcolor=%s,\n' % 'red'
