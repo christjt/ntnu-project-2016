@@ -77,16 +77,16 @@ More specifically the experiments were constructed to investigate how differing 
 
 
 The environment difficulty is modified by varying the following simulation parameters.
-The initial energy level the robots, the maximum amount of energy each robot can be charged with, and the number of predators present in the simulation.
-Table \ref{tab-environment} presents the simulation parameters that are varied for the environments.
+The initial energy level the robots, the maximum amount of energy each robot can be charged with, the amount of food in the environment, and the number of predators present in the simulation.
+Table \ref{tab:environment-difficulty} presents the simulation parameters that are varied for the environments.
 
 \begin{table}[H]
 	\centering
-	\label{tab-environment}
-	\begin{tabular}{|c|c|c|c|}
-		\hline  & Predators & Initial energy & Maximum energy \\ 
-		\hline Easy environment & 4 & 8000 & 10000 \\ 
-		\hline Hard environment & 7 & 6000 & 8000 \\ 
+	\label{tab:environment-difficulty}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline  & Predators & Initial energy & Food items & Maximum energy \\ 
+		\hline Easy environment & 4 & 8000 & 25 & 10000 \\ 
+		\hline Hard environment & 7 & 6000 & 20 &8000 \\ 
 		\hline 
 		
 	\end{tabular} 
@@ -103,6 +103,9 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 
 \newpage
 
+\paragraph{Energy gathering}
+\def \energy_consumed_robot_easy
+\ref{fig:energy-consumed-by-robot-easy} \ref{fig:energy-consumed-by-group-easy}
 
 \subsubsection{Difficult Environment}
 
