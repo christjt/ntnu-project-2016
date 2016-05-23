@@ -82,12 +82,14 @@ One of the long term visions for these kinds of robots is called "bucket of stuf
 The idea is to have a collection of different robot modules which can be assembled on demand to solve different tasks.
 One way to classify non-mobile robots is based on their configuration topology.
 The main classes for configuration topologies are chain and lattice configurations.
+
 \subsubsection{Chain topology}
 The chain topology is a configuration where each robot is connected in a serial architecture.
 The robots can form many different shapes to represent creatures such as snakes, spiders or other configurations needed to complete its task.
 One of the challenges with this topology is coordinating movement and decisions as information has to be propagated serially.
 Examples of chain architecture based robots are Molecubes\cite{zykov_molecubes:_2007}, Yamor\cite{mockel_yamor_2006}, and Conro\cite{castano_conro:_2000}.
 Yamor is depicted in figure \ref{fig:yamor}.
+
 \begin{figure}[H]	
 	\centering
 	\includegraphics[scale=0.5]{chapters/res/Yamor.PNG}
@@ -211,10 +213,12 @@ This mechanism is used in simulation by \cite{weel_emergence_2012}.
 The magnetic slip ring can be set to either a positive, negative, or neutral state.
 A connection will be made if at least on of the robots have their slip-ring set to positive, and neither of them have it set to negative.
 For simulation purposes, it is assumed that the connection immediately becomes rigid.
+
 \paragraph*{Surfaces with magnets}
 The Molecubes\cite{studer_spontaneous_2006} also use magnets to form connections.
 The Molecubes has flat connection surfaces with electromagnets which can be turned on, or off to create connections.
 Each cube has four connector surfaces, which means that each cube can connect to four other cubes.
+
 \paragraph*{Permanent magnets and springs }
 \cite{murata_hardware_2000} describes this mechanism.
 Unlike the two magnetic mechanisms previously described, this mechanism uses rare earth permanent magnets.

@@ -1,24 +1,52 @@
-\documentclass[12pt]{report}
+\documentclass[a4paper,12pt,twoside, openright]{book}
 
 \usepackage{amsmath}
-\usepackage{listings}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{verbatim}
 \usepackage{float}
 \usepackage{pgfplots}
 \usepackage{subcaption}
+\usepackage{fancyhdr}
 \usepackage{caption}
-\floatstyle{plaintop}
 \restylefloat{table}
 \title{Self-assembly mechanisms for evolutionary robotics}
 \author{Eirik Jakobsen\\ Christopher Tannum}
 \date{December 2015}
 
+
+
+\fancypagestyle{main}{%
+  	\fancyhead{}
+	\fancyfoot{}
+	\fancyfoot[RE,LO]{\thepage}
+
+	\fancyhead[R]{\small\nouppercase\leftmark}
+	\fancyhead[L]{\small\nouppercase\rightmark}
+
+	\renewcommand{\footrulewidth}{0.4pt}
+	\renewcommand{\headrulewidth}{0.4pt}
+}
+
+\fancypagestyle{start}{%
+  	\fancyhead{}
+	\fancyfoot{}
+}
+
+\fancypagestyle{plain}{%
+  	\fancyhead{}
+	\fancyfoot{}
+  	\renewcommand{\headrulewidth}{0pt}
+  	\renewcommand{\footrulewidth}{0.4pt}
+  	\fancyfoot[RE,LO]{\thepage}
+}
+
 \DeclareCaptionType{captioneq}[][List of equations]
 \captionsetup[captioneq]{labelformat=empty}
 
 \begin{document}
+
+\pagestyle{start}
 
 \begin{titlepage}
     \begin{center}
@@ -57,6 +85,8 @@
     \end{center}
 \end{titlepage}
 
+\frontmatter
+\pagestyle{plain}
 
 \chapter*{
     \begin{center}
@@ -67,6 +97,11 @@
 \tableofcontents
 
 \newpage
+
+\mainmatter
+\pagestyle{main}
+
+\raggedbottom
 
 \chapter{Introduction}
 \label{ch:introduction}
