@@ -73,15 +73,15 @@ Common configuration parameters of importance for the simulations are listed in 
 \newpage
 \pagestyle{plain}
 
-\input{chapters/graph-wrappers/2-ports-wrapper.tex}
+%\input{chapters/graph-wrappers/2-ports-wrapper.tex}
 
 \newpage
 
-\input{chapters/graph-wrappers/3-ports-wrapper.tex}
+%\input{chapters/graph-wrappers/3-ports-wrapper.tex}
 
 \newpage
 
-\input{chapters/graph-wrappers/4-ports-wrapper.tex}
+%\input{chapters/graph-wrappers/4-ports-wrapper.tex}
 
 \newpage
 \pagestyle{main}
@@ -122,7 +122,7 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 \newpage
 \pagestyle{plain}
 
-\input{chapters/graph-wrappers/easy-wrapper.tex}
+%\input{chapters/graph-wrappers/easy-wrapper.tex}
 
 \newpage
 
@@ -152,7 +152,7 @@ The fitness achieved in the easy environment is higher than
 
 \newpage
 
-\input{chapters/graph-wrappers/hard-wrapper.tex}
+%\input{chapters/graph-wrappers/hard-wrapper.tex}
 
 \newpage
 \pagestyle{main}
@@ -161,9 +161,65 @@ The fitness achieved in the easy environment is higher than
 
 \section{Discussion}
 
+\subsection{Port configuration Analysis}
+In terms of the results fetched from the port configuration simulations the first obvious remarks stem from the simulation running a three port configuration.
+The results in this simulation is much weaker in terms of performance and in terms of promoting self-assembly than the simulations running 2 and 4 connection ports.
+The reason for this can not be deduced completely from the empirical results, but as the only difference in these simulations are the number of ports and the alignment it is clear that the connection port configuration can greatly impact the performance of the simulation.
+It can also be deduced that it is not the number of connection ports that has the primary impact of the solution, but rather the placement.
+The reason one can make this claim is because the configuration using 2 connection ports and 4 connection ports perform quite similar in terms of performance.
+If the number of connection ports had a great impact on the results, one would expect the simulation using 2 connection ports or 4 connection ports to yield even poorer results than the 3 connection port simulation.
+This narrows the port configuration problem down to the alignment of the connection ports.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.31\textwidth}
+		\centering
+		\fbox{\includegraphics[height=\linewidth]{chapters/res/2-ports-robot.png}}
+		\caption{2-ports}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.31\textwidth}
+		\centering
+		\fbox{\includegraphics[height=\linewidth]{chapters/res/3-ports-robot.png}}
+		\caption{3-ports}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.31\textwidth}
+		\centering
+		\fbox{\includegraphics[height=\linewidth]{chapters/res/4-ports-robot.png}}
+		\caption{4-ports}
+	\end{subfigure}
+	\caption{The three different port configurations used in simulation}
+	\label{fig:robot-port-configuration}
+\end{figure}
+
+Figure \ref{fig:robot-port-configuration} shows a closer view of the alignment that the robots initially have when spawned into the environment.
+As explained in \ref{moving-ports}, the robots can rotate their connection ports as a group.
+A standard strategy which is usually evolved is to either constantly rotate the connection ports in hopes of lining up the ports to another robot, or, the robots start rotating their ports when the sensors see another robot in an effort to self-assemble.
+There are two main problems that the 3 connection port robots have compared to the other port configurations.
+First, the initial port location does not align to any other robot.
+
+
+\begin{figure}[H]
+	\begin{subfigure}[t]{0.49\textwidth}
+		\centering
+		\fbox{\includegraphics[height=0.9\linewidth]{chapters/res/3-ports-alignment.png}}
+		\caption{This figure shows how the 3 connection port initial alignment.}
+		\label{3-port-guided-allignment}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.49\textwidth}
+		\centering
+		\fbox{\includegraphics[height=0.9\linewidth]{chapters/res/3-ports-alignment-offset.png}}
+		\caption{This figure shows how the 3 connection port alignment after all robots rotate connection ports $50\deg$.}
+		\label{3-port-guided-allignment-offset}
+	\end{subfigure}
+\end{figure}
 
 
 
+As seen in figure \ref{3-port-guided-allignment}, there is not any trivial alignment for the robots to connect.
+One might initially presume that this is not a problem as the robots have a mechanism for rotating their ports to solve this exact issue.
+However, as all the robots are running the same genome as per off-line evolution and hence the same behaviour, it becomes increasingly difficult for the robots to solve this problem.
+As explained earlier the robots in this simulation tend to evolve a strategy which involves constantly spinning the connection ports in one direction.
+But, as can be seen in figure \ref{3-port-guided-allignment-offset}, if all robots at some time step, were to have rotated their connection ports $50\deg$, the same issue of port alignment would still hold.
 
 
 
