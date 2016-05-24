@@ -122,21 +122,19 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 \newpage
 \pagestyle{plain}
 
-%\input{chapters/graph-wrappers/easy-wrapper.tex}
+\input{chapters/graph-wrappers/easy-wrapper.tex}
 
 \newpage
 
-\paragraph{Environmental limiting factor}
-%The robots have two main threats in the environments presented, starvation and getting killed by predators.
-%From figure \ref{fig:easy-robots-starved} and figure \ref{fig:hard-robots-starved} one can see that the amount of robots %dying from starvation is approximately the same.
-%The robots in the easy environment receive more energy from food, and there is more food available.
-%This does not seem to impact the amount of robots dying from starvation, which may indicate that the avaliable energy
+
+
+
 
 \subsubsection{Difficult Environment}
 
 \newpage
 
-%\input{chapters/graph-wrappers/hard-wrapper.tex}
+\input{chapters/graph-wrappers/hard-wrapper.tex}
 
 \newpage
 \pagestyle{main}
@@ -144,6 +142,33 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 \subsection{Local Communication}
 
 \section{Discussion}
+
+\subsection{Environmental difficulty analysis}
+The robots have two threats in the environments presented, starvation and getting killed by predators.
+The robots in the easy environment receive more energy from food, and there is more food available.
+From figure \ref{fig:easy-robots-starved} and figure \ref{fig:hard-robots-starved} one can see that this reduces the amount of robots dying from starvation in the easy environment, but the improvement is minuscule.
+
+Increasing the number of predators in the environment seems to have a higher impact on the difficulty presented by an environment.
+Figure \ref{fig:easy-robots-eaten} and figure \ref{fig:hard-robots-eaten} shows that increasing the amount of predators present in the environment has a greater impact on the difficulty of the environment than limiting the energy available.
+
+One of the motivations for this experiment was to see how modifying the evolutionary pressure affects the promotion of self-assembly.
+The figures \ref{fig:number-of-groups-easy} and \ref{fig:number-of-groups-hard} shows that the robots form more groups in the easy environment.
+At first glance this seems to indicate that the easy environment is more successful at promoting self-assembly.
+This difference in number of groups may be explained by examining the lifetime of the robots.
+As explained in section \ref{sec:evaluation}, the fitness of a genome is determined by the average lifetime of a robot.
+The fitness achieved in the easy environment, figure \ref{fig:easy-fitness}, is higher than than the fitness achieved in the hard environment, figure \ref{fig:hard-fitness}.
+This means that the robots in the easy environment live longer, and as a consequence have more time to form groups.
+
+However, figure \ref{fig:group-sizes-easy} and figure \ref{fig:group-sizes-hard} shows that the size of the robot groups formed are not affected by modifying the difficulty of the environment.
+In both environments the average group consists of two robots.
+Groups of two or more robots, as explained in section \ref{sec:description}(explain this), cannot be eaten by predators.
+
+
+One can examine the energy gathering behaviour of the robots 
+
+39.5, 109.77, 149.27 = 73.54
+24, 65.86, 89.86 = 73.29
+
 
 \subsection{Port configuration Analysis}
 In terms of the results fetched from the port configuration simulations the first obvious remarks stem from the simulation running a three port configuration.
