@@ -20,7 +20,7 @@ def analyze():
     results = AnalyzedResults()
     results.best_genome = best
     results.statistics = generations
-    return result
+    return results
 
 
 def analyze_log(statistics, generations, n_trials, best):
@@ -194,9 +194,9 @@ generation_results = analyze()
 
 result = {}
 for i in generation_results.statistics:
-    result[i] = generation_results[i].__dict__
+    result[i] = generation_results.statistics[i].__dict__
 
-result["best"] = generation_results.best.__dict__
+result["best"] = generation_results.best_genome.__dict__
 
 json.dump(result, open(out, 'w'), indent=1)
 
