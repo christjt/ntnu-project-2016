@@ -10,16 +10,20 @@ n = int(sys.argv[3])
 
 def analyze():
     generations = {}
+    best = Genome()
     statistics_logs = [log for log in os.listdir(results_folder) if log.endswith('.json')][:n]
     statistics_logs.sort()
     for log in statistics_logs:
         print "Processing %s" % log
-        analyze_log(load_log(os.path.join(results_folder, log)), generations, len(statistics_logs))
+        analyze_log(load_log(os.path.join(results_folder, log)), generations, len(statistics_logs), best)
 
-    return generations
+    results = AnalyzedResults()
+    results.best_genome = best
+    results.statistics = generations
+    return result
 
 
-def analyze_log(statistics, generations, n_trials):
+def analyze_log(statistics, generations, n_trials, best):
     for generation in statistics["generations"]:
         generation_num = generation["generation"]
         if generation_num in generations:
@@ -44,6 +48,12 @@ def analyze_log(statistics, generations, n_trials):
 
         compute_property_statistics("numberOfGroups", "number_of_groups", generation_stats, generation, n_trials)
         compute_property_statistics("sizes", "group_size", generation_stats, generation, n_trials)
+
+        best_scenarios = find_individual_with_highest("fitness", generation)["scenarios"]
+        fitness = average("fitness", best_scenarios, len(best_scenarios))
+        if fitness > best.fitness:
+            best.fitness = fitness
+            best.weights = generation["best"]
 
 
 def compute_property_statistics(prop_name, target_prop, statistics, generation, n_trials):
@@ -124,6 +134,18 @@ def find_individual_with_lowest(prop, generation):
     return worst
 
 
+class AnalyzedResults:
+    def __init__(self):
+        self.best_genome = None
+        self.statistics = None
+
+
+class Genome:
+    def __init__(self):
+        self.fitness = 0.0
+        self.weights = []
+
+
 class Generation:
     def __init__(self):
 
@@ -171,8 +193,10 @@ class Generation:
 generation_results = analyze()
 
 result = {}
-for i in generation_results:
+for i in generation_results.statistics:
     result[i] = generation_results[i].__dict__
+
+result["best"] = generation_results.best.__dict__
 
 json.dump(result, open(out, 'w'), indent=1)
 
