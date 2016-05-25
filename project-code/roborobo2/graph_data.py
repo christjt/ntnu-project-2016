@@ -13,7 +13,7 @@ def getDataTouples(graph_param):
 	results = read_results()
 	dataTouples = []
 
-	for i in range(0, len(results)):
+	for i in range(0, len(results) -1):
 		dataTouples.append((i, results[str(i)][graph_param]))
 
 	return dataTouples
