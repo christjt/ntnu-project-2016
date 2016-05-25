@@ -41,6 +41,7 @@ def analyze_log(statistics, generations, n_trials, best):
 
         for individual in generation["genomes"]:
             for scenario in individual["scenarios"]:
+
                 avg_number_of_groups = sum(snapshot["numberOfGroups"] for snapshot in scenario["groupSnapshots"])/200.0
                 scenario["numberOfGroups"] = avg_number_of_groups
                 sizes = [sum(snapshot["sizes"])/len(snapshot["sizes"]) for snapshot in scenario["groupSnapshots"]]
@@ -49,11 +50,52 @@ def analyze_log(statistics, generations, n_trials, best):
         compute_property_statistics("numberOfGroups", "number_of_groups", generation_stats, generation, n_trials)
         compute_property_statistics("sizes", "group_size", generation_stats, generation, n_trials)
 
+        best_snapshots = find_genome_with_most_grouped_robots(generation["genomes"])
+        n_snapshots = len(best_snapshots)
+
+        for snapshot in best_snapshots:
+            if not snapshot:
+                continue
+
+            for size in snapshot["sizes"]:
+                increment = 1.0/(float(n_snapshots)*n_trials)
+                if size not in generation_stats.group_distribution:
+                    generation_stats.group_distribution[size] = increment
+                else:
+                    generation_stats.group_distribution[size] += increment
+
         best_scenarios = find_individual_with_highest("fitness", generation)["scenarios"]
         fitness = average("fitness", best_scenarios, len(best_scenarios))
         if fitness > best.fitness:
             best.fitness = fitness
             best.weights = generation["best"]
+
+
+def find_genome_with_most_grouped_robots(generation):
+    most_robots = -1
+    best_snapshots = None
+
+    for genome in generation:
+        best_snapshots = [find_snapshot_with_most_grouped_robots(scenario["groupSnapshots"]) for scenario in genome["scenarios"]]
+        n_involved_robots = sum(snapshot[1] for snapshot in best_snapshots)
+
+        if n_involved_robots > most_robots:
+            most_robots = n_involved_robots
+            best_snapshots = best_snapshots
+
+    return [snapshot[0] for snapshot in best_snapshots]
+
+
+def find_snapshot_with_most_grouped_robots(snapshots):
+    most_robots = -1
+    best_snapshot = None
+    for snapshot in snapshots:
+        involved_robots = sum(snapshot["sizes"])
+        if involved_robots > most_robots:
+            most_robots = involved_robots
+            best_snapshot = snapshot
+
+    return best_snapshot, most_robots
 
 
 def compute_property_statistics(prop_name, target_prop, statistics, generation, n_trials):
@@ -189,6 +231,7 @@ class Generation:
         self.least_group_size = 0.0
         self.std_dev_group_size = 0.0
 
+        self.group_distribution = {}
 
 generation_results = analyze()
 
