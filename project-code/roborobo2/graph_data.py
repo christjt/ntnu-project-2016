@@ -13,7 +13,7 @@ def getDataTouples(graph_param):
     results = read_results()
     dataTouples = []
 
-    for i in range(0, len(results)):
+    for i in range(0, len(results) -1):
         dataTouples.append((i, results[str(i)][graph_param]))
 
     return dataTouples
@@ -125,6 +125,9 @@ def main():
 
         writeToFile(plotString, filename)
 
+    name = analyzed_results.replace('.json', '').replace('.', '-')
+    writeToFile(create_group_distribution_graph(name), 'group_distribution-' + name + '.tex')
+
 
 def create_group_distribution_graph(name):
 
@@ -133,35 +136,49 @@ def create_group_distribution_graph(name):
         \begin{filecontents}{coord-%s.dat}
             %s
         \end{filecontents}
-
-        \DTLloaddb[noheader=false]{coordinates-%s}{coord-%s.dat}
+        """ % (name, create_group_distribution_table(name)) + r"""
         \begin{tikzpicture}
-            \begin{axis}[
-            title={Number of groups},
+           \begin{axis}[scatter,
+            scatter src=explicit,
+            only marks,
+            title={Robot groups},
             xlabel={Generation},
-            ylabel={Number of groups},
+            ylabel={Group size},
             xmin=0, xmax=170,
-            ymin=0, ymax=25,
+            ymin=1, ymax=9,
             xtick={0.0,30.0,60.0,90.0,120.0,150.0},
-            ytick={0.0,5.0,10.0,15.0,20.0,25.0},
-            ymajorgrids=true,
-            grid style=dashed,
-            ]
-        \end{axis}
+            ytick={0.0,1.0,2.0,3.0,4.0,5.0, 6.0, 7.0, 8.0},
+                scatter/@pre marker code/.code={%
+                \pgfplotstransformcoordinatex{\pgfplotspointmeta}%
+                \scope[mark size=3*\pgfplotsunitxlength*\pgfmathresult]
+                }
+            ]"""  + r"""
 
-        \DTLforeach*{coordinates-%s}{\x=generation, \y=group_size, \A=amount, \FC=color}{\fill[\FC!] (\x,\y) circle[radius=sqrt(\A/pi)];}
-        \end{tikzpicture}""" % (name, create_group_distribution_table(name), name, name, name)
+            \addplot file {coord-%s.dat};
+            \end{axis}
+
+        \end{tikzpicture}""" % name
     return t
 
 
 def create_group_distribution_table(name):
-    return "generation, group_size, amount, color"
+    stats = read_results()
+
+    return "# x  y  r \n" + "".join([create_group_distribution_rows(gen, stats[gen]["group_distribution"]) for gen in ["30", "60", "90", "120", "149"]])
+
+
+def create_group_distribution_rows(generation, distribution):
+    rows = ""
+    for size in distribution.keys():
+        rows += "\t %s %s %f \n" % (generation, size, distribution[size])
+    return rows
+
 def writeToFile(plotString, nameOfFile):
     fig_file = open(nameOfFile, 'w')
     fig_file.write(plotString)
     fig_file.close()
 
-print create_group_distribution_graph("hello-world")
+main()
 
 
 
