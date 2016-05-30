@@ -188,8 +188,6 @@ The sensors are used by the robot to detect walls and other robots, but not pred
 This means that the robot may miss some food, but there is enough food in the environment so the robot will eventually find more food.
 On the other hand, failing at predator avoidance as much more severe consequences as the predator will kill the robot.
 
-%Missing energy = kinda bad
-%Missing predator = very bad
 
 One of the motivations for this experiment was to see how modifying the evolutionary pressure affects the promotion of self-assembly.
 The figures \ref{fig:number-of-groups-easy} and \ref{fig:number-of-groups-hard} shows that the robots form more groups in the easy environment.
@@ -200,8 +198,9 @@ The fitness achieved in the easy environment, figure \ref{fig:easy-fitness}, is 
 This means that the robots in the easy environment live longer, and as a consequence have more time to form groups.
 
 However, figure \ref{fig:group-sizes-easy} and figure \ref{fig:group-sizes-hard} shows that the size of the robot groups formed are not affected by modifying the difficulty of the environment.
-In both environments the average group consists of two robots.
-Groups of two or more robots, as explained in section \ref{sec:description}(explain this), cannot be eaten by predators.
+In both environments the distribution of group sizes are heavily weighted towards groups of two.
+The reason for this may be that the environments gives a high reward for being in a group.
+That is protection from predators, but there is no additional reward for forming larger groups.
 
 
 %One can examine the energy gathering behaviour of the robots 
