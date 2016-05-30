@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt,twoside, openright]{book}
+\documentclass[b5paper,12pt,twoside,openright]{book}
 
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -15,12 +15,13 @@
 \author{Eirik Jakobsen\\ Christopher Tannum}
 \date{December 2015}
 
+\usepackage[lmargin=25mm,rmargin=25mm,tmargin=27mm,bmargin=30mm]{geometry}
 
 
 \fancypagestyle{main}{%
   	\fancyhead{}
 	\fancyfoot{}
-	\fancyfoot[RE,LO]{\thepage}
+	\fancyfoot[LE,RO]{\thepage}
 
 	\fancyhead[R]{\small\nouppercase\leftmark}
 	\fancyhead[L]{\small\nouppercase\rightmark}
@@ -39,7 +40,7 @@
 	\fancyfoot{}
   	\renewcommand{\headrulewidth}{0pt}
   	\renewcommand{\footrulewidth}{0.4pt}
-  	\fancyfoot[RE,LO]{\thepage}
+  	\fancyfoot[LE,RO]{\thepage}
 }
 
 \DeclareCaptionType{captioneq}[][List of equations]
