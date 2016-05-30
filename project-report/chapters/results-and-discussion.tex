@@ -73,15 +73,15 @@ Common configuration parameters of importance for the simulations are listed in 
 \newpage
 \pagestyle{plain}
 
-%\input{chapters/graph-wrappers/2-ports-wrapper.tex}
+\input{chapters/graph-wrappers/2-ports-wrapper.tex}
 
 \newpage
 
-%\input{chapters/graph-wrappers/3-ports-wrapper.tex}
+\input{chapters/graph-wrappers/3-ports-wrapper.tex}
 
 \newpage
 
-%\input{chapters/graph-wrappers/4-ports-wrapper.tex}
+\input{chapters/graph-wrappers/4-ports-wrapper.tex}
 
 \newpage
 \pagestyle{main}
@@ -122,7 +122,7 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 \newpage
 \pagestyle{plain}
 
-%\input{chapters/graph-wrappers/easy-wrapper.tex}
+\input{chapters/graph-wrappers/easy-wrapper.tex}
 
 
 
@@ -137,7 +137,7 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 
 \newpage
 
-%\input{chapters/graph-wrappers/hard-wrapper.tex}
+\input{chapters/graph-wrappers/hard-wrapper.tex}
 
 \newpage
 \pagestyle{main}
@@ -188,8 +188,8 @@ The sensors are used by the robot to detect walls and other robots, but not pred
 This means that the robot may miss some food, but there is enough food in the environment so the robot will eventually find more food.
 On the other hand, failing at predator avoidance as much more severe consequences as the predator will kill the robot.
 
-Missing energy = kinda bad
-Missing predator = very bad
+%Missing energy = kinda bad
+%Missing predator = very bad
 
 One of the motivations for this experiment was to see how modifying the evolutionary pressure affects the promotion of self-assembly.
 The figures \ref{fig:number-of-groups-easy} and \ref{fig:number-of-groups-hard} shows that the robots form more groups in the easy environment.
@@ -204,10 +204,10 @@ In both environments the average group consists of two robots.
 Groups of two or more robots, as explained in section \ref{sec:description}(explain this), cannot be eaten by predators.
 
 
-One can examine the energy gathering behaviour of the robots 
+%One can examine the energy gathering behaviour of the robots 
 
-39.5, 109.77, 149.27 = 73.54
-24, 65.86, 89.86 = 73.29
+%39.5, 109.77, 149.27 = 73.54
+%24, 65.86, 89.86 = 73.29
 
 
 \subsection{Port configuration Analysis}
@@ -251,28 +251,51 @@ First, the initial port location does not align to any other robot.
 	\begin{subfigure}[t]{0.49\textwidth}
 		\centering
 		\fbox{\includegraphics[height=0.9\linewidth]{chapters/res/3-ports-alignment.png}}
-		\caption{This figure shows how the 3 connection port initially align.}
+		\caption{Initial alignment}
 		\label{3-port-guided-allignment}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.49\textwidth}
 		\centering
 		\fbox{\includegraphics[height=0.9\linewidth]{chapters/res/3-ports-alignment-offset.png}}
-		\caption{This figure shows how the 3 connection ports align after all robots rotate their connection ports $50^{\circ}$.}
+		\caption{After $50^{\circ}$ port rotation.}
 		\label{3-port-guided-allignment-offset}
 	\end{subfigure}
+	\caption{This figure shows how the 3 connection port robots align}
 \end{figure}
 
 
 
-As seen in figure \ref{3-port-guided-allignment}, there is not any trivial alignment for the robots to connect.
+As seen in figure \ref{3-port-guided-allignment}, there is not a trivial alignment for the robots to connect.
 One might initially presume that this is not a problem as the robots have a mechanism for rotating their ports to solve this exact issue.
-However, as all the robots are running the same genome as per off-line evolution and hence the same behaviour, it becomes increasingly difficult for the robots to solve this problem.
-As explained earlier the robots in this simulation tend to evolve a strategy which involves constantly spinning the connection ports in one direction.
-But, as can be seen in figure \ref{3-port-guided-allignment-offset}, if all robots at some time step, were to have rotated their connection ports $50^{\circ}$, the same issue of port alignment would still hold.
+However, as all the robots are running the same genome, as per off-line evolution and hence the same behaviour, it becomes increasingly difficult for the robots to solve this problem.
+As explained earlier, the robots in this simulation tend to evolve a strategy which involves constantly spinning the connection ports in one direction.
+But, as seen in figure \ref{3-port-guided-allignment-offset}, in the case where all robots at some time step have rotated their connection ports $50^{\circ}$, the same issue of port alignment would still hold.
 
-The second problem robots with 3 ports in this alignment is the possible architecture the robots can form.
+\begin{figure}[H]
+	\begin{subfigure}[t]{0.49\textwidth}
+		\centering
+		\fbox{\includegraphics[height=0.9\linewidth]{chapters/res/2-ports-alignment.png}}
+		\caption{This figure shows how the 3 connection port initially align.}
+		\label{2-port-guided-allignment}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.49\textwidth}
+		\centering
+		\fbox{\includegraphics[height=0.9\linewidth]{chapters/res/4-ports-alignment.png}}
+		\caption{This figure shows how the 3 connection ports align after all robots rotate their connection ports $50^{\circ}$.}
+		\label{4-port-guided-allignment}
+	\end{subfigure}
+	\caption{This figure shows how the 2 and 4 connection ports robots align}
+	\label{2-4-port-guided-allignment}
+\end{figure}
 
+Consider figure \ref{2-4-port-guided-allignment}.
+In this example there are two and four port configurations.
+It can be observed that with initial rotation of the ports, there exists possibilities for the robots to self-assemble without having the robots behave differently in terms of rotating their connection ports.
+This differentiation seems to be the main reason that the 3 connection port configuration is being outperformed.
 
+The second problem robots with 3 connection ports, in this alignment, is the possible architecture the robots can form.
+Chapter \ref{ch:background} covers the chain and lattice architectures that the robots can form when self-assembling. %needs ref/explain
+The simulator is developed to support the lattice architecture because if its simplistic method of coordinated movement.
 
 
 
