@@ -1,0 +1,48 @@
+
+        \begin{filecontents}{coord-easy-out.dat}
+            # x  y  r 
+	 30 3 0.400000 
+	 30 2 2.800000 
+	 30 4 0.066667 
+	 60 3 0.533333 
+	 60 2 3.350000 
+	 60 5 0.016667 
+	 60 4 0.100000 
+	 90 3 0.500000 
+	 90 2 3.566667 
+	 90 5 0.016667 
+	 90 4 0.166667 
+	 90 7 0.016667 
+	 120 3 0.600000 
+	 120 2 3.550000 
+	 120 5 0.016667 
+	 120 4 0.083333 
+	 149 3 0.483333 
+	 149 2 3.566667 
+	 149 5 0.016667 
+	 149 4 0.183333 
+	 149 6 0.033333 
+
+        \end{filecontents}
+        
+        \begin{tikzpicture}
+           \begin{axis}[scatter,
+            scatter src=explicit,
+            only marks,
+            title={Robot groups},
+            xlabel={Generation},
+            ylabel={Group size},
+            xmin=0, xmax=170,
+            ymin=1, ymax=9,
+            xtick={0.0,30.0,60.0,90.0,120.0,150.0},
+            ytick={0.0,1.0,2.0,3.0,4.0,5.0, 6.0, 7.0, 8.0},
+                scatter/@pre marker code/.code={%
+                \pgfplotstransformcoordinatex{\pgfplotspointmeta}%
+                \scope[mark size=3*\pgfplotsunitxlength*\pgfmathresult]
+                }
+            ]
+
+            \addplot file {coord-easy-out.dat};
+            \end{axis}
+
+        \end{tikzpicture}

@@ -124,6 +124,9 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 
 %\input{chapters/graph-wrappers/easy-wrapper.tex}
 
+
+
+
 \newpage
 
 
@@ -141,6 +144,35 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 
 \subsection{Local Communication}
 
+
+\subsection{Observed behaviour}
+The behaviour observed in the easy and difficult environment is very similar.
+Therefore the description of the observed behaviour is combined into one section.
+The robots rarely disconnect once they are in a robot group.
+Their behaviour can be split into two phases, the individual behaviour, and the group behaviour.
+
+\subsubsection{Individual behaviour}
+\label{sec:invdividual_behaviour}
+The individual robots have two observed movement "modes".
+Which one is used depends on if a wall is withing sensor range.
+If no walls are detected the robots will drive in wide circles, displayed in figure \ref{fig:individual-robot-circle}.
+In this mode the robots collect energy, and will attempt connections with other robots they crash into.
+However, they make no attempt to avoid predators in their path.
+This behaviour is usually observed at the beginning of the simulation since most of the robots are initialized away from the walls.
+
+The circles the robots drive in are wide enough to make them crash into the walls of the environment.
+Once a wall is detected by the sensors, the behaviour changes.
+Instead of driving in circles the robot will now drive along the wall of the environment.
+Figure \ref{fig:individual-wall-drive} shows how the robots follow the wall by driving in small arches while keeping the walls in sensors range.
+The robot will keep on driving along the wall until it meets another robot, and is able to form a group, or if the sensors detect a robot group passing by.
+If a robot group comes within sensor range wile the robot is driving along the wall, the robot will abandon the wall and attempt to follow the group instead.
+
+\subsubsection{Group behaviour}
+The behaviour of the robot groups is similar to the first mode of the individual robots.
+Robot groups also drive in wide circles, but if the group crashes into a wall it will simply turn around and continue.
+The robot groups consume predators in their path, but they make no attempt to follow detected predators.
+The robot groups will continue to drive in circles, consuming energy, predators, and making the connections, until the end of the simulation, or until the members of the groups starve.
+
 \section{Discussion}
 
 \subsection{Environmental difficulty analysis}
@@ -150,6 +182,14 @@ From figure \ref{fig:easy-robots-starved} and figure \ref{fig:hard-robots-starve
 
 Increasing the number of predators in the environment seems to have a higher impact on the difficulty presented by an environment.
 Figure \ref{fig:easy-robots-eaten} and figure \ref{fig:hard-robots-eaten} shows that increasing the amount of predators present in the environment has a greater impact on the difficulty of the environment than limiting the energy available.
+The reason for why increasing the amount of predators has a much higher impact on difficulty is not completely clear from the results.
+However, the observed behaviour described in section \ref{sec:invdividual_behaviour} can help explain the results.
+The sensors are used by the robot to detect walls and other robots, but not predators or food.
+This means that the robot may miss some food, but there is enough food in the environment so the robot will eventually find more food.
+On the other hand, failing at predator avoidance as much more severe consequences as the predator will kill the robot.
+
+Missing energy = kinda bad
+Missing predator = very bad
 
 One of the motivations for this experiment was to see how modifying the evolutionary pressure affects the promotion of self-assembly.
 The figures \ref{fig:number-of-groups-easy} and \ref{fig:number-of-groups-hard} shows that the robots form more groups in the easy environment.

@@ -10,16 +10,20 @@ n = int(sys.argv[3])
 
 def analyze():
     generations = {}
+    best = Genome()
     statistics_logs = [log for log in os.listdir(results_folder) if log.endswith('.json')][:n]
     statistics_logs.sort()
     for log in statistics_logs:
         print "Processing %s" % log
-        analyze_log(load_log(os.path.join(results_folder, log)), generations, len(statistics_logs))
+        analyze_log(load_log(os.path.join(results_folder, log)), generations, len(statistics_logs), best)
 
-    return generations
+    results = AnalyzedResults()
+    results.best_genome = best
+    results.statistics = generations
+    return results
 
 
-def analyze_log(statistics, generations, n_trials):
+def analyze_log(statistics, generations, n_trials, best):
     for generation in statistics["generations"]:
         generation_num = generation["generation"]
         if generation_num in generations:
@@ -37,6 +41,7 @@ def analyze_log(statistics, generations, n_trials):
 
         for individual in generation["genomes"]:
             for scenario in individual["scenarios"]:
+
                 avg_number_of_groups = sum(snapshot["numberOfGroups"] for snapshot in scenario["groupSnapshots"])/200.0
                 scenario["numberOfGroups"] = avg_number_of_groups
                 sizes = [sum(snapshot["sizes"])/len(snapshot["sizes"]) for snapshot in scenario["groupSnapshots"]]
@@ -44,6 +49,53 @@ def analyze_log(statistics, generations, n_trials):
 
         compute_property_statistics("numberOfGroups", "number_of_groups", generation_stats, generation, n_trials)
         compute_property_statistics("sizes", "group_size", generation_stats, generation, n_trials)
+
+        best_snapshots = find_genome_with_most_grouped_robots(generation["genomes"])
+        n_snapshots = len(best_snapshots)
+
+        for snapshot in best_snapshots:
+            if not snapshot:
+                continue
+
+            for size in snapshot["sizes"]:
+                increment = 1.0/(float(n_snapshots)*n_trials)
+                if size not in generation_stats.group_distribution:
+                    generation_stats.group_distribution[size] = increment
+                else:
+                    generation_stats.group_distribution[size] += increment
+
+        best_scenarios = find_individual_with_highest("fitness", generation)["scenarios"]
+        fitness = average("fitness", best_scenarios, len(best_scenarios))
+        if fitness > best.fitness:
+            best.fitness = fitness
+            best.weights = generation["best"]
+
+
+def find_genome_with_most_grouped_robots(generation):
+    most_robots = -1
+    best_snapshots = None
+
+    for genome in generation:
+        best_snapshots = [find_snapshot_with_most_grouped_robots(scenario["groupSnapshots"]) for scenario in genome["scenarios"]]
+        n_involved_robots = sum(snapshot[1] for snapshot in best_snapshots)
+
+        if n_involved_robots > most_robots:
+            most_robots = n_involved_robots
+            best_snapshots = best_snapshots
+
+    return [snapshot[0] for snapshot in best_snapshots]
+
+
+def find_snapshot_with_most_grouped_robots(snapshots):
+    most_robots = -1
+    best_snapshot = None
+    for snapshot in snapshots:
+        involved_robots = sum(snapshot["sizes"])
+        if involved_robots > most_robots:
+            most_robots = involved_robots
+            best_snapshot = snapshot
+
+    return best_snapshot, most_robots
 
 
 def compute_property_statistics(prop_name, target_prop, statistics, generation, n_trials):
@@ -124,6 +176,18 @@ def find_individual_with_lowest(prop, generation):
     return worst
 
 
+class AnalyzedResults:
+    def __init__(self):
+        self.best_genome = None
+        self.statistics = None
+
+
+class Genome:
+    def __init__(self):
+        self.fitness = 0.0
+        self.weights = []
+
+
 class Generation:
     def __init__(self):
 
@@ -167,12 +231,15 @@ class Generation:
         self.least_group_size = 0.0
         self.std_dev_group_size = 0.0
 
+        self.group_distribution = {}
 
 generation_results = analyze()
 
 result = {}
-for i in generation_results:
-    result[i] = generation_results[i].__dict__
+for i in generation_results.statistics:
+    result[i] = generation_results.statistics[i].__dict__
+
+result["best"] = generation_results.best_genome.__dict__
 
 json.dump(result, open(out, 'w'), indent=1)
 
