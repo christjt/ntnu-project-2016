@@ -51,11 +51,10 @@ The following pages show the recorded data for simulations using, 2 connection p
 \end{figure}
 
 
-Common configuration parameters of importance for the simulations are listed in table[x].
+Common configuration parameters of importance for the simulations are listed in table \ref{port-eniornment-config}.
 
 \begin{table}[H]
 	\centering
-	\label{tab-environment}
 	\begin{tabular}{|c|c|}
 		\hline Parameter & Value \\ 
 		\hline Number of Robots & 20 \\ 
@@ -64,7 +63,8 @@ Common configuration parameters of importance for the simulations are listed in 
 		\hline Generations & 150 \\ 
 		\hline 
 		
-	\end{tabular} 
+	\end{tabular}
+	\label{port-eniornment-config}
 	\caption{The simulation parameters for the environments.}
 \end{table}
 
@@ -73,15 +73,15 @@ Common configuration parameters of importance for the simulations are listed in 
 \newpage
 \pagestyle{plain}
 
-\input{chapters/graph-wrappers/2-ports-wrapper.tex}
+%\input{chapters/graph-wrappers/2-ports-wrapper.tex}
 
 \newpage
 
-\input{chapters/graph-wrappers/3-ports-wrapper.tex}
+%\input{chapters/graph-wrappers/3-ports-wrapper.tex}
 
 \newpage
 
-\input{chapters/graph-wrappers/4-ports-wrapper.tex}
+%\input{chapters/graph-wrappers/4-ports-wrapper.tex}
 
 \newpage
 \pagestyle{main}
@@ -122,7 +122,7 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 \newpage
 \pagestyle{plain}
 
-\input{chapters/graph-wrappers/easy-wrapper.tex}
+%\input{chapters/graph-wrappers/easy-wrapper.tex}
 
 
 
@@ -137,7 +137,7 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 
 \newpage
 
-\input{chapters/graph-wrappers/hard-wrapper.tex}
+%\input{chapters/graph-wrappers/hard-wrapper.tex}
 
 \newpage
 \pagestyle{main}
@@ -264,7 +264,6 @@ First, the initial port location does not align to any other robot.
 \end{figure}
 
 
-
 As seen in figure \ref{3-port-guided-allignment}, there is not a trivial alignment for the robots to connect.
 One might initially presume that this is not a problem as the robots have a mechanism for rotating their ports to solve this exact issue.
 However, as all the robots are running the same genome, as per off-line evolution and hence the same behaviour, it becomes increasingly difficult for the robots to solve this problem.
@@ -275,16 +274,16 @@ But, as seen in figure \ref{3-port-guided-allignment-offset}, in the case where 
 	\begin{subfigure}[t]{0.49\textwidth}
 		\centering
 		\fbox{\includegraphics[height=0.9\linewidth]{chapters/res/2-ports-alignment.png}}
-		\caption{This figure shows how the 3 connection port initially align.}
+		\caption{2 connection ports alignment}
 		\label{2-port-guided-allignment}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.49\textwidth}
 		\centering
 		\fbox{\includegraphics[height=0.9\linewidth]{chapters/res/4-ports-alignment.png}}
-		\caption{This figure shows how the 3 connection ports align after all robots rotate their connection ports $50^{\circ}$.}
+		\caption{4 connection ports alignment}
 		\label{4-port-guided-allignment}
 	\end{subfigure}
-	\caption{This figure shows how the 2 and 4 connection ports robots align}
+	\caption{This figure shows how the 2 and 4 connection ports robots align from initial configuration}
 	\label{2-4-port-guided-allignment}
 \end{figure}
 
@@ -297,6 +296,22 @@ The second problem robots with 3 connection ports, in this alignment, is the pos
 Chapter \ref{ch:background} covers the chain and lattice architectures that the robots can form when self-assembling. %needs ref/explain
 The simulator is developed to support the lattice architecture because if its simplistic method of coordinated movement.
 
+\begin{figure}[H]
+	\begin{subfigure}[t]{0.49\textwidth}
+		\centering
+		\fbox{\includegraphics[height=0.9\linewidth]{chapters/res/2-4-port-architectures.png}}
+		\caption{Robot groups with 2 and 4 connection ports}
+		\label{2-4-port-architecture}
+	\end{subfigure}
+	\begin{subfigure}[t]{0.49\textwidth}
+		\centering
+		\fbox{\includegraphics[height=0.9\linewidth]{chapters/res/3-ports-architecture.png}}
+		\caption{Robot groups with 3 connection ports}
+		\label{3-port-architecture}
+	\end{subfigure}
+	\caption{This figure contains self-assembled robot groups with different assembly combinations}
+	\label{port-architectures}
+\end{figure}
 
 
 
