@@ -155,23 +155,45 @@ Their behaviour can be split into two phases, the individual behaviour, and the 
 \label{sec:invdividual_behaviour}
 The individual robots have two observed movement "modes".
 Which one is used depends on if a wall is withing sensor range.
-If no walls are detected the robots will drive in wide circles, displayed in figure \ref{fig:individual-robot-circle}.
+If no walls are detected the robots will drive in wide circles.
 In this mode the robots collect energy, and will attempt connections with other robots they crash into.
 However, they make no attempt to avoid predators in their path.
 This behaviour is usually observed at the beginning of the simulation since most of the robots are initialized away from the walls.
 
+
 The circles the robots drive in are wide enough to make them crash into the walls of the environment.
 Once a wall is detected by the sensors, the behaviour changes.
 Instead of driving in circles the robot will now drive along the wall of the environment.
-Figure \ref{fig:individual-wall-drive} shows how the robots follow the wall by driving in small arches while keeping the walls in sensors range.
+Figure \ref{fig:individual-wall-drive} shows how a robot follows the wall while keeping it in sensors range.
+
+\begin{figure}[H]	
+	\centering
+	\fbox{\includegraphics[width=0.65\textwidth]{chapters/res/wall-hug.png}}
+	\caption{A robot using its sensors to follow a wall.}
+	\label{fig:individual-wall-drive}
+\end{figure}
+
+
 The robot will keep on driving along the wall until it meets another robot, and is able to form a group, or if the sensors detect a robot group passing by.
 If a robot group comes within sensor range wile the robot is driving along the wall, the robot will abandon the wall and attempt to follow the group instead.
 
 \subsubsection{Group behaviour}
+
+
+\begin{figure}[H]
+	
+	\centering
+	\fbox{\includegraphics[width=0.65\textwidth]{chapters/res/group_circles.png}}
+	\caption{Robot groups driving in circles.}
+	\label{fig:group-circles}
+\end{figure}
+
 The behaviour of the robot groups is similar to the first mode of the individual robots.
-Robot groups also drive in wide circles, but if the group crashes into a wall it will simply turn around and continue.
+Robot groups also drive in wide circles, displayed in figure \ref{fig:group-circles}, but if the group crashes into a wall it will simply turn around and continue.
 The robot groups consume predators in their path, but they make no attempt to follow detected predators.
 The robot groups will continue to drive in circles, consuming energy, predators, and making the connections, until the end of the simulation, or until the members of the groups starve.
+
+
 
 \section{Discussion}
 
@@ -186,10 +208,7 @@ The reason for why increasing the amount of predators has a much higher impact o
 However, the observed behaviour described in section \ref{sec:invdividual_behaviour} can help explain the results.
 The sensors are used by the robot to detect walls and other robots, but not predators or food.
 This means that the robot may miss some food, but there is enough food in the environment so the robot will eventually find more food.
-On the other hand, failing at predator avoidance as much more severe consequences as the predator will kill the robot.
-
-%Missing energy = kinda bad
-%Missing predator = very bad
+On the other hand, failing at predator avoidance has much more severe consequences as the predator will kill the robot.
 
 One of the motivations for this experiment was to see how modifying the evolutionary pressure affects the promotion of self-assembly.
 The figures \ref{fig:number-of-groups-easy} and \ref{fig:number-of-groups-hard} shows that the robots form more groups in the easy environment.
@@ -200,8 +219,9 @@ The fitness achieved in the easy environment, figure \ref{fig:easy-fitness}, is 
 This means that the robots in the easy environment live longer, and as a consequence have more time to form groups.
 
 However, figure \ref{fig:group-sizes-easy} and figure \ref{fig:group-sizes-hard} shows that the size of the robot groups formed are not affected by modifying the difficulty of the environment.
-In both environments the average group consists of two robots.
-Groups of two or more robots, as explained in section \ref{sec:description}(explain this), cannot be eaten by predators.
+In both environments the distribution of group sizes are heavily weighted towards groups of two.
+The reason for this may be that the environments gives a high reward for being in a group.
+That is protection from predators, but there is no additional reward for forming larger groups.
 
 
 %One can examine the energy gathering behaviour of the robots 

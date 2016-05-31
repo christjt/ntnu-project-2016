@@ -1,0 +1,39 @@
+
+        \begin{filecontents}{coord-out-3-port.dat}
+            # x  y  r 
+	 30 3 0.016667 
+	 30 2 0.633333 
+	 60 3 0.016667 
+	 60 2 0.916667 
+	 90 3 0.083333 
+	 90 2 1.000000 
+	 120 3 0.100000 
+	 120 2 0.916667 
+	 120 5 0.016667 
+	 149 3 0.050000 
+	 149 2 1.216667 
+	 149 4 0.016667 
+
+        \end{filecontents}
+        
+        \begin{tikzpicture}
+           \begin{axis}[scatter,
+            scatter src=explicit,
+            only marks,
+            title={Robot groups},
+            xlabel={Generation},
+            ylabel={Group size},
+            xmin=0, xmax=170,
+            ymin=1, ymax=9,
+            xtick={0.0,30.0,60.0,90.0,120.0,150.0},
+            ytick={0.0,1.0,2.0,3.0,4.0,5.0, 6.0, 7.0, 8.0},
+                scatter/@pre marker code/.code={%
+                \pgfplotstransformcoordinatex{\pgfplotspointmeta}%
+                \scope[mark size=3*\pgfplotsunitxlength*\pgfmathresult]
+                }
+            ]
+
+            \addplot file {coord-out-3-port.dat};
+            \end{axis}
+
+        \end{tikzpicture}
