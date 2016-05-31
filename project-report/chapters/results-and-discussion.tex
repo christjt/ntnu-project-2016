@@ -72,18 +72,78 @@ Common configuration parameters of importance for the simulations are listed in 
 
 \newpage
 \pagestyle{plain}
+\begin{center}
+	\subsubsection{Fitness}
+	\vspace*{-0.6cm}
+\end{center}
 
-\input{chapters/graph-wrappers/2-ports-wrapper.tex}
+\insertresultgraphs{chapters/generated-graphs/2-ports/fitness-out-2-ports.tex}{chapters/generated-graphs/3-ports/fitness-out-3-ports.tex}{chapters/generated-graphs/4-ports/fitness-out-4-ports.tex}{Figure shows "fitness" results from connection port simulations}
+
+\newpage
+
+\begin{center}
+	\subsubsection{Group Distribution}
+	\vspace*{-0.6cm}
+\end{center}
+
+\insertresultgraphs{chapters/generated-graphs/2-ports/group_distribution-out-2-ports.tex}{chapters/generated-graphs/3-ports/group_distribution-out-3-ports.tex}{chapters/generated-graphs/4-ports/group_distribution-out-4-ports.tex}{Figure shows "group distribution" results from connection port simulations}
 
 \newpage
 
-\input{chapters/graph-wrappers/3-ports-wrapper.tex}
+\begin{center}
+	\subsubsection{Number of Groups}
+	\vspace*{-0.6cm}
+\end{center}
+
+\insertresultgraphs{chapters/generated-graphs/2-ports/number_of_groups-out-2-ports.tex}{chapters/generated-graphs/3-ports/number_of_groups-out-3-ports.tex}{chapters/generated-graphs/4-ports/number_of_groups-out-4-ports.tex}{Figure shows "number of groups" results from connection port simulations}
 
 \newpage
 
-\input{chapters/graph-wrappers/4-ports-wrapper.tex}
+\begin{center}
+	\subsubsection{Robots Eaten}
+	\vspace*{-0.6cm}
+\end{center}
+
+\insertresultgraphs{chapters/generated-graphs/2-ports/robots_eaten-out-2-ports.tex}{chapters/generated-graphs/3-ports/robots_eaten-out-3-ports.tex}{chapters/generated-graphs/4-ports/robots_eaten-out-4-ports.tex}{Figure shows "robots eaten" results from connection port simulations}
 
 \newpage
+
+\begin{center}
+	\subsubsection{Robots Starved}
+	\vspace*{-0.6cm}
+\end{center}
+
+\insertresultgraphs{chapters/generated-graphs/2-ports/robots_starved-out-2-ports.tex}{chapters/generated-graphs/3-ports/robots_starved-out-3-ports.tex}{chapters/generated-graphs/4-ports/robots_starved-out-4-ports.tex}{Figure shows "robots starved" results from connection port simulations}
+
+\newpage
+
+\begin{center}
+	\subsubsection{Energy Consumed by Group}
+	\vspace*{-0.6cm}
+\end{center}
+
+\insertresultgraphs{chapters/generated-graphs/2-ports/energy_consumed_by_group-out-2-ports.tex}{chapters/generated-graphs/3-ports/energy_consumed_by_group-out-3-ports.tex}{chapters/generated-graphs/4-ports/energy_consumed_by_group-out-4-ports.tex}{Figure shows "energy consumed by group" results from connection port simulations}
+
+\newpage
+
+\begin{center}
+	\subsubsection{Energy Consumed by Robot}
+	\vspace*{-0.6cm}
+\end{center}
+
+\insertresultgraphs{chapters/generated-graphs/2-ports/energy_consumed_by_robot-out-2-ports.tex}{chapters/generated-graphs/3-ports/energy_consumed_by_robot-out-3-ports.tex}{chapters/generated-graphs/4-ports/energy_consumed_by_robot-out-4-ports.tex}{Figure shows "energy consumed by robot" results from connection port simulations}
+
+\newpage
+
+\begin{center}
+	\subsubsection{Predators Eaten}
+	\vspace*{-0.6cm}
+\end{center}
+
+\insertresultgraphs{chapters/generated-graphs/2-ports/predators_eaten-out-2-ports.tex}{chapters/generated-graphs/3-ports/predators_eaten-out-3-ports.tex}{chapters/generated-graphs/4-ports/predators_eaten-out-4-ports.tex}{Figure shows "predators eaten" results from connection port simulations}
+
+\newpage
+
 \pagestyle{main}
 
 \subsection{Environment Difficulty}
@@ -122,7 +182,7 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 \newpage
 \pagestyle{plain}
 
-\input{chapters/graph-wrappers/easy-wrapper.tex}
+%\input{chapters/graph-wrappers/easy-wrapper.tex}
 
 
 
@@ -137,7 +197,7 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 
 \newpage
 
-\input{chapters/graph-wrappers/hard-wrapper.tex}
+%\input{chapters/graph-wrappers/hard-wrapper.tex}
 
 \newpage
 \pagestyle{main}
@@ -333,7 +393,9 @@ The simulator is developed to support the lattice architecture because if its si
 	\label{port-architectures}
 \end{figure}
 
-
+It can be seen from figure \ref{port-architectures} that the different connection port configurations creates different types of groups. 
+With 2 and 4 connection ports (figure \ref{2-4-port-architecture}), the robot groups either take the form of a line or in some grid formation.
+The Because of the formation of the 3 connection ports robot groups (figure \ref{3-port-architecture}) 
 
 
 

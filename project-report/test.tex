@@ -1,6 +1,5 @@
 \documentclass[b5paper,12pt,twoside,openright]{book}
 
-\usepackage{afterpage}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{caption}
@@ -20,12 +19,7 @@
 
 \usepackage[lmargin=25mm,rmargin=25mm,tmargin=27mm,bmargin=30mm]{geometry}
 
-%custom commands
-
 \input{chapters/commands/graphwrapper.tex}
-
-% --
-
 
 \fancypagestyle{main}{%
   	\fancyhead{}
@@ -112,37 +106,16 @@
 \mainmatter
 \pagestyle{main}
 
-\raggedbottom
+\begin{center}
+	\subsection{Robot Something}
+	\vspace*{-0.7cm}
+\end{center}
 
-\chapter{Introduction}
-\label{ch:introduction}
-\input{chapters/introduction}
-\clearpage
 
-\chapter{Background}
-\label{ch:background}
-\input{chapters/background}
-\clearpage
 
-\chapter{Methodology}
-\label{ch:methodology}
-\input{chapters/methodology}
-\clearpage
 
-\chapter{Results and Discussion}
-\label{ch:results_and_discussion}
-\input{chapters/results-and-discussion}
-\clearpage
+\insertresultgraphs{chapters/generated-graphs/2-ports/predators_eaten-out-2-ports.tex}{chapters/generated-graphs/2-ports/robots_eaten-out-2-ports.tex}{chapters/generated-graphs/2-ports/robots_starved-out-2-ports.tex}{Figure shows results from a 2 connection port simulation}
 
-\chapter{Conclusion}
-\label{ch:conclusion}
-\input{chapters/conclusion}
-\clearpage
-
-\nocite{*}
-
-\bibliographystyle{abbrv}
-
-\bibliography{references} 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo tellus lorem, non sollicitudin diam commodo ut. Maecenas enim eros, bibendum a odio sed, finibus fermentum velit. In molestie orci non diam semper, in tempor nisl porta. Duis sodales elementum ornare. Quisque at lacus ac leo dictum finibus. Cras vel pretium risus, vel ornare erat. Morbi in elit non leo venenatis sodales at ut lectus. Fusce ac mollis nunc. Suspendisse aliquam molestie mauris, a molestie orci dictum sed. Fusce ac mollis nunc. Suspendisse aliquam molestie mauris, a molestie orci dictum sed. 
 
 \end{document}

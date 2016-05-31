@@ -1,0 +1,39 @@
+\newcommand{\insertresultgraphs}[4]{
+	\ifodd\value{page}
+		\begin{tikzpicture}[remember picture,overlay]
+   			\node[anchor=south west,outer xsep=10pt, outer ysep=10] at (current page.south west)
+         	{\includegraphics[scale=0.07]{chapters/res/generated_graph_legend.png}};
+		\end{tikzpicture}
+	\else%
+		\begin{tikzpicture}[remember picture,overlay]
+   			\node[anchor=south east,outer xsep=10pt, outer ysep=10] at (current page.south east)
+         	{\includegraphics[scale=0.07]{chapters/res/generated_graph_legend.png}};
+		\end{tikzpicture}
+	\fi
+
+	\begin{figure}[H]
+		\makebox[\linewidth][c]{%
+		\begin{subfigure}[b]{0.5\textwidth}
+			\centering
+			\resizebox{\linewidth}{!}{\input{#1}}
+			\caption{\textbf{{\footnotesize 2-ports}}}
+		\end{subfigure}%
+		\begin{subfigure}[b]{0.5\textwidth}	
+			\centering
+			\resizebox{\linewidth}{!}{\input{#2}}
+			\caption{\textbf{{\footnotesize 3-ports}}}
+		\end{subfigure}%
+	}
+	\\
+	\\
+		\makebox[\linewidth][c]{%
+		\begin{subfigure}[b]{0.5\textwidth}
+			\centering
+			\resizebox{\linewidth}{!}{\input{#3}}
+			\caption{\textbf{{\footnotesize 4-ports}}}
+		\end{subfigure}%
+	}
+	\caption{#4}
+	\end{figure}
+
+}
