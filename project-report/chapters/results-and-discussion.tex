@@ -20,7 +20,7 @@ In more detail, this group of experiments where conducted such that one could re
 	\item How the number of ports affected the general performance of the system based on the number of ports.
 	\item If there is any noticeable difference in the self-assembly architecture.
 	\item In what way the port configuration promotes self-assembly, both in therms of the sizes of the different robot groups, and the number of groups.
-	\item How the port configuration affect the fitness of the experiment, in terms of convergence and final result.
+	\item How the port configuration affect the fitness of the sexperiment, in terms of convergence and final result.
 \end{itemize}
 
 The goal of running these simulations is to make correlations between its results to show how configuring the hardware mechanism can affect a self-assembly system.
@@ -146,6 +146,7 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 
 
 \subsection{Observed behaviour}
+\label{sec:observed-behaviour}
 The behaviour observed in the easy and difficult environment is very similar.
 Therefore the description of the observed behaviour is combined into one section.
 The robots rarely disconnect once they are in a robot group.
@@ -198,6 +199,7 @@ The robot groups will continue to drive in circles, consuming energy, predators,
 \section{Discussion}
 
 \subsection{Environmental difficulty analysis}
+\subsubsection{Environmental threats}
 The robots have two threats in the environments presented, starvation and getting killed by predators.
 The robots in the easy environment receive more energy from food, and there is more food available.
 From figure \ref{fig:easy-robots-starved} and figure \ref{fig:hard-robots-starved} one can see that this reduces the amount of robots dying from starvation in the easy environment, but the improvement is minuscule.
@@ -210,6 +212,7 @@ The sensors are used by the robot to detect walls and other robots, but not pred
 This means that the robot may miss some food, but there is enough food in the environment so the robot will eventually find more food.
 On the other hand, failing at predator avoidance has much more severe consequences as the predator will kill the robot.
 
+\subsubsection{Promotion of self-assembly}
 One of the motivations for this experiment was to see how modifying the evolutionary pressure affects the promotion of self-assembly.
 The figures \ref{fig:number-of-groups-easy} and \ref{fig:number-of-groups-hard} shows that the robots form more groups in the easy environment.
 At first glance this seems to indicate that the easy environment is more successful at promoting self-assembly.
@@ -223,11 +226,14 @@ In both environments the distribution of group sizes are heavily weighted toward
 The reason for this may be that the environments gives a high reward for being in a group.
 That is protection from predators, but there is no additional reward for forming larger groups.
 
+\subsubsection{Energy collection strategy}
+One can see from the figures \ref{fig:energy-consumed-by-robot-easy}, \ref{fig:energy-consumed-by-group-easy} and \ref{fig:energy-consumed-by-robot-hard}, \ref{fig:energy-consumed-by-group-hard} that the robots in the easy environment collect far more energy than the robots in the difficult environment as individual robots and in robot groups.
+This result can likely also be attributed to the fact that the robots in the easy environment live longer, and that there is more energy available, instead of a more optimal energy gathering strategy.
+The reasoning for this is as follows.
+The ratio of energy consumed by individual robots and energy consumed by groups in the best case at the final generation for the environments are both at 73\% of energy being collected by the groups.
+This means that although the robots in the easy environment collect more energy, the strategies evolved in the different environments are similar.
+This also coincides with with that the observed behaviour described in section \ref{sec:observed-behaviour} is very similar for the different environments.
 
-%One can examine the energy gathering behaviour of the robots 
-
-%39.5, 109.77, 149.27 = 73.54
-%24, 65.86, 89.86 = 73.29
 
 
 \subsection{Port configuration Analysis}
