@@ -1,6 +1,6 @@
 
         \begin{filecontents}{coord-hard-out.dat}
-            # x  y  r 
+             x  y  r 
 	 30 3 0.200000 
 	 30 2 2.733333 
 	 30 4 0.016667 
@@ -24,23 +24,21 @@
         \end{filecontents}
         
         \begin{tikzpicture}
-           \begin{axis}[scatter,
-            scatter src=explicit,
-            only marks,
-            title={Robot groups},
-            xlabel={Generation},
-            ylabel={Group size},
-            xmin=0, xmax=170,
-            ymin=1, ymax=9,
-            xtick={0.0,30.0,60.0,90.0,120.0,150.0},
-            ytick={0.0,1.0,2.0,3.0,4.0,5.0, 6.0, 7.0, 8.0},
-                scatter/@pre marker code/.code={%
-                \pgfplotstransformcoordinatex{\pgfplotspointmeta}%
-                \scope[mark size=3*\pgfplotsunitxlength*\pgfmathresult]
-                }
-            ]
-
-            \addplot file {coord-hard-out.dat};
-            \end{axis}
-
-        \end{tikzpicture}
+        \begin{axis}[% scatter/use mapped color={draw=black,fill=mapped color},
+        xmin=0, xmax=170,
+        ymin=1, ymax=9,
+        xtick={0.0,30.0,60.0,90.0,120.0,150.0},
+        ytick={0.0,1.0,2.0,3.0,4.0,5.0, 6.0, 7.0, 8.0},]
+        \addplot[scatter,scatter src=explicit, mark=*,only marks,
+        % we use ’point meta’ as color data...
+        point meta=\thisrow{y},
+        % ... therefore, we can’t use it as argument for nodes near coords
+        % ... which requires to define a visualization dependency:
+        visualization depends on={value \thisrow{r} \as \r},
+        scatter/@pre marker code/.append style=
+        {/tikz/mark size=\r*3}
+        ]
+        table [x=x, y=y]
+        {coord-hard-out.dat};
+        \end{axis}
+        \end{tikzpicture}	
