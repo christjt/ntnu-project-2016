@@ -127,6 +127,7 @@ The experiment is performed by selecting the best genome from the easy environme
 
 The result of this experiment will be described in section \ref{sec:disable-local-communication}.
 
+\ref{fig:fitness-2-ports}
 \subsection{Observed behaviour}
 \label{sec:observed-behaviour}
 The behaviour observed in the easy and difficult environment is very similar.
@@ -188,10 +189,10 @@ Instead the groups will continue to perform the individual robot behaviour regar
 \subsubsection{Environmental threats}
 The robots have two threats in the environments presented, starvation and getting killed by predators.
 The robots in the easy environment receive more energy from food, and there is more food available.
-From figure \ref{fig:easy-robots-starved} and figure \ref{fig:hard-robots-starved} one can see that this reduces the amount of robots dying from starvation in the easy environment, but the improvement is minuscule.
+From figure \ref{fig:robots-starved-easy} and figure \ref{fig:robots-starved-hard} one can see that this reduces the amount of robots dying from starvation in the easy environment, but the improvement is minuscule.
 
 Increasing the number of predators in the environment seems to have a higher impact on the difficulty presented by an environment.
-Figure \ref{fig:easy-robots-eaten} and figure \ref{fig:hard-robots-eaten} shows that increasing the amount of predators present in the environment has a greater impact on the difficulty of the environment than limiting the energy available.
+Figure \ref{fig:robots-eaten-easy} and figure \ref{fig:robots-eaten-hard} shows that increasing the amount of predators present in the environment has a greater impact on the difficulty of the environment than limiting the energy available.
 The reason for why increasing the amount of predators has a much higher impact on difficulty is not completely clear from the results.
 However, the observed behaviour described in section \ref{sec:invdividual_behaviour} can help explain the results.
 The sensors are used by the robot to detect walls and other robots, but not predators or food.
@@ -222,7 +223,8 @@ This also coincides with with that the observed behaviour described in section \
 
 \subsection{Local communication analysis}
 As described in section \ref{sec:disable-local-communication}, the evolved behaviour makes use of the communication module.
-Without the 
+Without the communication module the robots do not change their behaviour when they form groups.
+It seems likely that the robots are using the communication module to detect if they are currently in a robot group
 
 
 \subsection{Port configuration Analysis}

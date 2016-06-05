@@ -1,4 +1,4 @@
-\newcommand{\insertresultgraphstwo}[3]{
+\newcommand{\insertresultgraphstwo}[4]{
 	\ifodd\value{page}
 		\begin{tikzpicture}[remember picture,overlay]
    			\node[anchor=south west,outer xsep=10pt, outer ysep=10] at (current page.south west)
@@ -16,12 +16,14 @@
 		\begin{subfigure}[b]{0.5\textwidth}
 			\centering
 			\resizebox{\linewidth}{!}{\input{#1}}
-			\caption{\textbf{{\footnotesize 2-ports}}}
+			\caption{\textbf{{\footnotesize easy}}}
+			\label{fig:#4-easy}
 		\end{subfigure}%
 		\begin{subfigure}[b]{0.5\textwidth}	
 			\centering
 			\resizebox{\linewidth}{!}{\input{#2}}
-			\caption{\textbf{{\footnotesize 3-ports}}}
+			\caption{\textbf{{\footnotesize hard}}}
+			\label{fig:#4-hard}
 		\end{subfigure}%
 	}
 	\caption{#3}

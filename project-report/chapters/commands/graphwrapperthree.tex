@@ -1,4 +1,4 @@
-\newcommand{\insertresultgraphs}[4]{
+\newcommand{\insertresultgraphs}[5]{
 	\ifodd\value{page}
 		\begin{tikzpicture}[remember picture,overlay]
    			\node[anchor=south west,outer xsep=10pt, outer ysep=10] at (current page.south west)
@@ -17,11 +17,13 @@
 			\centering
 			\resizebox{\linewidth}{!}{\input{#1}}
 			\caption{\textbf{{\footnotesize 2-ports}}}
+			\label{fig:#5-2-ports}
 		\end{subfigure}%
 		\begin{subfigure}[b]{0.5\textwidth}	
 			\centering
 			\resizebox{\linewidth}{!}{\input{#2}}
 			\caption{\textbf{{\footnotesize 3-ports}}}
+			\label{fig:#5-3-ports}
 		\end{subfigure}%
 	}
 	\\
@@ -31,6 +33,7 @@
 			\centering
 			\resizebox{\linewidth}{!}{\input{#3}}
 			\caption{\textbf{{\footnotesize 4-ports}}}
+			\label{fig:#5-4-ports}
 		\end{subfigure}%
 	}
 	\caption{#4}
