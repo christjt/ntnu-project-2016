@@ -255,7 +255,7 @@ This narrows the port configuration problem down to the alignment of the connect
 \end{figure}
 
 Figure \ref{fig:robot-port-configuration} shows a closer view of the alignment that the robots initially have when spawned into the environment.
-As explained in \ref{moving-ports}, the robots can rotate their connection ports as a group.
+As explained in \ref{sec:modifications}, the robots can rotate their connection ports as a group.
 A standard strategy which is usually evolved is to either constantly rotate the connection ports in hopes of lining up the ports to another robot, or, the robots start rotating their ports when the sensors see another robot in an effort to self-assemble.
 There are two main problems that the 3 connection port robots have compared to the other port configurations.
 First, the initial port location does not align to any other robot.
@@ -333,9 +333,9 @@ Possible formations of the 3 connection ports robot groups(figure \ref{3-port-ar
 The main reason for this connection problem is the relative position a connecting robot needs, is harder to attain because of the larger distance between the connection ports.
 
 There are not large discrepancies between the results from the port configuration simulation containing 2 and 4 connection ports.
-The only result which differs significantly is "predators eaten"(figure \ref{x}).
-The reason for this can be deduced from figure \ref{x} which shows that robots with 4 connection ports tend to form larger groups.
-It can however be viewed from \ref{x} that 2 and 4 connection ports have roughly the same number of groups.
+The only result which differs significantly is "predators eaten"(figure \ref{fig:predators-eaten-2-ports} and \ref{fig:predators-eaten-4-ports}).
+The reason for this can be deduced from figure \ref{fig:group-distribution-2-ports} and \ref{fig:group-distribution-4-ports} which shows that robots with 4 connection ports tend to form larger groups.
+It can however be viewed from figure \ref{fig:number-of-groups-2-ports} and \ref{fig:number-of-groups-4-ports} that 2 and 4 connection ports have roughly the same number of groups.
 The occurrence of a greater amount of larger groups naturally agrees with eaten more predators as groups need to be of at least size three to consume a predator.
 The reason for 4 connection ports robots to attain larger groups is simply that more connection ports yields more points of entry for other robots trying to connect, which increases the probability of succeeding self-assembly to the group.
 
