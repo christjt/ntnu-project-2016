@@ -99,15 +99,16 @@ Table \ref{tab:environment-difficulty} presents the simulation parameters that a
 
 \begin{table}[H]
 	\centering
-	\label{tab:environment-difficulty}
+
 	\begin{tabular}{|c|c|c|c|c|}
-		\hline  & Predators & Initial energy & Food items & Maximum energy \\ 
-		\hline Easy environment & 4 & 8000 & 25 & 10000 \\ 
-		\hline Hard environment & 7 & 6000 & 20 &8000 \\ 
+		\hline  & \small{Predators} & \small{Initial energy} & \small{Food items} & \small{Maximum energy} \\ 
+		\hline \small{Easy environment} & 4 & 8000 & 25 & 10000 \\ 
+		\hline \small{Hard environment} & 7 & 6000 & 20 &8000 \\ 
 		\hline 
 		
 	\end{tabular} 
 	\caption{The simulation parameters for the environments.}
+	\label{tab:environment-difficulty}
 \end{table}
 
 The results were obtained by running 20 simulation trials for each difficulty, where each of the trails run for 150 generations.
@@ -123,13 +124,9 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 \subsection{Local Communication}
 \label{sec:local_communication}
 The goal of this experiment is to investigate the impact local communication has on the behaviour of the robots.
-The experiment is performed by selecting the best genome from the easy environment simulation, and observing the change, if any, in robot behaviour when the local communication is disabled.
+The experiment is performed by selecting the fittest genomes found for the environments, and observing the change, if any, in robot behaviour when the local communication is disabled.
 
-The result of this experiment will be described in section \ref{sec:disable-local-communication}.
 
-\ref{fig:fitness-2-ports}
-\subsection{Observed behaviour}
-\label{sec:observed-behaviour}
 The behaviour observed in the easy and difficult environment is very similar.
 Therefore the description of the observed behaviour is combined into one section.
 The robots rarely disconnect once they are in a robot group.
@@ -138,7 +135,7 @@ Their behaviour can be split into two phases, the individual behaviour, and the 
 \subsubsection{Individual behaviour}
 \label{sec:invdividual_behaviour}
 The individual robots have two observed movement "modes".
-Which one is used depends on if a wall is withing sensor range.
+Which one is used depends on if a wall is within sensor range.
 If no walls are detected the robots will drive in wide circles.
 In this mode the robots collect energy, and will attempt connections with other robots they crash into.
 However, they make no attempt to avoid predators in their path.
@@ -205,10 +202,10 @@ The figures \ref{fig:number-of-groups-easy} and \ref{fig:number-of-groups-hard} 
 At first glance this seems to indicate that the easy environment is more successful at promoting self-assembly.
 This difference in number of groups may be explained by examining the lifetime of the robots.
 As explained in section \ref{sec:evaluation}, the fitness of a genome is determined by the average lifetime of a robot.
-The fitness achieved in the easy environment, figure \ref{fig:easy-fitness}, is higher than than the fitness achieved in the hard environment, figure \ref{fig:hard-fitness}.
+The fitness achieved in the easy environment, figure \ref{fig:fitness-easy}, is higher than than the fitness achieved in the hard environment, figure \ref{fig:fitness-hard}.
 This means that the robots in the easy environment live longer, and as a consequence have more time to form groups.
 
-However, figure \ref{fig:group-sizes-easy} and figure \ref{fig:group-sizes-hard} shows that the size of the robot groups formed are not affected by modifying the difficulty of the environment.
+However, figure \ref{fig:group-distribution-easy} and figure \ref{fig:group-distribution-hard} shows that the size of the robot groups formed are not affected by modifying the difficulty of the environment.
 In both environments the distribution of group sizes are heavily weighted towards groups of two.
 The reason for this may be that the environments gives a high reward for being in a group.
 That is protection from predators, but there is no additional reward for forming larger groups.
