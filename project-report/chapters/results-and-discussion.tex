@@ -305,7 +305,7 @@ In this example there are two and four port configurations.
 It can be observed that with initial rotation of the ports, there exists possibilities for the robots to self-assemble without having the robots behave differently in terms of rotating their connection ports.
 This differentiation seems to be the main reason that the 3 connection port configuration is being outperformed.
 
-The second problem robots with 3 connection ports, in this alignment, is the possible architecture the robots can form.
+The second problem robots with 3 connection ports, in this alignment, is the possible group formations the robots can form.
 Chapter \ref{ch:background} covers the chain and lattice architectures that the robots can form when self-assembling. %needs ref/explain
 The simulator is developed to support the lattice architecture because if its simplistic method of coordinated movement.
 
@@ -327,8 +327,20 @@ The simulator is developed to support the lattice architecture because if its si
 \end{figure}
 
 It can be seen from figure \ref{port-architectures} that the different connection port configurations creates different types of groups. 
-With 2 and 4 connection ports (figure \ref{2-4-port-architecture}), the robot groups either take the form of a line or in some grid formation.
-The Because of the formation of the 3 connection ports robot groups (figure \ref{3-port-architecture}) 
+With 2 and 4 connection ports (figure \ref{2-4-port-architecture}), the robot groups either take the form of a line or some square grid formation.
+Possible formations of the 3 connection ports robot groups(figure \ref{3-port-architecture}) brakes the pattern of a square grid configuration which makes it harder for other robots trying to connect to the group.
+The main reason for this connection problem is the relative position a connecting robot needs, is harder to attain because of the larger distance between the connection ports.
+
+There are not large discrepancies between the results from the port configuration simulation containing 2 and 4 connection ports.
+The only result which differs significantly is "predators eaten"(figure \ref{x}).
+The reason for this can be deduced from figure \ref{x} which shows that robots with 4 connection ports tend to form larger groups.
+It can however be viewed from \ref{x} that 2 and 4 connection ports have roughly the same number of groups.
+The occurrence of a greater amount of larger groups naturally agrees with eaten more predators as groups need to be of at least size three to consume a predator.
+The reason for 4 connection ports robots to attain larger groups is simply that more connection ports yields more points of entry for other robots trying to connect, which increases the probability of succeeding self-assembly to the group.
+
+From these results, it can be deduced that larger groups do not give rise to better fitness in this experiment, but rather the number of groups (a group is of minimum size 2) correlates with the fitness.
+The reason for this is that the robots in the port configuration simulations are not in a great need of energy.
+The are able to naturally attain what they need in the environment and hence do not have to rely on a strategy involving predator consumption.
 
 
 
