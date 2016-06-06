@@ -501,8 +501,25 @@ In the case where self-assembly does not occur, a more sophisticated objective f
 		
 \clearpage
 \section{Data gathering}
-	\section{Loggers}
-	\section{Analysis}
+The statistics that are logged for post-processing and later analysis is as follows:
+\begin{itemize}
+	\item Fitness
+	\item Group size
+	\item Number of groups
+	\item Food collected by individual robots
+	\item Food collected by robot groups
+	\item Number of predators eaten by robot groups
+	\item Number of robots starved
+	\item Number of robots eaten by predators
+\end{itemize}
+These statistics are logged at the end of each scenario for every genome in all the generations.
+These statistics are recorded by the agent observers, and the world observer. 
+The only exception being energy collected which required some modification of roborobo.
+Logging the group sizes, and number of groups is done a bit differently than the rest of the statistics.
+The reason for this is that they change in value over the lifetime of a simulation, and this change should be recorded.
+This is done by taking a snapshot which contains the number of groups and their sizes every 50 iterations of the simulation.
+
+
 \clearpage
 \subsection{Extras/Appendix?}
 	\subsection{Parallelization}
