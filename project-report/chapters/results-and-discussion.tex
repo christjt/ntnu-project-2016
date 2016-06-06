@@ -216,13 +216,68 @@ This result can likely also be attributed to the fact that the robots in the eas
 The reasoning for this is as follows.
 The ratio of energy consumed by individual robots and energy consumed by groups in the best case at the final generation for the environments are both at 73\% of energy being collected by the groups.
 This means that although the robots in the easy environment collect more energy, the strategies evolved in the different environments are similar.
-This also coincides with with that the observed behaviour described in section \ref{sec:observed-behaviour} is very similar for the different environments.
+This also coincides with with that the observed behaviour described in section \ref{sec:local_communication} is very similar for the different environments.
 
 \subsection{Local communication analysis}
 As described in section \ref{sec:disable-local-communication}, the evolved behaviour makes use of the communication module.
 When the communication module was disabled, the robots did not change their behaviour when they formed groups.
 Therefore it is reasonable to assume that local communication is at least involved in modifying the robot behaviour once connected to a group.
-Exactly how the evolved neural network interprets the messages received is difficult to infer, 
+Exactly how the evolved neural network interprets the messages received is difficult to infer, but one can have a look at the messages sent to get an overview.
+
+\begin{figure}[H]
+	\centering
+	[0.992 0.999 0.423 0.002]
+	\label{fig:message_default}
+	\caption{The message passed between the robots.}	
+\end{figure}
+
+Without any other inputs all robots send the message displayed in \ref{fig:message_default} by default.
+Receiving other inputs, such as sensors, changes the by a negligible amount.
+The surprising thing about the message is that the components in the message have wildly different values.
+It turns out that the values in the messages has an interesting interaction with the port connection status that is also given to the neural network.
+The port connection status contains the connection status of each port the robot has.
+
+\begin{table}[H]	
+		
+	\begin{tabular}{c c}
+			\hline
+			Message:[0.992 0.999 0.423 0.002] & Message: [1 1 1 1] \\
+				\hline
+		\begin{tabular}[t]{|c|c|}
+		
+			\hline \small{Desired rotation} \tiny{deg/step} & \small{Port status} \\ 
+			\hline 0.9482 & [1 1 0 0] \\ 
+			\hline 0.999 & [1 0 1 0] \\ 
+			\hline 0.517 & [1 0 0 1] \\ 
+			\hline 0.997 & [0 1 1 0] \\ 
+			\hline 0.705 & [0 1 0 1] \\ 
+			\hline 0.997 & [0 0 1 1] \\ 
+			\hline 
+		\end{tabular} 
+			&
+		\begin{tabular}[t]{|c|c|}
+		
+			\hline \small{Desired rotation} \tiny{deg/step} & \small{Port status} \\ 
+			\hline 0.719 & [1 1 0 0] \\ 
+			\hline 0.976 & [1 0 1 0] \\ 
+			\hline 0.658 & [1 0 0 1] \\ 
+			\hline 0.866 & [0 1 1 0] \\ 
+			\hline 0.674 & [0 1 0 1] \\ 
+			\hline 0.822 & [0 0 1 1] \\ 
+			\hline 	
+		\end{tabular} 	
+	\end{tabular}
+		\caption{The resulting desired rotations for different port combinations with the evolved message and a test message for comparison.}
+		\label{tab:port-desired-rotation}
+\end{table}
+
+Table \ref{tab:port-desired-rotation} shows how the desired rotation for the robots varies with the local topology of the connected robots.
+The table shows this variation with the evolved message, and a dummy message for comparison.
+One can se that the resulting desired rotation for the robots has different values for the two messages.
+The desired rotation for the robots determine the radius of the circles the robot groups move in.
+This shows that the local communication module is used for two purposes.
+The first purpose is to act as a switch to change from the individual robot behaviour, to the group behaviour.
+Additionally, the message passed around decides the radius of the circles the robots move in for different connection topologies.
 
 
 \subsection{Port configuration Analysis}
