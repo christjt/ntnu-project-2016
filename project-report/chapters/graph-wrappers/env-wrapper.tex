@@ -7,8 +7,9 @@
 
 	\insertresultgraphstwo{chapters/generated-graphs/easy/fitness-easy-out.tex}{chapters/generated-graphs/hard/fitness-hard-out.tex}{Figure shows "fitness" results from connection port simulations}{fitness}
 
-%These graphs show the results for achieved fitness for the environment difficulty simulations.
-%The easy environment result is similar to 
+These graphs show the results for achieved fitness for the environment difficulty simulations.
+The results for the easy environment are noticeably better than the results from the hard environment, starting with an average fitness of 0.24 at generation 1 and rising to 0.55 at generation 150. 
+
 \vspace*{\fill}
 
 \newpage
@@ -16,18 +17,26 @@
 \begin{center}
 	\subsubsection{Group Distribution}
 	\vspace*{-0.6cm}
+	
+
 \end{center}
 
 \insertresultgraphstwo{chapters/generated-graphs/easy/group_distribution-easy-out.tex}{chapters/generated-graphs/hard/group_distribution-hard-out.tex}{Figure shows "group distribution" results from connection port simulations}{group-distribution}
+
+	This graph presents the distribution of group sizes formed during simulation. The distribution for the easy and hard environment are very similar, but one can see that the easy environment simulation have slightly more groups of two and three robots.
+	
 \vspace*{\fill}
 \newpage
 \vspace*{\fill}
 \begin{center}
 	\subsubsection{Number of Groups}
-	\vspace*{-0.6cm}
 \end{center}
 
 \insertresultgraphstwo{chapters/generated-graphs/easy/number_of_groups-easy-out.tex}{chapters/generated-graphs/hard/number_of_groups-hard-out.tex}{Figure shows "number of groups" results from connection port simulations}{number-of-groups}
+
+	These graphs shows the average number of groups formed at a given timestamp in the simulation.
+	One can see that the curves for both simulations are quite similar, but the number of groups formed in the easy environment is around 1.0 more at a given generation.
+	\vspace*{-0.6cm}
 \vspace*{\fill}
 \newpage
 \vspace*{\fill}
@@ -37,6 +46,9 @@
 \end{center}
 
 \insertresultgraphstwo{chapters/generated-graphs/easy/robots_eaten-easy-out.tex}{chapters/generated-graphs/hard/robots_eaten-hard-out.tex}{Figure shows "robots eaten" results from connection port simulations}{robots-eaten}
+
+These graphs show the number of robots which were eaten by predators during the simulation.
+
 \vspace*{\fill}
 \newpage
 \vspace*{\fill}

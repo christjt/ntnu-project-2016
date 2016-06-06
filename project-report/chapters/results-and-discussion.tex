@@ -127,10 +127,8 @@ The goal of this experiment is to investigate the impact local communication has
 The experiment is performed by selecting the fittest genomes found for the environments, and observing the change, if any, in robot behaviour when the local communication is disabled.
 
 
-The behaviour observed in the easy and difficult environment is very similar.
-Therefore the description of the observed behaviour is combined into one section.
-The robots rarely disconnect once they are in a robot group.
-Their behaviour can be split into two phases, the individual behaviour, and the group behaviour.
+
+The observed robot behaviour can be split into two phases, the individual behaviour, and the group behaviour.
 
 \subsubsection{Individual behaviour}
 \label{sec:invdividual_behaviour}
@@ -222,7 +220,7 @@ This also coincides with with that the observed behaviour described in section \
 As described in section \ref{sec:disable-local-communication}, the evolved behaviour makes use of the communication module.
 When the communication module was disabled, the robots did not change their behaviour when they formed groups.
 Therefore it is reasonable to assume that local communication is at least involved in modifying the robot behaviour once connected to a group.
-Exactly how the evolved neural network interprets the messages received is difficult to infer, but one can have a look at the messages sent to get an overview.
+Exactly how the evolved neural network interprets the messages received is difficult to infer, but one can have a look at the messages sent to get an idea.
 
 \begin{figure}[H]
 	\centering
@@ -232,7 +230,7 @@ Exactly how the evolved neural network interprets the messages received is diffi
 \end{figure}
 
 Without any other inputs all robots send the message displayed in \ref{fig:message_default} by default.
-Receiving other inputs, such as sensors, changes the by a negligible amount.
+Receiving other inputs, such as sensors, changes the message by a negligible amount.
 The surprising thing about the message is that the components in the message have wildly different values.
 It turns out that the values in the messages has an interesting interaction with the port connection status that is also given to the neural network.
 The port connection status contains the connection status of each port the robot has.

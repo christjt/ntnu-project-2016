@@ -515,9 +515,11 @@ The statistics that are logged for post-processing and later analysis is as foll
 These statistics are logged at the end of each scenario for every genome in all the generations.
 These statistics are recorded by the agent observers, and the world observer. 
 The only exception being energy collected which required some modification of roborobo.
+Which consisted of performing the logging when energy is rewarded for eating food.
 Logging the group sizes, and number of groups is done a bit differently than the rest of the statistics.
-The reason for this is that they change in value over the lifetime of a simulation, and this change should be recorded.
 This is done by taking a snapshot which contains the number of groups and their sizes every 50 iterations of the simulation.
+The reason for this is that they change in value over the lifetime of a simulation, and this change should be recorded.
+
 
 
 \clearpage
