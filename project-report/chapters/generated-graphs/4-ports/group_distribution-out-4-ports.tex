@@ -33,7 +33,7 @@
         ytick={0.0,1.0,2.0,3.0,4.0,5.0, 6.0, 7.0, 8.0},]
         \addplot[scatter,scatter src=explicit, mark=*,only marks,
         % we use ’point meta’ as color data...
-        point meta=\thisrow{r},
+        point meta=\thisrow{r} ,
         % ... therefore, we can’t use it as argument for nodes near coords
         % ... which requires to define a visualization dependency:
         visualization depends on={value \thisrow{r} \as \r},
