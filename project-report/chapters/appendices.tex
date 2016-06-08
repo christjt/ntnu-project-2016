@@ -28,6 +28,19 @@ Once all the genomes are evaluated, the root process gathers the evaluated genom
 The evaluated genomes are then used by the evolutionary algorithm to create the next generation.
 This process is repeated until the target fitness is reached or a processing threshold is met. 
 
+\chapter{Live graphing tool}
+Since the evaluation is quite time consuming, there was need for a tool that could give feedback during the simulation instead of having to wait for it to complete.
+A simple "live" graph which plots fitness statistics was therefore created, pictured in figure \ref{fig:live-graph}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{chapters/res/graph-tool.png}
+	\caption{The graphing tool showing fitness statistics for a trial.}
+	\label{fig:live-graph}
+\end{figure}
+
+Having such a tool makes it easier to evaluate how well new configurations are working, and saves time by shortening the feedback cycle.
+
+
 \chapter{Configuration \&  Code}
 
 The project code and system configuration can be found at \url{https://github.com/christjt/ntnu-project-2016}
