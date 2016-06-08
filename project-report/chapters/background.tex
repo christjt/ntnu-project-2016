@@ -163,14 +163,14 @@ These requirements are very general and can be achieved in a wide variety of way
 
 \begin{table}[H]
 	\centering
-	
+	\caption{Various hardware solutions to discovery and communication.}
 	\begin{tabular}{ | l | l | l |p{5cm} |}
 		\hline
 		& Chain 						& Lattice \\ \hline
 		Discovery 		& IR\cite{castano_conro:_2000}  & IR\cite{gilpin_miche:_2008} \\ \hline
 		Communication 	& 1-wire bus\cite{zykov_molecubes:_2007}, IR\cite{castano_conro:_2000}, Bluetooth{\cite{mockel_yamor_2006}} & IR\cite{brandt_atron_2007},\cite{gilpin_miche:_2008}  \\\hline
 	\end{tabular}
-	\caption{Various hardware solutions to discovery and communication.}
+	
 	\label{tab:hardware-mechanisms}
 \end{table}
 
@@ -222,17 +222,9 @@ Each cube has four connector surfaces, which means that each cube can connect to
 \paragraph*{Permanent magnets and springs }
 \cite{murata_hardware_2000} describes this mechanism.
 Unlike the two magnetic mechanisms previously described, this mechanism uses rare earth permanent magnets.
-The magnets are separated by two springs and a shape memory alloy(SMA) coil(figure \ref{fig:magnetic_mechanism}).
+The magnets are separated by two springs and a shape memory alloy(SMA) coil.
 The springs are designed to have a slightly lower force than the magnets when they are compressed.
 The mechanism detaches by applying an electrical current to the SMA, extending it to the memorized length.
-
-\begin{figure}[H]
-	
-	\centering
-	\includegraphics[width=\textwidth]{chapters/res/magnetic_mechanism.PNG}
-	\caption{The magnetic docking mechanism described in \cite{murata_hardware_2000}.}
-	\label{fig:magnetic_mechanism}
-\end{figure}
 
 
 \section{Assembly protocols}
