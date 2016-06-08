@@ -11,7 +11,9 @@
 \usepackage{fancyhdr}
 \usepackage{caption}
 \usepackage{datatool}
+\usepackage{url}
 \usepackage{filecontents}
+\usepackage[toc,page]{appendix}
 \usepackage[Lenny]{fncychap}
 \restylefloat{table}
 \title{Self-assembly mechanisms for evolutionary robotics}
@@ -24,7 +26,7 @@
 
 \input{chapters/commands/graphwrapperthree.tex}
 \input{chapters/commands/graphwrappertwo.tex}
-\long\def\/*#1*/{}
+
 
 % --
 
@@ -141,6 +143,10 @@
 \input{chapters/conclusion}
 \clearpage
 
+\begin{appendices}
+	\label{ch:appendices}
+	\input{chapters/appendices}
+\end{appendices}
 \nocite{*}
 
 \bibliographystyle{abbrv}
