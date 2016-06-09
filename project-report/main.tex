@@ -113,6 +113,9 @@
 \tableofcontents
 
 \newpage
+\listoffigures
+\newpage
+\listoftables
 
 \mainmatter
 \pagestyle{main}
@@ -144,14 +147,15 @@
 \input{chapters/conclusion}
 \clearpage
 
-\begin{appendices}
-	\label{ch:appendices}
-	\input{chapters/appendices}
-\end{appendices}
 \nocite{*}
 
 \bibliographystyle{abbrv}
 
 \bibliography{references} 
+
+\begin{appendices}
+	\label{ch:appendices}
+	\input{chapters/appendices}
+\end{appendices}
 
 \end{document}
