@@ -17,8 +17,21 @@ If the least complex achievable self-assembly protocol requires sufficiently adv
 The results gained from the environment difficulty simulations implies that the difficulty of the environment is not directly correlated with promoting self-assembly.
 The results show that the robots perform better in an easy environment, but this is rather due to restrictions in the environment and not due to the ability to self-assemble.
 The only effect that difficult environments impose on self-assembly is making robots die earlier, giving them less opportunities to self-assemble.
+Promoting self-assembly may rather see a larger impact if the rules of the environment change(translation speed of predators, physical size of environment, etc.).
 
-From the results of the local communication model several points
+One of the problem statements this study aimed to examine was the introduction of a local communication model. From the results discussed in \ref{ch:results_and_discussion}, it was seen that using the local communication module drastically changed the behaviour of self-assembled groups. 
+From this experiment, it cannot be made any conclusive remarks as to the local communication module promoting the robots to self-assemble as deciphering the evolved values of the neural network is very difficult.
+From a logical point of view one would not expect there to be a difference, because the local communication module only transmits information between the robots in a self-assembled group. 
+Hence, there is seemingly no reason why this would help two singular robots to self-assemble.
+However, when using an evolutionary algorithm, the use of such certain modules may be used differently then the developer predicts.
+The evolved genomes may use the module as a state machine instead of a message passing module.
+
+In concluding remarks, it is shown that there should be a larger focus on the connection mechanism which the robots have equipped.
+To promote self-assembly, an ideal hardware mechanisms would be one which makes it easy for the robots to evolve an efficient assembly protocol, but also yields an interface to evolve complex assembly behaviour.
+In the case where static connection points are used, using many, initially aligned connection ports increase the frequency and size of the self-assembled groups.
+The difficulty of the environment does not seem to impact the frequency of self-assembly, and one may consider altering the static rules of the environment which may yield a noticeable impact.
+A local communication module is a good asset to provide for self-assembly robots as it may be used to communicate a transition to group behaviour as well as assisting in the type of behaviour which emerges from the group. 
+  
 
 
 \section{Future work}
