@@ -138,7 +138,7 @@ This challenge is demonstrated in \cite{trianni_evolving_2004} where the researc
 The high degree of mobility in each robot allows them to form a wide variety of topologies to solve tasks, but this also makes reconfiguration more difficult for large robot swarms.
 Because of this difficulty there has been less research into mobile architectures.
 
-Experiments conducted demonstrates robots solving simple tasks such as object transport\cite{gro_autonomous_2006}, phototaxis\cite{trianni_evolving_2004}, and energy collection\cite{montanier_adaptive_2014}\cite{weel_emergence_2012}.
+Experiments conducted demonstrates robots solving simple tasks such as object transport\cite{gro_autonomous_2006}, phototaxis\cite{trianni_evolving_2004}, and energy collection\cite{montanier_adaptive_2014, weel_emergence_2012}.
 These experiments demonstrate that mobile robots are capable of solving tasks through self-assembly.
 But the tasks presented are trivial problems and do not reflect the complexity of real world problems.
 Before solving real world problems, future research need to demonstrate a greater amount of robots cooperating.
@@ -146,7 +146,7 @@ Additionally, robots that have the ability to take different roles when solving 
 
 \section{Hardware mechanisms}
 \label{sec:hardware}
-Several robot systems that are capable of self-assembly have been developed over the years\cite{gross_self-assembly_2008}\cite{wei_sambot:_2011}\cite{brandt_atron_2007}.
+Several robot systems that are capable of self-assembly have been developed over the years\cite{gross_self-assembly_2008, wei_sambot:_2011, brandt_atron_2007}.
 Even though some vary greatly in implementation, all these robots have some sort of hardware which makes it possible to perform self-assembly.
 The hardware available in each robot is influenced by the desired assembly architecture.
 However, some common properties can be identified.  
@@ -168,7 +168,7 @@ These requirements are very general and can be achieved in a wide variety of way
 		\hline
 		& Chain 						& Lattice \\ \hline
 		Discovery 		& IR\cite{castano_conro:_2000}  & IR\cite{gilpin_miche:_2008} \\ \hline
-		Communication 	& 1-wire bus\cite{zykov_molecubes:_2007}, IR\cite{castano_conro:_2000}, Bluetooth{\cite{mockel_yamor_2006}} & IR\cite{brandt_atron_2007},\cite{gilpin_miche:_2008}  \\\hline
+		Communication 	& 1-wire bus\cite{zykov_molecubes:_2007}, IR\cite{castano_conro:_2000}, Bluetooth{\cite{mockel_yamor_2006}} & IR\cite{brandt_atron_2007, gilpin_miche:_2008}  \\\hline
 	\end{tabular}
 	
 	\label{tab:hardware-mechanisms}
@@ -242,7 +242,7 @@ As for a specific model of an assembly protocol, we have two main approaches.
 		& Pre-determined & Evolved & Reference\\ \hline
 		CONRO & X & & \cite{castano_conro:_2000}\\ \hline
 		Miche & X & & \cite{gilpin_miche:_2008}\\ \hline
-		SWARM-BOTS project & X & X & \cite{gross_object_2006}\cite{trianni_evolving_2004}\\ \hline
+		SWARM-BOTS project & X & X & \cite{gross_object_2006, trianni_evolving_2004}\\ \hline
 		N/A & & X & \cite{weel_emergence_2012}\\ \hline
 	\end{tabular}
 	\caption{An overview comparing past research projects of swarm robots based on the robot controller being evolved using an evolutionary algorithm, or pre-programmed for its intended usage.}
@@ -296,10 +296,10 @@ The agent records the feedback received for performing a particular action in ea
 Through this process the agent discovers which action is optimal for a given state.
 Applying this form of learning to swarm robotics presents several challenges.
 One challenge is the fact that a swarm performs actions as a collective, but the learning is done on an individual level and does not reward global behaviour\cite{brambilla_swarm_2013}.
-Additionally traditional RL requires that the environment can be quantized into a finite number of discrete states\cite{schmidhuber_evolutionary_2000}\cite{brambilla_swarm_2013}.
+Additionally traditional RL requires that the environment can be quantized into a finite number of discrete states\cite{schmidhuber_evolutionary_2000, brambilla_swarm_2013}.
 The number of possible interactions between the robots and the environment, and the noise in the real world leads to a high amount of states and makes it difficult to know how these are connected in advance\cite{schmidhuber_evolutionary_2000}.
 Techniques such as using an approximator\cite{brambilla_swarm_2013} to reduce the state space, and more intelligent reward mechanisms\cite{brambilla_swarm_2013}, can be used to reduce the impact of these challenges.
-Several projects\cite{li_learning_2004}\cite{balch_behavioral_1998}\cite{mataric_interaction_1994} have successfully applied reinforcement learning in multi-agent systems.
+Several projects\cite{li_learning_2004, balch_behavioral_1998, mataric_interaction_1994} have successfully applied reinforcement learning in multi-agent systems.
 Given the challenges of RL, as the goals and ambition of projects increase, researchers are drawn towards techniques that resemble evolutionary algorithms\cite{schmidhuber_evolutionary_2000}.
 
 Evolutionary algorithms attempts to find solutions to a problem by simulating the mechanisms of Darwinian evolution\cite{trianni_evolving_2004}.
@@ -341,7 +341,7 @@ After a given set of time steps, the genome is evaluated by a fitness function w
 At the end of a generation, some of the genomes will be selected for reproduction based on their fitness.	 
 The algorithm then proceeds to mate genomes through crossover and applying mutation on the population.	 
 The process is repeated on this new set of genomes until the desired fitness is reached, or some processing time threshold is met.
-\cite{trianni_evolving_2004}\cite{li_co-evolution_2015} describes examples of how this process can be applied to create controllers for self-assembling robots. 
+\cite{trianni_evolving_2004, li_co-evolution_2015} describes examples of how this process can be applied to create controllers for self-assembling robots. 
 
 \begin{figure}[H]
 	
@@ -447,7 +447,7 @@ The designers may know what desired behavior for the robots is, but expressing t
 Instead, with machine learning an ANN can learn from examples of desired behavior provided by the controller designers.
 This approach allows designers to create the desired controllers by providing examples instead of knowing the exact solution.
 
-Neural networks have been applied to design robot controllers in several\cite{trianni_evolving_2004}\cite{montanier_adaptive_2014}\cite{brandt_atron_2007} self-assembling robot systems.
+Neural networks have been applied to design robot controllers in several\cite{trianni_evolving_2004, montanier_adaptive_2014, brandt_atron_2007} self-assembling robot systems.
 These robot systems all use different approaches in how neural networks are applied to create the controller.
 \cite{montanier_adaptive_2014} uses a simple feed forward network, while \cite{trianni_evolving_2004} uses a CTRNN, and finally \cite{brandt_atron_2007} uses multiple neural networks which decide different parts of the behavior.
 This shows that neural networks are a versatile tool in designing robot controllers for self-assembling robot systems.
