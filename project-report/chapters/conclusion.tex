@@ -19,7 +19,7 @@ The results show that the robots perform better in an easy environment, but this
 The only effect that difficult environments impose on self-assembly is making robots die earlier, giving them less opportunities to self-assemble.
 Promoting self-assembly may rather see a larger impact if the rules of the environment change(translation speed of predators, physical size of environment, etc.).
 
-One of the problem statements this study aimed to examine was the introduction of a local communication model. From the results discussed in \ref{ch:results_and_discussion}, it was seen that using the local communication module drastically changed the behaviour of self-assembled groups. 
+One of the problem statements this study aimed to examine was the introduction of a local communication model. From the results discussed in chapter  \ref{ch:results_and_discussion}, it was seen that using the local communication module drastically changed the behaviour of self-assembled groups. 
 From this experiment, it cannot be made any conclusive remarks as to the local communication module promoting the robots to self-assemble as deciphering the evolved values of the neural network is very difficult.
 From a logical point of view one would not expect there to be a difference, because the local communication module only transmits information between the robots in a self-assembled group. 
 Hence, there is seemingly no reason why this would help two singular robots to self-assemble.
@@ -35,7 +35,23 @@ A local communication module is a good asset to provide for self-assembly robots
 
 
 \section{Future work}
+From the observed results of self-assembly mechanisms and environment, it is seen that improvements and further experimentation can be made. This forms the basis for exploring other factors of self-assembly mechanisms.
 
+The port configuration has the possibility to be explored further as the results of this study determined that it has a significant impact on the emergence of self-assembly. 
+A possible exploratory field would be to challenge the static nature of the ports presented in this study.
+A hardware mechanisms which does not depend on fixed positions on a robot where the robots are able to self-assemble at any point on a connecting robot should, according to the results obtained in this study, perform at a higher rate.
+An obvious end goal of studies like this one is to be able to realise these robots into the real world.
+In these scenarios the reality gap will probably inflict even stricter conditions on performing a simplistic assembly strategy which could detriment to ability to self-assemble.
 
-The evolved strategies and the observed behaviour for the easy and the difficult environment were very similar.
-It would be of interest to continue modifying the environments to find the threshold where new strategies have to be evolved. 
+Since the impact of changing the environment did not suggest a change in assembly protocol or strategy, a reasonable continuation would be categorize which environmental scenarios self-assembly through evolution is most appropriate. 
+Changing the atomic rules of the environment and robot tasks may yield results indicating scenarios where evolutionary self-assembly is more appropriate.
+
+Local communication is a mechanisms which has not been greatly researched in this field. 
+According to the results obtained in this study, further exploration into communication modules between the robots can give rise to increasingly complex behaviour.
+In this study, a very simple protocol of passing floating point integers from one robot to another was implemented.
+Perhaps there are better communication protocols available which could further the performance.
+It is also possible to look at the possibility for robots to communicate on a local spectrum where they are not necessarily self-assembled.
+This may improve their ability to form an affective assembly strategy through evolution.
+
+The evolutionary algorithm used in this study is simple and standard.
+There exists more advanced algorithms where the mechanisms presented in this study should be additionally explored.
