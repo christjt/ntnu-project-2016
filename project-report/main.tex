@@ -13,6 +13,7 @@
 \usepackage{datatool}
 \usepackage{url}
 \usepackage{hyperref}
+\usepackage{natbib}
 \usepackage{filecontents}
 \usepackage[toc,page]{appendix}
 \usepackage[Lenny]{fncychap}
@@ -32,6 +33,14 @@
 % --
 \floatstyle{plaintop}
 \restylefloat{table}
+
+\usepackage{xcolor}
+\hypersetup{
+	colorlinks,
+	linkcolor={red!50!black},
+	citecolor={blue!50!black},
+	urlcolor={blue!80!black}
+}
 
 \fancypagestyle{main}{%
   	\fancyhead{}
