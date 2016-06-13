@@ -1,11 +1,11 @@
 The purpose of this chapter is to introduce the background and main concepts required to describe and compare self-reconfiguring robotic systems.
 The beginning of this chapter includes a section of related work comparing similar projects and experiments.
 Following, this chapter reviews the state-of-the-art of self-assembly mechanisms.
-This includes the assembly architecture, protocol and different hardware mechanisms for real world application.
-This chapter also reviews any additional theory that is needed for the implementation and analysis of this experiment such as machine learning and artificial neural networks.
+Self-assembly mechanisms includes the assembly architecture, protocol and different hardware mechanisms for real world application.
+This chapter also reviews any additional theory that is required for the implementation and analysis of this experiment such as machine learning and artificial neural networks.
 
 \section{Related work}
-Self-assembly in robotics is a relatively new field of research, however there are still some papers which attempts to discuss and compare the different mechanisms in a self-assembly system. 
+Self-assembly in robotics is a relatively new field of research; however, there are still some papers which attempts to discuss and compare the different mechanisms in a self-assembly system. 
 \cite{murata_self-reconfigurable_2007} mainly covers the potential of reconfigurable systems, as well as the challenges of self-reconfigurable robotics. 
 Though this article does not conduct any experiment, it does touch upon some of the same issues that this report is trying to outline.
 
@@ -14,25 +14,25 @@ In particular, this article looks at \emph{PolyBot} and how it is able to reconf
 \cite{yim_modular_2002} also covers some of the benefits in general of having a self-reconfigurable system, as well as challenges that are still being explored.
 
 \cite{rus_self-reconfiguring_2002} discusses the hardware design issues for self-reconfigurable robot systems, and presents two solutions developed in their laboratory.
-Additionally, the algorithmic challenges of planing reconfiguration from one shape to a desired shape is discussed.
+Additionally, the algorithmic challenges of planning reconfiguration from one shape to some desired shape is discussed.
 
 \cite{yim_modular_2007} is the more complete and detailed of the articles presented here. 
 In addition to the general benefits and challenges of modular self-reconfigurable robot system, it also looks at the different architectures the system can take, application areas and history of the field.
 The article also includes an extensive list containing many self-reconfigurable modular systems and the type of architecture they have.
 
 These papers outline what a modular self-reconfigurable system is and what the benefits and challenges of these systems are.
-However, there are no direct comparison between the mechanisms themselves.
-\cite{yim_modular_2007} introduces many different systems that work quite differently, but there is no conclusion based on if  these systems promote self-assembly or not.
+However, there is no direct comparison between the mechanisms themselves.
+\cite{yim_modular_2007} introduces many different systems that work quite differently, but there is no conclusion based on if these systems promote self-assembly or not.
 
 \section{Complex systems}
 \label{sec:complex_systems}
 What separates complex systems from what we determine "simple systems" is that the behaviour of the system cannot be understood by simply looking at individual parts of the system.
 The way the parts act together and how they are connected is what gives rise to complex behaviour.
-This concept bring us to emergent behaviour.
+This concept brings us to emergent behaviour.
 Emergent behaviour is a process where the system takes on certain patterns, regularities or form larger entities through the interconnections and interactions among simple parts that by themselves to not portray such properties.
 Further, this report will look at an emergent behaviour known as self-assembly.  
 
-In nature one can find many examples of complex systems displaying self-organizing behaviour.
+In nature, one can find many examples of complex systems displaying self-organizing behaviour.
 The collectives range from just a few individuals to millions.
 Some examples are flocking behaviour in birds, fish schooling, and the complex societies seen among social insects(Figure \ref{fig:collective-behaviour}). 
 
@@ -61,28 +61,28 @@ Some examples are flocking behaviour in birds, fish schooling, and the complex s
 \end{figure}
 
 Social insects such as termites build large structures featuring complex architectures.
-These examples show how a collective of simple agents, without a central controller can accomplish tasks each individual would be unable to perform themselves. 
+These examples show how a collective of simple agents, without a central controller, can accomplish tasks that each individual would be unable to perform themselves. 
 Together, the actions of these agents form a collective behaviour that can be considered intelligent.  
 
-These biological systems display massively parallel, decentralized computation.
-This stands in contrast to conventional computer systems with a central processing unit executing instructions serially.
-Research into self-assembling robot systems therefore take inspiration from biology, using methods such as evolutionary algorithms simulating Darwinian evolution, and artificial neural networks inspired by the way brains process data.
+These biological systems display massively parallel, decentralised computation.
+These systems stand in contrast to conventional computer systems with a central processing unit executing instructions serially.
+Research into self-assembling robot systems, therefore, take inspiration from biology, using methods such as evolutionary algorithms simulating Darwinian evolution, and artificial neural networks inspired by the way brains process data.
 
 
 
 
 \section{Self-assembly architectures}
 \label{sec:sfArchitecture}
-Self reconfiguring robots can assemble into many different shapes, and there are many ways to do so.
+Self-reconfiguring robots can assemble into many different shapes, and there are many ways to do so.
 We define these properties as the self-assembly architecture.
 Each architecture presents different challenges and benefits.
 The architectures can in broad terms be categorized either as non-mobile- or mobile-architectures.
 The non-mobile architectures are characterized by the topologies of the structures they form, while mobile architectures are characterized by having more mobile robots with a higher degree of freedom.
 This section will describe and define some of the common assembly architectures used in previous projects.
 \subsection{Non-mobile Architecture}
-Typically these robots have little mobility themselves, but can form complex structures capable of a wide range of behavior.
-One of the long term visions for these kinds of robots is called "bucket of stuff"\cite{yim_modular_2007}.
-The idea is to have a collection of different robot modules which can be assembled on demand to solve different tasks.
+Typically these robots have little mobility themselves but can form complex structures capable of a wide range of behavior.
+One of the long-term visions for these kinds of robots is called "bucket of stuff"\cite{yim_modular_2007}.
+The idea is to have a collection of different robot modules which can be assembled on demand to solve various tasks.
 One way to classify non-mobile robots is based on their configuration topology.
 The main classes for configuration topologies are chain and lattice configurations.
 
@@ -93,7 +93,7 @@ One of the challenges with this topology is coordinating movement and decisions 
 Examples of chain architecture based robots are Molecubes\cite{zykov_molecubes:_2007}, Yamor\cite{mockel_yamor_2006}, and Conro\cite{castano_conro:_2000}.
 Yamor is depicted in figure \ref{fig:yamor}.
 
-\begin{figure}[H]	
+\begin{figure}[H]    
 	\centering
 	\includegraphics[scale=0.5]{chapters/res/Yamor.PNG}
 	\caption{Yamor robots configured as a snake\cite{mockel_yamor_2006}.}
@@ -108,8 +108,8 @@ Due to its simplicity, a lattice architecture is easier to scale.
 There have been more research groups working on this class of architecture due to its easier implementation \cite{yim_modular_2002}.
 
 Symmetry is a desirable property for robots that employ the lattice architecture because this makes reconfiguration into new positions in the grid easier.
-To maintain the symmetry property in 3D space, each robot needs more connection points and actuators than in 2D space\cite{murata_self-reconfigurable_2007}.
-This complicates the design of the robots. 
+To maintain the symmetry property in three-dimensional space, each robot needs more connection points and actuators than in two-dimensional space\cite{murata_self-reconfigurable_2007}.
+This property complicates the design of the robots. 
 Thus, building these robots with a high enough power/weight ratio is difficult.
 Examples of lattice architecture based robots which is able to perform self-reconfiguration are ATRON\cite{brandt_atron_2007}, Miche\cite{gilpin_miche:_2008}, and Catoms\cite{kirby_catoms:_2005}.
 Atron is depicted in figure \ref{fig:atron}.
@@ -150,8 +150,8 @@ Additionally, robots that have the ability to take different roles when solving 
 \section{Hardware mechanisms}
 \label{sec:hardware}
 Several robot systems that are capable of self-assembly have been developed over the years\cite{gross_self-assembly_2008, wei_sambot:_2011, brandt_atron_2007}.
-Even though some vary greatly in implementation, all these robots have some sort of hardware which makes it possible to perform self-assembly.
-The hardware available in each robot is influenced by the desired assembly architecture.
+Even though some vary greatly in implementation, all these robots have some implementation of hardware which makes it possible to perform self-assembly.
+The desired assembly architecture influences the hardware available in each robot.
 However, some common properties can be identified.  
 
 \section*{Prerequisites for self-assembly}
@@ -170,22 +170,22 @@ These requirements are very general and can be achieved in a wide variety of way
 	\caption{Various hardware solutions to discovery and communication.}
 	\begin{tabular}{ @{}  l  l  l  @{}}
 		\toprule
-		& Chain 						& Lattice \\
+		& Chain                         & Lattice \\
 		\midrule
-		Discovery 		& IR\cite{castano_conro:_2000}  & IR\cite{gilpin_miche:_2008} \\
-		Communication 	& 1-wire bus\cite{zykov_molecubes:_2007}, IR\cite{castano_conro:_2000}, Bluetooth{\cite{mockel_yamor_2006}} & IR\cite{brandt_atron_2007, gilpin_miche:_2008}  \\ \bottomrule
+		Discovery         & IR\cite{castano_conro:_2000}  & IR\cite{gilpin_miche:_2008} \\
+		Communication     & 1-wire bus\cite{zykov_molecubes:_2007}, IR\cite{castano_conro:_2000}, Bluetooth{\cite{mockel_yamor_2006}} & IR\cite{brandt_atron_2007, gilpin_miche:_2008}  \\ \bottomrule
 	\end{tabular}
 	
 	\label{tab:hardware-mechanisms}
-\end{table}	
+\end{table}    
 
 It is possible to simplify or ignore some of these requirements, but self-assembly is impossible without the docking mechanism.
-This means that the choice of docking mechanism can be a deciding factor in the performance of a self-assembling robot. 
+The choice of docking mechanism can be a deciding factor in the performance of a self-assembling robot.
 
 
 \subsection{Docking mechanisms}
 \label{sec:mechanisms}
-The docking mechanism is an essential component in self-assembly, and has been solved in various ways in previous studies.
+The docking mechanism is an essential component in self-assembly and has been solved in various ways in previous studies.
 For experiments with self-assembly in simulation, the mechanisms are often simplified since the focus of the experiments usually is the self-assembly behaviour.
 Therefore, it can be difficult to replicate the results on real hardware.
 The real world introduces noise, and the mechanisms designed must be able to cope with that imperfection.
@@ -195,14 +195,14 @@ The desired self-assembly architecture also plays a role in designing a docking 
 \subsubsection*{Male-female connector}
 This form of connection mechanism is used by the ATRON\cite{brandt_atron_2007} robots.
 The male modules are shaped like three hooks that can lock onto female connector bars.
-Each robot has eight connector modules, and are arranged such that every second connector is male and every second is female.
-This allows each robot to connect to a maximum of eight other robots.
+Each robot has eight connector modules and is arranged such that every second connector is male and every second is female.
+The connector modules allow each robot to connect to a maximum of eight other robots.
 A disadvantage with this type of mechanism is that the robots have to match the male to the female connectors before they can assemble, which eventually complicates the docking procedure.
 \subsubsection*{Gripper and ring}
 The swarm-bot platform\cite{gro_autonomous_2006} uses this mechanism for self-assembly in the real world.
-Each robot is equipped with a gripper, and is surrounded by a ring matching the gripper. 
-This means that each robot can initiate one connection to other robots, but multiple robots can connect to each ring.
-There are several advantages with this mechanism; it allows some misalignment that makes docking simpler and the ring makes it possible for several other robots to connect.
+Each robot is equipped with a gripper and is surrounded by a ring matching the gripper. 
+Each robot can initiate one connection to other robots, but multiple robots can connect to each ring.
+There are several advantages with this mechanism; it allows some misalignment that makes docking simpler, and the ring makes it possible for several other robots to connect.
 Although many robots can connect to the ring, having only one gripper limits the possible configurations.
 This disadvantage can be mitigated by adding more grippers.
 
@@ -234,8 +234,8 @@ The mechanism detaches by applying an electrical current to the SMA, extending i
 \section{Assembly protocols}
 \label{sec:protocol}
 In the context of swarm robotics and this paper, the term assembly protocol is defined as the sequence of actions that has to be performed before a successful self-assembly can occur. 
-For pre-programmed robots the protocols is determined by the programmer, and known in advance.
-Evolutionary robotics are different in this regard since the controllers are evolved, therefore, the resulting assembly protocols may be unexpected. 
+For pre-programmed robots, the protocols are determined by the programmer and known in advance.
+Evolutionary robotics are different in this regard since the controllers are evolved; therefore, the resulting assembly protocols may be unexpected. 
 An overview of assembly protocols used in previous projects is presented in table \ref{tab:protocols}.
 As for a specific model of an assembly protocol, we have two main approaches. 
 
@@ -262,7 +262,7 @@ An example of a pre-determined protocol is found in \cite{gross_object_2006}.
 In this experiment, the s-bots uses RGB LEDs to signal their position, and if other s-bots should dock with them.
 The lights are also used to determine if the self-assembly process is complete. 
 
-Using the protocol described, the s-bots are successfully self-assembled in 26 out of 30 trials. The advantage of using a pre-programmed assembly protocol is that it can be tailored to the problem. This often leads to good performance and a predictable outcome of the assembly once the system is deployed. It does however carry the disadvantage of being less general in the sense that the protocol can only be changed by implementing new software. Depending on the assembly protocol, it can also be quite complex which in turn, makes the implementation more difficult.
+Using the protocol described, the s-bots are successfully self-assembled in 26 out of 30 trials. The advantage of using a pre-programmed assembly protocol is that it can be tailored to the problem. This often leads to good performance and a predictable outcome of the assembly once the system is deployed. It does, however, carry the disadvantage of being less general in the sense that the protocol can only be changed by implementing new software. Depending on the assembly protocol, it can also be quite complex which in turn, makes the implementation increasingly difficult.
 
 \subsection{Learned assembly protocol}
 In a machine learning setting, we can give the robots docking mechanisms, but leave the entire assembly protocol up to the learned controller.
@@ -285,8 +285,8 @@ Even though an assembly protocol was evolved, the desired results of using the l
 The s-bots rather used exploits such as lining up against the wall of the experiment to perform a simpler self-assembly.
 The results also showed that the loudspeaker was not used optimally and was something they would like to explore in future research.
 This behaviour is one of the disadvantages of using machine learning to develop assembly protocols.
-First of all, it may not be able to create a protocol at all, and it is also likely that the end results are sub optimal. 
-A reason behind this is that the environment in which the robots are evolved often impacts the type of assembly protocol that emerges.
+First of all, it may not be able to create a protocol at all, and it is also likely that the end results are sub-optimal. 
+A reason for this is that the environment, in which the robots are evolved, often impacts the type of assembly protocol that emerges.
 
 \section{Machine learning algorithms}
 \label{sec:learning}
@@ -314,13 +314,13 @@ In these algorithms, the possible solutions are encoded into genomes and improve
 \subsection{Evolutionary algorithms}
 \label{sec:evo_alg}
 Evolutionary algorithms is a class of algorithm in the category of \emph{bio-inspired algorithms}\cite{binitha_survey_2012}.
-Nature has shown that it is a great optimizer.
-When we examine features and phenomenons in nature, it tends to find the optimal strategy.
+Nature has shown that it is an excellent optimizer.
+When we examine features and phenomenon in nature, it tends to find the optimal strategy.
 The strategies employed are often very simple, but has great results.
-Bio-inspired algorithms takes inspiration from nature and attempts to mimic the behaviour observed in nature.
-These algorithms can be categorized by the natural phenomenons they mimic.
+Bio-inspired algorithms take inspiration from nature and attempts to mimic the behaviour observed in nature.
+These algorithms can be categorized by the natural phenomenon they mimic.
 The three main categories are \emph{evolution}, \emph{swarm-based}, and \emph{ecology}\cite{binitha_survey_2012}. 
-These algorithms are optimization algorithms and can therefore be used to automate the design of robot controllers.
+These algorithms are optimization algorithms and can, therefore, be used to automate the design of robot controllers.
 Specifically in the field of evolutionary robotics, the focus has been to employ evolutionary algorithms in the design of robot controllers.
 
 
@@ -328,23 +328,23 @@ There are many variants of evolutionary algorithms, the most common can be categ
 \begin{quote} 
 	In \emph{off-line} evolution, the evolutionary development of robot controllers takes place before the robots start their “real” operation period.
 	\emph{On-line} evolution is the opposite, in that the evolutionary development of robot controllers takes place during the “real” operation period of the robots(although off-line evolution might precede on-line evolution as an educated initialization procedure)and is an ever-continuing process.\cite{eiben_embodied_2010}
-\end{quote} 
+\end{quote}
 
 
 \subsubsection*{Off-line}
 The details of how off-line evolutionary algorithms are implemented usually vary, however most implementations perform a variation of the same following steps\cite{doncieux_evolutionary_2011}, displayed in figure \ref{fig:offline-ea}. 
 
 The first step of an off-line algorithm is to generate some population.
-There are two main procedures that can be used to generate the initial population.	 
-One can either generate the genomes for the robots completely random, or by some function that applies bias.
-In the biological sense, a genome contains the configuration, or blueprint for an individual.
-Before the genome can be used by the robots, this configuration must be translated into a robot controller.
+Two main procedures can be used to generate the initial population.     
+One can either generate the genomes for the robots completely random or by some function that applies bias.
+In the biological sense, a genome contains the configuration or blueprint for an individual.
+Before the genome can be used by the robots, the configuration must be translated into a robot controller.
 The translation procedure can for example consist of translating the genome into an \emph{artificial neural network}, and uploading it to the robots.
 The next step after initialization is the robots acting in the environment.
-After a given set of time steps, the genome is evaluated by a fitness function which scores the robots based on their ability to solve the task.	 
-At the end of a generation, some of the genomes will be selected for reproduction based on their fitness.	 
-The algorithm then proceeds to mate genomes through crossover and applying mutation on the population.	 
-The process is repeated on this new set of genomes until the desired fitness is reached, or some processing time threshold is met.
+After a given set of time steps, the genome is evaluated by a fitness function which scores the robots based on their ability to solve the task.     
+At the end of a generation, some of the genomes will be selected for reproduction based on their fitness.     
+The algorithm then proceeds to mate genomes through crossover and applying mutation on the population.     
+The process is repeated for this new set of genomes until the desired fitness is reached, or some processing time threshold is met.
 \cite{trianni_evolving_2004, li_co-evolution_2015} describes examples of how this process can be applied to create controllers for self-assembling robots. 
 
 \begin{figure}[H]
@@ -355,7 +355,7 @@ The process is repeated on this new set of genomes until the desired fitness is 
 	\label{fig:offline-ea}
 \end{figure}
 
-The evolution process requires a lot of trials to evaluate the performance of each genome. Performing these trials on real hardware is therefore impractical, time consuming, and possibly dangerous as the robots may damage themselves or the environment.
+The evolution process requires a lot of trials to evaluate the performance of each genome. Performing these trials on real hardware is, therefore, impractical, time-consuming, and possibly dangerous as the robots may damage themselves or the environment.
 The evaluation is therefore often performed in simulation\cite{koos_crossing_2010}.
 Transferring the controllers evolved in simulation to real hardware has proven to be problematic because the controllers tend to be less efficient once transferred.
 This \emph{reality gap} remains a critical issue in evolutionary robotics\cite{koos_crossing_2010}.
@@ -398,7 +398,7 @@ In the case where the fitness is not acceptable, it simply continues to live on 
 \section{Artificial neural networks}
 Computers excel at performing tasks that can be described as a series well-defined steps, and can at these tasks easily outperform humans in doing so.
 Tasks that humans find easy, such as understating speech or recognizing faces has proven to be difficult to describe a series of unambiguous operations in the conventional computation model.
-Biological neural networks, such as brains, have evolved to be very good at pattern recognition and data classification.
+Biological neural networks, such as brains, have evolved to be excellent at pattern recognition and data classification.
 Artificial neural networks(ANN) take inspiration from how biological neural networks process data.
 
 ANN's consist of interconnected processing units(neurons) which work in parallel to solve a specific problem.
@@ -413,7 +413,7 @@ The operation of an artificial neuron consists of two main components, depicted 
 	\label{fig:artificial-neuron}
 \end{figure}
 First, the neuron sums the action potential from the preceding neurons.
-The activation function is then applied on the sum which produces a new action potential as the output.
+The activation function is then applied to the sum which produces a new action potential as the output.
 The role of the activation function is to transform the action potential in the node to an output that can be passed to the succeeding nodes.
 These functions often have a thresholding effect where the neuron outputs a low potential until a threshold is reached.
 A common activation function is the logistics equation(\ref{eq:logistics-equation}).
@@ -427,13 +427,12 @@ A common activation function is the logistics equation(\ref{eq:logistics-equatio
 	\caption{The ouput of node i with internal action potential v.}
 \end{captioneq}
 
-The connection strength between neurons is simulated by introducing weights on the connections.
-A neuron with a higher weight on one of its connections will then be more influenced by that particular connection.
+The connection strength between neurons is simulated by introducing weights.
+A neuron with a higher weight on one of its connections will be further influenced by that particular connection.
 Learning can then be performed by modifying the weights on the connections in the ANN.
 
-
 The neurons in ANN's are organized into multiple layers, where each neuron is connected to the neurons in the preceding layers.
-Typically there is a input layer, an output layer, and zero or more hidden layers between them.
+Typically there is an input layer, an output layer, and zero or more hidden layers between them.
 
 \begin{figure}[H]
 	\centering
@@ -442,11 +441,11 @@ Typically there is a input layer, an output layer, and zero or more hidden layer
 	\label{fig:mlp-simple}
 \end{figure}
 
-Figure \ref{fig:mlp-simple} depicts a simple feed forward network with one hidden layer.
-The inputs are propagated from the input layer on the left to the output layer.
+Figure \ref{fig:mlp-simple} depicts a simple feed-forward network with one hidden layer.
+The inputs are propagated from the input layer, on the left, to the output layer.
 More complex network topologies introduce connections within the layers and connections back to preceding layers.
 
-Creating good robot controllers can be difficult as the number of sensors and actuators grow.
+Creating efficient robot controllers can be difficult as the number of sensors and actuators grow.
 The designers may know what desired behavior for the robots is, but expressing this in the conventional computing model as a series of instructions can be difficult.
 Instead, with machine learning an ANN can learn from examples of desired behavior provided by the controller designers.
 This approach allows designers to create the desired controllers by providing examples instead of knowing the exact solution.
@@ -454,5 +453,5 @@ This approach allows designers to create the desired controllers by providing ex
 Neural networks have been applied to design robot controllers in several\cite{trianni_evolving_2004, montanier_adaptive_2014, brandt_atron_2007} self-assembling robot systems.
 These robot systems all use different approaches in how neural networks are applied to create the controller.
 \cite{montanier_adaptive_2014} uses a simple feed forward network, while \cite{trianni_evolving_2004} uses a CTRNN, and finally \cite{brandt_atron_2007} uses multiple neural networks which decide different parts of the behavior.
-This shows that neural networks are a versatile tool in designing robot controllers for self-assembling robot systems.
+This shows that neural networks are a versatile tool for designing robot controllers for self-assembling robot systems.
 
