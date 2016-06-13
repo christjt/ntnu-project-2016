@@ -55,13 +55,15 @@ Common configuration parameters of importance for the simulations are listed in 
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{|c|c|}
-		\hline Parameter & Value \\ 
-		\hline Number of Robots & 20 \\ 
-		\hline Iterations per Generation & 10000 \\
-		\hline Scenarios & 3 \\ 
-		\hline Generations & 150 \\ 
-		\hline 
+	\begin{tabular}{ @{} l @{\hspace{1cm}}l @{}}
+		\toprule 
+		Parameter & Value \\ 
+		\midrule 
+		Number of Robots & 20 \\ 
+		Iterations per Generation & 10000 \\
+		Scenarios & 3 \\ 
+		 Generations & 150 \\ 
+		\bottomrule 
 		
 	\end{tabular}
 	\caption{The simulation parameters for the environments.}
@@ -100,11 +102,13 @@ Table \ref{tab:environment-difficulty} presents the simulation parameters that a
 \begin{table}[H]
 	\centering
 
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline  & \small{Predators} & \small{Initial energy} & \small{Food items} & \small{Maximum energy} \\ 
-		\hline \small{Easy environment} & 4 & 8000 & 25 & 10000 \\ 
-		\hline \small{Hard environment} & 7 & 6000 & 20 &8000 \\ 
-		\hline 
+	\begin{tabular}{@{} l c c c c @{}}
+		\toprule 
+		 Environment & \small{Predators} & \small{Initial energy} & \small{Food items} & \small{Maximum energy} \\ 
+		\midrule 
+		\small{Easy environment} & 4 & 8000 & 25 & 10000 \\ 
+		\small{Hard environment} & 7 & 6000 & 20 &8000 \\ 
+		\bottomrule 
 		
 	\end{tabular} 
 	\caption{The simulation parameters for the environments.}
@@ -306,6 +310,11 @@ The are able to naturally attain what they need in the environment and hence do 
 
 
 \subsection{Environmental difficulty analysis}
+The analysis and discussion on the impact of environmental difficulty can be divided into three main categories.
+The impact of environmental threats when the difficulty is modified.
+How the promotion of self-assembly is affected by the environmental difficulty.
+How the evolved energy collection strategy is affected by the environment difficulty.	
+
 \subsubsection{Environmental threats}
 The robots have two threats in the environments presented, starvation and getting killed by predators.
 The robots in the easy environment receive more energy from food, and there is more food available.
@@ -341,13 +350,15 @@ One can look at the ratio of energy collected by individual robots versus energy
 This relationship is presented in table \ref{tab:energy-collected-ratio}.
 \begin{table}[H]
 	\centering
-	\begin{tabular}{|c|c|c|}
-		\hline Generation & Easy & Hard \\ 
-		\hline 10 	& 54\%	& 51\%  \\ 
-		\hline 50 	& 71\%	& 67\% \\ 
-		\hline 100 	& 71\%	& 71\% \\ 
-		\hline 150 	& 72\% 	& 73\% \\ 
-		\hline 
+	\begin{tabular}{ l @{\hspace{1cm}}c @{\hspace{1cm}}c }
+		\toprule
+		Generation & Easy & Hard \\ 
+		\midrule 
+		10 	& 54\%	& 51\%  \\ 
+		50 	& 71\%	& 67\% \\ 
+		100 	& 71\%	& 71\% \\ 
+		150 	& 72\% 	& 73\% \\ 
+		\bottomrule 
 	\end{tabular} 
 	\caption{The percentage of energy collected by groups of robots for the environments.}
 	\label{tab:energy-collected-ratio}
