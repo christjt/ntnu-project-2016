@@ -126,7 +126,7 @@ Mobile architectures are characterized by having autonomous robots which can sel
 Each robot can operate independently or form larger structures when needed, by hooking up with other units.
 The structures formed may have different topologies and can coordinate their movements to form a larger virtual network\cite{yim_modular_2007}.
 One example of a mobile architecture is presented in \cite{gross_object_2006}.
-In the experiment depicted in figure \ref{fig:swarmbot-object-transport}, a group of robots are programmed  to move an object which requires cooperation by being to heavy for a single robot to move.
+In the experiment depicted in figure \ref{fig:swarmbot-object-transport}, a group of robots are programmed to move an object which requires cooperation by being too heavy for a single robot to move.
 
 \begin{figure}[H]
 	\centering
@@ -135,16 +135,16 @@ In the experiment depicted in figure \ref{fig:swarmbot-object-transport}, a grou
 	\label{fig:swarmbot-object-transport}
 \end{figure}
 Since each robot in the architecture is autonomous one challenge is making the individual robots cooperate.
-This is especially difficult in cases where the optimal solution to a task involves cooperation, but the robots are able to complete the task individually.
+Cooperation is especially difficult in cases where the optimal solution to a task involves cooperation, but the robots can complete the task individually.
 This challenge is demonstrated in \cite{trianni_evolving_2004} where the researchers were able to promote self-assembly to solve the task, but the self-assembly was only present in 2 out of 10 trials.
 
 The high degree of mobility in each robot allows them to form a wide variety of topologies to solve tasks, but this also makes reconfiguration more difficult for large robot swarms.
-Because of this difficulty there has been less research into mobile architectures.
+Because of this difficulty, there has been less research into mobile architectures.
 
 Experiments conducted demonstrates robots solving simple tasks such as object transport\cite{gro_autonomous_2006}, phototaxis\cite{trianni_evolving_2004}, and energy collection\cite{montanier_adaptive_2014, weel_emergence_2012}.
 These experiments demonstrate that mobile robots are capable of solving tasks through self-assembly.
-But the tasks presented are trivial problems and do not reflect the complexity of real world problems.
-Before solving real world problems, future research need to demonstrate a greater amount of robots cooperating.
+However, the tasks presented are trivial problems and do not reflect the complexity of real world problems.
+Before solving real world problems, future research needs to demonstrate a greater amount of robots cooperating.
 Additionally, robots that have the ability to take different roles when solving problems as well as cooperating when solving multiple problems presented by the environment.
 
 \section{Hardware mechanisms}
@@ -208,14 +208,14 @@ This disadvantage can be mitigated by adding more grippers.
 
 \subsubsection*{Magnetic docking mechanisms}
 These mechanisms typically use one or more magnets to form connections.
-One desirable property these mechanisms have, is that they can tolerate some noise/misalignment since the magnet connectors can compensate by attracting each other.
-One problem with using magnets is that robots wishing to connect have to make sure that they have the magnets in the right polarity to attract each other.
+One desirable property these mechanisms have is that they can tolerate some noise/misalignment since the magnet connectors can compensate by attracting each other.
+One problem with using magnets is that robots wishing to connect must make sure that they have the magnets in the right polarity to attract each other.
 Also, if electromagnets are used, they have to power them continuously to maintain the connection which increases power consumption.
 
 \paragraph*{Magnetic slip-ring}
 This mechanism is used in simulation by \cite{weel_emergence_2012}.
 The magnetic slip ring can be set to either a positive, negative, or neutral state.
-A connection will be made if at least on of the robots have their slip-ring set to positive, and neither of them have it set to negative.
+A connection will be made if at least on of the robots have their slip-ring set to positive, and neither of them has it set to negative.
 For simulation purposes, it is assumed that the connection immediately becomes rigid.
 
 \paragraph*{Surfaces with magnets}
@@ -293,22 +293,21 @@ A reason behind this is that the environment in which the robots are evolved oft
 We say that a robot is learning if it can improve its performance on tasks in the future based on past observations.
 Learning ranges from trivial matters such as writing a word to complex theories of the universe.
 
-The learning algorithms commonly used for automatic design of controllers can be divided into two main sub domains: reinforcement learning(RL) and evolutionary algorithms\cite{brambilla_swarm_2013}.
+The learning algorithms commonly used for the automatic design of controllers can be divided into two main subdomains: reinforcement learning(RL) and evolutionary algorithms\cite{brambilla_swarm_2013}.
 
 Reinforcement learning is a class of learning algorithms where the agent learns through trial and error, receiving positive and negative feedback for its actions\cite{brambilla_swarm_2013}.
 The agent records the feedback received for performing a particular action in each state.
-Through this process the agent discovers which action is optimal for a given state.
+Through this process, the agent discovers which action is optimal for a given state.
 Applying this form of learning to swarm robotics presents several challenges.
 One challenge is the fact that a swarm performs actions as a collective, but the learning is done on an individual level and does not reward global behaviour\cite{brambilla_swarm_2013}.
-Additionally traditional RL requires that the environment can be quantized into a finite number of discrete states\cite{schmidhuber_evolutionary_2000, brambilla_swarm_2013}.
+Additionally, traditional RL requires that the environment can be quantized into a finite number of discrete states\cite{schmidhuber_evolutionary_2000, brambilla_swarm_2013}.
 The number of possible interactions between the robots and the environment, and the noise in the real world leads to a high amount of states and makes it difficult to know how these are connected in advance\cite{schmidhuber_evolutionary_2000}.
 Techniques such as using an approximator\cite{brambilla_swarm_2013} to reduce the state space, and more intelligent reward mechanisms\cite{brambilla_swarm_2013}, can be used to reduce the impact of these challenges.
 Several projects\cite{li_learning_2004, balch_behavioral_1998, mataric_interaction_1994} have successfully applied reinforcement learning in multi-agent systems.
 Given the challenges of RL, as the goals and ambition of projects increase, researchers are drawn towards techniques that resemble evolutionary algorithms\cite{schmidhuber_evolutionary_2000}.
 
-Evolutionary algorithms attempts to find solutions to a problem by simulating the mechanisms of Darwinian evolution\cite{trianni_evolving_2004}.
-In these algorithms, the possible solutions are encoded into genomes and improved iteratively over multiple generations, where well performing individuals reproduce more and spread their genome.
-
+Evolutionary algorithms attempt to find solutions to a problem by simulating the mechanisms of Darwinian evolution\cite{trianni_evolving_2004}.
+In these algorithms, the possible solutions are encoded into genomes and improved iteratively over multiple generations, where well-performing individuals reproduce more and spread their genome.
 
 
 \subsection{Evolutionary algorithms}
@@ -363,10 +362,10 @@ This \emph{reality gap} remains a critical issue in evolutionary robotics\cite{k
 
 
 \subsubsection*{On-line}
-On-line evolutionary algorithms, in contrast to the off-line variants, does not share a well defined series of steps. Several algorithms for this category has been proposed. Among them are mEDEA\cite{montanier_adaptive_2014}, MONEE\cite{noskov_monee:_2013}, and ASiCo\cite{hutchison_task-driven_2011}. 
+On-line evolutionary algorithms, in contrast to the off-line variants, does not share a well-defined series of steps. Several algorithms for this category has been proposed. Among them are mEDEA\cite{montanier_adaptive_2014}, MONEE\cite{noskov_monee:_2013}, and ASiCo\cite{hutchison_task-driven_2011}. 
 
 In mEDEA(minimal Environment driven Distributed Evolutionary Adaptation) each robot contains an active genome and a reservoir of received genomes.
-The robots broadcasts their genome in a limited range to other robots.
+The robots broadcast their genome in a limited range to other robots.
 At a pre-defined number of time steps, the robot forgets its active genome and selects a new one at random from the reservoir.
 The robot becomes inactive if it runs out of genomes.
 An inactive robot remains stationary for the following generation and receives genomes broadcasted from other robots.
@@ -383,14 +382,14 @@ During the \emph{life phase} the robots receive credits for performing tasks in 
 When a robot passes its genome to an egg, it passes the number of credits earned.
 The egg then uses the number of credits to compare and select a new genome for rebirth.
 If there are multiple tasks defined, the egg uses an exchange rate between the tasks based on their difficulty to compare them. 
-This ensures that genomes who specialize in difficult tasks can compete with genomes that perform easier tasks. 
+The exchange rate ensures that genomes who specialize in difficult tasks can compete with genomes that perform easier tasks. 
 This system allows genomes to specialize in different tasks and therefore makes MONEE well suited for multi-objective tasks.
 
 ASiCo(Asynchronous Situated Co-evolution) is a co-evolutionary bio-inspired algorithm that in contrast to MONEE and mEDEA uses a fitness function to decide if a robot should reproduce.
 Like other on-line algorithms, multiple genomes are present among the robots even though this algorithm carries the characteristic of a fitness function from off-line algorithms.
 The ASiCo algorithm works by having the robots act out some scenario and uses energy gain or loss as a performance gauge. 
 Differing from off-line algorithms, ASiCo continuously evaluates the different robots' fitness asynchronously.
-If a death condition is met, then the robots is either removed from the system or substituted. 
+If a death condition is met, then the robots are either removed from the system or substituted. 
 If however a situated mating condition is met, then the candidate is evaluated by its fitness.
 If the candidate is acceptable, then it is allowed to reproduce.
 In the case where the fitness is not acceptable, it simply continues to live on in the system.

@@ -1,6 +1,6 @@
 \chapter{Parallelization}
 In the experiments described in this study, the bulk of processing time is spent evaluating the genomes using roborobo.
-The genome evaluations are independent of each other, and is therefore a good candidate for parallelization.
+The genome evaluations are independent of each other and is therefore a good candidate for parallelization.
 With a great number of global variables, the roborobo framework itself is not easily parallelized.
 The solution was to use \emph{Message passing interface(MPI)} to run multiple cooperating roborobo processes. 
 
@@ -26,10 +26,9 @@ At the beginning of each generation the root process generates the new genomes f
 The new genomes are then distributed evenly to each process, see figure \ref{fig:distribute-genomes}.
 Once all the genomes are evaluated, the root process gathers the evaluated genomes from the slave processes, see figure \ref{fig:gather-genomes}.
 The evaluated genomes are then used by the evolutionary algorithm to create the next generation.
-This process is repeated until the target fitness is reached or a processing threshold is met. 
-
+This process is repeated until the target fitness is reached or a processing threshold is met.
 \chapter{Live graphing tool}
-Since the evaluation is quite time consuming, there was need for a tool that could give feedback during the simulation instead of having to wait for it to complete.
+Since the evaluation is quite time-consuming, there was a need for a tool that could give feedback during the simulation instead of having to wait for it to complete.
 A simple "live" graph which plots fitness statistics was therefore created, pictured in figure \ref{fig:live-graph}
 \begin{figure}[H]
 	\centering

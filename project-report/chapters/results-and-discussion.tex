@@ -13,20 +13,20 @@ The local communication simulation group aims to study the affect giving the rob
 
 \subsection{Port Configuration}
 The first group of simulations that were done was varying the number of connection ports of the robots and their configuration.
-These simulations where done such that one could record and discuss the impact of connections between the robots.
-In more detail, this group of experiments where conducted such that one could record:
+These simulations were done such that one could record and discuss the impact of connections between the robots.
+In more detail, this group of experiments was conducted such that one could record:
 
 \begin{itemize}
 	\item How the number of ports affected the general performance of the system based on the number of ports.
 	\item If there is any noticeable difference in the self-assembly architecture.
-	\item In what way the port configuration promotes self-assembly, both in therms of the sizes of the different robot groups, and the number of groups.
-	\item How the port configuration affect the fitness of the sexperiment, in terms of convergence and final result.
+	\item In what way the port configuration promotes self-assembly, both regarding the sizes of the different robot groups, and the number of groups.
+	\item How the port configuration affects the fitness of the experiment, regarding convergence and the final result.
 \end{itemize}
 
 The goal of running these simulations is to make correlations between its results to show how configuring the hardware mechanism can affect a self-assembly system.
- 
+
 For this group of simulations, the most relevant statistics will be the difference between group actions versus single robot actions.
-The following pages show the recorded data for simulations using, 2 connection ports, 3 connection ports and 4 connection ports.
+The following pages show the recorded data for simulations using, two connection ports, three connection ports, and four connection ports.
 
 
 \begin{figure}[H]
@@ -62,7 +62,7 @@ Common configuration parameters of importance for the simulations are listed in 
 		Number of Robots & 20 \\ 
 		Iterations per Generation & 10000 \\
 		Scenarios & 3 \\ 
-		 Generations & 150 \\ 
+		Generations & 150 \\ 
 		\bottomrule 
 		
 	\end{tabular}
@@ -91,7 +91,7 @@ More specifically the experiments were constructed to investigate how differing 
 \begin{itemize}
 	\item The amount of robot groups formed through self-assembly, and the number of robots in each group.
 	\item How the energy gathering behaviour is affected. Whether the robots prefer gathering energy individually, or as robot groups. 
-	\item How the environment difficulty affects the fitness of the experiment, in terms of convergence and final result.
+	\item How the environment difficulty affects the fitness of the experiment, regarding convergence and the final result.
 \end{itemize}
 
 
@@ -101,10 +101,10 @@ Table \ref{tab:environment-difficulty} presents the simulation parameters that a
 
 \begin{table}[H]
 	\centering
-
+	
 	\begin{tabular}{@{} l c c c c @{}}
 		\toprule 
-		 Environment & \small{Predators} & \small{Initial energy} & \small{Food items} & \small{Maximum energy} \\ 
+		Environment & \small{Predators} & \small{Initial energy} & \small{Food items} & \small{Maximum energy} \\ 
 		\midrule 
 		\small{Easy environment} & 4 & 8000 & 25 & 10000 \\ 
 		\small{Hard environment} & 7 & 6000 & 20 &8000 \\ 
@@ -167,12 +167,12 @@ If a robot group comes within sensor range wile the robot is driving along the w
 	
 	\centering
 	\fbox{\includegraphics[width=0.65\textwidth]{chapters/res/group_circles.png}}
-	\caption{Robot groups driving in circles.}
+	\caption{Robot groups moving in circles.}
 	\label{fig:group-circles}
 \end{figure}
 
 The behaviour of the robot groups is similar to the first mode of the individual robots.
-Robot groups also drive in wide circles, displayed in figure \ref{fig:group-circles}, but if the group crashes into a wall it will simply turn around and continue.
+Robot groups also move in wide circles, displayed in figure \ref{fig:group-circles}, but if the group crashes into a wall, it will simply turn around and continue.
 The robot groups consume predators in their path, but they make no attempt to follow detected predators.
 The robot groups will continue to drive in circles, consuming energy, predators, and making connections, until the end of the simulation, or until the members of the groups starve.
 
@@ -180,7 +180,7 @@ The robot groups will continue to drive in circles, consuming energy, predators,
 \label{sec:disable-local-communication}
 Disabling the local communication module has a significant effect on the behaviour.
 With the communication disabled the robots will no longer switch to the group behaviour once they are connected.
-Instead the groups will continue to perform the individual robot behaviour regardless of the number of connected robots.
+Instead, the groups will continue to perform the individual robot behaviour regardless of the number of connected robots.
 
 \section{Discussion}
 This section covers the analysis of the obtained results.
@@ -316,34 +316,40 @@ How the promotion of self-assembly is affected by the environmental difficulty.
 How the evolved energy collection strategy is affected by the environment difficulty.	
 
 \subsubsection{Environmental threats}
+The analysis and discussion on the impact of environmental difficulty can be divided into three main categories.
+The impact of environmental threats when the difficulty is modified.
+How the promotion of self-assembly is affected by the environmental difficulty.
+How the evolved energy collection strategy is influenced by the environment difficulty.    
+
+\subsubsection{Environmental threats}
 The robots have two threats in the environments presented, starvation and getting killed by predators.
 The robots in the easy environment receive more energy from food, and there is more food available.
 From figure \ref{fig:results-env-robots-starved} one can see that this reduces the amount of robots dying from starvation in the easy environment, but the improvement is minuscule.
 
 Increasing the number of predators in the environment seems to have a higher impact on the difficulty presented by an environment.
 Figure \ref{fig:results-env-robots-eaten} shows that increasing the amount of predators present in the environment has a greater impact on the difficulty of the environment than limiting the energy available.
-The reason for why increasing the amount of predators has a much higher impact on difficulty is not completely clear from the results.
+The reason for why increasing the number of predators has a much higher impact on difficulty is not completely clear from the results.
 However, the observed behaviour described in section \ref{sec:invdividual_behaviour} can help explain the results.
 The sensors are used by the robot to detect walls and other robots, but not predators or food.
-This means that the robot may miss some food, but there is enough food in the environment so the robot will eventually find more food.
+This behaviour means that the robot may miss some food, but there is enough food in the environment so the robot will eventually find more food.
 On the other hand, failing at predator avoidance has much more severe consequences as the predator will kill the robot.
 
 \subsubsection{Promotion of self-assembly}
 One of the motivations for this experiment was to see how modifying the evolutionary pressure affects the promotion of self-assembly.
 Figure \ref{fig:results-env-number-of-groups} show that the robots form more groups in the easy environment.
-At first glance this seems to indicate that the easy environment is more successful at promoting self-assembly.
-This difference in number of groups may be explained by examining the lifetime of the robots.
+At first glance, this seems to indicate that the easy environment is more successful at promoting self-assembly.
+This difference in the number of groups may be explained by examining the lifetime of the robots.
 As explained in section \ref{sec:evaluation}, the fitness of a genome is determined by the average lifetime of a robot.
-The fitness achieved in the easy environment, figure \ref{fig:fitness-easy}, is higher than than the fitness achieved in the hard environment, figure \ref{fig:fitness-hard}.
-This means that the robots in the easy environment live longer, and as a consequence have more time to form groups.
+The fitness achieved in the easy environment, figure \ref{fig:fitness-easy}, is higher than the fitness achieved in the hard environment, figure \ref{fig:fitness-hard}.
+The fitness means that the robots in the easy environment live longer, and as a consequence have more time to form groups.
 
-However, figure \ref{fig:results-env-group-distribution} shows that the size of the robot groups formed are not affected by modifying the difficulty of the environment.
-In both environments the distribution of group sizes are heavily weighted towards groups of two.
-The reason for this may be that the environments gives a high reward for being in a group.
+However, figure \ref{fig:results-env-group-distribution} shows that the size of the robot groups formed is not affected by modifying the difficulty of the environment.
+In both environments, the distribution of group sizes is heavily weighted towards groups of two.
+The reason for this may be that the environments give a high reward for being in a group.
 That is protection from predators, but there is no additional reward for forming larger groups.
 
 \subsubsection{Energy collection strategy}
-One can see from the figures \ref{fig:results-env-energy-consumed-by-robot} and \ref{fig:results-env-energy-consumed-by-group} that the robots in the easy environment collect far more energy than the robots in the difficult environment as individual robots and in robot groups.
+One can see from the figures \ref{fig:results-env-energy-consumed-by-robot} and \ref{fig:results-env-energy-consumed-by-group} that the robots in the easy environment collect far more energy than the robots in the difficult environment as individual robots and robot groups.
 This result can likely also be attributed to the fact that the robots in the easy environment live longer, and that there is more energy available, instead of a more optimal energy gathering strategy.
 The reasoning for this is as follows.
 One can look at the ratio of energy collected by individual robots versus energy collected by groups of robots for the environments.
@@ -354,10 +360,10 @@ This relationship is presented in table \ref{tab:energy-collected-ratio}.
 		\toprule
 		Generation & Easy & Hard \\ 
 		\midrule 
-		10 	& 54\%	& 51\%  \\ 
-		50 	& 71\%	& 67\% \\ 
-		100 	& 71\%	& 71\% \\ 
-		150 	& 72\% 	& 73\% \\ 
+		10     & 54\%    & 51\%  \\ 
+		50     & 71\%    & 67\% \\ 
+		100     & 71\%    & 71\% \\ 
+		150     & 72\%     & 73\% \\ 
 		\bottomrule 
 	\end{tabular} 
 	\caption{The percentage of energy collected by groups of robots for the environments.}
@@ -365,8 +371,8 @@ This relationship is presented in table \ref{tab:energy-collected-ratio}.
 \end{table}
 
 Table \ref{tab:energy-collected-ratio} shows that in both environments the ratio of energy collected by robot groups is approximately the same.
-This means that although the robots in the easy environment collect more energy in total, the strategies evolved in the different environments are similar.
-This also coincides with with that the observed behaviour described in section \ref{sec:local_communication} is very similar for the different environments.
+The ratio means that although the robots in the easy environment collect more energy in total, the strategies evolved in the different environments are similar.
+This also coincides with that the observed behaviour described in section \ref{sec:local_communication} is very similar for the different environments. \ref{sec:local_communication} is very similar for the different environments.
 
 \subsection{Local communication analysis}
 As described in section \ref{sec:disable-local-communication}, the evolved behaviour makes use of the communication module.
