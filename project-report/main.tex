@@ -30,6 +30,12 @@
 \input{chapters/commands/graphwrapperthree.tex}
 \input{chapters/commands/graphwrappertwo.tex}
 
+\makeatletter
+\DeclareRobustCommand*\textsubscript[1]{%
+	\@textsubscript{\selectfont#1}}
+\def\@textsubscript#1{%
+	{\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}}
+\makeatother
 
 % --
 \floatstyle{plaintop}
