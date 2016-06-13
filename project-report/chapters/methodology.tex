@@ -3,22 +3,22 @@ Even though \emph{roborobo} contains some functionality for running robot simula
 This chapter will include a description of \emph{roborobo}, the modifications that were made to the existing software, the experiment in general and the motivation for its implementation.
 
 \section{Experiment motivation}
-The introduction lists several questions that this project is aiming to answer.
-When designing this experiment, care was taken to not trivialize the environment and the interaction between the robots.
-The thought behind the experiment is to see collective collective behaviour using an evolutionary algorithm.
-The system has been implemented in regards to having as little influence on the algorithm as possible to get correct and analysable results.
+The introduction lists several research questions that this project is aiming to contribute.
+To not trivialise the environment and the interaction between the robots, care was taken when designing this experiment.
+The thought behind the experiment is to see collective behaviour using an evolutionary algorithm.
+Caution was taken to implement an unbiased system in regards to the influence it imposes on the algorithm to achieve correct and analyzable results.  
 For example, the evaluation function in section \ref{sec:evaluation} is quite simple and does not add any guiding parameters to promote self-assembly.
 
-One of the questions concerns how collective decision making influences the emergence of self-assembly.
+One of the questions concerns how collective decision-making influences the emergence of self-assembly.
 Swarm behaviour found in nature displays how simple agents collectively can make a decision.
-The goal of this experiment is therefore to design a similar environment to promote this form of collective behaviour.
-In this environment the robots have to form swarms for survival, and collectively decide if they should self-assemble or attempt an escape.
+The goal of this experiment is, therefore, to design a similar environment to promote this form of collective behaviour.
+In this environment, the robots have to form swarms for survival, and collectively decide if they should self-assemble or attempt an escape.
 
 By design, the robots are given a local communication module that can be used to send an array of floating point numbers to its neighbours in the self-assembly structure\ref{sec:local_comm}.
-The influence of this communication and the values that the communication packets take are completely governed by the neural network \ref{sec:ctrnn}.
+The influence of the communication module and the values that the communication packets take are entirely governed by the neural network \ref{sec:ctrnn}.
 
 The system has also been made to be highly configurable such as many of the evolutionary algorithm parameters as well as general environmental setup. 
-By varying the parameters of the experiment it is possible to observe and analyse the problem statements which were discussed in chapter \ref{ch:introduction}.
+By varying the parameters of the experiment, it is possible to observe and analyse the problem statements which were discussed in chapter \ref{ch:introduction}.
 Depending on the configuration used when running the simulation, it should be possible to see how different assembly protocols and behaviours emerge, and how the self-assembly behaviour of the robots differ from similar trials and different configurations.
 Chapter \ref{ch:results_and_discussion} portrays the results and analysis of this experiment.
 
@@ -53,8 +53,8 @@ When a nutrient is consumed, a new one is placed at a random position in the env
 
 
 \section{Roborobo overview}
-The programming interface for roborobo is divided into three main components(\emph{World observer, Agent observers, Agent controllers})\cite{bredeche_roborobo!_2013}.
-Each robot in the simulation receives an instance of the \emph{agent controller}, and an instance of the \emph{agent observer}.
+The programming interface for roborobo is divided into three components(\emph{World observer, Agent observers, Agent controllers})\cite{bredeche_roborobo!_2013}.
+Each robot in the simulation receives an instance of the \emph{agent controller} and the \emph{agent observer}.
 The philosophy of the roborobo framework is that the programmer should implement the robot behaviour in the \emph{agent controller}, and use the \emph{agent observer} and \emph{world observer} to access state about agents and the world.
 This relationship is visualised in figure \ref{fig:component-relationship}.
 
@@ -78,25 +78,23 @@ This relationship is visualised in figure \ref{fig:component-relationship}.
 		\includegraphics[height=\linewidth]{chapters/res/world_observer.png}
 		\caption{}
 	\end{subfigure}
-	\caption{The relationship between a)the agent controller, b)the agent observer, and c)the world observer. }
+	\caption{The relationship between a) the agent controller, b) the agent observer, and c) the world observer. }
 	\label{fig:component-relationship}
 \end{figure}
 
 Each robot in the simulation also receives a component called a \emph{world model}.
-The world model contains the representation of the outside world that the agent is aware of.
-This includes state such as sensors readings and current velocity.
+The world model contains an agent specific representation of the outside world.
+The model includes states such as sensors readings and current velocity.
 
 The observers can be used to perform tasks that are not directly related to the robot behaviour.
 In each simulation step the observers are run before any of the \emph{agent controllers} are run.
 This means that the observers have a stable snapshot of the world between each update.
-The observers are therefore useful for performing tasks that should be performed between each update of the world.
-Examples of useful applications of the observers is updating the agent world models, monitoring, logging, computing fitness, and managing evolutionary algorithms.
+The observers are therefore useful for performing tasks that should be carried out between each update of the world.
+Examples of useful applications of the observers are updating the agent's world models, monitoring, logging, computing fitness, and managing evolutionary algorithms.
 In the standard case, understanding the components described in this section is sufficient to perform a wide variety of simulations.
 
-
-The experiment described in this chapter does not fit within these bounds, the necessary modifications to the framework is further described in section \ref{sec:modifications}.
-
-
+The depicted experiment in this chapter is not realizable with the basic roborobo framework.
+The necessary modifications to the framework are described in section \ref{sec:modifications}.
 
 \section{Roborobo modifications}
 \label{sec:modifications}
@@ -148,48 +146,48 @@ The existence of a cycle is determined by first removing the edge representing t
 As described in section \ref{sec:mechanisms}, there is a wide variety of docking mechanisms used in earlier projects.
 The docking mechanism implemented is therefore highly configurable, to support a wide variety of different mechanisms.
 The configurable properties are as following, the number of ports, the placement of ports, and different genders for the ports. 
-	
+
 \subsubsection{Connection validation}
-The robots can attempt a connection at any time, this requires a procedure to make sure the attempted connections are valid.
-Before a connection can be established there are three requirements that have to be met.
+The robots can attempt a connection at any time; this requires a procedure to make sure the attempted connections are valid.
+Three requirements have to be met before a connection can be established between robots.
 First, the ports have to be spatially sound. 
-Here the distance between the ports have to be less than a threshold value.
-		
+Here, the distance between the ports has to be less than a threshold value.
+
 \begin{equation}
-	|\vec{p_1} - \vec{p_2}| < \epsilon
+|\vec{p_1} - \vec{p_2}| < \epsilon
 \end{equation}
-		
+
 Next, the position of the ports has to be geometrically sound.
-Here the angle between the ports have to fit within a threshold range.
-		
+Here, the angle between the connection ports has to fit within a threshold range.
+
 \begin{equation}
-	180 - \epsilon < |\theta_1 - \theta_2| < 180 + \epsilon
+180 - \epsilon < |\theta_1 - \theta_2| < 180 + \epsilon
 \end{equation}
-		
-Finally the gender of the ports must be compatible, meaning one of them is female while the other is male, or at least one of the ports being universal.
+
+Finally, the gender of the ports must be compatible, meaning one of them is female while the other is male or at least one of the connection ports being universal.
 		
 \subsection{Local communication}
 \label{sec:local_comm}
 The robots are equipped with a communication module that allows local communication with their connected neighbours.
-The message format is very simple, the robots can broadcast "packets" of floating point numbers.
+The message format is very simple; the robots can only broadcast "packets" of floating point numbers.
 The size of the packets is equal to the number of connection ports.
 At the receiving end, the packets sent by neighbours are aggregated into a single packet.
-The aggregation is performed as adding the components of each packet with the corresponding components in the other packets. Figure \ref{fig:local_communication} illustrates this process.
-	
+The aggregation is performed by adding the components of each message packet with the corresponding components from the other message packets. Figure \ref{fig:local_communication} illustrates this process.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.65\textwidth]{chapters/res/Local_communication.png}
 	\caption{Robot B aggregating the messages received from robot A, and C.}
 	\label{fig:local_communication}
 \end{figure}
-	
-In the robot controller, the messages from the communication module is fed into dedicated message input neurons, and the value of the message output neurons are broadcast to the neighbours.
+
+In the robot controller, the messages from the communication module are fed into dedicated message input neurons, and the value of the message output neurons are broadcast to the neighbours.
 
 		
 \subsection{Predators}
 A crucial part of the environment in the simulation are the predator robots.
 These robots are not under the influence of the evolutionary algorithm and rather uses a much simpler pre-programmed controller.
-The predator robots have two basic actions that can influence the system: the predators can either eat prey or explore the envelopment.
+The predator robots have two basic actions that can affect the system: the predators can either eat prey or explore the envelopment.
 
 \begin{figure}[H]
 	\centering
@@ -198,19 +196,20 @@ The predator robots have two basic actions that can influence the system: the pr
 	\label{fig:predator_screendump}
 \end{figure}
 
-As seen in figure \ref{fig:predator_screendump}, the predators also uses six sensors which they use to decide if they are colliding with an object and what that object is.	
-In terms of exploration, the predator controller uses a simple object avoidance tactic.
-If the predator robots senses an object on any of its side sensors, it will change its rotational velocity to avoid this object.
-In practice, this means that if the predator senses an object on the right, it will steer left, etc.
-In the case where there is no collision, a slight random rotational velocity is added such that its movement is more dynamic.
+As seen in figure \ref{fig:predator_screendump}, the predators also uses six sensors which they use to decide if they are colliding with an object and what that object is.    
+Concerning exploration, the predator controller uses a simple object avoidance tactic.
+If the predator robots sense an object on any of its side sensors, it will change its rotational velocity to avoid this object.
+In practice, this means that if the predator senses an object on the right, it will steer left, and vice versa.
+A slight random rotational velocity is added such that its movement becomes more dynamic in the case where there is no collision.
 This object avoidance behaviour is always employed as long as it does not sense a robot(prey).
 In this case, it will have the opposite behaviour and turn towards the object, as it intends to consume the prey.
 
 In addition to movement, the predators can also consume a robot. 
-This happens when there is a collision between a normal robot and a predator robot.
-If a robot is consumed, it is removed from the environment and amount of time it stayed alive is recorded for use in the fitness function of the evolutionary algorithm. 
-For a predator to be able to eat a robot, the robot must not be part of a robot group of a size less then some configurable threshold.
-The reason for this is to give the normal robots some advantage of self-assembling in hopes of potentially evolving this behaviour.  
+Predators consume a robot when there is a collision between a normal robot and a predator robot.
+If a robot is consumed, it is removed from the environment and robot's lifetime is recorded for use in the fitness function of the evolutionary algorithm. 
+For a predator to be able to eat a robot, the robot must not be part of a robot group of a size less than some configurable threshold.
+The default threshold is set to three for the simulations run in this experiment.
+The reason for this is to give the regular robots some advantage of self-assembling in hopes of potentially evolving this behaviour. 
 
 \subsection{Energy drain}
 In addition to the environmental hazards of predators, the robots also must face the issue with having a limited energy supply.
@@ -243,12 +242,12 @@ This reasoning is also the justification for giving the robots additional energy
 \label{sec:ctrnn}
 For this project, an artificial neural network that has gained a lot a popularity in regards to robotics known as Continuous-Time Recurrent Neural Network (CTRNN) was implemented. 
 The CTRNN was researched and developed by Randall Beer\cite{beer_dynamics_1997} and adds two new properties to the standard artificial neural network. 
-The properties that are introduced in CTRNN is a time constant and a gain.
+The properties that are introduced in CTRNN is a time constant and a gain constant.
 
 As most neural networks, the simple integration of the inputs from all neighbouring neurons are added giving us the first standard equation for neural networks:
 
 \begin{equation}
-	s_i = \sum_{j=1}^{n}o_{j}w_{i,j}+I_i
+s_i = \sum_{j=1}^{n}o_{j}w_{i,j}+I_i
 \end{equation}
 \\
 Here, $o_j$ represents the output(after activation) of neuron $j$, $w_{i,j}$ is the weight from neuron $j$ to neuron $i$ and $I_i$ is the sum of all the external inputs to node $i$.
@@ -259,60 +258,59 @@ Here, $o_j$ represents the output(after activation) of neuron $j$, $w_{i,j}$ is 
 \\
 In order to preserve the previous state of the ANN, the internal state is stored. 
 $y_i$ denotes the internal state of neuron $i$.
-To derive the next internal state, Beer computes $\frac{dy_i}{dt}$ as a combination of the next inputs and the current internal state of the node, where a time constant $\tau_i$ decides rate of drain. 
-$\theta_i$ is a term added for neuron specific bias, but is only added here for mathematical soundness as it was simply added as a bias node during implementation and hence incorporated in $s_i$.
+To derive the next internal state, Beer computes $\frac{dy_i}{dt}$ as a combination of the following inputs and the current internal state of the node, where a time constant $\tau_i$ decides the rate of drain. 
+$\theta_i$ is a term added for a neuron-specific bias.
+It is only added here for mathematical soundness as it is simply added as a bias node during implementation and hence incorporated in $s_i$.
 The time constant $\tau_i$ is what gives CTRNNs the ability to produce rich functionality and convincingly sophisticated cognition.
-If $\tau_i$ has a low value then we will have a high degree of drain and hence having the next state being dominated by its new input.
-However, if $\tau_i$ has a high value, then we have a higher degree of memory because it will be dominated by its previous state.
+If $\tau_i$ has a low value, then we will have a high degree of drain and hence having its new input dominate the next state.
+However, if $\tau_i$ has a high value, then we have a higher degree of memory because its previous state will dominate the next state.
 
 \begin{equation}
 o_i = \frac{1}{1 + e^{-g_{i}y_{i}}}
 \end{equation}
 \\
 To convert the internal state to an output $o_i$, Beer typically uses sigmoidal activation function.
-This is typical in other neural networks as well, but Beer also employs a gain term $g_i$, to influence the activation of the neuron.
+A sigmoidal activation function is typical in other neural networks as well, but Beer also employs a gain term $g_i$, to influence the activation of the neuron.
 \\
 \begin{figure}[H]
 	\centering
-\begin{tikzpicture}
-\begin{axis}[
+	\begin{tikzpicture}
+	\begin{axis}[
 	axis lines = center,
-    xlabel = $y_i$,
-    ylabel = {$o_i$},
-    ymajorgrids=true,
-    xmajorgrids=true,
-    grid style=dashed,
-    legend style={at={(0.22, 0.98)},anchor=north, font=\tiny}
-]
-%Below the red parabola is defined
-\addplot [
-    domain=-1.1:1.1, 
-    samples=500, 
-    color=red,
-    line width=1pt,
-]
-{1/(1+e^(-20*x)};
-\addlegendentry{High Value $g_i$}
-%Here the blue parabloa is defined
-\addplot [
-    domain=-1.1:1.1, 
-    samples=100, 
-    color=blue,
+	xlabel = $y_i$,
+	ylabel = {$o_i$},
+	ymajorgrids=true,
+	xmajorgrids=true,
+	grid style=dashed,
+	legend style={at={(0.22, 0.98)},anchor=north, font=\tiny}
+	]
+	%Below the red parabola is defined
+	\addplot [
+	domain=-1.1:1.1, 
+	samples=500, 
+	color=red,
 	line width=1pt,
-]
-{1/(1+e^(-1*x)};
-\addlegendentry{Low Value $g_i$}
- 
-\end{axis}
-\end{tikzpicture}
+	]
+	{1/(1+e^(-20*x)};
+	\addlegendentry{High Value $g_i$}
+	%Here the blue parabloa is defined
+	\addplot [
+	domain=-1.1:1.1, 
+	samples=100, 
+	color=blue,
+	line width=1pt,
+	]
+	{1/(1+e^(-1*x)};
+	\addlegendentry{Low Value $g_i$}
+	
+	\end{axis}
+	\end{tikzpicture}
 	\caption{The difference in the activation function with respect to $y_i$ based on a low and high value of $g_i$}
 	\label{CTRNN-gGraph}
 \end{figure}
 
 As seen in figure \ref{CTRNN-gGraph}, the value of the gain parameter can influence the activation function in such a way that it can be a smooth, almost linear, function or it can take on the behaviour of an activation function resembling a switch.
 Having the ability to change the activation function on a neuron to neuron basis, is the second reason(the first being time constants) CTRNNs can give rise to complex and rich behaviour.
-
-
 
 
 \subsection{Topologies}
@@ -344,17 +342,18 @@ The following section describes the implementation of the evolutionary algorithm
 In addition, in some of the sections, multiple implementations are mentioned.
 We see an occurrence of this in section \ref{mutation_operators} where both random and incremental mutation operators being explained.
 The reason multiple implementations were done is due to the initial implementation yielding poor results and hence there was made an attempt at improving the results.
+
 \subsection{Genotype}
 \label{sec:genotype}
 The genotype contains the weights, gains and time constants for the neural network used in the robot controller.
 During run-time, the genotype size is fixed and depends on the size of the neural network.
-The size of the neural network is configurable (topology and size of each layer) in the simulation configuration file and hence the genotype can change size depending on the simulation run.
+The size of the neural network is configurable (topology and size of each layer) in the simulation configuration file, and hence, the genotype can change size depending on the simulation run.
 The structure of the genotype is an array of double precision floating point numbers in the range $(-1, 1)$.
 Each number in the genotype represents a specific weight, gain, or time constant in the neural network.
-Before the genotype can be used to configure the neural network the values are mapped into the relevant range for each type of parameter, figure \ref{fig:genotype-mapping}.
-The selected range, $(-1, 1)$ used for the values in the genotype is therefore arbitrary, and holds no special significance. 
-		
-\begin{figure}[H]		
+Before the genotype can be used to configure the neural network the values are mapped into the suitable range for each type of parameter, figure \ref{fig:genotype-mapping}.
+The selected range, $(-1, 1)$ used for the values in the genotype is, therefore, arbitrary, and holds no particular significance. 
+
+\begin{figure}[H]        
 	\centering
 	\includegraphics[width=0.80\textwidth, clip]{chapters/res/genotype_translation.png}
 	\caption{Mapping the genotype into weights, gains, and time constants.}
@@ -382,20 +381,20 @@ Due to these two reasons, it was decided to have a strictly random initializatio
 \subsection{Mutation operators}
 \label{mutation_operators}
 As seen in section \ref{sec:evo_alg}, the proper step after mating genotypes is applying a mutation to the resulting genome.
-This is done using a mutation operator.
-During implementation of the experiment, two different mutation operators were implemented, the random mutation operator and the incremental mutation operator.
+Mutation is done using a mutation operator.
+During the implementation of the experiment, two different mutation operators were implemented, the random mutation operator and the incremental mutation operator.
 
 During the first iteration of implementation, a standard random mutation operator was implemented.
 As explained in \ref{sec:genotype}, the genotype is modelled using doubles, so a random mutation operator for this implementation simply re-rolls the selected double, $x$, to a new double where $x \in [-1.0, 1.0]$. 
 The number of weights to be mutated is configurable and is represented as some percentage, \emph{mutation rate}.
 
 \subsubsection{Incremental}
-During initial trials, it was observed that the impact of completely changing the value of a weight on the neural network could potentially drastically change the behaviour of the robots.
-This in turn, yielded poorer results of the evolutionary algorithm because of constant destabilisation of the emergent behaviours.
+During initial trials, it was observed that the impact of completely changing the value of a weight in the neural network could potentially drastically change the behaviour of the robots.
+The change in behaviour yielded poor results of the evolutionary algorithm because of constant destabilisation of the emergent behaviours.
 The results from the preliminary trials caused an incremental mutation operator to be implemented.
 The incremental mutation operator gave better results than the random mutation operator, so it was decided that the random mutation operator should be removed from the system. 
 The incremental mutation operator works in a similar manner as the random operator, where a weight is chosen for mutation at some percentage, but instead of completely re-rolling its value, it only differs from its original value by a certain threshold.
-This still causes a mutation to occur, but it will not be as drastic, yielding smoother results. 
+The incremental mutation still causes a mutation to occur, but it will not be as drastic, yielding smoother results. 
 
 \begin{figure}[H]
 	\centering
@@ -449,13 +448,13 @@ The parents are then selected by spinning the wheel until the desired number of 
 
 The roulette wheel implementation gave less compelling results than expected, which caused tournament selection to be implemented which gave better results and caused the roulette wheel selection mechanism to be removed from the system.		
 \subsubsection{Tournament selection}
-In contrast to proportional selection the individuals do not compete with the entire population, but instead compete within groups selected at random.
+In contrast to proportional selection the individuals do not compete with the entire population but instead, compete within groups selected at random.
 Tournament selection performs parent selection by picking individuals at random into a group.
 From the group the fittest individual is selected as the parent.
 This process is repeated until the desired number of parents have been selected.
 The group size varies between implementations, but typical implementations compare two\cite{goh_sexual_2003} individuals at a time, depicted in figure \ref{fig:tournament}
-		
-\begin{figure}[H]	
+
+\begin{figure}[H]    
 	\centering
 	\includegraphics[width=\textwidth, clip]{chapters/res/Tournament.png}
 	\caption{Selecting parents using a binary tournament.}
@@ -465,33 +464,36 @@ The group size varies between implementations, but typical implementations compa
 The described process introduces a high selection pressure since it selects the fittest individual from each group.
 It is common to include an acceptance threshold, $t$, into the selection to modify the selection pressure\cite{goh_sexual_2003}.
 Each time an individual is to be selected a random number $r \in (0, 1)$, is generated.
-If $r < t$, then the fittest individual is chosen, otherwise the less fit individual is chosen. The selection pressure can then be tuned by increasing or decreasing the acceptance threshold. A lower value for $t$ decreases the selection pressure, while a higher value increases the selection pressure.
+If $r < t$, then the fittest individual is chosen. 
+Otherwise, the less fit individual is chosen. 
+The selection pressure can then be tuned by increasing or decreasing the acceptance threshold. 
+A lower value for $t$ decreases the selection pressure, while a higher value increases the selection pressure.
 
 \subsection{Elitism}
-In each step of the evolutionary algorithm the previous generation is replaced by the offspring from the selected parents.
+In each step of the evolutionary algorithm, the previous generation is replaced by the offspring of the selected parents.
 Completely replacing the previous generation with the new generation has the undesirable effect where mutations in the children can lead to the loss of good partial solutions.
 A configurable level of elitism has therefore been implemented into the evolutionary algorithm.
-At the end of each generation the $n$ fittest individuals are promoted to \emph{elites}, which are allowed entry into the next parent selection unchanged.
-This allows multiple generations build upon the partial solutions in the elites, and ensures that the fittest genomes are preserved between generations.
+At the end of each generation, the $n$ fittest individuals are promoted to \emph{elites}, who are then allowed entry into the next parent selection unchanged.
+Elitism allows multiple generations to build upon the partial solutions in the elites and ensures that the fittest genomes are preserved between generations.
 
 \subsection{Evaluation}
 \label{sec:evaluation}
 The evaluation function was kept fairly simple as to restrain from guiding the robots.
-Primarily, the evaluation function was simply calculating how many robots survived the trial.
+Primarily, the evaluation function was only calculating how many robots survived the trial.
 
 \begin{equation}
-	\label{eq:basic_fitness}
-	f(G) = \frac{G(\bar{R_{tot}})}{R_{tot}}
+\label{eq:basic_fitness}
+f(G) = \frac{G(\bar{R_{tot}})}{R_{tot}}
 \end{equation}
 
 where $f$ is the fitness score of some genome $G$.
 $G(\bar{R_tot})$ is the number of robots that died, $\bar{R_tot}$, in the trial with genome $G$, and $R_n$ is the total number of robots in the system.
 
-This fitness function however, gave poor results mainly due to the fitness graph being discrete and failing to differentiate enough between different genomes.
+This fitness function, however, gave poor results mainly due to the fitness graph being discrete and failing to differentiate enough between different genomes.
 Therefore, a different approach was implemented where the lifetime of a robot used instead.
 
 \begin{equation}
-	f(G) = \frac{\sum_{i=1}^n G(L_i)}{nL_{max}}
+f(G) = \frac{\sum_{i=1}^n G(L_i)}{nL_{max}}
 \end{equation}
 
 The fitness of a genome is calculated in a similar way as eq. \ref{eq:basic_fitness}.
