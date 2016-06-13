@@ -179,121 +179,11 @@ With the communication disabled the robots will no longer switch to the group be
 Instead the groups will continue to perform the individual robot behaviour regardless of the number of connected robots.
 
 \section{Discussion}
-
-\subsection{Environmental difficulty analysis}
-\subsubsection{Environmental threats}
-The robots have two threats in the environments presented, starvation and getting killed by predators.
-The robots in the easy environment receive more energy from food, and there is more food available.
-From figure \ref{fig:results-env-robots-starved} one can see that this reduces the amount of robots dying from starvation in the easy environment, but the improvement is minuscule.
-
-Increasing the number of predators in the environment seems to have a higher impact on the difficulty presented by an environment.
-Figure \ref{fig:results-env-robots-eaten} shows that increasing the amount of predators present in the environment has a greater impact on the difficulty of the environment than limiting the energy available.
-The reason for why increasing the amount of predators has a much higher impact on difficulty is not completely clear from the results.
-However, the observed behaviour described in section \ref{sec:invdividual_behaviour} can help explain the results.
-The sensors are used by the robot to detect walls and other robots, but not predators or food.
-This means that the robot may miss some food, but there is enough food in the environment so the robot will eventually find more food.
-On the other hand, failing at predator avoidance has much more severe consequences as the predator will kill the robot.
-
-\subsubsection{Promotion of self-assembly}
-One of the motivations for this experiment was to see how modifying the evolutionary pressure affects the promotion of self-assembly.
-Figure \ref{fig:results-env-number-of-groups} show that the robots form more groups in the easy environment.
-At first glance this seems to indicate that the easy environment is more successful at promoting self-assembly.
-This difference in number of groups may be explained by examining the lifetime of the robots.
-As explained in section \ref{sec:evaluation}, the fitness of a genome is determined by the average lifetime of a robot.
-The fitness achieved in the easy environment, figure \ref{fig:fitness-easy}, is higher than than the fitness achieved in the hard environment, figure \ref{fig:fitness-hard}.
-This means that the robots in the easy environment live longer, and as a consequence have more time to form groups.
-
-However, figure \ref{fig:results-env-group-distribution} shows that the size of the robot groups formed are not affected by modifying the difficulty of the environment.
-In both environments the distribution of group sizes are heavily weighted towards groups of two.
-The reason for this may be that the environments gives a high reward for being in a group.
-That is protection from predators, but there is no additional reward for forming larger groups.
-
-\subsubsection{Energy collection strategy}
-One can see from the figures \ref{fig:results-env-energy-consumed-by-robot} and \ref{fig:results-env-energy-consumed-by-group} that the robots in the easy environment collect far more energy than the robots in the difficult environment as individual robots and in robot groups.
-This result can likely also be attributed to the fact that the robots in the easy environment live longer, and that there is more energy available, instead of a more optimal energy gathering strategy.
-The reasoning for this is as follows.
-One can look at the ratio of energy collected by individual robots versus energy collected by groups of robots for the environments.
-This relationship is presented in table \ref{tab:energy-collected-ratio}.
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|c|c|c|}
-		\hline Generation & Easy & Hard \\ 
-		\hline 10 	& 54\%	& 51\%  \\ 
-		\hline 50 	& 71\%	& 67\% \\ 
-		\hline 100 	& 71\%	& 71\% \\ 
-		\hline 150 	& 72\% 	& 73\% \\ 
-		\hline 
-	\end{tabular} 
-	\caption{The percentage of energy collected by groups of robots for the environments.}
-	\label{tab:energy-collected-ratio}
-\end{table}
-
-Table \ref{tab:energy-collected-ratio} shows that in both environments the ratio of energy collected by robot groups is approximately the same.
-This means that although the robots in the easy environment collect more energy in total, the strategies evolved in the different environments are similar.
-This also coincides with with that the observed behaviour described in section \ref{sec:local_communication} is very similar for the different environments.
-
-\subsection{Local communication analysis}
-As described in section \ref{sec:disable-local-communication}, the evolved behaviour makes use of the communication module.
-When the communication module was disabled, the robots did not change their behaviour when they formed groups.
-Therefore it is reasonable to assume that local communication is at least involved in modifying the robot behaviour once connected to a group.
-Exactly how the evolved neural network interprets the messages received is difficult to infer, but one can have a look at the messages sent to get an idea.
-
-\begin{figure}[H]
-	\centering
-	[0.992 0.999 0.423 0.002]
-	
-	\caption{The message passed between the robots.}	
-	\label{fig:message_default}
-\end{figure}
-
-Without any other inputs all robots send the message displayed in \ref{fig:message_default} by default.
-Receiving other inputs, such as sensors, changes the message by a negligible amount.
-The surprising thing about the message is that the components in the message have wildly different values.
-It turns out that the values in the messages has an interesting interaction with the port connection status that is also given to the neural network.
-The port connection status contains the connection status of each port the robot has.
-
-\begin{table}[H]	
-		
-	\begin{tabular}{c c}
-			\hline
-			Message:[0.992 0.999 0.423 0.002] & Message: [1 1 1 1] \\
-				\hline
-		\begin{tabular}[t]{|c|c|}
-		
-			\hline \small{Desired rotation} \tiny{deg/step} & \small{Port status} \\ 
-			\hline 0.9482 & [1 1 0 0] \\ 
-			\hline 0.999 & [1 0 1 0] \\ 
-			\hline 0.517 & [1 0 0 1] \\ 
-			\hline 0.997 & [0 1 1 0] \\ 
-			\hline 0.705 & [0 1 0 1] \\ 
-			\hline 0.997 & [0 0 1 1] \\ 
-			\hline 
-		\end{tabular} 
-			&
-		\begin{tabular}[t]{|c|c|}
-		
-			\hline \small{Desired rotation} \tiny{deg/step} & \small{Port status} \\ 
-			\hline 0.719 & [1 1 0 0] \\ 
-			\hline 0.976 & [1 0 1 0] \\ 
-			\hline 0.658 & [1 0 0 1] \\ 
-			\hline 0.866 & [0 1 1 0] \\ 
-			\hline 0.674 & [0 1 0 1] \\ 
-			\hline 0.822 & [0 0 1 1] \\ 
-			\hline 	
-		\end{tabular} 	
-	\end{tabular}
-		\caption{The resulting desired rotations for different port combinations with the evolved message and a test message for comparison. A port status value of 1 means the particular port is connected, 0 means it is not connected.}
-		\label{tab:port-desired-rotation}
-\end{table}
-
-Table \ref{tab:port-desired-rotation} shows how the desired rotation for the robots varies with the local topology of the connected robots.
-The table shows this variation with the evolved message, and a dummy message for comparison.
-One can se that the resulting desired rotation for the robots has different values for the two messages.
-The desired rotation for the robots determine the radius of the circles the robot groups move in.
-This shows that the local communication module is used for two purposes.
-The first purpose is to act as a switch to change from the individual robot behaviour, to the group behaviour.
-Additionally, the message passed around decides the robot group behaviour different connection topologies.
-
+This section covers the analysis of the obtained results.
+The section is split into three parts.
+The first part covers the connection port simulations and reviews the impact these results have on achieving self-assembly.
+The second part covers the different environmental difficulty simulations and.
+The third part covers the local communication module and explains the affect it has on the robot system.
 
 \subsection{Port configuration Analysis}
 In terms of the results fetched from the port configuration simulations the first obvious remarks stem from the simulation running a three port configuration.
@@ -413,6 +303,124 @@ The reason for 4 connection ports robots to attain larger groups is simply that 
 From these results, it can be deduced that larger groups do not give rise to better fitness in this experiment, but rather the number of groups (a group is of minimum size 2) correlates with the fitness.
 The reason for this is that the robots in the port configuration simulations are not in a great need of energy.
 The are able to naturally attain what they need in the environment and hence do not have to rely on a strategy involving predator consumption.
+
+
+\subsection{Environmental difficulty analysis}
+\subsubsection{Environmental threats}
+The robots have two threats in the environments presented, starvation and getting killed by predators.
+The robots in the easy environment receive more energy from food, and there is more food available.
+From figure \ref{fig:results-env-robots-starved} one can see that this reduces the amount of robots dying from starvation in the easy environment, but the improvement is minuscule.
+
+Increasing the number of predators in the environment seems to have a higher impact on the difficulty presented by an environment.
+Figure \ref{fig:results-env-robots-eaten} shows that increasing the amount of predators present in the environment has a greater impact on the difficulty of the environment than limiting the energy available.
+The reason for why increasing the amount of predators has a much higher impact on difficulty is not completely clear from the results.
+However, the observed behaviour described in section \ref{sec:invdividual_behaviour} can help explain the results.
+The sensors are used by the robot to detect walls and other robots, but not predators or food.
+This means that the robot may miss some food, but there is enough food in the environment so the robot will eventually find more food.
+On the other hand, failing at predator avoidance has much more severe consequences as the predator will kill the robot.
+
+\subsubsection{Promotion of self-assembly}
+One of the motivations for this experiment was to see how modifying the evolutionary pressure affects the promotion of self-assembly.
+Figure \ref{fig:results-env-number-of-groups} show that the robots form more groups in the easy environment.
+At first glance this seems to indicate that the easy environment is more successful at promoting self-assembly.
+This difference in number of groups may be explained by examining the lifetime of the robots.
+As explained in section \ref{sec:evaluation}, the fitness of a genome is determined by the average lifetime of a robot.
+The fitness achieved in the easy environment, figure \ref{fig:fitness-easy}, is higher than than the fitness achieved in the hard environment, figure \ref{fig:fitness-hard}.
+This means that the robots in the easy environment live longer, and as a consequence have more time to form groups.
+
+However, figure \ref{fig:results-env-group-distribution} shows that the size of the robot groups formed are not affected by modifying the difficulty of the environment.
+In both environments the distribution of group sizes are heavily weighted towards groups of two.
+The reason for this may be that the environments gives a high reward for being in a group.
+That is protection from predators, but there is no additional reward for forming larger groups.
+
+\subsubsection{Energy collection strategy}
+One can see from the figures \ref{fig:results-env-energy-consumed-by-robot} and \ref{fig:results-env-energy-consumed-by-group} that the robots in the easy environment collect far more energy than the robots in the difficult environment as individual robots and in robot groups.
+This result can likely also be attributed to the fact that the robots in the easy environment live longer, and that there is more energy available, instead of a more optimal energy gathering strategy.
+The reasoning for this is as follows.
+One can look at the ratio of energy collected by individual robots versus energy collected by groups of robots for the environments.
+This relationship is presented in table \ref{tab:energy-collected-ratio}.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline Generation & Easy & Hard \\ 
+		\hline 10 	& 54\%	& 51\%  \\ 
+		\hline 50 	& 71\%	& 67\% \\ 
+		\hline 100 	& 71\%	& 71\% \\ 
+		\hline 150 	& 72\% 	& 73\% \\ 
+		\hline 
+	\end{tabular} 
+	\caption{The percentage of energy collected by groups of robots for the environments.}
+	\label{tab:energy-collected-ratio}
+\end{table}
+
+Table \ref{tab:energy-collected-ratio} shows that in both environments the ratio of energy collected by robot groups is approximately the same.
+This means that although the robots in the easy environment collect more energy in total, the strategies evolved in the different environments are similar.
+This also coincides with with that the observed behaviour described in section \ref{sec:local_communication} is very similar for the different environments.
+
+\subsection{Local communication analysis}
+As described in section \ref{sec:disable-local-communication}, the evolved behaviour makes use of the communication module.
+When the communication module was disabled, the robots did not change their behaviour when they formed groups.
+Therefore it is reasonable to assume that local communication is at least involved in modifying the robot behaviour once connected to a group.
+Exactly how the evolved neural network interprets the messages received is difficult to infer, but one can have a look at the messages sent to get an idea.
+
+\begin{figure}[H]
+	\centering
+	[0.992 0.999 0.423 0.002]
+	
+	\caption{The message passed between the robots.}	
+	\label{fig:message_default}
+\end{figure}
+
+Without any other inputs all robots send the message displayed in \ref{fig:message_default} by default.
+Receiving other inputs, such as sensors, changes the message by a negligible amount.
+The surprising thing about the message is that the components in the message have wildly different values.
+It turns out that the values in the messages has an interesting interaction with the port connection status that is also given to the neural network.
+The port connection status contains the connection status of each port the robot has.
+
+\begin{table}[H]	
+		
+	\begin{tabular}{c c}
+			\hline
+			Message:[0.992 0.999 0.423 0.002] & Message: [1 1 1 1] \\
+				\hline
+		\begin{tabular}[t]{|c|c|}
+		
+			\hline \small{Desired rotation} \tiny{deg/step} & \small{Port status} \\ 
+			\hline 0.9482 & [1 1 0 0] \\ 
+			\hline 0.999 & [1 0 1 0] \\ 
+			\hline 0.517 & [1 0 0 1] \\ 
+			\hline 0.997 & [0 1 1 0] \\ 
+			\hline 0.705 & [0 1 0 1] \\ 
+			\hline 0.997 & [0 0 1 1] \\ 
+			\hline 
+		\end{tabular} 
+			&
+		\begin{tabular}[t]{|c|c|}
+		
+			\hline \small{Desired rotation} \tiny{deg/step} & \small{Port status} \\ 
+			\hline 0.719 & [1 1 0 0] \\ 
+			\hline 0.976 & [1 0 1 0] \\ 
+			\hline 0.658 & [1 0 0 1] \\ 
+			\hline 0.866 & [0 1 1 0] \\ 
+			\hline 0.674 & [0 1 0 1] \\ 
+			\hline 0.822 & [0 0 1 1] \\ 
+			\hline 	
+		\end{tabular} 	
+	\end{tabular}
+		\caption{The resulting desired rotations for different port combinations with the evolved message and a test message for comparison. A port status value of 1 means the particular port is connected, 0 means it is not connected.}
+		\label{tab:port-desired-rotation}
+\end{table}
+
+Table \ref{tab:port-desired-rotation} shows how the desired rotation for the robots varies with the local topology of the connected robots.
+The table shows this variation with the evolved message, and a dummy message for comparison.
+One can se that the resulting desired rotation for the robots has different values for the two messages.
+The desired rotation for the robots determine the radius of the circles the robot groups move in.
+This shows that the local communication module is used for two purposes.
+The first purpose is to act as a switch to change from the individual robot behaviour, to the group behaviour.
+Additionally, the message passed around decides the robot group behaviour different connection topologies.
+
+
+
 
 
 
