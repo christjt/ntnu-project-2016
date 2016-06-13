@@ -1,15 +1,15 @@
-This chapter shows the results of the simulations done with the framework shown in ch. \ref{ch:methodology} as well as discussing the results.
-The chapter is mainly divided into two sections, the first explaining the configuration of the simulation as well as results depicted by graph-data.
-The second section focuses on discussing the results in terms of the reason they have certain values and graphs, as well as a comparison between the different simulations and discovery of correlations and behavioural similarities.
+This chapter shows the results of the simulations done with the framework shown in chapter \ref{ch:methodology} as well as discussing these results.
+The chapter is mainly divided into two sections, the first explaining the configuration of the simulation as well as results depicted by graph data.
+The second section focuses on discussing the results regarding the reason they have certain values and graphs, as well as comparisons between the different simulations and discovery of correlations and behavioural similarities.
 
 \section{Experimental Results}
 As stated in the chapter introduction, this section covers the results of the simulations. 
-Even though the simulator supports a wide variety of different configurations, three main simulation groups chosen for this particular study.
+Even though the simulator supports a wide variety of different configurations, three main simulation groups were chosen for this particular study.
 The first group considers different connection port configurations for the robots.
-The second simulation group varies the environment that the robots spend their life time in.
-The third and final simulation group aims to observe the affect of local communication between the robots in a self-assembly structure(the implementation is shown in sec. \ref{sec:local_comm}).
-The two first simulation groups targets to contribute to the three main self-assembly mechanisms discussed in ch. \ref{ch:background}(Self-assembly Architectures, Hardware Mechanisms and Assembly Protocols).
-The local communication simulation group aims to study the affect giving the robots the ability to perform simple communication between the robots in a group.
+The second simulation group varies the difficulty of the environment.
+The third and final simulation group observes the effect of local communication between the robots in a self-assembly structure(the implementation is shown in sec. \ref{sec:local_comm}).
+The two first simulation groups targets to contribute to the three main self-assembly mechanisms discussed in chapter \ref{ch:background}(Self-assembly Architectures, Hardware Mechanisms and Assembly Protocols).
+The local communication simulation group aims to study the effect of giving the robots the ability to perform simple communication between the robots in a group.
 
 \subsection{Port Configuration}
 The first group of simulations that were done was varying the number of connection ports of the robots and their configuration.
@@ -128,28 +128,26 @@ The results were obtained by running 20 simulation trials for each difficulty, w
 \subsection{Local Communication}
 \label{sec:local_communication}
 The goal of this experiment is to investigate the impact local communication has on the behaviour of the robots.
-The experiment is performed by selecting the fittest genomes found for the environments, and observing the change, if any, in robot behaviour when the local communication is disabled.
-
-
+The experiment is performed by selecting the fittest genomes found during a simulation, removing the communication module, and then observing the change in behaviour, if any.
 
 The observed robot behaviour can be split into two phases, the individual behaviour, and the group behaviour.
 
 \subsubsection{Individual behaviour}
 \label{sec:invdividual_behaviour}
-The individual robots have two observed movement "modes".
-Which one is used depends on if a wall is within sensor range.
-If no walls are detected the robots will drive in wide circles.
-In this mode the robots collect energy, and will attempt connections with other robots they crash into.
+The individual robots have two observed movement strategies.
+The strategy which is employed depends on if a wall is within sensor its range.
+The first strategy involves moving in a wide circular path.
+This strategy occurs when no walls are detected by the sensors.
+This strategy allows the robots to more collect energy, and will attempt connections with other robots if they collide.
 However, they make no attempt to avoid predators in their path.
 This behaviour is usually observed at the beginning of the simulation since most of the robots are initialized away from the walls.
 
-
-The circles the robots drive in are wide enough to make them crash into the walls of the environment.
-Once a wall is detected by the sensors, the behaviour changes.
-Instead of driving in circles the robot will now drive along the wall of the environment.
+The circular motion of the robots is wide enough to make them crash into the walls of the environment.
+The behaviour of the robots changes when the sensors detect a wall.
+Instead of moving in circles the robot changes its movement pattern to follow the wall of the environment.
 Figure \ref{fig:individual-wall-drive} shows how a robot follows the wall while keeping it in sensors range.
 
-\begin{figure}[H]	
+\begin{figure}[H]    
 	\centering
 	\fbox{\includegraphics[width=0.65\textwidth]{chapters/res/wall-hug.png}}
 	\caption{A robot using its sensors to follow a wall.}
@@ -157,8 +155,8 @@ Figure \ref{fig:individual-wall-drive} shows how a robot follows the wall while 
 \end{figure}
 
 
-The robot will keep on driving along the wall until it meets another robot, and is able to form a group, or if the sensors detect a robot group passing by.
-If a robot group comes within sensor range wile the robot is driving along the wall, the robot will abandon the wall and attempt to follow the group instead.
+The robot will continue moving along the wall until it meets another robot, and can form a group, or if the sensors detect a bypassing robot group.
+If a robot group comes within sensor range while the robot is moving along the wall, the robot will abandon the wall and attempt to follow the group instead.
 
 \subsubsection{Group behaviour}
 
@@ -187,16 +185,16 @@ This section covers the analysis of the obtained results.
 The section is split into three parts.
 The first part covers the connection port simulations and reviews the impact these results have on achieving self-assembly.
 The second part covers the different environmental difficulty simulations and.
-The third part covers the local communication module and explains the affect it has on the robot system.
+The third part covers the local communication module and explains the effect it has on the robot system.
 
 \subsection{Port configuration Analysis}
-In terms of the results fetched from the port configuration simulations the first obvious remarks stem from the simulation running a three port configuration.
-The results in this simulation is much weaker in terms of performance and in terms of promoting self-assembly than the simulations running 2 and 4 connection ports.
-The reason for this can not be deduced completely from the empirical results, but as the only difference in these simulations are the number of ports and the alignment it is clear that the connection port configuration can greatly impact the performance of the simulation.
+Regarding the results fetched from the port configuration simulations the first obvious remarks stem from the simulation running a three port configuration.
+The results of this simulation are much weaker concerning performance and promotion of self-assembly than the simulations running two and four connection ports.
+The reason for this can not be deduced completely from the empirical results, but as the only difference in these simulations are the number of connection ports and the alignment; it is clear that the connection port configuration can significantly impact the performance of the simulation.
 It can also be deduced that it is not the number of connection ports that has the primary impact of the solution, but rather the placement.
-The reason one can make this claim is because the configuration using 2 connection ports and 4 connection ports perform quite similar in terms of performance.
-If the number of connection ports had a great impact on the results, one would expect the simulation using 2 connection ports or 4 connection ports to yield even poorer results than the 3 connection port simulation.
-This narrows the port configuration problem down to the alignment of the connection ports.
+The reason one can make this claim is that the configuration using two connection ports and four connection ports perform quite similar in terms of performance.
+If the number of connection ports had a significant impact on the results, one would expect the simulation using either two or four connection ports to yield even poorer results than the three connection port simulation.
+This effect narrows the port configuration problem down to the alignment of the connection ports.
 
 \begin{figure}[H]
 	\centering
@@ -222,7 +220,7 @@ This narrows the port configuration problem down to the alignment of the connect
 Figure \ref{fig:robot-port-configuration} shows a closer view of the alignment that the robots initially have when spawned into the environment.
 As explained in \ref{sec:modifications}, the robots can rotate their connection ports as a group.
 A standard strategy which is usually evolved is to either constantly rotate the connection ports in hopes of lining up the ports to another robot, or, the robots start rotating their ports when the sensors see another robot in an effort to self-assemble.
-There are two main problems that the 3 connection port robots have compared to the other port configurations.
+There are two main problems that the three connection port robots have compared to the other port configurations.
 First, the initial port location does not align to any other robot.
 
 
@@ -247,7 +245,7 @@ As seen in figure \ref{3-port-guided-allignment}, there is not a trivial alignme
 One might initially presume that this is not a problem as the robots have a mechanism for rotating their ports to solve this exact issue.
 However, as all the robots are running the same genome, as per off-line evolution and hence the same behaviour, it becomes increasingly difficult for the robots to solve this problem.
 As explained earlier, the robots in this simulation tend to evolve a strategy which involves constantly spinning the connection ports in one direction.
-But, as seen in figure \ref{3-port-guided-allignment-offset}, in the case where all robots at some time step have rotated their connection ports $50^{\circ}$, the same issue of port alignment would still hold.
+However, as seen in figure \ref{3-port-guided-allignment-offset}, in the case where all robots at some time step have rotated their connection ports $50^{\circ}$, the same issue of port alignment would still hold.
 
 \begin{figure}[H]
 	\begin{subfigure}[t]{0.49\textwidth}
@@ -267,11 +265,11 @@ But, as seen in figure \ref{3-port-guided-allignment-offset}, in the case where 
 \end{figure}
 
 Consider figure \ref{2-4-port-guided-allignment}.
-In this example there are two and four port configurations.
-It can be observed that with initial rotation of the ports, there exists possibilities for the robots to self-assemble without having the robots behave differently in terms of rotating their connection ports.
-This differentiation seems to be the main reason that the 3 connection port configuration is being outperformed.
+In this example, there are two and four port configurations.
+It can be observed that with an initial rotation of the ports, there exist possibilities for the robots to self-assemble without having the robots behave differently in terms of rotating their connection ports.
+This differentiation seems to be the main reason that the three connection port configuration is being outperformed.
 
-The second problem robots with 3 connection ports, in this alignment, is the possible group formations the robots can form.
+The second problem robots with three connection ports, in this alignment, is the possible group formations the robots can form.
 Chapter \ref{ch:background} covers the chain and lattice architectures that the robots can form when self-assembling. %needs ref/explain
 The simulator is developed to support the lattice architecture because if its simplistic method of coordinated movement.
 
@@ -292,22 +290,21 @@ The simulator is developed to support the lattice architecture because if its si
 	\label{port-architectures}
 \end{figure}
 
-It can be seen from figure \ref{port-architectures} that the different connection port configurations creates different types of groups. 
-With 2 and 4 connection ports (figure \ref{2-4-port-architecture}), the robot groups either take the form of a line or some square grid formation.
-Possible formations of the 3 connection ports robot groups(figure \ref{3-port-architecture}) brakes the pattern of a square grid configuration which makes it harder for other robots trying to connect to the group.
+It can be seen from figure \ref{port-architectures} that the different connection port configurations create various types of groups. 
+With two and four connection ports (figure \ref{2-4-port-architecture}), the robot groups either take the form of a line or some square grid formation.
+Possible formations of the three connection ports robot groups(figure \ref{3-port-architecture}) brakes the pattern of a square grid configuration which makes it harder for other robots trying to connect to the group.
 The main reason for this connection problem is the relative position a connecting robot needs, is harder to attain because of the larger distance between the connection ports.
 
-There are not large discrepancies between the results from the port configuration simulation containing 2 and 4 connection ports.
+There are not significant discrepancies between the results from the port configuration simulation containing two and four connection ports.
 The only result which differs significantly is "predators eaten"(figure \ref{fig:predators-eaten-2-ports} and \ref{fig:predators-eaten-4-ports}).
 The reason for this can be deduced from figure \ref{fig:group-distribution-2-ports} and \ref{fig:group-distribution-4-ports} which shows that robots with 4 connection ports tend to form larger groups.
 It can however be viewed from figure \ref{fig:number-of-groups-2-ports} and \ref{fig:number-of-groups-4-ports} that 2 and 4 connection ports have roughly the same number of groups.
 The occurrence of a greater amount of larger groups naturally agrees with eaten more predators as groups need to be of at least size three to consume a predator.
-The reason for 4 connection ports robots to attain larger groups is simply that more connection ports yields more points of entry for other robots trying to connect, which increases the probability of succeeding self-assembly to the group.
+The reason for four connection ports robots to attain larger groups is simply that more connection ports allow more points of entry for other robots trying to connect, which increases the probability of succeeding self-assembly to the group.
 
 From these results, it can be deduced that larger groups do not give rise to better fitness in this experiment, but rather the number of groups (a group is of minimum size 2) correlates with the fitness.
 The reason for this is that the robots in the port configuration simulations are not in a great need of energy.
-The are able to naturally attain what they need in the environment and hence do not have to rely on a strategy involving predator consumption.
-
+The robots are able to naturally attain what they need in the environment and hence do not have to rely on a strategy involving predator consumption.
 
 \subsection{Environmental difficulty analysis}
 The analysis and discussion on the impact of environmental difficulty can be divided into three main categories.
@@ -371,24 +368,24 @@ This also coincides with with that the observed behaviour described in section \
 \subsection{Local communication analysis}
 As described in section \ref{sec:disable-local-communication}, the evolved behaviour makes use of the communication module.
 When the communication module was disabled, the robots did not change their behaviour when they formed groups.
-Therefore it is reasonable to assume that local communication is at least involved in modifying the robot behaviour once connected to a group.
-Exactly how the evolved neural network interprets the messages received is difficult to infer, but one can have a look at the messages sent to get an idea.
+Therefore, it is reasonable to assume that local communication is at least involved in modifying the robot behaviour once connected to a group.
+Exactly how the evolved neural network interprets the messages received is challenging to infer, but one can observe the messages sent to get a guiding concept.
 
 \begin{figure}[H]
 	\centering
 	[0.992 0.999 0.423 0.002]
 	
-	\caption{The message passed between the robots.}	
+	\caption{The message passed between the robots.}    
 	\label{fig:message_default}
 \end{figure}
 
-Without any other inputs all robots send the message displayed in \ref{fig:message_default} by default.
+Without any other inputs, all robots send the message displayed in \ref{fig:message_default} by default.
 Receiving other inputs, such as sensors, changes the message by a negligible amount.
-The surprising thing about the message is that the components in the message have wildly different values.
-It turns out that the values in the messages has an interesting interaction with the port connection status that is also given to the neural network.
+The surprising thing about the message is that the components in the communication messages have wildly different values.
+It turns out that the values in the messages have an interesting interaction with the port connection status that is also propagated to the neural network.
 The port connection status contains the connection status of each port the robot has.
 
-\begin{table}[H]	
+\begin{table}[H]    
 	
 	\begin{tabular}{c c}
 		\toprule
@@ -398,7 +395,7 @@ The port connection status contains the connection status of each port the robot
 			\toprule
 			\small{Port status} & \small{Desired rotation\textsubscript{deg/step}} \\ 
 			\midrule 
-			1 1 0 0  &	0.9482  \\ 
+			1 1 0 0  &    0.9482  \\ 
 			1 0 1 0 & 0.999  \\ 
 			1 0 0 1 & 0.517  \\ 
 			0 1 1 0 & 0.997  \\ 
@@ -418,20 +415,20 @@ The port connection status contains the connection status of each port the robot
 			0 1 1 0 & 0.866  \\ 
 			0 1 0 1 & 0.674  \\ 
 			0 0 1 1 & 0.822  \\ 
-			\bottomrule 	
-		\end{tabular} 	
+			\bottomrule     
+		\end{tabular}     
 	\end{tabular}
 	\caption{The resulting desired rotations for different port combinations with the evolved message and a test message for comparison. A port status value of 1 means the particular port is connected, 0 means it is not connected.}
 	\label{tab:port-desired-rotation}
 \end{table}
 
 Table \ref{tab:port-desired-rotation} shows how the desired rotation for the robots varies with the local topology of the connected robots.
-The table shows this variation with the evolved message, and a dummy message for comparison.
-One can se that the resulting desired rotation for the robots has different values for the two messages.
-The desired rotation for the robots determine the radius of the circles the robot groups move in.
-This shows that the local communication module is used for two purposes.
-The first purpose is to act as a switch to change from the individual robot behaviour, to the group behaviour.
-Additionally, the message passed around decides the robot group behaviour different connection topologies.
+The table shows this variation with the evolved message and a dummy message for comparison.
+It can be observed that the resulting desired rotations for the robots have different values for the two messages.
+The desired rotation for the robots determines the radius of the circles that dictates the robots' movements.
+These results show that the local communication module is used for two purposes.
+The first purpose is to act as a switch to change from the individual robot behaviour to the group behaviour.
+Additionally, the communicated message decides the robot group's behaviour depending on the different connection topologies.
 
 
 

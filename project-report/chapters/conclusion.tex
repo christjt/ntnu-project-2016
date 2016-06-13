@@ -1,57 +1,58 @@
-The main focus and goal of this thesis has been to discover and test the elements present in a self-assembly system when robots are given basic learning capabilities.
+The main focus and goal of this thesis have been to discover and test the elements present in a self-assembly system when robots are given basic learning capabilities.
 The experiment has been conducted using a heavily modified version of the roborobo framework.
 The main factors that have been researched in accordance with self-assembly have been: connection port configuration, environmental influence and local communication.
 
-The results obtained from the connection port simulations, show that configuration of the connection ports can greatly impact the emergence of self-assembly using an evolutionary algorithm.
+The results obtained from the connection port simulations, show that configuration of the connection ports can significantly impact the emergence of self-assembly using an evolutionary algorithm.
 The port configuration consists of the number of connection ports each robot has available and the relative positioning of the connection ports on the robot.
 Both elements influence the size and frequency of self-assembling robot groups.
-It can however be narrowed down to a single influential self-assembly mechanism; the assembly protocol.
-It is clear from the results that providing the robots with tools that allow an efficient and simple assembly protocol to be evolved, is essential to achieve good results.
+It can, however, be narrowed down to a single influential self-assembly mechanism: the assembly protocol.
+It is evident from the results that providing the robots with tools that allow an efficient and simple assembly protocol to be evolved, is essential to achieve successful results.
 
 The main focus of the learning algorithm should be to solve the task at hand and not deriving a complex strategy for achieving self-assembly.
-Having the ability to form a complex assembly protocol can be appropriate in a particular situation as it may greatly improve performance.
+Having the ability to form a complex assembly protocol can be appropriate in a particular situation as it may significantly improve performance.
 However, it should not be a minimum requirement for the ability to self-assemble.
 An evolutionary algorithm performs better when an incremental solution to some desired behaviour is possible.
 If the least complex achievable self-assembly protocol requires sufficiently advanced cognition, then the robots may only have a few occurrences of self-assembly or none at all.
 
 The results gained from the environment difficulty simulations implies that the difficulty of the environment is not directly correlated with promoting self-assembly.
 The results show that the robots perform better in an easy environment, but this is rather due to restrictions in the environment and not due to the ability to self-assemble.
-The only effect that difficult environments impose on self-assembly is making robots die earlier, giving them less opportunities to self-assemble.
-Promoting self-assembly may rather see a larger impact if the rules of the environment change(translation speed of predators, physical size of environment, etc.).
+The only effect that difficult environments impose on self-assembly is making robots die earlier, giving them fewer opportunities to self-assemble.
+Promoting self-assembly may rather see a larger impact if the rules of the environment change(examples include translation speed of predators and the physical size of the environment).
 
 One of the problem statements this study aimed to examine was the introduction of a local communication model. From the results discussed in chapter  \ref{ch:results_and_discussion}, it was seen that using the local communication module drastically changed the behaviour of self-assembled groups. 
 From this experiment, it cannot be made any conclusive remarks as to the local communication module promoting the robots to self-assemble as deciphering the evolved values of the neural network is very difficult.
-From a logical point of view one would not expect there to be a difference, because the local communication module only transmits information between the robots in a self-assembled group. 
+From a logical point of view, one would not expect there to be a difference, because the local communication module only transmits information between the robots in a self-assembled group. 
 Hence, there is seemingly no reason why this would help two singular robots to self-assemble.
-However, when using an evolutionary algorithm, the use of such certain modules may be used differently then the developer predicts.
+However, when using an evolutionary algorithm, the use of certain modules may be utilised differently than the developer predicts.
 The evolved genomes may use the module as a state machine instead of a message passing module.
 
 In concluding remarks, it is shown that there should be a larger focus on the connection mechanism which the robots have equipped.
-To promote self-assembly, an ideal hardware mechanisms would be one which makes it easy for the robots to evolve an efficient assembly protocol, but also yields an interface to evolve complex assembly behaviour.
+To promote self-assembly, the ideal hardware mechanisms would be one which makes it easy for the robots to evolve an efficient assembly protocol, but also yields an interface to evolve complex assembly behaviour.
 In the case where static connection points are used, using many, initially aligned connection ports increase the frequency and size of the self-assembled groups.
 The difficulty of the environment does not seem to impact the frequency of self-assembly, and one may consider altering the static rules of the environment which may yield a noticeable impact.
-A local communication module is a good asset to provide for self-assembly robots as it may be used to communicate a transition to group behaviour as well as assisting in the type of behaviour which emerges from the group. 
+A local communication module is an advantageous asset to provide for self-assembly robots as it may be used to communicate a transition to group behaviour as well as assisting in the type of behaviour which emerges from the group. 
   
 
 
 \section{Future work}
-From the observed results of self-assembly mechanisms and environment, it is seen that improvements and further experimentation can be made. This forms the basis for exploring other factors of self-assembly mechanisms.
+From the observed results of self-assembly mechanisms and environment, it is seen that improvements and further experimentation can be implemented. 
+This forms the basis for exploring other factors of self-assembly mechanisms.
 
 The port configuration has the possibility to be explored further as the results of this study determined that it has a significant impact on the emergence of self-assembly. 
 A possible exploratory field would be to challenge the static nature of the ports presented in this study.
-A hardware mechanisms which does not depend on fixed positions on a robot where the robots are able to self-assemble at any point on a connecting robot should, according to the results obtained in this study, perform at a higher rate.
+Hardware mechanisms which do not depend on fixed positions on a robot where the robots are able to self-assemble at any point on a connecting robot should, according to the results obtained in this study, perform at a higher rate.
 An obvious end goal of studies like this one is to be able to realise these robots into the real world.
-In these scenarios the reality gap will probably inflict even stricter conditions on performing a simplistic assembly strategy which could detriment to ability to self-assemble.
+In these scenarios, the reality gap will probably inflict even stricter conditions on performing a simple assembly strategy which could detriment to the ability to self-assemble.
 
-Since the impact of changing the environment did not suggest a change in assembly protocol or strategy, a reasonable continuation would be categorize which environmental scenarios self-assembly through evolution is most appropriate. 
-Changing the atomic rules of the environment and robot tasks may yield results indicating scenarios where evolutionary self-assembly is more appropriate.
+Since the impact of changing the environment did not suggest a change in assembly protocol or strategy, a reasonable continuation would be to categorize which environmental scenarios self-assembly, through evolution, is most appropriate. 
+Changing the atomic rules of the environment and robot problem tasks may yield results indicating scenarios where evolutionary self-assembly is more appropriate.
 
-Local communication is a mechanisms which has not been greatly researched in this field. 
+Local communication is a mechanism which has not been significantly researched in this field. 
 According to the results obtained in this study, further exploration into communication modules between the robots can give rise to increasingly complex behaviour.
 In this study, a very simple protocol of passing floating point integers from one robot to another was implemented.
 Perhaps there are better communication protocols available which could further the performance.
 It is also possible to look at the possibility for robots to communicate on a local spectrum where they are not necessarily self-assembled.
-This may improve their ability to form an affective assembly strategy through evolution.
+Expanded local communication may improve their ability to form an effective assembly strategy through evolution.
 
 The evolutionary algorithm used in this study is simple and standard.
-There exists more advanced evolutionary algorithms and other bio-inspired algorithms where the mechanisms presented in this study should be additionally explored.
+There exists additionally advanced evolutionary algorithms and other bio-inspired algorithms where the mechanisms presented in this study should be additionally explored.
