@@ -100,11 +100,11 @@ The experiment described in this chapter does not fit within these bounds, the n
 
 \section{Roborobo modifications}
 \label{sec:modifications}
-
-
-\subsection{Robot Groups}
 As mentioned in the description, roborobo does not support self-assembly out of the box.
 Self-assembly support therefore requires adding additional abstractions to roborobo.
+This section includes the different modifications that were made to the roborobo framwork in order to support self-assembly, local communication and a configurable system.
+
+\subsection{Robot Groups}
 The high level abstraction that encapsulates the behaviour for connected robots is called a \emph{Robot group}.
 All robots that are capable of self-assembly are robot groups.
 This means that single robots that are not connected are simply robot groups with one member.
