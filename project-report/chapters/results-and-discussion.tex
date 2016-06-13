@@ -389,37 +389,40 @@ It turns out that the values in the messages has an interesting interaction with
 The port connection status contains the connection status of each port the robot has.
 
 \begin{table}[H]	
-		
+	
 	\begin{tabular}{c c}
-			\hline
-			Message:[0.992 0.999 0.423 0.002] & Message: [1 1 1 1] \\
-				\hline
-		\begin{tabular}[t]{|c|c|}
-		
-			\hline \small{Desired rotation} \tiny{deg/step} & \small{Port status} \\ 
-			\hline 0.9482 & [1 1 0 0] \\ 
-			\hline 0.999 & [1 0 1 0] \\ 
-			\hline 0.517 & [1 0 0 1] \\ 
-			\hline 0.997 & [0 1 1 0] \\ 
-			\hline 0.705 & [0 1 0 1] \\ 
-			\hline 0.997 & [0 0 1 1] \\ 
-			\hline 
+		\toprule
+		Message:[0.992 0.999 0.423 0.002] & Message: [1.0 1.0 1.0 1.0] \\
+		\toprule
+		\begin{tabular}[t]{ @{} c c @{}}
+			\toprule
+			\small{Port status} & \small{Desired rotation}\textsubscript{deg/step} \\ 
+			\midrule 
+			1 1 0 0  &	0.9482  \\ 
+			1 0 1 0 & 0.999  \\ 
+			1 0 0 1 & 0.517  \\ 
+			0 1 1 0 & 0.997  \\ 
+			0 1 0 1 & 0.705  \\ 
+			0 0 1 1 & 0.997  \\ 
+			\bottomrule 
 		\end{tabular} 
-			&
-		\begin{tabular}[t]{|c|c|}
-		
-			\hline \small{Desired rotation} \tiny{deg/step} & \small{Port status} \\ 
-			\hline 0.719 & [1 1 0 0] \\ 
-			\hline 0.976 & [1 0 1 0] \\ 
-			\hline 0.658 & [1 0 0 1] \\ 
-			\hline 0.866 & [0 1 1 0] \\ 
-			\hline 0.674 & [0 1 0 1] \\ 
-			\hline 0.822 & [0 0 1 1] \\ 
-			\hline 	
+		&
+		\begin{tabular}[t]{@{} c c @{}}
+			
+			\toprule 
+			\small{Port status} & \small{Desired rotation}\textsubscript{deg/step} \\ 
+			\midrule 
+			1 1 0 0 & 0.719  \\ 
+			1 0 1 0 & 0.976  \\ 
+			1 0 0 1 & 0.658  \\ 
+			0 1 1 0 & 0.866  \\ 
+			0 1 0 1 & 0.674  \\ 
+			0 0 1 1 & 0.822  \\ 
+			\bottomrule 	
 		\end{tabular} 	
 	\end{tabular}
-		\caption{The resulting desired rotations for different port combinations with the evolved message and a test message for comparison. A port status value of 1 means the particular port is connected, 0 means it is not connected.}
-		\label{tab:port-desired-rotation}
+	\caption{The resulting desired rotations for different port combinations with the evolved message and a test message for comparison. A port status value of 1 means the particular port is connected, 0 means it is not connected.}
+	\label{tab:port-desired-rotation}
 \end{table}
 
 Table \ref{tab:port-desired-rotation} shows how the desired rotation for the robots varies with the local topology of the connected robots.
