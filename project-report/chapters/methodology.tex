@@ -6,7 +6,7 @@ This chapter will include a description of \emph{roborobo}, the modifications th
 The introduction lists several research questions that this project is aiming to contribute.
 To not trivialise the environment and the interaction between the robots, care was taken when designing this experiment.
 The thought behind the experiment is to see collective behaviour using an evolutionary algorithm.
-Caution was taken to implement an unbiased system in regards to the influence it imposes on the algorithm to achieve correct and analyzable results.  
+Caution was taken to implement an unbiased system in regards to the influence it imposes on the algorithm to achieve correct and analysable results.  
 For example, the evaluation function in section \ref{sec:evaluation} is quite simple and does not add any guiding parameters to promote self-assembly.
 
 One of the questions concerns how collective decision-making influences the emergence of self-assembly.
@@ -14,10 +14,11 @@ Swarm behaviour found in nature displays how simple agents collectively can make
 The goal of this experiment is, therefore, to design a similar environment to promote this form of collective behaviour.
 In this environment, the robots have to form swarms for survival, and collectively decide if they should self-assemble or attempt an escape.
 
-By design, the robots are given a local communication module that can be used to send an array of floating point numbers to its neighbours in the self-assembly structure\ref{sec:local_comm}.
-The influence of the communication module and the values that the communication packets take are entirely governed by the neural network \ref{sec:ctrnn}.
+By design, the robots are given a local communication module that can be used to send an array of floating point numbers to its neighbours in the self-assembly structure(see section \ref{sec:local_comm}).
+The influence of the communication module and the values that the communication packets take are entirely governed by the neural network(see section \ref{sec:ctrnn}).
 
-The system has also been made to be highly configurable such as many of the evolutionary algorithm parameters as well as general environmental setup. 
+The system has been made to be highly configurable.
+The focus of these configurations are the evolutionary algorithm parameters as well as general environmental setup. 
 By varying the parameters of the experiment, it is possible to observe and analyse the problem statements which were discussed in chapter \ref{ch:introduction}.
 Depending on the configuration used when running the simulation, it should be possible to see how different assembly protocols and behaviours emerge, and how the self-assembly behaviour of the robots differ from similar trials and different configurations.
 Chapter \ref{ch:results_and_discussion} portrays the results and analysis of this experiment.
@@ -26,17 +27,17 @@ Chapter \ref{ch:results_and_discussion} portrays the results and analysis of thi
 \section{Experiment setup}
 \label{sec:description}
 For this experiment a micro-organism environment is imagined, where the organisms find themselves in some liquid pool. 
-The micro-organisms are the agents in our system and are represented as swarm bots.
-The main functions of the robots are, in addition to movement, foraging and self-assembly.
+The micro-organisms are the agents in our system and are represented as robots.
+The main functions of the robots are movement, foraging and self-assembly.
 
 The robots find themselves in a pond.
 In the pond there are nutrients which the robots can feed on to replenish their energy.
-At the same time the pond also contains larger predator organisms which wants to feed on the robots.
+At the same time the pond also contains larger predator organisms who intend to prey on the robots.
 It is imagined that the robots can assemble to form larger structures.
 The robots can protect themselves from the predator organisms by forming a larger structure which the predator is unable to eat.
 When the robots are assembled they may eat the larger predator to replenish energy as well.
-The predators come in multiple sizes, and to gain an advantage the robots must form a large enough structure.
-Maintaining the assembled structure cost energy, and the robots therefore have an incentive to disassemble once the structure is no longer required.
+To gain an advantage the robots must form a large enough structure to prevent them from being consumed by the predators.
+Maintaining the assembled structure cost energy, which gives the robots an incentive to disassemble once the structure is no longer required.
 
 \section{Environment}
 The imagined pond environment can be represented as a rectangular box(figure \ref{fig:environment}), containing the robots, nutrients and predators.
@@ -53,9 +54,10 @@ When a nutrient is consumed, a new one is placed at a random position in the env
 
 
 \section{Roborobo overview}
+\label{sec:roborobo_overview}
 The programming interface for roborobo is divided into three components(\emph{World observer, Agent observers, Agent controllers})\cite{bredeche_roborobo!_2013}.
 Each robot in the simulation receives an instance of the \emph{agent controller} and the \emph{agent observer}.
-The philosophy of the roborobo framework is that the programmer should implement the robot behaviour in the \emph{agent controller}, and use the \emph{agent observer} and \emph{world observer} to access state about agents and the world.
+The philosophy of the roborobo framework is that the programmer should implement the robot behaviour in the \emph{agent controller}, and use the \emph{agent observer} and \emph{world observer} to access states about the given agent and the world.
 This relationship is visualised in figure \ref{fig:component-relationship}.
 
 \begin{figure}[H]
@@ -82,7 +84,7 @@ This relationship is visualised in figure \ref{fig:component-relationship}.
 	\label{fig:component-relationship}
 \end{figure}
 
-Each robot in the simulation also receives a component called a \emph{world model}.
+Each robot in the simulation also receives a component called the \emph{world model}.
 The world model contains an agent specific representation of the outside world.
 The model includes states such as sensors readings and current velocity.
 
@@ -98,7 +100,7 @@ The necessary modifications to the framework are described in section \ref{sec:m
 
 \section{Roborobo modifications}
 \label{sec:modifications}
-As mentioned in the description, roborobo does not support self-assembly out of the box.
+As mentioned in section \ref{sec:roborobo_overview}, roborobo does not support self-assembly out of the box.
 Self-assembly support, therefore, requires adding additional abstractions to roborobo.
 This section includes the different modifications that were made to the roborobo framework to support self-assembly, local communication, and a configurable system.
 
@@ -109,7 +111,7 @@ Single robots that are not connected are simply robot groups with one member.
 The responsibilities of the robot group are to take care of group movement, handling collisions, connecting and disconnecting. 
 	
 \subsubsection{Movement}
-In the roborobo framework, the robots movement is decided by the robot controller by requesting a certain angular and translational velocity.
+In the roborobo framework, the robot's movement is decided by the robot controller by requesting a certain angular and translational velocity.
 The movement of a group is decided by first converting the desired direction and velocity into a translation vector.
 
 \begin{equation}
@@ -131,21 +133,21 @@ Roborobo already performs collision detection for robots, but in robot groups, s
 The collision behaviour for robots is that if they collide with a solid object, they stop.
 This behaviour is a problem for groups of more than one robot because if one robot collides it may get left behind by the rest of the group.
 This issue is solved by backing up the position of each robot in a group before applying the computed translation.
-If a robot in the group collides with something, the robots in the group are reverted to their original position
+If a robot in the group collides with something then the robots in the group are reverted to their original position.
 
 \subsubsection{Connections}
-The connections between robots in a group can be considered a graph, where the robots are nodes and connections are edges.
+The connections between robots in a group can be considered as a graph, where the robots are nodes and connections are edges.
 Connecting robots can then be treated as simply adding an edge between the two nodes representing the robots.
 Similar to connecting, disconnecting consists of removing the edge between the nodes representing the robots.
 In the case that a robot has multiple connections in the group extra care has to be taken because removing one edge may split the graph into two smaller sub-graphs.
 If this occurs, the two sub-graphs must now be treated as two new separate groups.
-It can be determined if a robot can simply be disconnected, or if we have to split the group by finding out if there is a cycle that leads back to the robot that is to be disconnected.
+It can be determined if a robot can simply be disconnected, or if we have to split the group by finding out if there is a cycle that leads back to the disconnecting robot.
 The existence of a cycle is determined by first removing the edge representing the connection, and then performing a depth first search.
 	 
 \subsection{Docking mechanism}
-As described in section \ref{sec:mechanisms}, there is a wide variety of docking mechanisms used in earlier projects.
+As described in section \ref{sec:mechanisms}, there exists a wide variety of docking mechanisms used in earlier projects.
 The docking mechanism implemented is therefore highly configurable, to support a wide variety of different mechanisms.
-The configurable properties are as following, the number of ports, the placement of ports, and different genders for the ports. 
+The configurable properties are as following: the number of ports, the placement of ports, and different genders for the ports. 
 
 \subsubsection{Connection validation}
 The robots can attempt a connection at any time; this requires a procedure to make sure the attempted connections are valid.
@@ -169,7 +171,7 @@ Finally, the gender of the ports must be compatible, meaning one of them is fema
 \subsection{Local communication}
 \label{sec:local_comm}
 The robots are equipped with a communication module that allows local communication with their connected neighbours.
-The message format is very simple; the robots can only broadcast "packets" of floating point numbers.
+The message format is very simple; the robots can only broadcast message packets of floating point numbers.
 The size of the packets is equal to the number of connection ports.
 At the receiving end, the packets sent by neighbours are aggregated into a single packet.
 The aggregation is performed by adding the components of each message packet with the corresponding components from the other message packets. Figure \ref{fig:local_communication} illustrates this process.
@@ -187,7 +189,7 @@ In the robot controller, the messages from the communication module are fed into
 \subsection{Predators}
 A crucial part of the environment in the simulation are the predator robots.
 These robots are not under the influence of the evolutionary algorithm and rather uses a much simpler pre-programmed controller.
-The predator robots have two basic actions that can affect the system: the predators can either eat prey or explore the envelopment.
+The predator robots have two basic actions that can affect the system: the predators can either eat prey or explore the environment.
 
 \begin{figure}[H]
 	\centering
@@ -208,11 +210,11 @@ In addition to movement, the predators can also consume a robot.
 Predators consume a robot when there is a collision between a normal robot and a predator robot.
 If a robot is consumed, it is removed from the environment and robot's lifetime is recorded for use in the fitness function of the evolutionary algorithm. 
 For a predator to be able to eat a robot, the robot must not be part of a robot group of a size less than some configurable threshold.
-The default threshold is set to three for the simulations run in this experiment.
+The default threshold is set to two for the simulations run in this experiment.
 The reason for this is to give the regular robots some advantage of self-assembling in hopes of potentially evolving this behaviour. 
 
 \subsection{Energy drain}
-In addition to the environmental hazards of predators, the robots also must face the issue with having a limited energy supply.
+In addition to the environmental hazards of predators, the robots also  face the issue with having a limited energy supply.
 If a robot loses all if its energy, then it will die and be removed from the environment.
 Five main configurations handle the energy parameters of the simulation:
 
@@ -227,16 +229,16 @@ Five main configurations handle the energy parameters of the simulation:
 	
 	\item \emph{gPassiveEnergyDrain}, is the leak value of energy of a single robot. At each time step, a robot loses \emph{gPassiveEnergyDrain} amount of energy.
 	
-	\item The final energy parameters is \emph{gConnectionEnergyDrain}, which is an addition drain for being self-assembling with another robot.
+	\item The final energy parameter is \emph{gConnectionEnergyDrain}, which is an addition drain for being self-assembled with another robot.
 	
 	
 \end{itemize}
 
 
 The reason for adding an energy hazard for the robots in this experiment is to give them a non-trivial self-assembling scenario.
-If predators were the only environmental obstacle, then the robots would most likely develop a self-assembly strategy and hold this construction in remaining time of simulation.
+If predators were the only environmental obstacle, then the robots would most likely develop a self-assembly strategy and hold this construction for the remaining time of the simulation.
 It is intended that the robots would have an environment which allowed strategies such as dissembling the self-assembly structure to evolve or perhaps not even self-assemble at all.
-This reasoning is also the justification for giving the robots additional energy drain when assembled
+This reasoning is also the justification for giving the robots additional energy drain when assembled.
 
 \section{CTRNN}
 \label{sec:ctrnn}
@@ -269,7 +271,7 @@ However, if $\tau_i$ has a high value, then we have a higher degree of memory be
 o_i = \frac{1}{1 + e^{-g_{i}y_{i}}}
 \end{equation}
 \\
-To convert the internal state to an output $o_i$, Beer typically uses sigmoidal activation function.
+To convert the internal state to an output $o_i$, Beer typically uses a sigmoidal activation function.
 A sigmoidal activation function is typical in other neural networks as well, but Beer also employs a gain term $g_i$, to influence the activation of the neuron.
 \\
 \begin{figure}[H]
@@ -348,10 +350,10 @@ The reason multiple implementations were done is due to the initial implementati
 The genotype contains the weights, gains and time constants for the neural network used in the robot controller.
 During run-time, the genotype size is fixed and depends on the size of the neural network.
 The size of the neural network is configurable (topology and size of each layer) in the simulation configuration file, and hence, the genotype can change size depending on the simulation run.
-The structure of the genotype is an array of double precision floating point numbers in the range $(-1, 1)$.
+The structure of the genotype is an array of double precision floating point numbers in the range $[-1, 1]$.
 Each number in the genotype represents a specific weight, gain, or time constant in the neural network.
-Before the genotype can be used to configure the neural network the values are mapped into the suitable range for each type of parameter, figure \ref{fig:genotype-mapping}.
-The selected range, $(-1, 1)$ used for the values in the genotype is, therefore, arbitrary, and holds no particular significance. 
+Before the genotype can be used to configure the neural network the values are mapped into the suitable range for each type of parameter(see figure \ref{fig:genotype-mapping}).
+The selected range, $[-1, 1]$ used for the values in the genotype is therefore arbitrary and holds no particular significance. 
 
 \begin{figure}[H]        
 	\centering
@@ -375,7 +377,7 @@ As explained in chapter \ref{ch:background}, there are mechanisms such as the as
 None of these mechanisms can simply be coded into a neural network.
 
 The second issue with implementing a bias towards self-assembly is that this might not be the best survival strategy in this experiment.
-Even though the experiment is designed to give the robots a slight benefit from self-assembling, this might not be the case in reality.
+Even though the experiment is designed to give the robots a slight benefit from self-assembling, this may not be the case in reality.
 Due to these two reasons, it was decided to have a strictly random initialization.
 
 \subsection{Mutation operators}
@@ -394,24 +396,25 @@ The change in behaviour yielded poor results of the evolutionary algorithm becau
 The results from the preliminary trials caused an incremental mutation operator to be implemented.
 The incremental mutation operator gave better results than the random mutation operator, so it was decided that the random mutation operator should be removed from the system. 
 The incremental mutation operator works in a similar manner as the random operator, where a weight is chosen for mutation at some percentage, but instead of completely re-rolling its value, it only differs from its original value by a certain threshold.
-The incremental mutation still causes a mutation to occur, but it will not be as drastic, yielding smoother results. 
+The incremental mutation still causes a mutation to occur, but it will not be as drastic, yielding smoother results.
+The difference is depicted in figure \ref{fig:mutation-operators}.
 
 \begin{figure}[H]
+	\label{fig:mutation-operators}
 	\centering
 	\begin{subfigure}{0.3\textwidth}
 		\label{fig:mutation-random}
 		\centering
 		\includegraphics[height=\linewidth]{chapters/res/mutation_random.png}
-		\caption{}
+		\caption{Random mutation operator}
 	\end{subfigure}
 	\begin{subfigure}{0.3\textwidth}
 		\label{fig:mutation-incremental}
 		\centering
 		\includegraphics[height=\linewidth]{chapters/res/mutation_incremental.png}
-		\caption{}
+		\caption{Incremental mutation operator}
 	\end{subfigure}
-	\caption{ }
-	\label{fig:mutation-operators}
+	\caption{Displays the mutation strategies for the random and incremental mutation operators.}
 \end{figure}
 
 \subsection{Selection mechanism}
@@ -487,10 +490,10 @@ f(G) = \frac{G(\bar{R_{tot}})}{R_{tot}}
 \end{equation}
 
 where $f$ is the fitness score of some genome $G$.
-$G(\bar{R_tot})$ is the number of robots that died, $\bar{R_tot}$, in the trial with genome $G$, and $R_n$ is the total number of robots in the system.
+$G(\bar{R}_{tot})$ is the number of robots that died, $\bar{R}_{tot}$, in the trial with genome $G$, and $R_n$ is the total number of robots in the system.
 
 This fitness function, however, gave poor results mainly due to the fitness graph being discrete and failing to differentiate enough between different genomes.
-Therefore, a different approach was implemented where the lifetime of a robot used instead.
+Therefore, a different approach was implemented where the lifetime of a robot used is instead.
 
 \begin{equation}
 f(G) = \frac{\sum_{i=1}^n G(L_i)}{nL_{max}}
@@ -498,7 +501,7 @@ f(G) = \frac{\sum_{i=1}^n G(L_i)}{nL_{max}}
 
 The fitness of a genome is calculated in a similar way as eq. \ref{eq:basic_fitness}.
 The difference here is is that $L_i$ represents the lifetime of robot $i$ during simulation, $n$ is the total number of robots, and $L_{max}$ is the maximum lifetime of a robot.
-It is also possible to add addition fitness for the ability to aggregate such that self-assembly(or at least proximity) is promoted, but as mentioned earlier, the purpose was to limit the amount of evolutionary guiding.
+It is also possible to add additional reward for the ability to aggregate such that self-assembly(or at least proximity) is promoted, but as mentioned earlier, the purpose was to limit the amount of evolutionary guiding.
 In the case where self-assembly does not occur, a more sophisticated objective function could be implemented.
 		
 \clearpage
@@ -508,15 +511,15 @@ The statistics logged for post-processing, and later analysis is as follows:
 	\item Fitness
 	\item Group size
 	\item Number of groups
-	\item Food collected by individual robots
-	\item Food collected by robot groups
+	\item Energy items collected by individual robots
+	\item Energy items collected by robot groups
 	\item Number of predators eaten by robot groups
 	\item Number of robots starved
 	\item Number of robots eaten by predators
 \end{itemize}
 These statistics are logged at the end of each scenario for every genome in all the generations.
 These statistics are recorded by the agent observers and the world observer, the only exception being energy collected which required some additional modification of roborobo.
-Which consisted of performing the logging when energy is rewarded for eating food.
+This modification consisted of performing the logging when energy is rewarded for eating food.
 Logging the group sizes, and the number of groups is done a bit differently than the rest of the statistics.
 The logging is performed by taking a snapshot which contains the number of groups and their sizes every 50 iterations of the simulation.
 The reason for this is that they change in value over the lifetime of a simulation, and this change should be recorded.
